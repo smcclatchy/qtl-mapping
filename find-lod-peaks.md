@@ -1,22 +1,29 @@
 ---
-title: "Finding LOD peaks"
+title: "Finding QTL peaks"
 teaching: 30
 exercises: 30
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "How do I locate LOD peaks above a certain threshold value?"
+- "How do I locate QTL peaks above a certain LOD threshold value?"
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Locate LOD peaks above a threshold value throughout the genome.
+- Locate QTL peaks above a LOD threshold value throughout the genome.
 - Identify the Bayesian credible interval for a QTL peak.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+We need the following block for the site to build on Github. The students do
+not need to see or run the next block.
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 
@@ -35,68 +42,108 @@ To find peaks above a given threshold LOD value, use the function
 `find_peaks()`. It can also provide Bayesian credible intervals by using the 
 argument `prob` (the nominal coverage for the Bayes credible intervals). Set the 
 argument `expand2markers = FALSE` to keep from expanding the interval out to 
-typed markers, or exclude this argument if you'd like to include flanking 
+genotyped markers, or exclude this argument if you'd like to include flanking 
 markers.
 
-You need to provide both the `scan1()` output, the marker/pseudomarker map and a 
+You need to provide both the `scan1()` output, the marker map and a 
 threshold. We will use the 95% threshold from the permutations in the previous 
 lesson.
 
 
 ``` r
-operm <- scan1perm(pr, iron$pheno, Xcovar=Xcovar, n_perm=1000)
-thr <- summary(operm)
-find_peaks(scan1_output = out, map = map, threshold = thr, prob = 0.95, expand2markers = FALSE)
+thr <- summary(perm_add_loco)
+
+plot_scan1(x    = lod_add_loco,
+           map  = cross$pmap,
+           main = "Insulin")
+add_threshold(map = cross$pmap, thresholdA = thr, col = 'red')
 ```
 
-``` output
-  lodindex lodcolumn chr  pos       lod ci_lo ci_hi
-1        1     liver   2 56.8  4.957564  54.3  70.3
-2        1     liver   7 50.1  4.050766  17.1  53.6
-3        1     liver   8 40.0  3.802511  34.0  55.0
-4        1     liver  15 49.2  3.168215  38.4  49.2
-5        1     liver  16 28.6  7.681569  21.6  32.6
-6        2    spleen   8 13.6  4.302919   5.0  23.0
-7        2    spleen   9 56.6 12.063226  54.6  58.6
-```
+<img src="fig/find-lod-peaks-rendered-plot_scan1-1.png" style="display: block; margin: auto;" />
 
-The `find_peaks()` function can also pick out multiple peaks on a chromosome: 
-each peak must exceed the chosen threshold, and the argument `peakdrop` 
-indicates the amount that the LOD curve must drop between the lowest of two 
-adjacent peaks.  Use this feature with caution.
 
 
 ``` r
-find_peaks(scan1_output = out, map = map, threshold = thr, peakdrop = 1.8, prob = 0.95, expand2markers = FALSE)
+find_peaks(scan1_output = lod_add_loco, 
+           map          = cross$pmap, 
+           threshold    = thr, 
+           prob         = 0.95, 
+           expand2markers = FALSE)
 ```
 
 ``` output
-  lodindex lodcolumn chr  pos       lod ci_lo ci_hi
-1        1     liver   2 56.8  4.957564  54.3  70.3
-2        1     liver   7 25.1  4.040021  15.1  27.1
-3        1     liver   7 50.1  4.050766  41.1  53.6
-4        1     liver   8 40.0  3.802511  34.0  55.0
-5        1     liver  15 49.2  3.168215  38.4  49.2
-6        1     liver  16 28.6  7.681569  21.6  32.6
-7        2    spleen   8 13.6  4.302919   5.0  23.0
-8        2    spleen   9 56.6 12.063226  54.6  58.6
+  lodindex lodcolumn chr       pos      lod      ci_lo     ci_hi
+1        1    pheno1   2 138.94475 7.127351  64.949395 149.57739
+2        1    pheno1   7 144.18230 5.724018 139.368290 144.18230
+3        1    pheno1  12  25.14494 4.310493  15.834815  29.05053
+4        1    pheno1  14  22.24292 3.974322   6.241951  45.93876
+5        1    pheno1  16  80.37433 4.114024  10.238134  80.37433
+6        1    pheno1  19  54.83012 5.476587  48.370980  55.15007
+```
+
+In the table above, we have one peak per chromosome because that is the default
+behavior of `find_peaks()`. The `find_peaks()` function can also pick out 
+multiple peaks on a chromosome: each peak must exceed the chosen threshold, and 
+the argument `peakdrop` indicates the amount that the LOD curve must drop 
+between the lowest of two adjacent peaks.  Use this feature with caution.
+
+
+``` r
+find_peaks(scan1_output = lod_add_loco, 
+           map          = cross$pmap, 
+           threshold    = thr, 
+           peakdrop     = 1.8, 
+           prob         = 0.95, 
+           expand2markers = FALSE)
+```
+
+``` output
+  lodindex lodcolumn chr       pos      lod      ci_lo     ci_hi
+1        1    pheno1   2 138.94475 7.127351  64.949395 149.57739
+2        1    pheno1   7 144.18230 5.724018 139.368290 144.18230
+3        1    pheno1  12  25.14494 4.310493  15.834815  29.05053
+4        1    pheno1  14  22.24292 3.974322   6.241951  45.93876
+5        1    pheno1  16  17.48123 3.995627   5.604167  37.99110
+6        1    pheno1  16  80.37433 4.114024  74.250773  80.37433
+7        1    pheno1  19  54.83012 5.476587  48.370980  55.15007
 ```
 
 Each row shows a different peak; the columns show the peak location, LOD score 
-and the lower and upper interval endpoints.
+and the lower and upper interval endpoints. Note that we now have two peaks
+on chromosome 16, one at 17.5 Mb and one at 80.4 Mb.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge 1
 
-Find peaks in the genome scan object called `out` that meet a threshold of 3 and 
-are in the interval described by a 2 point LOD drop from the peak. How many 
-peaks meet the LOD threshold of 3 and lie within the interval defined by a 2 
-point LOD drop from the maximum peaks on each chromosome?
+Find peaks in the genome scan object called `lod_add_loco` that meet a threshold
+of 3 and are in the interval described by a 2 point LOD drop from the peak. How
+many peaks meet the LOD threshold of 3 and lie within the interval defined by a 
+2 point LOD drop from the maximum peaks on each chromosome?
 
 :::::::::::::::::::::::: solution 
 
-`find_peaks(out, map, threshold=3, drop=2)` produces 7 peaks on 6 different 
+
+``` r
+find_peaks(scan1_output = lod_add_loco, 
+           map          = cross$pmap, 
+           threshold    = 3, 
+           drop         = 2)
+```
+
+``` output
+  lodindex lodcolumn chr       pos      lod      ci_lo     ci_hi
+1        1    pheno1   2 138.94475 7.127351  63.943187 156.83772
+2        1    pheno1   5 103.41486 3.130862  41.967549 132.28428
+3        1    pheno1   7 144.18230 5.724018 129.414016 144.18230
+4        1    pheno1   9  83.67606 3.865635  17.504307 111.02206
+5        1    pheno1  12  25.14494 4.310493   9.998200  34.23274
+6        1    pheno1  14  22.24292 3.974322   6.241951  68.04655
+7        1    pheno1  16  80.37433 4.114024   3.804882  96.52406
+8        1    pheno1  19  54.83012 5.476587  47.361847  56.37100
+```
+
+This produces 7 peaks on 6 different 
 chromosomes that meet a LOD threshold of 3 and are within the interval defined 
 by a 2-LOD drop from the maximum peak on each chromosome.
 
@@ -106,26 +153,67 @@ by a 2-LOD drop from the maximum peak on each chromosome.
 ## Challenge 2
 
 1). Calculate the 90% Bayes credible interval.
-For chromosome 16 in liver, what is the range of the interval that has a 90% 
+For chromosome 2, what is the range of the interval that has a 90% 
 chance of containing the true QTL position?  
 2). Compare with the 95% Bayes credible interval calculated earlier. How does 
 the interval change as you increase the probability? Why?
 
 :::::::::::::::::::::::: solution 
 
-1). `find_peaks(out, map, prob=0.90, expand2markers = FALSE)` produces a range 
-from 25.1 to 40.4.  
-2). `find_peaks(out, map, prob=0.95, expand2markers = FALSE)` produces a range 
-from 6.6 to 40.4, which is much broader than that of a 90% probability. The 
-interval widens because the probability that the interval contains the true QTL 
-position has increased. 
+1). This produces a range from 118.0 to 149.6 Mb. 
+
+
+``` r
+find_peaks(scan1_output = lod_add_loco, 
+           map          = cross$pmap,
+           prob         = 0.90, 
+           expand2markers = FALSE)
+```
+
+``` output
+  lodindex lodcolumn chr       pos      lod     ci_lo     ci_hi
+1        1    pheno1   2 138.94475 7.127351 117.95568 149.57739
+2        1    pheno1   5 103.41486 3.130862  49.14192 109.47816
+3        1    pheno1   7 144.18230 5.724018 144.18230 144.18230
+4        1    pheno1   9  83.67606 3.865635  71.19862 103.50267
+5        1    pheno1  12  25.14494 4.310493  16.73036  29.05053
+6        1    pheno1  14  22.24292 3.974322  20.53754  45.93876
+7        1    pheno1  16  80.37433 4.114024  10.23813  80.37433
+8        1    pheno1  19  54.83012 5.476587  49.87863  55.15007
+```
+
+2). This produces a range from 64.9 to 149.6 Mb, which is much broader than 
+the 90% interval. The interval widens because the probability that the interval
+contains the true QTL position has increased. 
+
+
+``` r
+find_peaks(scan1_output = lod_add_loco, 
+           map          = cross$pmap,
+           prob         = 0.95, 
+           expand2markers = FALSE)
+```
+
+``` output
+  lodindex lodcolumn chr       pos      lod      ci_lo     ci_hi
+1        1    pheno1   2 138.94475 7.127351  64.949395 149.57739
+2        1    pheno1   5 103.41486 3.130862  49.141920 110.48789
+3        1    pheno1   7 144.18230 5.724018 139.368290 144.18230
+4        1    pheno1   9  83.67606 3.865635  37.048631 108.07596
+5        1    pheno1  12  25.14494 4.310493  15.834815  29.05053
+6        1    pheno1  14  22.24292 3.974322   6.241951  45.93876
+7        1    pheno1  16  80.37433 4.114024  10.238134  80.37433
+8        1    pheno1  19  54.83012 5.476587  48.370980  55.15007
+```
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- "LOD peaks and support intervals can be identified with find_peaks()."
+- LOD peaks and support intervals can be identified with find_peaks().
+- The Bayesian Credible Interval estimates the width of the support interval
+around a QTL peak.j
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

@@ -125,7 +125,7 @@ To perform a genome scan using a linear mixed model you also use the function
 
 ``` r
 lod_add_pg <- scan1(genoprobs = probs, 
-                    pheno     = cross$pheno[,"log10_insulin_10wk"], 
+                    pheno     = cross$pheno[,"log10_insulin_10wk",drop = FALSE], 
                     kinship   = kinship_all, 
                     addcovar  = addcovar)
 ```
@@ -136,7 +136,7 @@ argument.
 
 ``` r
 lod_add_all <- scan1(genoprobs = probs, 
-                     pheno     = cross$pheno[,"log10_insulin_10wk"], 
+                     pheno     = cross$pheno[,"log10_insulin_10wk",drop = FALSE], 
                      kinship   = kinship_all, 
                      addcovar  = addcovar, 
                      cores     = 4)
@@ -163,7 +163,7 @@ matrices as obtained from `calc_kinship()` with `method="loco"`.
 
 ``` r
 lod_add_loco <- scan1(genoprobs = probs, 
-                      pheno     = cross$pheno[,"log10_insulin_10wk"], 
+                      pheno     = cross$pheno[,"log10_insulin_10wk",drop = FALSE], 
                       kinship   = kinship_loco, 
                       addcovar  = addcovar)
 ```
