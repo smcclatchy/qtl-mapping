@@ -269,12 +269,19 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         8. Performing a permutation test
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#selecting-the-number-of-permutations">Selecting the number of permutations</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
 
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -451,7 +458,7 @@ vector of kinship matrices, for the “leave one chromosome out” (loco)
 approach), in order to fit linear mixed models. If <code>kinship</code>
 is unspecified, the function performs ordinary Haley-Knott
 regression.</p>
-<p>To perform a permutation test with the <code>iron</code> data, we run
+<p>To perform a permutation test with the insulin phenotype, we run
 <code>scan1perm()</code>, provide it with the genotype probabilities,
 the phenotype data, X covariates and number of permutations. For
 expediency, we’ll use only 10 permutations, although 1000 is
@@ -473,9 +480,10 @@ permutations takes about 2 minutes.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">add_perm</span> <span class="op">&lt;-</span> <span class="fu">scan1perm</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
+<code class="sourceCode R"><span><span class="va">perm_add</span> <span class="op">&lt;-</span> <span class="fu">scan1perm</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
 <span>                      pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">'log10_insulin_10wk'</span><span class="op">]</span>,</span>
 <span>                      addcovar  <span class="op">=</span> <span class="va">addcovar</span>,</span>
+<span>                      Xcovar    <span class="op">=</span> <span class="va">addcovar</span>,</span>
 <span>                      n_perm    <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span> </span></code></pre>
 </div>
 <p>Note the need to specify special covariates for the X chromosome (via
@@ -495,78 +503,78 @@ beyond the available memory.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">operm</span> <span class="op">&lt;-</span> <span class="fu">scan1perm</span><span class="op">(</span><span class="va">pr</span>, <span class="va">iron</span><span class="op">$</span><span class="va">pheno</span>, Xcovar<span class="op">=</span><span class="va">Xcovar</span>, n_perm<span class="op">=</span><span class="fl">1000</span>, cores<span class="op">=</span><span class="fl">0</span><span class="op">)</span></span></code></pre>
+<pre class="sourceCode r" tabindex="0"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>perm_add <span class="ot">&lt;-</span> <span class="fu">scan1perm</span>(<span class="at">genoprobs =</span> probs, </span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>                      <span class="at">phenotype =</span> cross<span class="sc">$</span>pheno[,<span class="st">'log10_insulin_10wk'</span>], </span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>                      <span class="at">addcovar  =</span> addcovar</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>                      <span class="at">Xcovar    =</span> Xcovar, </span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>                      <span class="at">n_perm    =</span> <span class="dv">1000</span>, </span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>                      <span class="at">cores     =</span> <span class="dv">0</span>)</span></code></pre>
 </div>
-<p><code>operm</code> now contains the maximum LOD score for each
+<p><code>perm_add</code> now contains the maximum LOD score for each
 permutation for the liver and spleen phenotypes. There should be 1000
-values for each phenotypes. We can view the liver permutation LOD scores
-by making a histogram.</p>
+values for each phenotypes. We can view the insulin permutation LOD
+scores by making a histogram.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">operm</span><span class="op">[</span>,<span class="st">'liver'</span><span class="op">]</span>, breaks <span class="op">=</span> <span class="fl">50</span>, xlab <span class="op">=</span> <span class="st">"LOD"</span>, main <span class="op">=</span> <span class="st">"LOD scores for liver scan with threshold in red"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">perm_add</span>, breaks <span class="op">=</span> <span class="fl">50</span>, xlab <span class="op">=</span> <span class="st">"LOD"</span>, las <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>     main <span class="op">=</span> <span class="st">"Empirical distribution of maximum LOD scores under permuation"</span><span class="op">)</span></span>
+<span><span class="fu">abline</span><span class="op">(</span>v <span class="op">=</span> <span class="fu">summary</span><span class="op">(</span><span class="va">perm_add</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">'red'</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'operm' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb5">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">abline</span><span class="op">(</span>v <span class="op">=</span> <span class="fu">summary</span><span class="op">(</span><span class="va">operm</span><span class="op">)</span><span class="op">[</span>,<span class="st">'liver'</span><span class="op">]</span>, col <span class="op">=</span> <span class="st">'red'</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'operm' not found</code></pre>
-</div>
-<p>In the histogram above, you can see that most of the maximum LOD
-scores fall between 1 and 3. This means that we expect LOD scores less
-than 3 to occur by chance fairly often. The red line indicates the alpha
-= 0.05 threshold, which means that, under permutation, we only see LOD
-values as high or higher, 5% of the time. This is one way of estimating
-a significance threshold for QTL plots.</p>
+<figure><img src="../fig/perform-perm-test-rendered-hist_perm-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In the histogram above, you can see that most of the maximum LOD
+scores fall between 1 and 3.5. This means that we expect LOD scores less
+than 3.5 to occur by chance fairly often. The red line indicates the
+alpha = 0.05 threshold, which means that we only see LOD values by
+chance this high or higher, 5% of the time. This is <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1206241/" class="external-link">one way</a>
+of estimating a significance threshold for QTL plots.</p>
 <p>To get estimated significance thresholds, use the function
 <code>summary()</code>.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">operm</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">perm_add</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'operm' not found</code></pre>
+<pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
+     pheno1
+0.05   3.86</code></pre>
 </div>
 <p>The default is to return the 5% significance thresholds. Thresholds
 for other (or for multiple) significance levels can be obtained via the
 <code>alpha</code> argument.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">operm</span>, alpha<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">perm_add</span>, </span>
+<span>        alpha <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'operm' not found</code></pre>
+<pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
+     pheno1
+0.2    3.18
+0.05   3.86</code></pre>
 </div>
 <p>To obtain autosome/X chromosome-specific significance thresholds,
 specify <code>perm_Xsp=TRUE</code>. In this case, you need to provide
 chromosome lengths, which may be obtained with the function
 <code>chr_lengths()</code>.</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">operm2</span> <span class="op">&lt;-</span> <span class="fu">scan1perm</span><span class="op">(</span><span class="va">pr</span>, <span class="va">iron</span><span class="op">$</span><span class="va">pheno</span>, Xcovar<span class="op">=</span><span class="va">Xcovar</span>, n_perm<span class="op">=</span><span class="fl">1000</span>,</span>
-<span>                    perm_Xsp<span class="op">=</span><span class="cn">TRUE</span>, chr_lengths<span class="op">=</span><span class="fu">chr_lengths</span><span class="op">(</span><span class="va">map</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">perm_add2</span> <span class="op">&lt;-</span> <span class="fu">scan1perm</span><span class="op">(</span>genoprobs   <span class="op">=</span> <span class="va">probs</span>, </span>
+<span>                       pheno       <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"log10_insulin_10wk"</span><span class="op">]</span>, </span>
+<span>                       addcovar    <span class="op">=</span> <span class="va">addcovar</span>, </span>
+<span>                       n_perm      <span class="op">=</span> <span class="fl">1000</span>,</span>
+<span>                       perm_Xsp    <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                       chr_lengths <span class="op">=</span> <span class="fu">chr_lengths</span><span class="op">(</span><span class="va">map</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Separate permutations are performed for the autosomes and X
 chromosome, and considerably more permutation replicates are needed for
@@ -574,58 +582,100 @@ the X chromosome. The computations take about twice as much time. See <a href="h
 Genetics 174:2151-2158</a>.</p>
 <p>The significance thresholds are again derived via
 <code>summary()</code>:</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">operm2</span>, alpha<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">perm_add2</span>, </span>
+<span>        alpha <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'operm2' not found</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'perm_add2' not found</code></pre>
 </div>
 <p>As with <code>scan1</code>, we can use <code>scan1perm</code> with
 binary traits, using the argument <code>model="binary"</code>. Again,
 this can’t be used with a kinship matrix, but all of the other arguments
 can be applied.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">operm_bin</span> <span class="op">&lt;-</span> <span class="fu">scan1perm</span><span class="op">(</span><span class="va">pr</span>, <span class="va">bin_pheno</span>, Xcovar<span class="op">=</span><span class="va">Xcovar</span>, n_perm<span class="op">=</span><span class="fl">1000</span>, </span>
-<span>                       perm_Xsp<span class="op">=</span><span class="cn">TRUE</span>, chr_lengths<span class="op">=</span><span class="fu">chr_lengths</span><span class="op">(</span><span class="va">map</span><span class="op">)</span>,</span>
-<span>                       model<span class="op">=</span><span class="st">"binary"</span><span class="op">)</span></span></code></pre>
-</div>
-<p>Here are the estimated 5% and 20% significance thresholds.</p>
-<div class="codewrapper sourceCode" id="cb15">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">operm_bin</span>, alpha<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">perm_bin</span> <span class="op">&lt;-</span> <span class="fu">scan1perm</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
+<span>                      pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"agouti_tan"</span><span class="op">]</span>, </span>
+<span>                      Xcovar    <span class="op">=</span> <span class="va">Xcovar</span>, </span>
+<span>                      n_perm    <span class="op">=</span> <span class="fl">1000</span>, </span>
+<span>                      perm_Xsp  <span class="op">=</span> <span class="cn">TRUE</span>, </span>
+<span>                      chr_lengths <span class="op">=</span> <span class="fu">chr_lengths</span><span class="op">(</span><span class="va">map</span><span class="op">)</span>,</span>
+<span>                      model     <span class="op">=</span> <span class="st">"binary"</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'operm_bin' not found</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'Xcovar' not found</code></pre>
+</div>
+<p>Here are the estimated 5% and 20% significance thresholds.</p>
+<div class="codewrapper sourceCode" id="cb13">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">summary</span><span class="op">(</span><span class="va">perm_bin</span>, </span>
+<span>        alpha <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0.2</span>, <span class="fl">0.05</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'perm_bin' not found</code></pre>
 </div>
 <p>The code below shuffles the phenotypes so that they no longer match
 up with the genotypes. The purpose of this is to find out how high the
 LOD score can be due to random chance alone.</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">shuffled_order</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="fu">rownames</span><span class="op">(</span><span class="va">iron</span><span class="op">$</span><span class="va">pheno</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">pheno_permuted</span> <span class="op">&lt;-</span> <span class="va">iron</span><span class="op">$</span><span class="va">pheno</span></span>
+<code class="sourceCode R"><span><span class="va">shuffled_order</span> <span class="op">&lt;-</span> <span class="fu">sample</span><span class="op">(</span><span class="fu">rownames</span><span class="op">(</span><span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">pheno_permuted</span> <span class="op">&lt;-</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span></span>
 <span><span class="fu">rownames</span><span class="op">(</span><span class="va">pheno_permuted</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">shuffled_order</span></span>
 <span><span class="va">xcovar_permuted</span> <span class="op">&lt;-</span> <span class="va">Xcovar</span></span>
 <span><span class="fu">rownames</span><span class="op">(</span><span class="va">xcovar_permuted</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="va">shuffled_order</span></span>
-<span><span class="va">out_permuted</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">pr</span>, pheno <span class="op">=</span> <span class="va">pheno_permuted</span>, Xcovar <span class="op">=</span> <span class="va">xcovar_permuted</span><span class="op">)</span></span>
+<span><span class="va">out_permuted</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, pheno <span class="op">=</span> <span class="va">pheno_permuted</span>, Xcovar <span class="op">=</span> <span class="va">xcovar_permuted</span><span class="op">)</span></span>
 <span><span class="fu">plot</span><span class="op">(</span><span class="va">out_permuted</span>, <span class="va">map</span><span class="op">)</span></span>
 <span><span class="fu">head</span><span class="op">(</span><span class="va">shuffled_order</span><span class="op">)</span></span></code></pre>
 </div>
-<div id="challenge-1" class="callout challenge">
+<section><h2 class="section-heading" id="selecting-the-number-of-permutations">Selecting the number of permutations<a class="anchor" aria-label="anchor" href="#selecting-the-number-of-permutations"></a></h2>
+<hr class="half-width"><p>How do we know how many permutations to perform in order to obtain a
+good estimate of the significance threshold? Could we get a good
+estimate with 10 permutations? 100? 1000?</p>
+<p>When we run more permutations, we decrease the variance of the
+threshold estimate.</p>
+<p><img src="../fig/permutation_simulations.png" alt="Significance Threshold Variance" class="figure">{alt=“Figure showing decreasing
+variance of significance threshold estimates with increasing
+permutations”,width=75%}</p>
+<p>In the figure above, we performed 10, 100, or 1000 permutations 1000
+times and recorded the 0.05 significance threshold each time. We plotted
+the significance threshold versus the number of permutations and
+overlaid violin plots showing the median value. Note that the variance
+of the significance threshold estimate is higher at lower numbers of
+permutations. With 1000 permutations, the variance decreases. The table
+below shows the number of permutations and the mean and standard
+deviation of the significance threshold. With 1000 permutations, the
+estimate is 3.86 and the standard deviation is 0.064, which is an
+acceptable value.</p>
+<table class="table"><thead><tr class="header"><th>Num. Perm.</th>
+<th>Mean</th>
+<th>Std. Dev.</th>
+</tr></thead><tbody><tr class="odd"><td>10</td>
+<td>3.63</td>
+<td>0.492</td>
+</tr><tr class="even"><td>100</td>
+<td>3.81</td>
+<td>0.195</td>
+</tr><tr class="odd"><td>1000</td>
+<td>3.86</td>
+<td>0.064</td>
+</tr></tbody></table><div id="challenge-1" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
@@ -704,10 +754,7 @@ genome scan.”</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/perform-genome-scan-bin.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/find-lod-peaks.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
