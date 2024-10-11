@@ -51,7 +51,7 @@ matrices, for the "leave one chromosome out" (loco) approach), in order to fit
 linear mixed models. If `kinship` is unspecified, the function performs ordinary 
 Haley-Knott regression.
 
-To perform a permutation test with the `iron` data, we run `scan1perm()`, 
+To perform a permutation test with the insulin phenotype, we run `scan1perm()`, 
 provide it with the genotype probabilities, the phenotype data, X covariates and 
 number of permutations. For expediency, we'll use only 10 permutations, although 
 1000 is recommended.
@@ -64,9 +64,10 @@ Replace number of permutations (1000) with 10 for expediency.
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ``` r
-add_perm <- scan1perm(genoprobs = probs, 
+perm_add <- scan1perm(genoprobs = probs, 
                       pheno     = cross$pheno[,'log10_insulin_10wk'],
                       addcovar  = addcovar,
+                      Xcovar    = addcovar,
                       n_perm    = 1000) 
 ```
 
@@ -87,45 +88,45 @@ available memory.
 
 
 ``` r
-operm <- scan1perm(pr, iron$pheno, Xcovar=Xcovar, n_perm=1000, cores=0)
+perm_add <- scan1perm(genoprobs = probs, 
+                      phenotype = cross$pheno[,'log10_insulin_10wk'], 
+                      addcovar  = addcovar
+                      Xcovar    = Xcovar, 
+                      n_perm    = 1000, 
+                      cores     = 0)
 ```
 
-`operm` now contains the maximum LOD score for each permutation for the liver 
+`perm_add` now contains the maximum LOD score for each permutation for the liver 
 and spleen phenotypes. There should be 1000 values for each phenotypes. We can 
-view the liver permutation LOD scores by making a histogram.
+view the insulin permutation LOD scores by making a histogram.
 
 
 ``` r
-hist(operm[,'liver'], breaks = 50, xlab = "LOD", main = "LOD scores for liver scan with threshold in red")
+hist(perm_add, breaks = 50, xlab = "LOD", las = 1,
+     main = "Empirical distribution of maximum LOD scores under permuation")
+abline(v = summary(perm_add), col = 'red', lwd = 2)
 ```
 
-``` error
-Error in eval(expr, envir, enclos): object 'operm' not found
-```
-
-``` r
-abline(v = summary(operm)[,'liver'], col = 'red', lwd = 2)
-```
-
-``` error
-Error in eval(expr, envir, enclos): object 'operm' not found
-```
+<img src="fig/perform-perm-test-rendered-hist_perm-1.png" style="display: block; margin: auto;" />
 
 In the histogram above, you can see that most of the maximum LOD scores fall 
-between 1 and 3. This means that we expect LOD scores less than 3 to occur by 
+between 1 and 3.5. This means that we expect LOD scores less than 3.5 to occur by 
 chance fairly often. The red line indicates the alpha = 0.05 threshold, which 
-means that, under permutation, we only see LOD values as high or higher, 5% of 
-the time. This is one way of estimating a significance threshold for QTL plots.
+means that we only see LOD values by chance this high or higher, 5% of 
+the time. This is [one way](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1206241/) 
+of estimating a significance threshold for QTL plots.
 
 To get estimated significance thresholds, use the function `summary()`.
 
 
 ``` r
-summary(operm)
+summary(perm_add)
 ```
 
-``` error
-Error in eval(expr, envir, enclos): object 'operm' not found
+``` output
+LOD thresholds (1000 permutations)
+     pheno1
+0.05   3.86
 ```
 
 The default is to return the 5% significance thresholds. Thresholds for other 
@@ -133,11 +134,15 @@ The default is to return the 5% significance thresholds. Thresholds for other
 
 
 ``` r
-summary(operm, alpha=c(0.2, 0.05))
+summary(perm_add, 
+        alpha = c(0.2, 0.05))
 ```
 
-``` error
-Error in eval(expr, envir, enclos): object 'operm' not found
+``` output
+LOD thresholds (1000 permutations)
+     pheno1
+0.2    3.18
+0.05   3.86
 ```
 
 To obtain autosome/X chromosome-specific significance thresholds, specify 
@@ -146,8 +151,12 @@ be obtained with the function `chr_lengths()`.
 
 
 ``` r
-operm2 <- scan1perm(pr, iron$pheno, Xcovar=Xcovar, n_perm=1000,
-                    perm_Xsp=TRUE, chr_lengths=chr_lengths(map))
+perm_add2 <- scan1perm(genoprobs   = probs, 
+                       pheno       = cross$pheno[,"log10_insulin_10wk"], 
+                       addcovar    = addcovar, 
+                       n_perm      = 1000,
+                       perm_Xsp    = TRUE, 
+                       chr_lengths = chr_lengths(map))
 ```
 
 Separate permutations are performed for the autosomes and X chromosome, and 
@@ -160,11 +169,12 @@ The significance thresholds are again derived via `summary()`:
 
 
 ``` r
-summary(operm2, alpha=c(0.2, 0.05))
+summary(perm_add2, 
+        alpha = c(0.2, 0.05))
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'operm2' not found
+Error in eval(expr, envir, enclos): object 'perm_add2' not found
 ```
 
 As with `scan1`, we can use `scan1perm` with binary traits, using the argument 
@@ -173,20 +183,29 @@ the other arguments can be applied.
 
 
 ``` r
-operm_bin <- scan1perm(pr, bin_pheno, Xcovar=Xcovar, n_perm=1000, 
-                       perm_Xsp=TRUE, chr_lengths=chr_lengths(map),
-                       model="binary")
+perm_bin <- scan1perm(genoprobs = probs, 
+                      pheno     = cross$pheno[,"agouti_tan"], 
+                      Xcovar    = Xcovar, 
+                      n_perm    = 1000, 
+                      perm_Xsp  = TRUE, 
+                      chr_lengths = chr_lengths(map),
+                      model     = "binary")
+```
+
+``` error
+Error in eval(expr, envir, enclos): object 'Xcovar' not found
 ```
 
 Here are the estimated 5% and 20% significance thresholds.
 
 
 ``` r
-summary(operm_bin, alpha=c(0.2, 0.05))
+summary(perm_bin, 
+        alpha = c(0.2, 0.05))
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'operm_bin' not found
+Error in eval(expr, envir, enclos): object 'perm_bin' not found
 ```
 
 The code below shuffles the phenotypes so that they no longer match up with the 
@@ -195,15 +214,43 @@ to random chance alone.
 
 
 ``` r
-shuffled_order <- sample(rownames(iron$pheno))
-pheno_permuted <- iron$pheno
+shuffled_order <- sample(rownames(cross$pheno))
+pheno_permuted <- cross$pheno
 rownames(pheno_permuted) <- shuffled_order
 xcovar_permuted <- Xcovar
 rownames(xcovar_permuted) <- shuffled_order
-out_permuted <- scan1(genoprobs = pr, pheno = pheno_permuted, Xcovar = xcovar_permuted)
+out_permuted <- scan1(genoprobs = probs, pheno = pheno_permuted, Xcovar = xcovar_permuted)
 plot(out_permuted, map)
 head(shuffled_order)
 ```
+
+## Selecting the number of permutations
+
+How do we know how many permutations to perform in order to obtain a good 
+estimate of the significance threshold? Could we get a good estimate with 10
+permutations? 100? 1000? 
+
+When we run more permutations, we decrease the variance of the threshold
+estimate.
+
+![Significance Threshold Variance](fig/permutation_simulations.png){alt="Figure showing decreasing variance of significance threshold estimates with increasing permutations",width=75%}
+
+In the figure above, we performed 10, 100, or 1000 permutations 1000 times and
+recorded the 0.05 significance threshold each time. We plotted the significance
+threshold versus the number of permutations and overlaid violin plots showing
+the median value. Note that the variance of the significance threshold estimate
+is higher at lower numbers of permutations. With 1000 permutations, the
+variance decreases. The table below shows the number of permutations and the 
+mean and standard deviation of the significance threshold. With 1000 permutations,
+the estimate is 3.86 and the standard deviation is 0.064, which is an 
+acceptable value.
+
+
+Num. Perm. | Mean | Std. Dev.
+-----------+------+----------
+     10    | 3.63 | 0.492 
+    100    | 3.81 | 0.195 
+   1000    | 3.86 | 0.064
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 

@@ -1,0 +1,97 @@
+#------------------------------------------------------------
+# Values for this lesson.
+#------------------------------------------------------------
+
+# Which carpentry is this (swc, dc, lc, or cp)?
+# swc: Software Carpentry
+# dc: Data Carpentry
+# lc: Library Carpentry
+# cp: Carpentries (to use for instructor training for instance)
+# incubator: The Carpentries Incubator
+#
+# This option supports custom types so lessons can be branded
+# and themed with your own logo and alt-text (see `carpentry_description`)
+# See https://carpentries.github.io/sandpaper-docs/editing.html#adding-a-custom-logo
+carpentry: 'incubator'
+
+# Alt-text description of the lesson.
+carpentry_description: 'Lesson Description'
+
+# Overall title for pages.
+title: 'Quantitative Trait Mapping'
+
+# Date the lesson was created (YYYY-MM-DD, this is empty by default)
+created: 2024-09-06
+
+# Comma-separated list of keywords for the lesson
+keywords: 'software, data, lesson, The Carpentries, genetics, statistics, genome, genetic mapping' # FIXME
+
+# Life cycle stage of the lesson
+# possible values: pre-alpha, alpha, beta, stable
+life_cycle: 'pre-alpha' # FIXME
+
+# License of the lesson
+license: 'CC-BY 4.0'
+
+# Link to the source repository for this lesson
+source: 'https://github.com/carpentries/workbench-template-rmd' # FIXME
+
+# Default branch of your lesson
+branch: 'main'
+
+# Who to contact if there are any issues
+contact: 'susan.mcclatchy@jax.org'
+
+# Navigation ------------------------------------------------
+#
+# Use the following menu items to specify the order of
+# individual pages in each dropdown section. Leave blank to
+# include all pages in the folder.
+#
+# Example -------------
+#
+# episodes:
+# - introduction.md
+# - first-steps.md
+#
+# learners:
+# - setup.md
+#
+# instructors:
+# - instructor-notes.md
+#
+# profiles:
+# - one-learner.md
+# - another-learner.md
+
+# Order of episodes in your lesson
+episodes:
+- intro_data_set.Rmd
+- input-file-format.Rmd
+- calc-genoprob.Rmd
+#- special-x-covar.Rmd
+- perform-genome-scan.Rmd
+- calc-kinship.Rmd
+- perform-genome-scan-lmm.Rmd
+- perform-genome-scan-bin.Rmd
+- perform-perm-test.Rmd
+- find-lod-peaks.Rmd
+- est-qtl-effects.Rmd
+- integrating-gene-expression.Rmd
+- do_qtl_mapping.Rmd
+
+# Information for Learners
+learners:
+
+# Information for Instructors
+instructors:
+
+# Learner Profiles
+profiles:
+
+# Customisation ---------------------------------------------
+#
+# This space below is where custom yaml items (e.g. pinning
+# sandpaper and varnish versions) should live
+
+
