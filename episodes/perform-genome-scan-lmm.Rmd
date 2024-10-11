@@ -31,7 +31,7 @@ kinship_loco  <- calc_kinship(probs = probs, type = 'loco')
 cross$covar$Sex <- factor(cross$covar$Sex)
 addcovar <- model.matrix(~Sex, data = cross$covar)[,-1, drop = FALSE]
 # LOD scan for insulin.
-lod_add <- scan1(genoprobs = probs, pheno     = cross$pheno[,'log10_insulin_10wk'], 
+lod_add <- scan1(genoprobs = probs, pheno = cross$pheno[,'log10_insulin_10wk',drop = FALSE], 
                  addcovar  = addcovar)
 # Chr 2 BLUPs.
 chr2_eff = readRDS(url('https://thejacksonlaboratory.box.com/shared/static/kxsizeu1papwb0q21f1zjde8nx5lhxvg.rds'))
@@ -139,7 +139,7 @@ To perform a genome scan using a linear mixed model you also use the function
 
 ```{r scan1_pg}
 lod_add_pg <- scan1(genoprobs = probs, 
-                    pheno     = cross$pheno[,"log10_insulin_10wk"], 
+                    pheno     = cross$pheno[,"log10_insulin_10wk",drop = FALSE], 
                     kinship   = kinship_all, 
                     addcovar  = addcovar)
 ```
@@ -149,7 +149,7 @@ argument.
 
 ```{r scan1_pg_multicore, eval=FALSE}
 lod_add_all <- scan1(genoprobs = probs, 
-                     pheno     = cross$pheno[,"log10_insulin_10wk"], 
+                     pheno     = cross$pheno[,"log10_insulin_10wk",drop = FALSE], 
                      kinship   = kinship_all, 
                      addcovar  = addcovar, 
                      cores     = 4)
@@ -174,7 +174,7 @@ matrices as obtained from `calc_kinship()` with `method="loco"`.
 
 ```{r scan1_pg_loco, eval=FALSE}
 lod_add_loco <- scan1(genoprobs = probs, 
-                      pheno     = cross$pheno[,"log10_insulin_10wk"], 
+                      pheno     = cross$pheno[,"log10_insulin_10wk",drop = FALSE], 
                       kinship   = kinship_loco, 
                       addcovar  = addcovar)
 ```

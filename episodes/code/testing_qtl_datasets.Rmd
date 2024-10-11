@@ -1,0 +1,400 @@
+---
+title: "Create GRCm39 B6-BTBT Dataset"
+author: "DMG"
+date: "2024-10-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(AnnotationHub)
+library(GenomicRanges)
+library(R.utils)
+library(rtracklayer)
+library(mmconvert)
+library(qtl2)
+
+base_dir = 'C:/Users/c-dgatti/Documents/classes/JAX/qtl-mapping/episodes'
+
+input_dir = file.path(base_dir, 'data/Attie_2015_eqtl_clean')
+
+output_dir = file.path(base_dir, 'data', 'attie_b6btbr_grcm39')
+
+
+# UCSC mm9 to GRCm39 chain file.
+chainfile_url = 'https://hgdownload.cse.ucsc.edu/goldenPath/mm9/liftOver/mm9ToMm39.over.chain.gz'
+
+# Chain file destination.
+chainfile_dest = file.path('~/../Downloads/mm9ToMm39.over.chain.gz')
+
+# Annotation hub for Ensembl 110 GTf.
+hub = AnnotationHub()
+#hub = query(hub, c('mus musculus', 'ensdb', '110'))
+ensembl = hub[['AH113713']]
+```
+
+
+## Introduction
+
+I'm going to use the genotypes, expression and map data from 
+<https://phenome.jax.org/projects/Attie1> and will use the "cleaned" data.
+I'm going to read in the physiological phenotypes from 
+<https://github.com/kbroman/qtl2data/tree/main/B6BTBR>.
+
+We need to perform three tasks:
+
+1. Lift the markers from GCRm37 to GRCm39.
+2. Update the gene positions ro GRCm39.
+3. Write out files that can be read in using qtl2's read_cross2() function.
+
+
+## Convert the markers from GRCm37 to GRCm39.
+
+Read in the markers from the Attie MPD data.
+
+```{r}
+orig_markers = read.csv(file.path(input_dir, 'markers_physical_map.csv'))
+```
+
+Use UCSC liftover to convert marker positions to GRCm39. Discard any markers
+that do not map uniquely.
+
+```{r}
+# Download and unzip chain file.
+download.file(url = chainfile_url, destfile = chainfile_dest)
+#gunzip(chainfile_dest, overwrite = TRUE)
+chain = import.chain(sub('\\.gz$', '', chainfile_dest))
+
+# Lift over the markers.
+mkr_gr = GRanges(seqnames = paste0('chr', orig_markers$chr), 
+                 ranges   = IRanges(start = orig_markers$pos * 1e6, width = 1),
+                 marker   = orig_markers$marker)
+
+new_markers = liftOver(x = mkr_gr, chain = chain)
+new_markers = as.data.frame(unlist(new_markers))
+
+```
+
+Create a new physical map.
+
+```{r}
+new_pmap = data.frame(marker = new_markers$marker,
+                      chr    = sub('^chr', '', new_markers$seqnames),
+                      pos    = new_markers$start * 1e-6)
+```
+
+Convert the physical map to a genetic map.
+
+```{r}
+tmp      = new_pmap[,c('chr', 'pos', 'marker')]
+new_gmap = mmconvert(positions = tmp, input_type = 'Mbp')
+rm(tmp)
+
+tmp = data.frame(marker = new_gmap$marker,
+                 chr    = new_gmap$chr,
+                 cM     = new_gmap$cM_coxV3_ave)
+
+tmp$cM[tmp$chr == 'X'] = new_gmap$cM_coxV3_female[tmp$chr == 'X']
+new_gmap = tmp
+rm(tmp)
+```
+
+Write out the new maps.
+
+```{r}
+# Verify that all postions mapped over.
+stopifnot(!is.na(new_gmap$pos))
+stopifnot(!is.na(new_pmap$pos))
+
+# Write out files.
+write_csv(new_gmap, file = file.path(output_dir, 'attie_gmap.csv'))
+write_csv(new_pmap, file = file.path(output_dir, 'attie_pmap.csv'))
+
+rm(chain, new_markers, mkr_gr)
+```
+
+## Read in phenotypes and covariates.
+
+```{r}
+pheno = read_csv(file.path(input_dir, '..', 'b6btbr', 'b6btbr_pheno.csv'),
+                 show_col_types = FALSE, comment = '#')
+covar = read_csv(file.path(input_dir, '..', 'b6btbr', 'b6btbr_covar.csv'),
+                 show_col_types = FALSE, comment = '#')
+
+```
+
+## Update gene postions
+
+We don't have Ensembl gene IDs, so we're going to use gene symbols to get
+the GRCm39 gene positions.
+
+I can't figure out how to match up the gene annotation in the 
+Attie_2015_eqtl_clean data. Neither the "reporterid" nor the "probeid" columns
+match the column names in the expression data. I'm getting the expression
+and annotation from the Github B6/BTBR data.
+
+```{r}
+# Read in the gene positions.
+orig_annot = read_csv(file.path(input_dir, '..', 'b6btbr', 
+                                'b6btbr_microarray_annotation.csv'), comment = '#',
+                      show_col_types = FALSE) |>
+               dplyr::filter(!is.na(officialgenesymbol))
+
+# Read in the islet gene expression and rename the genes.
+expr  = read_csv(file.path(input_dir, '..', 'b6btbr', 'b6btbr_islet.csv'), 
+                comment = '#') |>
+         column_to_rownames('MouseNum') |>
+         as.matrix()
+
+# Subset the data to retain common samples and genes.
+common_samples = intersect(rownames(expr), pheno$MouseNum)
+common_genes   = intersect(colnames(expr), orig_annot$a_gene_id)
+
+orig_annot = orig_annot[match(common_genes, orig_annot$a_gene_id),]
+expr       = expr[,common_genes]
+
+stopifnot(orig_annot$a_gene_id == colnames(expr))
+
+# There are multiple probes for some genes, so we can't name the columns by
+# gene ID or symbol. We have to keep the "a_gene_id" values as column names.
+
+# Get the Ensembl 110 genes.
+ens_genes = genes(ensembl)
+
+new_annot = subset(ens_genes, symbol %in% orig_annot$officialgenesymbol)
+
+new_annot = as.data.frame(new_annot)
+
+new_annot = new_annot[match(orig_annot$officialgenesymbol, new_annot$symbol),]
+
+new_annot$a_gene_id = orig_annot$a_gene_id
+
+new_annot = new_annot[,c('a_gene_id', 'seqnames', 'start', 'end', 'width', 
+                         'strand', 'gene_id', 'gene_name', 'gene_biotype', 
+                         'description', 'gene_id_version',
+                         'symbol', 'entrezid')]
+colnames(new_annot) = c('a_gene_id', 'chr', 'start', 'end', 'width', 
+                         'strand', 'gene_id', 'gene_name', 'gene_biotype', 
+                         'description', 'gene_id_version',
+                         'symbol', 'entrezid')
+
+stopifnot(new_annot$a_gene_id == colnames(expr))
+
+# Write out the new annotation.
+write_csv(as.data.frame(new_annot), file = file.path(output_dir, 'attie_gene_annot.csv'))
+
+# Write out the new expression values.
+expr = expr[common_samples,]
+expr = as.data.frame(expr) |>
+         rownames_to_column('MouseNum')
+write_csv(expr, file = file.path(output_dir, 'attie_gene_expr.csv'))
+
+```
+
+Subset and write out the phenotypes and covariates.
+
+```{r}
+# Phenotypes.
+pheno = pheno |>
+  dplyr::filter(MouseNum %in% common_samples)
+pheno = pheno[match(common_samples, pheno$MouseNum),]
+
+write_csv(pheno, file.path(output_dir, 'attie_pheno.csv'))
+
+# Covariates.
+covar |>
+  dplyr::filter(MouseNum %in% common_samples)
+covar = covar[match(common_samples, covar$MouseNum),]
+  
+write_csv(covar, file.path(output_dir, 'attie_covar.csv'))
+
+stopifnot(pheno$MouseNum == expr$MouseNum)
+```
+
+
+Read in the genotypes, reformat them, and write them ot to the new directory.
+
+```{r}
+geno = read_csv(file.path(input_dir, 'genotypes_clean.csv'),
+                show_col_types = FALSE) |>
+         dplyr::select(-Sex, -pgm) |>
+         dplyr::filter(!is.na(MouseNum))
+
+# Synch up marker names.
+geno = geno[,c(1, which(colnames(geno) %in% new_gmap$marker))]
+
+# Synch up sample names.
+geno = geno[match(common_samples, geno$MouseNum),]
+
+write_csv(geno, file = file.path(output_dir, 'attie_genotypes.csv'))
+
+```
+
+
+
+## Create a JSON control file.
+
+```{r}
+write_control_file(output_file = file.path(output_dir, 'attie_control.json'), 
+                   crosstype   = 'f2', 
+                   geno_file   = 'attie_genotypes.csv', 
+                   gmap_file   = 'attie_gmap.csv', 
+                   pmap_file   = 'attie_pmap.csv', 
+                   pheno_file  = 'attie_pheno.csv', 
+                   covar_file  = 'attie_covar.csv',
+                   sex_covar   = 'Sex',
+                   sex_codes   = c('Female' = 'female', 'Male' = 'male'),
+                   geno_codes  = c('BB' = 1, 'BR' = 2, 'RR' = 3),
+                   alleles     = c('B', 'R'),
+                   crossinfo_covar = 'pgm',
+                   xchr        = 'X',
+                   na.strings  = '-',
+                   comment.char = '#', 
+                   description = 'Attie B6/BTBR data, lifted over to GRCm39, Ensembl 110. Cleaned genotypes.',
+                   overwrite   = TRUE)
+```
+
+
+
+
+```{r}
+cross = read_cross2(file = file.path(output_dir, 'attie_control.json'))
+
+probs = calc_genoprob(cross = cross, map = cross$gmap)
+K     = calc_kinship(probs = probs, type = 'loco')
+cross$covar$Sex = factor(cross$covar$Sex)
+addcovar = model.matrix(~Sex, data = cross$covar)[,-1,drop = FALSE]
+```
+
+```{r}
+lod_add = scan1(genoprobs = probs, pheno = cross$pheno[,'log10_insulin_10wk', drop = FALSE], 
+                kinship = K, addcovar = addcovar)
+lod_int = scan1(genoprobs = probs, pheno = cross$pheno[,'log10_insulin_10wk', drop = FALSE], 
+                kinship = K, addcovar = addcovar, intcovar = addcovar)
+```
+
+
+```{r}
+plot_scan1(lod_int, map = cross$pmap, col = 'black')
+plot_scan1(lod_add, map = cross$pmap, col = 'blue', add = TRUE)
+plot_scan1(lod_int - lod_add, map = cross$pmap, col = 'red', add = TRUE)
+```
+
+
+Run permutations on the insulin trait.
+
+```{r}
+nperm = 1000
+
+perms_file = file.path(output_dir, 'insulin_perms.rds')
+
+if(!file.exists(perms_file)) {
+  
+  perms = scan1perm(genoprobs = probs, 
+                    pheno = cross$pheno[,'log10_insulin_10wk', drop = FALSE], 
+                    kinship = K, addcovar = addcovar, n_perm = nperm,
+                    cores = 2)
+
+  saveRDS(perms, file = perms_file)
+  
+} # if(!file.exists(perms_file))
+
+perms = readRDS(perms_file)
+threshold = summary(perms, alpha = 0.05)
+```
+
+
+```{r}
+peaks = find_peaks(lod_add, map = cross$pmap, threshold = threshold, prob = 0.95)
+peaks
+```
+
+
+```{r}
+chr = '7'
+eff1 = scan1blup(genoprobs = probs[,chr], pheno = cross$pheno[,'log10_insulin_10wk', drop = FALSE], 
+            kinship = K[[chr]], addcovar = addcovar)
+```
+
+
+```{r}
+plot_coef(eff1, map = cross$pmap, scan1_output = lod_add, columns = 1:3,
+          legend = 'bottomleft')
+```
+
+```{r}
+expr = read_csv(file.path(output_dir, 'attie_gene_expr.csv'), show_col_types = FALSE)
+expr = expr |>
+         column_to_rownames('MouseNum') |>
+         as.matrix()
+
+annot = read_csv(file.path(output_dir, 'attie_gene_annot.csv'), show_col_types = FALSE)
+```
+
+Only keep the genes on chromosomes where we have QTL for insulin.
+
+```{r}
+chr2keep = peaks$chr
+annot = annot |>
+          dplyr::filter(chr %in% chr2keep) |>
+          mutate(a_gene_id = as.character(a_gene_id))
+expr = expr[,annot$a_gene_id]
+```
+
+
+```{r}
+#elod = scan1(genoprobs = probs, pheno = expr, kinship = K, addcovar = addcovar)
+#saveRDS(elod, '../eqtl_lod.rds')
+
+elod = readRDS('../eqtl_lod.rds')
+```
+
+```{r}
+epeaks = find_peaks(elod, map = cross$pmap, threshold = 4)
+
+for(i in 1:nrow(peaks)) {
+  
+  print(peaks$chr[i])
+  tmp = epeaks[epeaks$chr == peaks$chr[i] & epeaks$pos > peaks$ci_lo[i] & epeaks$pos <= peaks$ci_hi[i],]
+  print(subset(annot, a_gene_id %in% tmp$lodcolumn)$gene_name)
+
+} # for(i)
+
+```
+
+```{r}
+plot(expr[,'10002910800'] ~ cross$pheno[,'log10_insulin_10wk'], main = 'Ins1')
+mod = lm(expr[,'10002910800'] ~ cross$pheno[,'log10_insulin_10wk'])
+abline(mod)
+```
+
+```{r}
+plot(expr[,'10002902680'] ~ cross$pheno[,'log10_insulin_10wk'], main = 'Ins2')
+mod = lm(expr[,'10002902680'] ~ cross$pheno[,'log10_insulin_10wk'])
+abline(mod)
+```
+
+```{r}
+plot_scan1(x = elod, map = cross$pmap, lodcolumn = '10002910800', 
+           main = 'Ins1')
+```
+
+```{r}
+plot_scan1(x = elod, map = cross$pmap, lodcolumn = '10002902680', 
+           main = 'Ins2')
+```
+
+Write out the chr 2 blups to use in the mapping lesson.
+
+```{r}
+chr = '2'
+eff_chr2 = scan1blup(genoprobs = probs[,chr], 
+                     pheno     = cross$pheno[,'log10_insulin_10wk', drop = FALSE], 
+                     kinship   = K[[chr]], 
+                     addcovar  = addcovar)
+saveRDS(eff_chr2, file = file.path(output_dir, 'insulin_blup_chr2.rds'))
+```
+
+
