@@ -23,7 +23,6 @@ leave-one-chromosome-out (LOCO) method.
 
 
 
-
 Genetic mapping in mice presents a good example of why accounting for population 
 structure is important. Laboratory mouse strains are descended from a small 
 number of founders (fancy mice) and went through several population bottlenecks. 
@@ -40,34 +39,37 @@ for input to a linear mixed model to account for relationships among
 individuals. For a current review of mixed models in genetics, see this 
 [preprint of Martin and Eskin, 2017](https://www.biorxiv.org/content/early/2017/01/28/092106).
 
-Simple linear regression takes the form 
+Simple linear regression takes the form:
 
-<i>y</i> = <i>&mu;</i> + <i>&beta;X</i> + <i>&epsilon;</i>
+$y = \mu + \beta G + \epsilon$
 
-which describes a line with slope &beta; and y-intercept &mu;. The error 
-(or residual) is represented by &epsilon;.
+which describes a line with slope $\beta$ and y-intercept $\mu$. The error 
+(or residual) is represented by $\epsilon$.
 
-To model data from a cross, we use
+To model the relationship between the phenotype $y$ and the genotypes at one
+marker, we use:
 
-![](../fig/linear-genetic-model.png)  
+$y_j = \mu + \beta_k G_{jk} + \epsilon_j$
  
 
-where <i>y<sub>j</sub></i> is the phenotype of the <i>j</i>th individual, &mu; 
-is the mean phenotype value, <i>&beta;<sub>k</sub></i> is the effect of the 
-<i>kth</i> genotype, <i>X<sub>jk</sub></i> is the genotype for individual j, and 
-&epsilon;<sub>j</sub> is the error for the <i>j</i>th individual. In the figure 
-below, &mu; equals 94.6, and &beta; equals 
-15.4 for the alternative hypothesis 
-(QTL exists). This linear model is <i>y</i> = 94.6 + 
-15.4X + &epsilon;. The model intersects the 
+where $y_{ij} is the phenotype of the $j$th individual, $\mu$; 
+is the mean phenotype value, $\beta_k$ is the effect of the 
+$k$th genotype, $G_{jk} is the genotype for individual $j$, and 
+$\epsilon_j$ is the error for the $j$th individual. In the figure 
+below, $\mu$; equals 1, and $\beta$; equals 
+0.1 for the alternative hypothesis 
+(QTL exists). This linear model is $y$ = 1 + 
+0.1X + $\epsilon$. The model intersects the 
 genotype groups at their group means. In contrast, the null hypothesis would 
 state that there is no difference in group means (no QTL anywhere). The linear 
-model for the null hypothesis would be <i>y</i> = 94.6 + 0X + &epsilon;. 
+model for the null hypothesis would be $y$ = 94.6 + 0$X$ + $\epsilon$. 
 This states that the phenotype is equal to the combined mean (94.6), plus 
-some error (&epsilon;). In other words, genotype doesn't affect the phenotype.
+some error ($\epsilon$). In other words, genotype doesn't affect the phenotype.
 
+<!-- DMG: Make this figure again using ggbeeswarm and the BTBR data on Chr 2 
+at marker rs13476803. -->
 
-![](../fig/nullvalt.png)
+![](fig/nullvalt.png)
 
 The linear models above describe the relationship between genotype and phenotype 
 but are inadequate for describing the relationship between genotype and 
@@ -80,17 +82,17 @@ To model the phenotypes of all individuals in the data, we can adapt the simple
 linear model to include all individuals and their variants so that we capture 
 the effect of all variants shared by individuals on their phenotypes.
 
-![](../fig/matrix-alg-model.png)
+$y=\mu+\sum_{i=1}^M{\beta_iX_i}+\epsilon$
 
-Now, <i>y</i> represents the phenotypes of all individuals. The effect of the 
-<i>i</i>th genotype on the phenotype is &beta;<sub>i</sub>, the mean is &mu; 
-times 1, (mean multiplied by a vector of 1s) and the error is &epsilon;. Here, 
+Now, $y$ represents the phenotypes of all individuals. The effect of the 
+$i$th genotype on the phenotype is $\beta_i$, the mean is $\mu$ and the error 
+is $\epsilon$. Here, 
 the number of genotypes is M.
 
 To model the effect of all genotypes and to account for relatedness, we test the 
 effect of a single genotype while bringing all other genotypes into the model.
 
-![](../fig/all-geno-model.png)
+![](fig/all-geno-model.png)
 
 <i>&beta;<sub>k</sub></i> is the effect of the genotype <i>X<sub>k</sub></i>, 
 and &Sigma;<sub>i&#8800;k</sub><i>&beta;<sub>i</sub>X<sub>i</sub></i> sums the 
@@ -100,12 +102,21 @@ of genotypes on chromosome <i>k</i>, and
 <i>&beta;<sub>i</sub></i><i>X<sub>i</sub></i> represents effect of genotypes on 
 all other chromosomes.
 
- 
 If the sample contains divergent subpopulations, SNPs on different chromosomes 
 will be correlated because of the  difference in allele frequencies between 
 subpopulations caused by relatedness. To correct for correlations between 
 chromosomes, we model all genotypes on the other chromosomes when testing for 
 the association of a SNP. 
+
+First, we will create a single kinship matrix using all of the genoprobs on all
+chromosomes.
+
+
+``` r
+kinship_all <- calc_kinship(probs = probs, 
+                            type = "overall")
+```
+
 
 To perform a genome scan using a linear mixed model you also use the function 
 `scan1`; you just need to provide the argument `kinship`, a kinship matrix 
@@ -113,7 +124,10 @@ To perform a genome scan using a linear mixed model you also use the function
 
 
 ``` r
-out_pg <- scan1(pr, iron$pheno, kinship=kinship, Xcovar=Xcovar)
+lod_add_pg <- scan1(genoprobs = probs, 
+                    pheno     = cross$pheno[,"log10_insulin_10wk"], 
+                    kinship   = kinship_all, 
+                    addcovar  = addcovar)
 ```
 
 Again, on a multi-core machine, you can get some speed-up using the `cores` 
@@ -121,7 +135,11 @@ argument.
 
 
 ``` r
-out_pg <- scan1(pr, iron$pheno, kinship, Xcovar=Xcovar, cores=4)
+lod_add_all <- scan1(genoprobs = probs, 
+                     pheno     = cross$pheno[,"log10_insulin_10wk"], 
+                     kinship   = kinship_all, 
+                     addcovar  = addcovar, 
+                     cores     = 4)
 ```
 
 If, for your linear mixed model genome scan, you wish to use the "leave one 
@@ -129,9 +147,14 @@ chromosome out" (LOCO) method (scan each chromosome using a kinship matrix that
 is calculated using data from all other chromosomes), use `type="loco"` in the 
 call to `calc_kinship()`.
 
+<!-- DMG: We need more explanation here. We need to show that using the all-
+chromosome kinship matrix puts the marker being tested in the mapping model
+twice, and this erases the peak. -->
+
 
 ``` r
-kinship_loco <- calc_kinship(pr, "loco")
+kinship_loco <- calc_kinship(probs = probs, 
+                             type  = "loco")
 ```
 
 For the LOCO (leave one chromosome out) method, provide the list of kinship 
@@ -139,7 +162,10 @@ matrices as obtained from `calc_kinship()` with `method="loco"`.
 
 
 ``` r
-out_pg_loco <- scan1(pr, iron$pheno, kinship_loco, Xcovar=Xcovar)
+lod_add_loco <- scan1(genoprobs = probs, 
+                      pheno     = cross$pheno[,"log10_insulin_10wk"], 
+                      kinship   = kinship_loco, 
+                      addcovar  = addcovar)
 ```
 
 To plot the results, we again use `plot_scan1()`.
@@ -147,56 +173,50 @@ To plot the results, we again use `plot_scan1()`.
 Here is a plot of the LOD scores by Haley-Knott regression and the linear mixed 
 model using either the standard kinship matrix or the LOCO method.
 
-![](../fig/lod-plot-compare-liver.png)
-![](../fig/lod-plot-compare-spleen.png)
-
-You can use the code below to generate overlaid plots for each method.
-
 
 ``` r
-plot_scan1(out_pg_loco, map = map, lodcolumn = "liver", col = "black")
-plot_scan1(out_pg,      map = map, lodcolumn = "liver", col = "blue",  add = TRUE)
-plot_scan1(out,         map = map, lodcolumn = "liver", col = "green", add = TRUE)
+plot_scan1(x     = lod_add,      
+           map   = cross$pmap, 
+           col   = 'black',
+           ylim  = c(0, 7.5))
+plot_scan1(x     = lod_add_all,  
+           map   = cross$pmap, 
+           col   = 'blue',   
+           add   = TRUE)
 ```
 
-For the liver phenotype (top panel), the three methods give quite different 
-results. The linear mixed model with an overall kinship matrix gives much lower 
-LOD scores than the other two methods.  On chromosomes with some evidence of a 
-QTL, the LOCO method gives higher LOD scores than Haley-Knott, except on 
-chromosome 16 where it gives lower LOD scores.
+``` error
+Error in eval(expr, envir, enclos): object 'lod_add_all' not found
+```
 
-For the spleen phenotype (bottom panel), the linear mixed model with an overall 
-kinship matrix again gives much lower LOD scores than the other two methods. 
-However, in this case Haley-Knott regression and the LOCO method give quite 
-similar results.
+``` r
+plot_scan1(x     = lod_add_loco, 
+           map   = cross$pmap, 
+           col   = 'orange', 
+           add   = TRUE)
+```
+
+``` error
+Error in eval(expr, envir, enclos): object 'lod_add_loco' not found
+```
+
+``` r
+legend(x = 1500, y = 7.5, legend = c("No kinship", "All kinship", "LOCO kinship"),
+       lwd = 2, col = c('black', 'blue', 'orange'))
+```
+
+<img src="fig/perform-genome-scan-lmm-rendered-plot_lod_add_loco_all-1.png" style="display: block; margin: auto;" />
+
+
+For the circulating insulin, the three methods give quite different 
+results. The linear mixed model with an overall kinship matrix gives much lower 
+LOD scores than the other two methods. On chromosomes with some evidence of a 
+QTL, the LOCO method gives higher LOD scores than Haley-Knott, except on 
+chromosome 6 where it gives lower LOD scores.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge 1
-
-Earlier you inserted pseudomarkers for the `grav` data and saved the results to 
-an object called `gravmap`.  Then you calculated genotype probabilities and 
-saved the results to an object called `gravpr`.    
-1). Calculate kinship for the `grav` data using the LOCO method.  
-2). Run a genome scan with the genotype probabilities and kinship that you 
-calculated.  
-3). Find the maximum LOD score with `maxlod()`. The use `find_peaks()` to
-locate the position and phenotype of the maximum LOD score.   
-4). Plot the genome scan for this phenotype (hint: use the column number as 
-lodcolumn).
-
-:::::::::::::::::::::::: solution 
-
-1). `grav_kinship <- calc_kinship(gravpr, "loco")`  
-2). `out_grav <- scan1(genoprobs = gravpr, pheno = grav$pheno, kinship = grav_kinship)`  
-3). `maxlod <- maxlod(out_grav)` then 
-`find_peaks(out_grav, gravmap, threshold = maxlod)` 
-4). `plot(out_grav, lodcolumn = 133, map = gravmap)`
-
-:::::::::::::::::::::::::::::::::
-
-
-## Challenge 2
 
 What are the benefits and disadvantages of the three 
 methods for genome scanning (Haley-Knott regression,
@@ -214,7 +234,10 @@ collaborative document.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 3
+## Challenge 2
+
+<!-- DMG: Ha! we were using the BTBR data anyway. Let's not load a second copy
+of the data. Maybe we canb brainstorm about another challend. -->
 
 Pair programming exercise: with your partner, review and carry 
 out all of the steps in QTL mapping that we have covered so far,
@@ -246,13 +269,13 @@ Which methods identify these peaks? Which don't?
 `colnames(b6btbr$pheno)`  
 `b6bmap <- insert_pseudomarkers(map=b6btbr$gmap, step=1)`  
 `prb6b <- calc_genoprob(cross=b6btbr, map=b6bmap, error_prob=0.002)`  
-`b6bXcovar <- get_x_covar(b6btbr)`  
-`b6bout <- scan1(genoprobs = prb6b, pheno = b6btbr$pheno, Xcovar=b6bXcovar)`  
+`b6baddcovar <- get_x_covar(b6btbr)`  
+`b6bout <- scan1(genoprobs = prb6b, pheno = b6btbr$pheno, addcovar=b6baddcovar)`  
 `plot(b6bout, map = b6bmap)`  
 `b6bkinship <- calc_kinship(probs = prb6b)`  
-`out_pg_b6b <- scan1(prb6b, b6btbr$pheno, kinship=b6bkinship, Xcovar=b6bXcovar)`  
+`out_pg_b6b <- scan1(prb6b, b6btbr$pheno, kinship=b6bkinship, addcovar=b6baddcovar)`  
 `kinship_loco_b6b <- calc_kinship(prb6b, "loco")`  
-`out_pg_loco_b6b <- scan1(prb6b, b6btbr$pheno, kinship_loco_b6b, Xcovar=b6bXcovar)`  
+`out_pg_loco_b6b <- scan1(prb6b, b6btbr$pheno, kinship_loco_b6b, addcovar=b6baddcovar)`  
 `plot_scan1(out_pg_loco_b6b, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "black")`  
 `plot_scan1(out_pg_b6b, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "blue", add = TRUE)`  
 `plot_scan1(b6bout, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "green", add = TRUE)`  
@@ -261,6 +284,8 @@ Which methods identify these peaks? Which don't?
 :::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
+
+<!-- DMG: Not sure what this is. -->
 
 
 ``` r

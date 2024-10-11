@@ -25,24 +25,29 @@ type 1, in which the immune system attacks insulin-secreting cells and prevents
 insulin production, and type 2, in which the pancreas makes less insulin and
 the body becomes less responsive to insulin.
 
-This study is from [Tian et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4649649/)
-and involves an intercross between the diabetes-resistant C57BL/6J (BL^) strain and 
-the diabetes-susceptible BTBR T+ tf/J (BTBR) strain. mice carrying a
-Leptin^ob/ob^ mutation. The <ob> mutation causes the mice to not produce 
-[Leptin](https://en.wikipedia.org/wiki/Leptin), which is a hormone that regulates
-hunger and satiety. When Leptin levels are low (or missing), the body does not
-receive satiety signals and continues to feel hunger. Leptin^ob/ob^ mice 
-continue to eat and become obese. Obesity is one of the risk factors for 
-T2D and this experiment sought to use genetic variation between BL6 and BTBR
-strains to identify genes which influence T2D. 
+![Insulin resistance in Type 2 diabetes](fig/healthy-vs-T2D.png)
+Created in  BioRender.com
 
-<!-- DMG: Can we get a diagram of an F2 from one of Karl's papers? -->
+This study is from 
+[Tian et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4649649/)
+and involves an intercross between the diabetes-resistant C57BL/6J (B6 or B) 
+strain and the diabetes-susceptible BTBR T+ tf/J (BTBR or R) strain mice 
+carrying a Leptin^ob/ob^ mutation. 
+
+![](fig/intercross.png)
+
+The <ob> mutation causes the mice to not produce 
+[leptin](https://en.wikipedia.org/wiki/Leptin), a hormone that 
+regulates hunger and satiety. When leptin levels are low (or missing), the body 
+does not receive satiety signals and continues to feel hunger. Leptin^ob/ob^ 
+mice continue to eat and become obese. Obesity is one of the risk factors for 
+T2D and this experiment sought to use genetic variation between B6 and BTBR
+strains to identify genes which influence T2D. 
 
 This study measured insulin and glucose levels in mice at 10 weeks, at which
 time the mice were euthanized. After euthanasia, the author's harvested six
 tissues, adipose, gastrocnemius muscle, hypothalamus, pancreatic islets, kidney,
 and liver, and measured transcript levels via gene expression microarray.
-
 
 In this study, we will analyze circulating insulin levels and pancreatic islet 
 gene expression. We will map circulating insulin levels to identify genomic
