@@ -373,7 +373,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Performing a genome scan with a linear mixed model</h1>
-        <p>Last updated on 2024-10-09 |
+        <p>Last updated on 2024-10-11 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/perform-genome-scan-lmm.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -431,23 +431,25 @@ a kinship matrix</a> for input to a linear mixed model to account for
 relationships among individuals. For a current review of mixed models in
 genetics, see this <a href="https://www.biorxiv.org/content/early/2017/01/28/092106" class="external-link">preprint
 of Martin and Eskin, 2017</a>.</p>
-<p>Simple linear regression takes the form</p>
-<p><i>y</i> = <i>μ</i> + <i>βX</i> + <i>ε</i></p>
-<p>which describes a line with slope β and y-intercept μ. The error (or
-residual) is represented by ε.</p>
-<p>To model data from a cross, we use</p>
-<figure><img src="../fig/linear-genetic-model.png" class="figure mx-auto d-block"></figure><p>where <i>y<sub>j</sub></i> is the phenotype of the <i>j</i>th
-individual, μ is the mean phenotype value, <i>β<sub>k</sub></i> is the
-effect of the <i>kth</i> genotype, <i>X<sub>jk</sub></i> is the genotype
-for individual j, and ε<sub>j</sub> is the error for the <i>j</i>th
-individual. In the figure below, μ equals 94.6, and β equals 15.4 for
-the alternative hypothesis (QTL exists). This linear model is <i>y</i> =
-94.6 + 15.4X + ε. The model intersects the genotype groups at their
-group means. In contrast, the null hypothesis would state that there is
-no difference in group means (no QTL anywhere). The linear model for the
-null hypothesis would be <i>y</i> = 94.6 + 0X + ε. This states that the
-phenotype is equal to the combined mean (94.6), plus some error (ε). In
-other words, genotype doesn’t affect the phenotype.</p>
+<p>Simple linear regression takes the form:</p>
+<p><span class="math inline">\(y = \mu + \beta G + \epsilon\)</span></p>
+<p>which describes a line with slope <span class="math inline">\(\beta\)</span> and y-intercept <span class="math inline">\(\mu\)</span>. The error (or residual) is
+represented by <span class="math inline">\(\epsilon\)</span>.</p>
+<p>To model the relationship between the phenotype <span class="math inline">\(y\)</span> and the genotypes at one marker, we
+use:</p>
+<p><span class="math inline">\(y_j = \mu + \beta_k G_{jk} +
+\epsilon_j\)</span></p>
+<p>where $y_{ij} is the phenotype of the <span class="math inline">\(j\)</span>th individual, <span class="math inline">\(\mu\)</span>; is the mean phenotype value, <span class="math inline">\(\beta_k\)</span> is the effect of the <span class="math inline">\(k\)</span>th genotype, $G_{jk} is the genotype for
+individual <span class="math inline">\(j\)</span>, and <span class="math inline">\(\epsilon_j\)</span> is the error for the <span class="math inline">\(j\)</span>th individual. In the figure below,
+<span class="math inline">\(\mu\)</span>; equals 1, and <span class="math inline">\(\beta\)</span>; equals 0.1 for the alternative
+hypothesis (QTL exists). This linear model is <span class="math inline">\(y\)</span> = 1 + 0.1X + <span class="math inline">\(\epsilon\)</span>. The model intersects the
+genotype groups at their group means. In contrast, the null hypothesis
+would state that there is no difference in group means (no QTL
+anywhere). The linear model for the null hypothesis would be <span class="math inline">\(y\)</span> = 94.6 + 0<span class="math inline">\(X\)</span> + <span class="math inline">\(\epsilon\)</span>. This states that the phenotype
+is equal to the combined mean (94.6), plus some error (<span class="math inline">\(\epsilon\)</span>). In other words, genotype
+doesn’t affect the phenotype.</p>
+<!-- DMG: Make this figure again using ggbeeswarm and the BTBR data on Chr 2
+at marker rs13476803. -->
 <figure><img src="../fig/nullvalt.png" class="figure mx-auto d-block"></figure><p>The linear models above describe the relationship between genotype
 and phenotype but are inadequate for describing the relationship between
 genotype and phenotype in large datasets. They don’t account for
@@ -459,10 +461,10 @@ variants on the phenotype.</p>
 the simple linear model to include all individuals and their variants so
 that we capture the effect of all variants shared by individuals on
 their phenotypes.</p>
-<figure><img src="../fig/matrix-alg-model.png" class="figure mx-auto d-block"></figure><p>Now, <i>y</i> represents the phenotypes of all individuals. The
-effect of the <i>i</i>th genotype on the phenotype is β<sub>i</sub>, the
-mean is μ times 1, (mean multiplied by a vector of 1s) and the error is
-ε. Here, the number of genotypes is M.</p>
+<p><span class="math inline">\(y=\mu+\sum_{i=1}^M{\beta_iX_i}+\epsilon\)</span></p>
+<p>Now, <span class="math inline">\(y\)</span> represents the phenotypes
+of all individuals. The effect of the <span class="math inline">\(i\)</span>th genotype on the phenotype is <span class="math inline">\(\beta_i\)</span>, the mean is <span class="math inline">\(\mu\)</span> and the error is <span class="math inline">\(\epsilon\)</span>. Here, the number of genotypes
+is M.</p>
 <p>To model the effect of all genotypes and to account for relatedness,
 we test the effect of a single genotype while bringing all other
 genotypes into the model.</p>
@@ -479,69 +481,115 @@ chromosomes will be correlated because of the difference in allele
 frequencies between subpopulations caused by relatedness. To correct for
 correlations between chromosomes, we model all genotypes on the other
 chromosomes when testing for the association of a SNP.</p>
-<p>To perform a genome scan using a linear mixed model you also use the
-function <code>scan1</code>; you just need to provide the argument
-<code>kinship</code>, a kinship matrix (or, for the LOCO method, a list
-of kinship matrices).</p>
+<p>First, we will create a single kinship matrix using all of the
+genoprobs on all chromosomes.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">out_pg</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span><span class="va">pr</span>, <span class="va">iron</span><span class="op">$</span><span class="va">pheno</span>, kinship<span class="op">=</span><span class="va">kinship</span>, Xcovar<span class="op">=</span><span class="va">Xcovar</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">kinship_all</span> <span class="op">&lt;-</span> <span class="fu">calc_kinship</span><span class="op">(</span>probs <span class="op">=</span> <span class="va">probs</span>, </span>
+<span>                            type <span class="op">=</span> <span class="st">"overall"</span><span class="op">)</span></span></code></pre>
 </div>
-<p>Again, on a multi-core machine, you can get some speed-up using the
-<code>cores</code> argument.</p>
+<p>To perform a genome scan using a linear mixed model you also use the
+function <code>scan1</code>; you just need to provide the argument
+<code>kinship</code>, a kinship matrix (or, for the LOCO method, a list
+of kinship matrices).</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">out_pg</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span><span class="va">pr</span>, <span class="va">iron</span><span class="op">$</span><span class="va">pheno</span>, <span class="va">kinship</span>, Xcovar<span class="op">=</span><span class="va">Xcovar</span>, cores<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">lod_add_pg</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
+<span>                    pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"log10_insulin_10wk"</span><span class="op">]</span>, </span>
+<span>                    kinship   <span class="op">=</span> <span class="va">kinship_all</span>, </span>
+<span>                    addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Again, on a multi-core machine, you can get some speed-up using the
+<code>cores</code> argument.</p>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lod_add_all</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
+<span>                     pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"log10_insulin_10wk"</span><span class="op">]</span>, </span>
+<span>                     kinship   <span class="op">=</span> <span class="va">kinship_all</span>, </span>
+<span>                     addcovar  <span class="op">=</span> <span class="va">addcovar</span>, </span>
+<span>                     cores     <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre>
 </div>
 <p>If, for your linear mixed model genome scan, you wish to use the
 “leave one chromosome out” (LOCO) method (scan each chromosome using a
 kinship matrix that is calculated using data from all other
 chromosomes), use <code>type="loco"</code> in the call to
 <code>calc_kinship()</code>.</p>
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kinship_loco</span> <span class="op">&lt;-</span> <span class="fu">calc_kinship</span><span class="op">(</span><span class="va">pr</span>, <span class="st">"loco"</span><span class="op">)</span></span></code></pre>
-</div>
-<p>For the LOCO (leave one chromosome out) method, provide the list of
-kinship matrices as obtained from <code>calc_kinship()</code> with
-<code>method="loco"</code>.</p>
+<!-- DMG: We need more explanation here. We need to show that using the all-
+chromosome kinship matrix puts the marker being tested in the mapping model
+twice, and this erases the peak. -->
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">out_pg_loco</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span><span class="va">pr</span>, <span class="va">iron</span><span class="op">$</span><span class="va">pheno</span>, <span class="va">kinship_loco</span>, Xcovar<span class="op">=</span><span class="va">Xcovar</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">kinship_loco</span> <span class="op">&lt;-</span> <span class="fu">calc_kinship</span><span class="op">(</span>probs <span class="op">=</span> <span class="va">probs</span>, </span>
+<span>                             type  <span class="op">=</span> <span class="st">"loco"</span><span class="op">)</span></span></code></pre>
+</div>
+<p>For the LOCO (leave one chromosome out) method, provide the list of
+kinship matrices as obtained from <code>calc_kinship()</code> with
+<code>method="loco"</code>.</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lod_add_loco</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
+<span>                      pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"log10_insulin_10wk"</span><span class="op">]</span>, </span>
+<span>                      kinship   <span class="op">=</span> <span class="va">kinship_loco</span>, </span>
+<span>                      addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
 </div>
 <p>To plot the results, we again use <code>plot_scan1()</code>.</p>
 <p>Here is a plot of the LOD scores by Haley-Knott regression and the
 linear mixed model using either the standard kinship matrix or the LOCO
 method.</p>
-<p><img src="../fig/lod-plot-compare-liver.png" class="figure"><img src="../fig/lod-plot-compare-spleen.png" class="figure"></p>
-<p>You can use the code below to generate overlaid plots for each
-method.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span><span class="va">out_pg_loco</span>, map <span class="op">=</span> <span class="va">map</span>, lodcolumn <span class="op">=</span> <span class="st">"liver"</span>, col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span></span>
-<span><span class="fu">plot_scan1</span><span class="op">(</span><span class="va">out_pg</span>,      map <span class="op">=</span> <span class="va">map</span>, lodcolumn <span class="op">=</span> <span class="st">"liver"</span>, col <span class="op">=</span> <span class="st">"blue"</span>,  add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu">plot_scan1</span><span class="op">(</span><span class="va">out</span>,         map <span class="op">=</span> <span class="va">map</span>, lodcolumn <span class="op">=</span> <span class="st">"liver"</span>, col <span class="op">=</span> <span class="st">"green"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span>x     <span class="op">=</span> <span class="va">lod_add</span>,      </span>
+<span>           map   <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>, </span>
+<span>           col   <span class="op">=</span> <span class="st">'black'</span>,</span>
+<span>           ylim  <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="fl">7.5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">plot_scan1</span><span class="op">(</span>x     <span class="op">=</span> <span class="va">lod_add_all</span>,  </span>
+<span>           map   <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>, </span>
+<span>           col   <span class="op">=</span> <span class="st">'blue'</span>,   </span>
+<span>           add   <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
-<p>For the liver phenotype (top panel), the three methods give quite
-different results. The linear mixed model with an overall kinship matrix
-gives much lower LOD scores than the other two methods. On chromosomes
-with some evidence of a QTL, the LOCO method gives higher LOD scores
-than Haley-Knott, except on chromosome 16 where it gives lower LOD
-scores.</p>
-<p>For the spleen phenotype (bottom panel), the linear mixed model with
-an overall kinship matrix again gives much lower LOD scores than the
-other two methods. However, in this case Haley-Knott regression and the
-LOCO method give quite similar results.</p>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'lod_add_all' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb8">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span>x     <span class="op">=</span> <span class="va">lod_add_loco</span>, </span>
+<span>           map   <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>, </span>
+<span>           col   <span class="op">=</span> <span class="st">'orange'</span>, </span>
+<span>           add   <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'lod_add_loco' not found</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb10">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">legend</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1500</span>, y <span class="op">=</span> <span class="fl">7.5</span>, legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"No kinship"</span>, <span class="st">"All kinship"</span>, <span class="st">"LOCO kinship"</span><span class="op">)</span>,</span>
+<span>       lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">'black'</span>, <span class="st">'blue'</span>, <span class="st">'orange'</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="../fig/perform-genome-scan-lmm-rendered-plot_lod_add_loco_all-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>For the circulating insulin, the three methods give quite different
+results. The linear mixed model with an overall kinship matrix gives
+much lower LOD scores than the other two methods. On chromosomes with
+some evidence of a QTL, the LOCO method gives higher LOD scores than
+Haley-Knott, except on chromosome 6 where it gives lower LOD scores.</p>
 <div id="challenge-1" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -549,19 +597,12 @@ LOCO method give quite similar results.</p>
 <div id="challenge-1" class="callout-inner">
 <h3 class="callout-title">Challenge 1</h3>
 <div class="callout-content">
-<p>Earlier you inserted pseudomarkers for the <code>grav</code> data and
-saved the results to an object called <code>gravmap</code>. Then you
-calculated genotype probabilities and saved the results to an object
-called <code>gravpr</code>.<br>
-1). Calculate kinship for the <code>grav</code> data using the LOCO
-method.<br>
-2). Run a genome scan with the genotype probabilities and kinship that
-you calculated.<br>
-3). Find the maximum LOD score with <code>maxlod()</code>. The use
-<code>find_peaks()</code> to locate the position and phenotype of the
-maximum LOD score.<br>
-4). Plot the genome scan for this phenotype (hint: use the column number
-as lodcolumn).</p>
+<p>What are the benefits and disadvantages of the three methods for
+genome scanning (Haley-Knott regression, kinship matrix, and
+leave-one-chromosome out (LOCO)?)<br>
+Which method would you use to scan, and why?<br>
+Think about the advantages and disadvantages of each, discuss with a
+neighbor, and share your thoughts in the collaborative document.</p>
 </div>
 </div>
 </div>
@@ -572,13 +613,7 @@ as lodcolumn).</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-<p>1).
-<code>grav_kinship &lt;- calc_kinship(gravpr, "loco")</code><br>
-2).
-<code>out_grav &lt;- scan1(genoprobs = gravpr, pheno = grav$pheno, kinship = grav_kinship)</code><br>
-3). <code>maxlod &lt;- maxlod(out_grav)</code> then
-<code>find_peaks(out_grav, gravmap, threshold = maxlod)</code> 4).
-<code>plot(out_grav, lodcolumn = 133, map = gravmap)</code></p>
+
 </div>
 </div>
 </div>
@@ -590,34 +625,8 @@ as lodcolumn).</p>
 <div id="challenge-2" class="callout-inner">
 <h3 class="callout-title">Challenge 2</h3>
 <div class="callout-content">
-<p>What are the benefits and disadvantages of the three methods for
-genome scanning (Haley-Knott regression, kinship matrix, and
-leave-one-chromosome out (LOCO)?)<br>
-Which method would you use to scan, and why?<br>
-Think about the advantages and disadvantages of each, discuss with a
-neighbor, and share your thoughts in the collaborative document.</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
-  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
-</button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
-<div class="accordion-body">
-
-</div>
-</div>
-</div>
-</div>
-<div id="challenge-3" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div id="challenge-3" class="callout-inner">
-<h3 class="callout-title">Challenge 3</h3>
-<div class="callout-content">
+<!-- DMG: Ha! we were using the BTBR data anyway. Let's not load a second copy
+of the data. Maybe we canb brainstorm about another challend. -->
 <p>Pair programming exercise: with your partner, review and carry out
 all of the steps in QTL mapping that we have covered so far, using a new
 data set. One of you types the code, the other explains what needs to
@@ -639,19 +648,20 @@ colors.</li>
 </ol></div>
 </div>
 </div>
-<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
-  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
-<p><code>file &lt;- paste0("https://raw.githubusercontent.com/rqtl/", "qtl2data/master/B6BTBR/b6btbr.zip")</code><br><code>b6btbr &lt;- read_cross2(file)</code><br><code>summary(b6btbr)</code><br><code>head(b6btbr$pheno)</code><br><code>colnames(b6btbr$pheno)</code><br><code>b6bmap &lt;- insert_pseudomarkers(map=b6btbr$gmap, step=1)</code><br><code>prb6b &lt;- calc_genoprob(cross=b6btbr, map=b6bmap, error_prob=0.002)</code><br><code>b6bXcovar &lt;- get_x_covar(b6btbr)</code><br><code>b6bout &lt;- scan1(genoprobs = prb6b, pheno = b6btbr$pheno, Xcovar=b6bXcovar)</code><br><code>plot(b6bout, map = b6bmap)</code><br><code>b6bkinship &lt;- calc_kinship(probs = prb6b)</code><br><code>out_pg_b6b &lt;- scan1(prb6b, b6btbr$pheno, kinship=b6bkinship, Xcovar=b6bXcovar)</code><br><code>kinship_loco_b6b &lt;- calc_kinship(prb6b, "loco")</code><br><code>out_pg_loco_b6b &lt;- scan1(prb6b, b6btbr$pheno, kinship_loco_b6b, Xcovar=b6bXcovar)</code><br><code>plot_scan1(out_pg_loco_b6b, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "black")</code><br><code>plot_scan1(out_pg_b6b, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "blue", add = TRUE)</code><br><code>plot_scan1(b6bout, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "green", add = TRUE)</code></p>
+<p><code>file &lt;- paste0("https://raw.githubusercontent.com/rqtl/", "qtl2data/master/B6BTBR/b6btbr.zip")</code><br><code>b6btbr &lt;- read_cross2(file)</code><br><code>summary(b6btbr)</code><br><code>head(b6btbr$pheno)</code><br><code>colnames(b6btbr$pheno)</code><br><code>b6bmap &lt;- insert_pseudomarkers(map=b6btbr$gmap, step=1)</code><br><code>prb6b &lt;- calc_genoprob(cross=b6btbr, map=b6bmap, error_prob=0.002)</code><br><code>b6baddcovar &lt;- get_x_covar(b6btbr)</code><br><code>b6bout &lt;- scan1(genoprobs = prb6b, pheno = b6btbr$pheno, addcovar=b6baddcovar)</code><br><code>plot(b6bout, map = b6bmap)</code><br><code>b6bkinship &lt;- calc_kinship(probs = prb6b)</code><br><code>out_pg_b6b &lt;- scan1(prb6b, b6btbr$pheno, kinship=b6bkinship, addcovar=b6baddcovar)</code><br><code>kinship_loco_b6b &lt;- calc_kinship(prb6b, "loco")</code><br><code>out_pg_loco_b6b &lt;- scan1(prb6b, b6btbr$pheno, kinship_loco_b6b, addcovar=b6baddcovar)</code><br><code>plot_scan1(out_pg_loco_b6b, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "black")</code><br><code>plot_scan1(out_pg_b6b, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "blue", add = TRUE)</code><br><code>plot_scan1(b6bout, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "green", add = TRUE)</code></p>
 </div>
 </div>
 </div>
 </div>
-<div class="codewrapper sourceCode" id="cb6">
+<!-- DMG: Not sure what this is. -->
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -738,8 +748,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/instructor/perform-genome-scan-lmm.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/instructor/perform-genome-scan-lmm.html",
   "dateCreated": "2024-09-06",
-  "dateModified": "2024-10-09",
-  "datePublished": "2024-10-10"
+  "dateModified": "2024-10-11",
+  "datePublished": "2024-10-11"
 }
 
   </script><script>

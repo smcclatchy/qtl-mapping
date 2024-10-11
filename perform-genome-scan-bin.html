@@ -373,7 +373,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Performing a genome scan with binary traits</h1>
-        <p>Last updated on 2024-10-09 |
+        <p>Last updated on 2024-10-11 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/perform-genome-scan-bin.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -418,42 +418,200 @@ the argument <code>model="binary"</code>. (The default value for the
 <code>model</code> argument is <code>"normal"</code>.) At present, we
 <em>can not</em> account for relationships among individuals in this
 analysis.</p>
-<p>Let’s first turn our two phenotypes into binary traits by
-thresholding at the median. One would generally <em>not</em> do this in
-practice; this is just for illustration.</p>
+<p>Let’s look at the phenotypes in the cross again.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bin_pheno</span> <span class="op">&lt;-</span> <span class="fu">apply</span><span class="op">(</span><span class="va">iron</span><span class="op">$</span><span class="va">pheno</span>, <span class="fl">2</span>, <span class="kw">function</span><span class="op">(</span><span class="va">a</span><span class="op">)</span> <span class="fu">as.numeric</span><span class="op">(</span><span class="va">a</span> <span class="op">&gt;</span> <span class="fu">median</span><span class="op">(</span><span class="va">a</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">rownames</span><span class="op">(</span><span class="va">bin_pheno</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">iron</span><span class="op">$</span><span class="va">pheno</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">)</span></span></code></pre>
 </div>
-<p>We now perform the genome scan as before, including
-<code>model="binary"</code> to indicate that the phenotypes are binary
-traits with values 0 and 1.</p>
-<div class="codewrapper sourceCode" id="cb2">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">out_bin</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span><span class="va">pr</span>, <span class="va">bin_pheno</span>, Xcovar<span class="op">=</span><span class="va">Xcovar</span>, model<span class="op">=</span><span class="st">"binary"</span><span class="op">)</span></span></code></pre>
+<pre class="output" tabindex="0"><code>          log10_insulin_10wk agouti_tan tufted
+Mouse3051              1.399          1      0
+Mouse3551              0.369          1      1
+Mouse3430              0.860          0      1
+Mouse3476              0.800          1      0
+Mouse3414              1.370          0      0
+Mouse3145              1.783          1      0</code></pre>
 </div>
-<p>Here is a plot of the two LOD curves.</p>
+<p>There are two binary traits called “agouti_tan”, and “tufted” which
+are related to coat color and shape.</p>
+<p>We perform a binary genome scan in a similar manner to mapping
+continuous traits by using <code>scan1</code>. When we mapped insulin,
+there was a hidden argument called <code>model</code> which told
+<code>qtl2</code> which mapping model to use. There are two options:
+<code>normal</code>, the default, and <code>binary</code>. The
+<code>normal</code> argument tells
+<code>qtl2 to ues a "normal" (least squares) linear model. To map a binary trait, we will  include</code>model
+= “binary”` to indicate that the phenotype is a binary trait with values
+0 and 1.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">par</span><span class="op">(</span>mar<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="fl">5.1</span>, <span class="fl">4.1</span>, <span class="fl">1.1</span>, <span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">ymx</span> <span class="op">&lt;-</span> <span class="fu">maxlod</span><span class="op">(</span><span class="va">out_bin</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="va">out_bin</span>, <span class="va">map</span>, lodcolumn<span class="op">=</span><span class="fl">1</span>, col<span class="op">=</span><span class="st">"slateblue"</span>, ylim<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="fl">0</span>, <span class="va">ymx</span><span class="op">*</span><span class="fl">1.02</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="va">out_bin</span>, <span class="va">map</span>, lodcolumn<span class="op">=</span><span class="fl">2</span>, col<span class="op">=</span><span class="st">"violetred"</span>, add<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="fu">legend</span><span class="op">(</span><span class="st">"topleft"</span>, lwd<span class="op">=</span><span class="fl">2</span>, col<span class="op">=</span><span class="fu">c</span><span class="op">(</span><span class="st">"slateblue"</span>, <span class="st">"violetred"</span><span class="op">)</span>, <span class="fu">colnames</span><span class="op">(</span><span class="va">out_bin</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">"gray90"</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">lod_agouti</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
+<span>                    pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">'agouti_tan'</span><span class="op">]</span>, </span>
+<span>                    addcovar  <span class="op">=</span> <span class="va">addcovar</span>, </span>
+<span>                    model     <span class="op">=</span> <span class="st">"binary"</span><span class="op">)</span></span></code></pre>
 </div>
-<p>We can use <code>find_peaks</code> as before.</p>
+<!-- DMG: Explain why we don't use kinship. It's because we don't have
+a model that can handle correlated residuals. It uses logistic regression
+and we don't know how to adjust for correlated residuals. -->
+<p>Let’s plot the result and see if there is a peak.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">find_peaks</span><span class="op">(</span><span class="va">out_bin</span>, <span class="va">map</span>, threshold<span class="op">=</span><span class="fl">3.5</span>, drop<span class="op">=</span><span class="fl">1.5</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span>x    <span class="op">=</span> <span class="va">lod_agouti</span>, </span>
+<span>           map  <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>, </span>
+<span>           main <span class="op">=</span> <span class="st">'Agouti'</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/perform-genome-scan-bin-rendered-plot_bin_scan-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>Yes! There is a big peak on chromosome 2. Let’s zoom in on chromosome
+2.</p>
+<div class="codewrapper sourceCode" id="cb5">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span>x    <span class="op">=</span> <span class="va">lod_agouti</span>, </span>
+<span>           map  <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>, </span>
+<span>           chr  <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>           main <span class="op">=</span> <span class="st">'Agouti'</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/perform-genome-scan-bin-rendered-plot_bin_scan_chr2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>We can use <code>find_peaks</code> to find the position of the
+highest LOD score.</p>
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">find_peaks</span><span class="op">(</span>scan1_output <span class="op">=</span> <span class="va">lod_agouti</span>, </span>
+<span>           map          <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span><span class="op">)</span></span></code></pre>
+</div>
+<p>This turns out to be a well-known coat color locus for agouti coat
+color which contains the <a href="https://www.informatics.jax.org/marker/MGI:87853" class="external-link">nonagouti</a>
+gene. Mice carrying two black alleles will have a black coat, and mice
+carrying one or no black alleles will have agouti coats.</p>
+<div id="challenge-1-how-many-mice-have-black-coats" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-1-how-many-mice-have-black-coats" class="callout-inner">
+<h3 class="callout-title">Challenge 1: How many mice have black coats?</h3>
+<div class="callout-content">
+<p>Look at the frequency of the black (0) and agouti (1) phenotypes.
+What proportion of the mice are black? Can you use what you learned
+about how the <code>nonagouti</code> locus works and the cross design to
+explain the frequency of black mice?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div class="accordion-body">
+<p>First, get the number of black and agouti mice.</p>
+<div class="codewrapper sourceCode" id="cb7">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tbl</span> <span class="op">&lt;-</span> <span class="fu">table</span><span class="op">(</span><span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"agouti_tan"</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">tbl</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+  0   1
+125 356 </code></pre>
+</div>
+<p>Then use the number of mice to calculate the proportion with each
+coat color.</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">tbl</span> <span class="op">/</span> <span class="fu">sum</span><span class="op">(</span><span class="va">tbl</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>
+   0    1
+0.26 0.74 </code></pre>
+</div>
+<p>We can see that the black (0) mice occur about 25 % of the time. If
+the <code>A</code> allele causes mice to have black coats when it is
+recessive, and if <code>a</code> is the agouti allele, then, when
+breeding two heterozygous (<code>Aa</code>) mice together, we expect
+mean allele frequencies of:</p>
+<table class="table"><thead><tr class="header"><th>Allele</th>
+<th>Frequency</th>
+<th>Coat Color</th>
+</tr></thead><tbody><tr class="odd"><td>AA</td>
+<td>0.25</td>
+<td>black</td>
+</tr><tr class="even"><td>Aa</td>
+<td>0.5</td>
+<td>agouti</td>
+</tr><tr class="odd"><td>aa</td>
+<td>0.25</td>
+<td>agouti</td>
+</tr></tbody></table><p>From this, we can see that about 25% of the mice should have black
+coats.</p>
+<!-- DMG: Fill this in with a figure showing the expected frequency of
+two allele from F1s. AA = 25%, Aa = 50% & aa = 25%. -->
+</div>
+</div>
+</div>
+</div>
+<div id="challenge-2-map-the-tufted-phenotype." class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-2-map-the-tufted-phenotype." class="callout-inner">
+<h3 class="callout-title">Challenge 2: Map the “tufted” phenotype.</h3>
+<div class="callout-content">
+<p>Map the tufted phenotype an determine if there are any tall peaks for
+this trait.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
+</button>
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div class="accordion-body">
+<p>First, map the trait.</p>
+<div class="codewrapper sourceCode" id="cb11">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lod_tufted</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
+<span>                    pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"tufted"</span><span class="op">]</span>, </span>
+<span>                    addcovar  <span class="op">=</span> <span class="va">addcovar</span>, </span>
+<span>                    model     <span class="op">=</span> <span class="st">"binary"</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Then, plot the LOD score.</p>
+<div class="codewrapper sourceCode" id="cb12">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span>x    <span class="op">=</span> <span class="va">lod_tufted</span>, </span>
+<span>           map  <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>, </span>
+<span>           main <span class="op">=</span> <span class="st">"Tufted"</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/perform-genome-scan-bin-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>There is a large peak on chromosome 17. This is a <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3570182/" class="external-link">known
+locus</a> associated with the <a href="https://www.informatics.jax.org/marker/MGI:96624" class="external-link">Itpr3</a> gene
+near 27.3 Mb on chromsome 17.</p>
+</div>
+</div>
+</div>
 </div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
@@ -535,8 +693,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/perform-genome-scan-bin.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/perform-genome-scan-bin.html",
   "dateCreated": "2024-09-06",
-  "dateModified": "2024-10-09",
-  "datePublished": "2024-10-10"
+  "dateModified": "2024-10-11",
+  "datePublished": "2024-10-11"
 }
 
   </script><script>
