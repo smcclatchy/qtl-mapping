@@ -1,36 +1,43 @@
 ---
-title: "Estimated QTL effects"
+title: "Estimating QTL effects"
 teaching: 10
 exercises: 20
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "How do I find the estimated effects of a QTL on a phenotype?"
+- How do I find the founder allele effects at a QTL peak?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Obtain estimated QTL effects.
-- Plot estimated QTL effects.
+- Estimate the founder allele effects at a QTL peak.
+- Plot the estimated founder allele effects.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-```{r load_dependencies, echo=FALSE}
-library(qtl2)
-iron <- read_cross2( system.file("extdata", "iron.zip", package="qtl2") )
-map <- insert_pseudomarkers(map=iron$gmap, step=1)
-pr <- calc_genoprob(cross=iron, map=map, error_prob=0.002)
-kinship <- calc_kinship(pr)
-kinship_loco <- calc_kinship(pr, "loco")
-Xcovar <- get_x_covar(iron)
-out <- scan1(genoprobs = pr, pheno = iron$pheno, Xcovar=Xcovar)
-out_pg_loco <- scan1(pr, iron$pheno, kinship_loco, Xcovar=Xcovar)
-bin_pheno <- apply(iron$pheno, 2, function(a) as.numeric(a > median(a)))
-rownames(bin_pheno) <- rownames(iron$pheno)
-c2eff <- scan1coef(pr[,"2"], iron$pheno[,"liver"])
+```{r github_load_data,echo=FALSE,warning=FALSE,message=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(ggbeeswarm))
+suppressPackageStartupMessages(library(qtl2))
+cross <- read_cross2(file = 'https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip')
+probs <- calc_genoprob(cross = cross, map = cross$gmap, error_prob = 0.002)
+kinship_loco <- calc_kinship(probs = probs, type = "loco")
+# Covariates
+cross$covar$Sex <- factor(cross$covar$Sex)
+addcovar <- model.matrix(~Sex, data = cross$covar)[,-1, drop = FALSE]
+# LOD scan for insulin.
+lod_add_loco <- scan1(genoprobs = probs, 
+                      pheno = cross$pheno[,"log10_insulin_10wk"], 
+                      kinship = kinship_loco, addcovar = addcovar)
+perm_add_loco = readRDS(url("https://thejacksonlaboratory.box.com/shared/static/fatud2gsjogbfg4xntyix05j6dg3pdnj.rds"))
+thr = summary(perm_add_loco, alpha = 0.05)
 ```
+
+## Estimating Founder Allele Effects
+
+<!-- DMG: Sue, can you make the equations Latex? -->
 
 Recall that to model data from a cross, we use
 
@@ -68,162 +75,324 @@ For example, to get the estimated QTL effects on chromosome 2 for the liver
 phenotype, we would provide the chromosome 2 genotype probabilities and the 
 liver phenotype to the function `scan1coef()` as follows:
 
-```{r est_effects_liver_c2}
-c2eff <- scan1coef(pr[,"2"], iron$pheno[,"liver"])
+```{r est_effects_chr2}
+chr      <- "2"
+eff_chr2 <- scan1coef(genoprobs = probs[,chr], 
+                      pheno     = cross$pheno[,"log10_insulin_10wk", drop = FALSE],
+                      kinship   = kinship_loco[[chr]],
+                      addcovar  = addcovar)
 ```
 
-The result is a matrix of `r nrow(c2eff)` positions &times; `r ncol(c2eff)-1` 
+The result is a matrix of `r nrow(eff_chr2)` positions &times; `r ncol(eff_chr2)-1` 
 genotypes. An additional column contains the intercept values (&mu;).
 
 ```{r effects_matrix_dim}
-dim(c2eff)
-head(c2eff)
+dim(eff_chr2)
 ```
 
-To plot the QTL effects, use the function `plot_coef()`.
+## Plotting Founder Allele Effects Along a Chromosome
 
-```{r plot_effects_liver_simple}
-plot_coef(c2eff, map, legend = "topright")
+To plot the QTL effects, use the `plot_coef()` function. Add the LOD plot to 
+the `scan1_output` argument to include a LOD plot at the bottom.
+
+```{r plot_coef}
+plot_coef(x            = eff_chr2, 
+          map          = cross$pmap,
+          scan1_output = lod_add_loco, 
+          legend       = "topright")
 ```
 
 The plot shows effect values on the y-axis and cM values on the x-axis. The
-value of the intercept (&mu;) appears at the top. The effect of the `r dimnames(c2eff)[[2]][[2]]` genotype is centered around zero, with the effects
-of the other two genotypes above and below.  
+value of the intercept (&mu;) appears at the top. The effect of the 
+`r dimnames(eff_chr2)[[2]][[2]]` genotype is centered around zero, with the
+effects of the other two genotypes above and below. We are usually not 
+directly interested in how the additive covariates change across the genome, 
+but rather, the the founder allele effects change.
 
-To plot only the effects, use the argument `columns` to indicate which 
-coefficients to plot. Add `scan1_output` to include a LOD plot at the bottom.
+To plot only the founder allele effects, use the argument `columns` to indicate
+which coefficients to plot. Let's look at the columns which contain the founder 
+allele effects.
 
-```{r plot_effects_liver_c2}
-plot_coef(c2eff, map, columns = 1:3, scan1_output = out, 
-          main = "Chromosome 2 QTL effects and LOD scores",
-          legend = "topright")
+```{r}
+head(eff_chr2)
 ```
 
-If instead you want additive and dominance effects, you can provide a square matrix of _contrasts_, as follows:
+We would like to plot the columns "BB", "BR", and "RR", which are in columns
+1 through 3. This is what we pass into the `columns` argument.
+
+```{r plot_effects_chr 2}
+plot_coef(x       = eff_chr2, 
+          map     = cross$pmap, 
+          columns = 1:3, 
+          scan1_output = lod_add_loco, 
+          main    = "Chromosome 2 QTL effects and LOD scores",
+          legend  = "topleft")
+```
+
+Looking at the plot above, which founder allele contributes to higher 
+insulin levels?
+
+## Estimating Founder Allele Effects using BLUPs
+
+Another option for estimating the founder allele effects is to treat them as 
+[random effects](https://stats.stackexchange.com/questions/4700/what-is-the-difference-between-fixed-effect-random-effect-and-mixed-effect-mode#151800) 
+and calculate 
+[Best Linear Unbiased Predictors](https://en.wikipedia.org/wiki/Best_linear_unbiased_prediction) 
+(BLUPs). This is particularly valuable for multi-parent populations such as the 
+Collaborative Cross and Diversity Outbred mice, where the large number of 
+possible genotypes at a QTL leads to considerable variability in the effect 
+estimates. To calculate BLUPs, use `scan1blup()`; it takes the same arguments 
+as `scan1coef()`, including the option of a kinship matrix to account for a 
+residual polygenic effect.
+
+```{r est_blups_chr2}
+blup_chr2 <- scan1blup(genoprobs = probs[,chr], 
+                       pheno     = cross$pheno[,"log10_insulin_10wk", drop = FALSE],
+                       kinship   = kinship_loco[[chr]],
+                       addcovar  = addcovar)
+```
+
+We can plot the BLUP effects using `plot_coef` as before.
+
+```{r plot_blup_chr2}
+plot_coef(x       = blup_chr2, 
+          map     = cross$pmap, 
+          columns = 1:3, 
+          scan1_output = lod_add_loco, 
+          main    = "Chromosome 2 QTL BLUP effects and LOD scores",
+          legend  = "topleft")
+```
+
+In the plot below, we plotted the founder allele effects (solid lines) and the 
+BLUPs (dashed lines). In this case, the effects are not greatly different, but 
+the effects are "shrunken" toward zero. 
+
+```{r plot_blup_chr2}
+plot_coef(x       = eff_chr2, 
+          map     = cross$pmap, 
+          columns = 1:3, 
+          main    = "Chromosome 2 QTL BLUP effects and LOD scores",
+          legend  = "topleft")
+plot_coef(x       = blup_chr2, 
+          map     = cross$pmap, 
+          columns = 1:3,
+          lty     = 2,
+          legend  = "topleft",
+          add     = TRUE)
+```
+
+## Plotting Allele Effects at one Marker
+
+You may also want plot the founder allele effects at the marker with the
+highest LOD. To do this, you first need to get the position of the marker from
+the peak list.
+
+```{r find_peaks}
+peaks <- find_peaks(scan1_output = lod_add_loco,
+                   map          = cross$pmap,
+                   threshold    = thr)
+peaks
+```
+
+The position of the maximum LOD on chromosome 2 is `r subset(peaks, chr == '2')$pos`
+Mb. We can pass this value into the `qtl2` function `pull_genoprobpos` to get
+the genoprobs at this marker.
+
+```{r pull_genoprobs}
+max_pos <- subset(peaks, chr == '2')$pos
+max_mkr <- find_marker(map = cross$pmap, 
+                       chr = chr, 
+                       pos = max_pos)
+
+pr      <- pull_genoprobpos(genoprobs = probs, 
+                            marker    = max_mkr)
+```
+
+<!-- DMG: Make this a challenge. -->
+
+What does the structure of `pr` look like?
+
+```{r str_pr}
+str(pr)
+```
+
+`pr` is a numeric matrix with `r nrow(pr)` rows and `r ncol(pr)` columns. The
+rownames contain the mouse IDs and the column names contain the genotypes.
+
+We can then pass `pr` as an argument into the `fit1` function, which fits
+the mapping model at a single marker.
+
+```{r fit1}
+mod = fit1(genoprobs = pr,
+           pheno     = cross$pheno[,"log10_insulin_10wk", drop = FALSE],
+           kinship   = kinship_loco[[chr]], 
+           addcovar  = addcovar)
+```
+
+Then, we can plot the founder allele effects and their standard error.
+
+```{r plot_fit1, fig.width=8,fig.height=6}
+mod_eff = data.frame(eff = mod$coef, 
+                     se  = mod$SE) |>
+           rownames_to_column("genotype") |>
+           filter(genotype %in% c("BB", "BR", "RR"))
+
+ggplot(data    = mod_eff, 
+       mapping = aes(x = genotype, y = eff)) +
+  geom_beeswarm() +
+  geom_pointrange(mapping = aes(ymin = eff - se, 
+                                ymax = eff + se),
+                  size       = 1.5,
+                  linewidth  = 1.25) +
+  labs(title = "Founder Allele Effects on Chr 2",
+       x     = "Genotype", y = "Founder Allele Effects") +
+  theme(text = element_text(size = 20))
+
+```
+
+In the plot above, which founder allele contributes to higher insulin levels?
+Is that consistent with the plot created using `plot_coef` above?
+
+
+<!-- DMG: STOPPED HERE -->
+
+
+If instead you want additive and dominance effects, you can provide a square 
+matrix of _contrasts_, as follows:
 
 ```{r est_effects_liver_c2_contr}
-c2effB <- scan1coef(pr[,"2"], iron$pheno[,"liver"],
-                    contrasts=cbind(mu=c(1,1,1), a=c(-1, 0, 1), d=c(-0.5, 1, -0.5)))
-
+c2effB <- scan1coef(genoprobs = probs[,chr], 
+                    pheno     = cross$pheno[,"log10_insulin_10wk", drop = FALSE],
+                    kinship   = kinship_loco[[chr]],
+                    addcovar  = addcovar,
+                    contrasts = cbind(mu = c(1,1,1), 
+                                      a  = c(-1, 0, 1), 
+                                      d  = c(-0.5, 1, -0.5)))
 ```
 
-The result will then contain the estimates of `mu`, `a` (the additive effect), and `d` (the dominance effect). 
+The result will then contain the estimates of `mu`, `a` (the additive effect), 
+and `d` (the dominance effect). 
 
 ```{r add_dom_matrix_dim}
 dim(c2effB)
 head(c2effB)
 ```
-For marker D2Mit17, `mu`, `a`, and `d` are `r (c2effB)[which(rownames(c2effB)=="D2Mit17"),]`.
+For marker `r max_mkr`, `mu`, `a`, and `d` are `r c2effB[max_mkr,]`.
 
-Here's a plot of the chromosome 2 additive and dominance effects, which are in the second and third columns.
+Here's a plot of the chromosome 2 additive and dominance effects, which are in 
+the second and third columns.
 
-```{r add_dom_contrasts, eval=FALSE}
-plot_coef(c2effB, map["2"], columns=2:3, col=col)
+```{r add_dom_contrasts}
+plot_coef(x       = c2effB, 
+          map     = cross$pmap[chr], 
+          columns = 2:3, 
+          col     = 1:2)
 ```
 
-![](../fig/chr2_effects_contrasts.png)
+## Plotting Phenotypes versus Genootypes
 
-If you provide a kinship matrix to `scan1coef()`, it fits a linear mixed model (LMM) to account for a residual polygenic effect. Here let's use the kinship matrix from the LOCO method.
+Finally, to plot the raw phenotypes against the genotypes at a single putative
+QTL position, you can use the function `plot_pxg()`. This takes a vector of 
+genotypes as produced by the `maxmarg()` function, which picks the most likely
+genotype from a set of genotype probabilities, provided it is greater than some
+specified value (the argument `minprob`). Note that the “marg” in “maxmarg” 
+stands for “marginal”, as this function is selecting the genotype at each
+position that has maximum marginal probability.
 
-```{r est_effects_pg_liver_c2}
-c2eff_pg <- scan1coef(pr[,"2"], iron$pheno[,"liver"], kinship_loco[["2"]])
-dim(c2eff_pg)
-head(c2eff_pg)
-```
-
-Here's a plot of the estimates.
-
-```{r plot_effects_pg_liver_c2}
-plot_coef(c2eff_pg, map, columns = 1:3, scan1_output = out_pg_loco, main = "Chromosome 2 QTL effects and LOD scores", legend = "topright")
-```
-
-You can also get estimated additive and dominance effects, using a matrix of contrasts.
-
-```{r est_effects_pg_liver_c2_contr}
-c2effB_pg <- scan1coef(pr[,"2"], iron$pheno[,"liver"], kinship_loco[["2"]],
-                       contrasts=cbind(mu=c(1,1,1), a=c(-1, 0, 1), d=c(-0.5, 1, -0.5)))
-```
-
-Here's a plot of the results.
-
-```{r add_dom_contrasts_loco, eval=FALSE}
-plot(c2effB_pg, map["2"], columns=2:3, col=col)
-```
-
-![](../fig/chr2_effects_pg_add_dom.png)
-
-Another option for estimating the QTL effects is to treat them as [random effects](https://stats.stackexchange.com/questions/4700/what-is-the-difference-between-fixed-effect-random-effect-and-mixed-effect-mode#151800) and calculate [Best Linear Unbiased Predictors](https://en.wikipedia.org/wiki/Best_linear_unbiased_prediction) (BLUPs). This is particularly valuable for multi-parent populations such as the Collaborative Cross and Diversity Outbred mice, where the large number of possible genotypes at a QTL leads to considerable variability in the effect estimates. To calculate BLUPs, use `scan1blup()`; it takes the same arguments as `scan1coef()`, including
-the option of a kinship matrix to account for a residual polygenic effect.
-
-```{r scan1blup}
-c2blup <- scan1blup(pr[,"2"], iron$pheno[,"liver"], kinship_loco[["2"]])
-```
-
-Here is a plot of the BLUPs (as dashed curves) alongside the standard estimates.
-
-```{r plotblup}
-plot_coef(c2eff, map["2"], columns=1:3)
-plot(c2blup, map["2"], columns=1:3, add=TRUE, lty=2, legend = "topright")
-```
-
-The `scan1coef` function can also provide estimated QTL effects for binary traits, with `model="binary"`. (However, `scan1blup` has not yet been implemented for binary traits.)
-
-```{r scan1coef_binary}
-c2eff_bin <- scan1coef(pr[,"2"], bin_pheno[,"liver"], model="binary")
-```
-
-Here's a plot of the effects. They're a bit tricky to interpret, as they are basically log odds ratios.
-
-![](../fig/chr2_effects_binary.png)
-
-Finally, to plot the raw phenotypes against the genotypes at a single putative QTL position, you can use the function `plot_pxg()`. This takes a vector of genotypes as produced by the `maxmarg()` function, which picks the most likely genotype from a set of genotype probabilities, provided it is greater than some specified value (the argument `minprob`). Note that the “marg” in “maxmarg” stands for “marginal”, as this function is selecting the genotype at each position that has maximum marginal probability.
-
-For example, we could get inferred genotypes at the chr 2 QTL for the liver phenotype (at 28.6 cM) as follows:
+For example, we could get inferred genotypes at the chr 2 QTL for the liver 
+phenotype (at 28.6 cM) as follows:
 
 ```{r get_inferred_genotypes}
-g <- maxmarg(pr, map, chr=2, pos=28.6, return_char=TRUE)
+g <- maxmarg(probs = probs, 
+             map   = cross$pmap, 
+             chr   = chr, 
+             pos   = max_pos, 
+             return_char = TRUE)
 ```
 
-We use `return_char=TRUE` to have `maxmarg()` return a vector of character strings with the genotype labels.
+We use `return_char = TRUE` to have `maxmarg()` return a vector of character 
+strings with the genotype labels.
 
-We then plot the liver phenotype against these genotypes as follows:
-
-```{r plot_pheno_geno}
-par(mar=c(4.1, 4.1, 0.6, 0.6))
-plot_pxg(g, iron$pheno[,"liver"], ylab="Liver phenotype")
-```
+We then plot the insulin phenotype against these genotypes as follows:
 
 ```{r plot_pheno_geno_se}
-par(mar=c(4.1, 4.1, 0.6, 0.6))
-plot_pxg(g, iron$pheno[,"liver"], SEmult=2, swap_axes=TRUE, xlab="Liver phenotype")
+plot_pxg(geno   = g, 
+         pheno  = cross$pheno[,"log10_insulin_10wk"], 
+         SEmult = 2,
+         main   = "Insulin vs Chr 2 Genotype")
 ```
+
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge 1
 
-Find the QTL effects for chromosome 16 for the liver phenotype.  
-1) Create an object `c16eff` to contain the effects.  
-2) Plot the chromosome 16 coefficients and add the LOD plot at bottom.
+Calculate the insulin BLUP effects for chromosome 7.  
+1) Create an object called `blup_chr7` to contain the effects.  
+2) Plot the chromosome 7 BLUPs and add the LOD plot at bottom.
+3) Which founder allele increases insulin levels?
 
 :::::::::::::::::::::::: solution 
 
-1) `c16eff <- scan1coef(pr[,"16"], iron$pheno[,"liver"])`  
-2) `plot_coef(c16eff, map, legend = "topright", scan1_output = out)`
+```{r challenge1}
+chr <- '7'
+blup_chr7 <- scan1blup(genoprobs = probs[,chr], 
+                       pheno     = cross$pheno[,"log10_insulin_10wk"],
+                       addcovar  = addcovar,
+                       kinship   = kinship_loco[[chr]])  
+plot_coef(x       = blup_chr7, 
+          map     = cross$pmap,
+          columns = 1:3,
+          scan1_output = lod_add_loco,
+          legend  = "topleft",
+          main    = "Insulin")
+```
+
+The C57BL/6J allele on chromosome 7 increases insulin levels.
 
 :::::::::::::::::::::::::::::::::
 
 ## Challenge 2
 
-In the code block above, we use `swap_axes=TRUE` to place the phenotype on the 
-x-axis. We can use `SEmult=2` to include the mean ± 2 SE intervals.  
-
-1) How would you decide which chromosome to plot? Discuss this with your 
-neighbor, then write your responses in the collaborative document.  
-2) Calculate and plot the best linear unbiased predictors (blups) for spleen on 
-the chromosome of your choice.
+Calculate the insulin BLUP effects for chromosome 19.  
+1.  Create an object called `blup_chr19` to contain the effects.  
+2. Plot the chromosome 19 BLUPs and add the LOD plot at bottom.
+3. Which founder allele increases insulin levels?
+4. Plot insulin versus the genotype at the marker with the higest LOD on 
+chromosome 19.
 
 :::::::::::::::::::::::: solution 
+
+```{r challenge2}
+chr <- '19'
+blup_chr19 <- scan1blup(genoprobs = probs[,chr], 
+                        pheno     = cross$pheno[,"log10_insulin_10wk"],
+                        addcovar  = addcovar,
+                        kinship   = kinship_loco[[chr]])  
+plot_coef(x       = blup_chr19, 
+          map     = cross$pmap,
+          columns = 1:3,
+          scan1_output = lod_add_loco,
+          legend  = "topleft",
+          main    = "Insulin")
+```
+
+The BTBR allele on chromosome 19 increases insulin levels.
+
+```{r challenge2_b}
+max_pos19 = peaks$pos[peaks$chr == chr]
+g <- maxmarg(probs = probs, 
+             map   = cross$pmap, 
+             chr   = chr, 
+             pos   = max_pos19, 
+             return_char = TRUE)
+
+plot_pxg(geno   = g, 
+         pheno  = cross$pheno[,"log10_insulin_10wk"], 
+         SEmult = 2, 
+         main   = "Insulin vs Chr 19 Genotype")
+```
+
 
 
 :::::::::::::::::::::::::::::::::

@@ -125,8 +125,11 @@ and spleen phenotypes. There should be 1000 values for each phenotypes. We can
 view the insulin permutation LOD scores by making a histogram.
 
 ```{r hist_perm}
-hist(perm_add, breaks = 50, xlab = "LOD", las = 1,
-     main = "Empirical distribution of maximum LOD scores under permuation")
+hist(perm_add, 
+     breaks = 50, 
+     xlab   = "LOD", 
+     las    = 1,
+     main   = "Empirical distribution of maximum LOD scores under permuation")
 abline(v = summary(perm_add), col = 'red', lwd = 2)
 ```
 
@@ -157,13 +160,13 @@ To obtain autosome/X chromosome-specific significance thresholds, specify
 `perm_Xsp=TRUE`. In this case, you need to provide chromosome lengths, which may 
 be obtained with the function `chr_lengths()`.
 
-```{r scan1perm_Xsp, eval=FALSE}
+```{r scan1perm_Xsp}
 perm_add2 <- scan1perm(genoprobs   = probs, 
                        pheno       = cross$pheno[,"log10_insulin_10wk",drop = FALSE], 
                        addcovar    = addcovar, 
                        n_perm      = 1000,
                        perm_Xsp    = TRUE, 
-                       chr_lengths = chr_lengths(map))
+                       chr_lengths = chr_lengths(cross$pmap))
 ```
 
 Separate permutations are performed for the autosomes and X chromosome, and 
@@ -212,8 +215,12 @@ We ran 1000 permutations of the insulin phenotype and estimated the 0.05
 significance threshold with and without the kinship matrices. We repeated this
 process 100 times and plotted the thresholds below.
 
-<!-- DMG: I'm running the simulations and will add a figure once they're done. -->
+![Significance Thresholds with/without Kinship](fig/perm_kinship.png)
 
+The plot shows that the median significance threshold is the same. The lines
+connecting the points denote matched simulations in which the permutation
+order was the same. While the exact value of the LOD threshold is different, 
+the median value and the variance are similar.
 
 ## Estimating Binary Model Significance Thresholds
 
@@ -224,10 +231,10 @@ the other arguments can be applied.
 ```{r scan1perm_binary}
 perm_bin <- scan1perm(genoprobs = probs, 
                       pheno     = cross$pheno[,"agouti_tan",drop = FALSE], 
-                      Xcovar    = Xcovar, 
+                      addcovar  = addcovar, 
                       n_perm    = 1000, 
                       perm_Xsp  = TRUE, 
-                      chr_lengths = chr_lengths(map),
+                      chr_lengths = chr_lengths(cross$pmap),
                       model     = "binary")
 ```
 
@@ -238,7 +245,7 @@ summary(perm_bin,
         alpha = c(0.2, 0.05))
 ```
 
-## Selecting the number of permutations
+## Selecting the Number of Permutations
 
 How do we know how many permutations to perform in order to obtain a good 
 estimate of the significance threshold? Could we get a good estimate with 10
