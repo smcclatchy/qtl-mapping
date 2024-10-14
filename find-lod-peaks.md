@@ -38,16 +38,7 @@ value. Credible intervals make a probabilistic statement about the true value,
 for example, a 95% credible interval states that there is a 95% chance that the 
 true value lies within the interval.
 
-To find peaks above a given threshold LOD value, use the function 
-`find_peaks()`. It can also provide Bayesian credible intervals by using the 
-argument `prob` (the nominal coverage for the Bayes credible intervals). Set the 
-argument `expand2markers = FALSE` to keep from expanding the interval out to 
-genotyped markers, or exclude this argument if you'd like to include flanking 
-markers.
-
-You need to provide both the `scan1()` output, the marker map and a 
-threshold. We will use the 95% threshold from the permutations in the previous 
-lesson.
+Let's remind ourselves how the genome scan for insulin looks.
 
 
 ``` r
@@ -60,6 +51,19 @@ add_threshold(map = cross$pmap, thresholdA = thr, col = 'red')
 ```
 
 <img src="fig/find-lod-peaks-rendered-plot_scan1-1.png" style="display: block; margin: auto;" />
+
+To find peaks above a given threshold LOD value, use the function 
+`find_peaks()`. It can also provide Bayesian credible intervals by using the 
+argument `prob` (the nominal coverage for the Bayes credible intervals). Set the 
+argument `expand2markers = FALSE` to keep from expanding the interval out to 
+genotyped markers, or exclude this argument if you'd like to include flanking 
+markers.
+
+You need to provide both the `scan1()` output, the marker map and a 
+threshold. We will use the 95% threshold from the permutations in the previous 
+lesson.
+
+
 
 
 
@@ -164,22 +168,16 @@ the interval change as you increase the probability? Why?
 
 
 ``` r
-find_peaks(scan1_output = lod_add_loco, 
-           map          = cross$pmap,
-           prob         = 0.90, 
-           expand2markers = FALSE)
+pks = find_peaks(scan1_output = lod_add_loco, 
+                 map          = cross$pmap,
+                 prob         = 0.90, 
+                 expand2markers = FALSE)
+subset(pks, chr == '2')
 ```
 
 ``` output
-  lodindex lodcolumn chr       pos      lod     ci_lo     ci_hi
-1        1    pheno1   2 138.94475 7.127351 117.95568 149.57739
-2        1    pheno1   5 103.41486 3.130862  49.14192 109.47816
-3        1    pheno1   7 144.18230 5.724018 144.18230 144.18230
-4        1    pheno1   9  83.67606 3.865635  71.19862 103.50267
-5        1    pheno1  12  25.14494 4.310493  16.73036  29.05053
-6        1    pheno1  14  22.24292 3.974322  20.53754  45.93876
-7        1    pheno1  16  80.37433 4.114024  10.23813  80.37433
-8        1    pheno1  19  54.83012 5.476587  49.87863  55.15007
+  lodindex lodcolumn chr      pos      lod    ci_lo    ci_hi
+1        1    pheno1   2 138.9448 7.127351 117.9557 149.5774
 ```
 
 2). This produces a range from 64.9 to 149.6 Mb, which is much broader than 
@@ -188,22 +186,16 @@ contains the true QTL position has increased.
 
 
 ``` r
-find_peaks(scan1_output = lod_add_loco, 
-           map          = cross$pmap,
-           prob         = 0.95, 
-           expand2markers = FALSE)
+pks = find_peaks(scan1_output = lod_add_loco, 
+                 map          = cross$pmap,
+                 prob         = 0.95, 
+                 expand2markers = FALSE)
+subset(pks, chr == '2')
 ```
 
 ``` output
-  lodindex lodcolumn chr       pos      lod      ci_lo     ci_hi
-1        1    pheno1   2 138.94475 7.127351  64.949395 149.57739
-2        1    pheno1   5 103.41486 3.130862  49.141920 110.48789
-3        1    pheno1   7 144.18230 5.724018 139.368290 144.18230
-4        1    pheno1   9  83.67606 3.865635  37.048631 108.07596
-5        1    pheno1  12  25.14494 4.310493  15.834815  29.05053
-6        1    pheno1  14  22.24292 3.974322   6.241951  45.93876
-7        1    pheno1  16  80.37433 4.114024  10.238134  80.37433
-8        1    pheno1  19  54.83012 5.476587  48.370980  55.15007
+  lodindex lodcolumn chr      pos      lod    ci_lo    ci_hi
+1        1    pheno1   2 138.9448 7.127351 64.94939 149.5774
 ```
 
 :::::::::::::::::::::::::::::::::
@@ -213,7 +205,7 @@ find_peaks(scan1_output = lod_add_loco,
 
 - LOD peaks and support intervals can be identified with find_peaks().
 - The Bayesian Credible Interval estimates the width of the support interval
-around a QTL peak.j
+around a QTL peak.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

@@ -145,7 +145,7 @@ summary(perm_add)
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.05               3.86
+0.05               3.87
 ```
 
 The default is to return the 5% significance thresholds. Thresholds for other 
@@ -161,7 +161,7 @@ summary(perm_add,
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
 0.2                3.16
-0.05               3.86
+0.05               3.87
 ```
 
 ## Estimating an X Chromosome Specific Threshold
@@ -224,8 +224,8 @@ summary(perm_add_loco,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.12
-0.05               3.73
+0.2                3.14
+0.05               3.86
 ```
 
 There is not a large difference in the thresholds. Currently, we are on the
