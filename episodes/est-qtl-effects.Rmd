@@ -167,7 +167,7 @@ In the plot below, we plotted the founder allele effects (solid lines) and the
 BLUPs (dashed lines). In this case, the effects are not greatly different, but 
 the effects are "shrunken" toward zero. 
 
-```{r plot_blup_chr2}
+```{r plot_blup_chr2_again}
 plot_coef(x       = eff_chr2, 
           map     = cross$pmap, 
           columns = 1:3, 
