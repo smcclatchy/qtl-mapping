@@ -89,14 +89,11 @@ eff_chr7 <- scan1coef(genoprobs = probs[,chr],
                       addcovar  = addcovar)
 ```
 
-<<<<<<< HEAD
-The result is a matrix of `r nrow(eff_chr7)` positions &times; `r ncol(eff_chr7)-1` 
-genotypes. An additional column contains the intercept values (&mu;).
-=======
-The result is a matrix of `r nrow(eff_chr2)` positions $\times$  
-`r ncol(eff_chr2)-1` genotypes. An additional column contains the intercept 
+
+The result is a matrix of `r nrow(eff_chr7)` positions $\times$  
+`r ncol(eff_chr7)-1` genotypes. An additional column contains the intercept 
 values ($\mu$).
->>>>>>> d2a8ee57371428b1b50d72156b7c910645d99dd1
+
 
 ```{r effects_matrix_dim}
 dim(eff_chr7)

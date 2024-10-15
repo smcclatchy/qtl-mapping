@@ -1,39 +1,297 @@
 ---
 title: "Integrating Gene Expression Data"
-teaching: 10
-exercises: 2
+teaching: 60
+exercises: 20
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- How do you write a lesson using R Markdown and `{sandpaper}`?
+- How can I use gene expression data to identify candidate genes?
+- What is expression QTL mapping?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: objectives
 
-- Explain how to use markdown with the new lesson template
-- Demonstrate how to include pieces of code, figures, and nested challenge blocks
+- Find genes which are correlated with a physiological phenotype.
+- Find genes which have expression QTL in the same position as a physiological 
+phenotype.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+```{r github_load_data,echo=FALSE,warning=FALSE,message=FALSE}
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(ggbeeswarm))
+suppressPackageStartupMessages(library(qtl2))
+cross <- read_cross2(file = 'https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip')
+probs <- calc_genoprob(cross = cross, map = cross$gmap, error_prob = 0.002)
+kinship_loco <- calc_kinship(probs = probs, type = "loco")
+# Covariates
+cross$covar$Sex <- factor(cross$covar$Sex)
+addcovar <- model.matrix(~Sex, data = cross$covar)[,-1, drop = FALSE]
+# LOD scan for insulin.
+lod_add_loco <- scan1(genoprobs = probs, 
+                      pheno = cross$pheno[,"log10_insulin_10wk"], 
+                      kinship = kinship_loco, addcovar = addcovar)
+perm_add_loco <- readRDS(url("https://thejacksonlaboratory.box.com/shared/static/fatud2gsjogbfg4xntyix05j6dg3pdnj.rds"))
+thr           <- summary(perm_add_loco, alpha = 0.05)
+peaks         <- find_peaks(lod_add_loco, cross$pmap, threshold = thr, prob = 0.95)
+```
+
 ## Introduction
 
-This is a lesson created via The Carpentries Workbench. It is written in
-[Pandoc-flavored Markdown](https://pandoc.org/MANUAL.txt) for static files and
-[R Markdown][r-markdown] for dynamic files that can render code into output. 
-Please refer to the [Introduction to The Carpentries 
-Workbench](https://carpentries.github.io/sandpaper-docs/) for full documentation.
+Once you have QTL peak, the next step if often to identify genes which may be 
+causal candidates. However, there are often hundreds of genes within the QTL
+support interval. How do you select candidate genes?
 
-What you need to know is that there are three sections required for a valid
-Carpentries lesson template:
+Often, there is a tissue which is related to the phenotype that you are
+measuring. For example, if you measure circulating cardiac troponin, then gene
+expression in the heart may be relevant. For some complex phenotypes, it may
+not be easy to select a tissue. For example, if the liver creates a metabolite
+that causes kidney injury, which is then exacerbated by the immune system, 
+in which tissue would you measure gene expression?
 
- 1. `questions` are displayed at the beginning of the episode to prime the
-    learner for the content.
- 2. `objectives` are the learning objectives for an episode displayed with
-    the questions.
- 3. `keypoints` are displayed at the end of the episode to reinforce the
-    objectives.
+Susceptibility to type 2 diabetes involves a complex interaction between
+several tissues. However, for the purposes of this tutorial in which we mapped
+circulating insulin levels, it is reasonable to look at gene expression in the 
+pancreas.
+
+## Reading in Gene Expression Data
+
+Gene expression data consists of two parts: expression measurements and gene
+annotation. In this study, gene expression was measured via two-color 
+microarray. The expression values represent a ratio of two sets of RNA: a 
+control set and the sample set. The expression values represent the 
+log-normalized ratio of these two sets.
+
+We have prepared two files containing normalized gene expression data and the 
+gene annotation.
+
+```{r}
+annot <- read_csv("data/attie_b6btbr_grcm39/attie_gene_annot.csv",
+                  show_col_types = FALSE) |>
+           mutate(a_gene_id = as.character(a_gene_id))
+
+expr  <- read_csv("data/attie_b6btbr_grcm39/attie_gene_expr.csv",
+                  show_col_types = FALSE)
+```
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 1: Size of data structures.
+
+1. How many rows and columns are in `annot`?
+2. What are the column names off `annot`?
+
+:::::::::::::::::::::::: solution 
+
+Dimensions of `annot`.
+
+```{r challenge1_a}
+dim(annot)
+```
+
+Column names of `annot`.
+
+```{r challenge1_b}
+colnames(annot)
+```
+
+:::::::::::::::::::::::::::::::::
+
+## Challenge 2
+
+1. What are the dimensions of `expr`?
+2. Look at the top 5 row by 5 column block of `expr`.
+
+:::::::::::::::::::::::: solution
+
+1. Dimensions of `expr`.
+
+```{r challenge2_a}
+dim(expr)
+```
+
+2. Top-left block of `expr`.
+
+```{r}
+expr[1:5,1:5]
+```
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+Let's look at the relationship between the annotation and the expression data.
+
+The annotation data has `r nrow(annot)` rows and the expression data has
+`r ncol(expr)` columns. The first column in `expr` contains the mouse ID and
+the remaining columns contain the expression values for each gene. The gene
+IDs are in the column names. These are Agilent gene IDs. They are also in the
+`a_gene_id` column in the annotation.
+
+```{r}
+all(annot$a_gene_id == colnames(expr)[-1])
+```
+
+Now we know that the genes are aligned between the annotation and the 
+expression data. When you receive your own expression data, it is critical 
+that you align the genes in your expression data with your annotation data.
+
+We must also align the mouse IDs between the physiological phenotypes and the
+expression data. We saw above that the mouse IDs are in the first column of
+the expression data. Let's see where the mouse IDs are in the phenotype data.
+
+```{r}
+head(cross$pheno)
+```
+
+`cross$pheno` is a matrix which contains the mouse IDs in the rownames. Let's convert
+the expression data to a matrix as well.
+
+```{r}
+expr <- expr |>
+         column_to_rownames(var = "MouseNum") |>
+         as.matrix()
+```
+
+Now let's check whether the mouse IDs are aligned between `cross$pheno` and 
+`expr`. Again, when you assemble your phenotype and expression data, you will
+need to make sure that the sample IDs are aligned between the data sets.
+
+```{r}
+all(rownames(cross$pheno) == rownames(expr))
+```
+
+## Identifying Genes in a QTL Support Interval
+
+In previous episodes, we found significant QTL peaks using the `find_peaks`
+function. Let's look at those peaks again.
+
+```{r}
+peaks
+```
+
+We looked at the QTL peak on chromosome 2 in a previous lesson. The QTL interval
+is `r peaks$ci_hi[peaks$chr == '2'] - peaks$ci_lo[peaks$chr == '2']` Mb wide.
+This is quite wide. Let's get the genes expressed in the pancreas within this
+region. 
+
+```{r}
+chr <- '2'
+peaks_chr2 <- filter(peaks, chr == '2')
+annot_chr2 <- filter(annot, chr == '2' & start > peaks_chr2$ci_lo & end < peaks_chr2$ci_hi)
+expr_chr2  <- expr[,annot_chr2$a_gene_id]
+```
+
+There are `r nrow(annot_chr2)` genes! How can we start to narrow down which 
+ones may be candidate genes?
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 1: How can we narrow down the candidate gene list?
+
+1. Take a moment to think of ways that you could narrow down the gene list to
+select the most promising candidate genes that regulate insulin levels.
+2. Turn to your neighbor and exchange your ideas.
+3. Share your ideas with the group.
+
+:::::::::::::::::::::::: solution 
+
+<!-- DMG: Correlation, eQTL, annotation? -->
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Using Expression QTL Mapping
+
+One method to search for candidate genes is to look for genes with expression 
+that is correlated with the phenotype. Genes which are correlated with the 
+insulin levels may be correlated because they control insulin levels, respond
+to insulin levels, or are correlated by chance. Genes which are strongly
+correlated with insulin levels should have QTL peaks in similar positions.
+
+```{r}
+cor_chr2 = cor(cross$pheno[,'log10_insulin_10wk'], expr_chr2, use = 'pairwise')
+```
+
+```{r}
+hist(cor_chr2)
+```
+
+```{r}
+ids_chr2 <- colnames(cor_chr2)[abs(cor_chr2) > 0.5]
+annot |>
+  filter(a_gene_id %in% ids_chr2)
+```
+
+Mediation.
+
+```{r}
+# Get the probs at the maximum insulin QTL on Chr 2.
+pr_chr2 = pull_genoprobpos(genoprobs = probs,
+                           map       = cross$pmap,
+                           chr       = chr,
+                           pos       = peaks_chr2$pos)
+
+# Create data sructure for results.
+lod_drop = data.frame(a_gene_id = colnames(expr_chr2),
+                      lod       = 0)
+
+for(i in 1:ncol(expr_chr2)) {
+
+  # Make new covariates.
+  curr_covar = cbind(addcovar, expr_chr2[,i])
+  
+  mod = fit1(genoprobs = pr_chr2,
+             pheno     = cross$pheno[,'log10_insulin_10wk',drop = FALSE],
+             kinship   = kinship_loco[[chr]],
+             addcovar  = curr_covar)
+  
+  lod_drop$lod[i] = mod$lod
+  
+} # for(i)
+```
+
+
+```{r}
+lod_drop <- left_join(lod_drop, annot_chr2, by = 'a_gene_id')
+plot(lod_drop$start, lod_drop$lod, xlim = c(120, 145))
+abline(v = peaks_chr2$pos, col = 2)
+```
+
+```{r}
+plot(cor_chr2, lod_drop$lod)
+```
+
+
+
+If you have 
+
+
+:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+This takes about 2 minutes to run.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+```{r eqtl_chr2}
+eqtl_chr2 <- scan1(genoprobs = probs[,chr],
+                   pheno     = expr_chr2,
+                   kinship   = kinship_loco[[chr]],
+                   addcovar  = addcovar)
+```
+
+```{r}
+eqtl_chr2 <- apply(eqtl_chr2, 2, max, simplify = TRUE)
+eqtl_chr2 <- eqtl_chr2[eqtl_chr2 > thr[1]]
+```
+
+```{r}
+length(eqtl_chr2)
+```
+
+
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
