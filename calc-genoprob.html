@@ -392,11 +392,10 @@
 <div class="card-body">
 <div class="inner">
 <h3 class="card-title">Questions</h3>
-<ul><li>“How do I calculate QTL at positions between genotyped
-markers?”</li>
-<li>“How do I calculate QTL genotype probabilities?”</li>
-<li>“How do I calculate allele probabilities?”</li>
-<li>“How can I speed up calculations if I have a large data set?”</li>
+<ul><li>How do I calculate QTL at positions between genotyped markers?</li>
+<li>How do I calculate QTL genotype probabilities?</li>
+<li>How do I calculate allele probabilities?</li>
+<li>How can I speed up calculations if I have a large data set?</li>
 </ul></div>
 </div>
 </div>
@@ -421,22 +420,17 @@ probabilities for genotypes SS and SB at the locus indicated below.</p>
 probabilities, conditional on the available marker data. These are
 needed for most of the QTL mapping functions. The result is returned as
 a list of three-dimensional arrays (one per chromosome). Each 3d array
-of probabilities is arranged as individuals × genotypes × positions.</p>
-<figure><img src="fig/threeD_array.png" alt="Figure showing three-dimensional array of genoprobs" class="figure mx-auto d-block"><div class="figcaption">Three-dimentional Genoporbs Array</div>
+of probabilities is arranged as individuals <span class="math inline">\(\times\)</span> genotypes <span class="math inline">\(\times\)</span> positions.</p>
+<figure><img src="fig/threeD_array.png" alt="Figure showing three-dimensional array of genoprobs" class="figure mx-auto d-block"><div class="figcaption">Three-dimensional genotype probabilities
+array</div>
 </figure><p><img src="http://venus.ifca.unican.es/Rintro/_images/dataStructuresNew.png" alt="See this page for a graphical review of data structures in R" class="figure">.</p>
 <p>We’ll use the <a href="https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip" class="external-link">Attie
 BL6/BTBR dataset</a> from <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4649649/" class="external-link">Tian et
 al</a> (an intercross) as an example. In this study, circulating insulin
 levels were measured in an F2 cross between mouse strains C57BL/6J and
-BTBTR T+ <tf>. C57BL/6J mice exhibit low levels of non-heme iron, while
-SWR mice exhibit high levels. Iron levels between spleen and liver in
-the F2s were poorly correlated, indicating tissue-specific regulation.
-Significant QTL were found on chromosomes 2 and 16 for liver, and on
-chromosomes 8 and 9 in spleen. Candidate genes included transferrin near
-the chromosome 9 peak, and <i>β</i>2-microglobulin near the chromosome 2
-peak.</tf></p>
-<p>First, we will load in the <a href="">qtl2</a> library, which
-provides the functions that we will use for QTL analysis.</p>
+BTBTR T+ <tf>.</tf></p>
+<p>First, we will load in the <a href="https://kbroman.org/qtl2/" class="external-link">qtl2</a> library, which provides the
+functions that we will use for QTL analysis.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -470,7 +464,7 @@ Alternatively, all data files can be zipped together for loading.</p>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">myQTLdata</span> <span class="op">&lt;-</span> <span class="fu">read_cross2</span><span class="op">(</span>file <span class="op">=</span> <span class="st">"/Users/myUserName/qtlProject/data/myqtldata.zip"</span> <span class="op">)</span></span></code></pre>
 </div>
-<p>Back to the iron data. Now look at a summary of the cross data and
+<p>Back to the BTBR data. Now look at a summary of the cross data and
 the names of each variable within the data.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -798,8 +792,8 @@ chromosome).</p>
 [16] "16" "17" "18" "19" "X" </code></pre>
 </div>
 <p>Each three-dimensional array of probabilities is arranged as
-individuals × genotypes × positions. Have a look at the names of each of
-the three dimensions for chromosome 19.</p>
+individuals <span class="math inline">\(\times\)</span> genotypes <span class="math inline">\(\times\)</span> positions. Have a look at the
+names of each of the three dimensions for chromosome 19.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -909,9 +903,7 @@ the three dimensions for chromosome 19.</p>
 [46] "rs4222106"  "rs13483690" "rs13483693" "rs13483695" "rs13483699"</code></pre>
 </div>
 <p>View the first three rows of genotype probabilities for the first
-genotyped marker on chromosome 19, and the two adjacent pseudomarkers
-located at 1 cM intervals away. Compare the probabilities for each
-pseudomarker genotype with those of the genotyped marker.</p>
+genotyped marker on chromosome 19.</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -930,10 +922,14 @@ Mouse3414 6.179474e-08 9.999999e-01 6.179474e-08</code></pre>
 </div>
 <p>We can also view the genotype probabilities using <a href="https://github.com/rqtl/qtl2/blob/master/R/plot_genoprob.R" class="external-link">plot_genoprob</a>.
 The arguments to this function specify:</p>
-<ol style="list-style-type: decimal"><li>probs: the genotype probabilities,</li>
-<li>map: the marker map,</li>
-<li>ind: the index of the individual to plot,</li>
-<li>chr: the index of the chromosome to plot.</li>
+<ol style="list-style-type: decimal"><li>
+<code>probs</code>: the genotype probabilities,</li>
+<li>
+<code>map</code>: the marker map,</li>
+<li>
+<code>ind</code>: the index of the individual to plot,</li>
+<li>
+<code>chr</code>: the index of the chromosome to plot.</li>
 </ol><div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1096,7 +1092,7 @@ allele B, and 0.25 for both G and H.</p>
 <ul><li>The first step in QTL analysis is to calculate genotype
 probabilities.</li>
 <li>Calculate genotype probabilities between genotyped markers with
-calc_genoprob().</li>
+<code>calc_genoprob()</code>.</li>
 </ul><p>::::::::::::::::::::::::::::::::::::::::::::::::</p>
 <!--
 Place links that you need to refer to multiple times across pages here. Delete
