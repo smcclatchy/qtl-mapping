@@ -21,34 +21,30 @@ exercises: 20
 
 ## Estimating Founder Allele Effects
 
-<!-- DMG: Sue, can you make the equations Latex? -->
 
 Recall that to model data from a cross, we use
 
-![](../fig/linear-genetic-model.png)  
- 
+$y_j = \mu + \beta_k G_{jk} + \epsilon_j$
 
-where <i>y<sub>j</sub></i> is the phenotype of the <i>j</i>th individual, &mu; 
-is the mean phenotype value, <i>&beta;<sub>k</sub></i> is the effect of the 
-<i>kth</i> genotype, <i>X<sub>jk</sub></i> is the genotype for individual j, 
-and &epsilon;<sub>j</sub> is the error for the <i>j</i>th individual. In the figure 
-below, &mu; equals 1, and &beta; equals 
-0.1 for the alternative hypothesis 
-(QTL exists).
+where $y_{ij}$ is the phenotype of the $j$th individual, $\mu$ is the mean 
+phenotype value, $\beta_k$ is the effect of the $k$th genotype, $G_{jk}$ is the 
+genotype for individual $j$, and $\epsilon_j$ is the error for the $j$th 
+individual. In the figure below, $\mu$ equals 1, 
+and $\beta$ equals 0.1 for the alternative 
+hypothesis (QTL exists).
 
 ![](../fig/nullvalt.png)
 
-This linear model is <i>y</i> = 1 + 
-0.1X + &epsilon;. The model intersects the 
-genotype groups at their group means, and is based on &mu; and 
-<i>&beta;<sub>k</sub></i> for chromosome 2 marker D2Mit17 located at 56.8 cM.  
+This linear model is $y$ = 1 + 0.1$G + \epsilon$. The model intersects the 
+genotype groups at their group means, and is based on $\mu$ and $\beta_k$ for 
+chromosome 2 marker D2Mit17 located at 56.8 cM.  
 
-The effect of genotype RR (the &beta; for the 
+The effect of genotype RR (the $\beta$ for the 
 RR genotype) at marker D2Mit17 is 
 0.1, while the effect of the 
 BB genotype is -0.1 on 
-the liver phenotype. The effect of the BR genotype is 
-0 relative to &mu; equals 
+the insulin phenotype. The effect of the BR genotype 
+is 0 relative to $\mu$ equals 
 1.
 
 The `scan1()` function returns only LOD scores. To obtain estimated QTL effects,
@@ -56,9 +52,9 @@ use the function `scan1coef()`. This function takes a single phenotype and the
 genotype probabilities for a single chromosome and returns a matrix with the 
 estimated coefficients at each putative QTL location along the chromosome.
 
-For example, to get the estimated QTL effects on chromosome 2 for the liver 
+For example, to get the estimated QTL effects on chromosome 2 for the insulin 
 phenotype, we would provide the chromosome 2 genotype probabilities and the 
-liver phenotype to the function `scan1coef()` as follows:
+insulin phenotype to the function `scan1coef()` as follows:
 
 
 ``` r
@@ -69,8 +65,9 @@ eff_chr2 <- scan1coef(genoprobs = probs[,chr],
                       addcovar  = addcovar)
 ```
 
-The result is a matrix of 135 positions &times; 4 
-genotypes. An additional column contains the intercept values (&mu;).
+The result is a matrix of 135 positions $\times$  
+4 genotypes. An additional column contains the intercept 
+values ($\mu$).
 
 
 ``` r
@@ -97,7 +94,7 @@ plot_coef(x            = eff_chr2,
 <img src="fig/est-qtl-effects-rendered-plot_coef-1.png" style="display: block; margin: auto;" />
 
 The plot shows effect values on the y-axis and cM values on the x-axis. The
-value of the intercept (&mu;) appears at the top. The effect of the 
+value of the intercept ($\mu$) appears at the top. The effect of the 
 BR genotype is centered around zero, with the
 effects of the other two genotypes above and below. We are usually not 
 directly interested in how the additive covariates change across the genome, 
@@ -220,9 +217,9 @@ peaks
 6        1    pheno1  19  54.83012 5.476587
 ```
 
-The position of the maximum LOD on chromosome 2 is 138.944754
-Mb. We can pass this value into the `qtl2` function `pull_genoprobpos` to get
-the genoprobs at this marker.
+The position of the maximum LOD on chromosome 2 is 
+138.944754 Mb. We can pass this value into the `qtl2` 
+function `pull_genoprobpos` to get the genoprobs at this marker.
 
 
 ``` r
@@ -359,7 +356,7 @@ specified value (the argument `minprob`). Note that the “marg” in “maxmarg
 stands for “marginal”, as this function is selecting the genotype at each
 position that has maximum marginal probability.
 
-For example, we could get inferred genotypes at the chr 2 QTL for the liver 
+For example, we could get inferred genotypes at the chr 2 QTL for the insulin 
 phenotype (at 28.6 cM) as follows:
 
 
@@ -433,8 +430,8 @@ chromosome 19.
 
 ``` r
 chr <- '19'
-blup_chr19 <- scan1blup(genoprobs = probs[,chr], 
-                        pheno     = cross$pheno[,"log10_insulin_10wk"],
+blup_chr19 <- scan1blup(genoprobs = probs[, chr], 
+                        pheno     = cross$pheno[, "log10_insulin_10wk"],
                         addcovar  = addcovar,
                         kinship   = kinship_loco[[chr]])  
 plot_coef(x       = blup_chr19, 
