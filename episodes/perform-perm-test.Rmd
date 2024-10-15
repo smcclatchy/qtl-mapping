@@ -215,7 +215,7 @@ We ran 1000 permutations of the insulin phenotype and estimated the 0.05
 significance threshold with and without the kinship matrices. We repeated this
 process 100 times and plotted the thresholds below.
 
-![Significance Thresholds with/without Kinship](fig/perm_kinship.png)
+![Significance Thresholds with/without Kinship](fig/perm_kinship.png){alt="Comparison of significane threholds",width="50%"}
 
 The plot shows that the median significance threshold is the same. The lines
 connecting the points denote matched simulations in which the permutation

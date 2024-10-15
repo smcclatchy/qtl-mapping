@@ -265,8 +265,8 @@ Is that consistent with the plot created using `plot_coef` above?
 If instead you want additive and dominance effects, you can provide a square 
 matrix of _contrasts_, as follows:
 
-```{r est_effects_insulin_c2_contr}
-c2effB <- scan1coef(genoprobs = probs[,chr], 
+```{r est_effects_insulin_c7_contr}
+c7effB <- scan1coef(genoprobs = probs[,chr], 
                     pheno     = cross$pheno[,"log10_insulin_10wk", drop = FALSE],
                     kinship   = kinship_loco[[chr]],
                     addcovar  = addcovar,
@@ -296,7 +296,7 @@ plot_coef(x       = c7effB,
 legend('bottomleft', lty = 1, col = 1:2, legend = c("additive", "dominant"))
 ```
 
-## Plotting Phenotypes versus Genootypes
+## Plotting Phenotypes versus Genotypes
 
 Finally, to plot the raw phenotypes against the genotypes at a single putative
 QTL position, you can use the function `plot_pxg()`. This takes a vector of 
@@ -308,7 +308,7 @@ position that has maximum marginal probability.
 
 <!-- DMG: Change this to Chr 7 -->
 
-For example, we could get inferred genotypes at the chr 2 QTL for the insulin 
+For example, we could get inferred genotypes at the chr 7 QTL for the insulin 
 phenotype (at 28.6 cM) as follows:
 
 ```{r get_inferred_genotypes}
