@@ -42,34 +42,30 @@ max_mkr <- find_marker(cross$pmap, chr = '2', pos = peaks$pos[peaks$chr == '2'])
 
 ## Estimating Founder Allele Effects
 
-<!-- DMG: Sue, can you make the equations Latex? -->
 
 Recall that to model data from a cross, we use
 
-![](../fig/linear-genetic-model.png)  
- 
+$y_j = \mu + \beta_k G_{jk} + \epsilon_j$
 
-where <i>y<sub>j</sub></i> is the phenotype of the <i>j</i>th individual, &mu; 
-is the mean phenotype value, <i>&beta;<sub>k</sub></i> is the effect of the 
-<i>kth</i> genotype, <i>X<sub>jk</sub></i> is the genotype for individual j, 
-and &epsilon;<sub>j</sub> is the error for the <i>j</i>th individual. In the figure 
-below, &mu; equals `r round(c2eff[max_mkr, 4], 1)`, and &beta; equals 
-`r round(abs(c2eff[max_mkr, 1]), 1)` for the alternative hypothesis 
-(QTL exists).
+where $y_{ij}$ is the phenotype of the $j$th individual, $\mu$ is the mean 
+phenotype value, $\beta_k$ is the effect of the $k$th genotype, $G_{jk}$ is the 
+genotype for individual $j$, and $\epsilon_j$ is the error for the $j$th 
+individual. In the figure below, $\mu$ equals `r round(c2eff[max_mkr, 4], 1)`, 
+and $\beta$ equals `r round(abs(c2eff[max_mkr, 1]), 1)` for the alternative 
+hypothesis (QTL exists).
 
 ![](../fig/nullvalt.png)
 
-This linear model is <i>y</i> = `r round(c2eff[max_mkr,4], 1)` + 
-`r round(abs(c2eff[max_mkr,1]), 1)`X + &epsilon;. The model intersects the 
-genotype groups at their group means, and is based on &mu; and 
-<i>&beta;<sub>k</sub></i> for chromosome 2 marker D2Mit17 located at 56.8 cM.  
+This linear model is $y$ = `r round(c2eff[max_mkr,4], 1)` + `r round(abs(c2eff[max_mkr,1]), 1)`$G + \epsilon$. The model intersects the 
+genotype groups at their group means, and is based on $\mu$ and $\beta_k$ for 
+chromosome 2 marker D2Mit17 located at 56.8 cM.  
 
-The effect of genotype `r dimnames(c2eff)[[2]][[3]]` (the &beta; for the 
+The effect of genotype `r dimnames(c2eff)[[2]][[3]]` (the $\beta$ for the 
 `r dimnames(c2eff)[[2]][[3]]` genotype) at marker D2Mit17 is 
 `r round(c2eff[max_mkr, 3], 1)`, while the effect of the 
 `r dimnames(c2eff)[[2]][[1]]` genotype is `r round(c2eff[max_mkr, 1], 1)` on 
-the liver phenotype. The effect of the `r dimnames(c2eff)[[2]][[2]]` genotype is 
-`r round(c2eff[max_mkr,2], 1)` relative to &mu; equals 
+the insulin phenotype. The effect of the `r dimnames(c2eff)[[2]][[2]]` genotype 
+is `r round(c2eff[max_mkr,2], 1)` relative to $\mu$ equals 
 `r round(c2eff[max_mkr,4], 1)`.
 
 The `scan1()` function returns only LOD scores. To obtain estimated QTL effects,
@@ -77,9 +73,9 @@ use the function `scan1coef()`. This function takes a single phenotype and the
 genotype probabilities for a single chromosome and returns a matrix with the 
 estimated coefficients at each putative QTL location along the chromosome.
 
-For example, to get the estimated QTL effects on chromosome 2 for the liver 
+For example, to get the estimated QTL effects on chromosome 2 for the insulin 
 phenotype, we would provide the chromosome 2 genotype probabilities and the 
-liver phenotype to the function `scan1coef()` as follows:
+insulin phenotype to the function `scan1coef()` as follows:
 
 ```{r est_effects_chr2}
 chr      <- "2"
@@ -89,8 +85,9 @@ eff_chr2 <- scan1coef(genoprobs = probs[,chr],
                       addcovar  = addcovar)
 ```
 
-The result is a matrix of `r nrow(eff_chr2)` positions &times; `r ncol(eff_chr2)-1` 
-genotypes. An additional column contains the intercept values (&mu;).
+The result is a matrix of `r nrow(eff_chr2)` positions $\times$  
+`r ncol(eff_chr2)-1` genotypes. An additional column contains the intercept 
+values ($\mu$).
 
 ```{r effects_matrix_dim}
 dim(eff_chr2)
@@ -109,7 +106,7 @@ plot_coef(x            = eff_chr2,
 ```
 
 The plot shows effect values on the y-axis and cM values on the x-axis. The
-value of the intercept (&mu;) appears at the top. The effect of the 
+value of the intercept ($\mu$) appears at the top. The effect of the 
 `r dimnames(eff_chr2)[[2]][[2]]` genotype is centered around zero, with the
 effects of the other two genotypes above and below. We are usually not 
 directly interested in how the additive covariates change across the genome, 
@@ -200,9 +197,9 @@ peaks <- find_peaks(scan1_output = lod_add_loco,
 peaks
 ```
 
-The position of the maximum LOD on chromosome 2 is `r subset(peaks, chr == '2')$pos`
-Mb. We can pass this value into the `qtl2` function `pull_genoprobpos` to get
-the genoprobs at this marker.
+The position of the maximum LOD on chromosome 2 is 
+`r subset(peaks, chr == '2')$pos` Mb. We can pass this value into the `qtl2` 
+function `pull_genoprobpos` to get the genoprobs at this marker.
 
 ```{r pull_genoprobs}
 max_pos <- subset(peaks, chr == '2')$pos
@@ -266,7 +263,7 @@ Is that consistent with the plot created using `plot_coef` above?
 If instead you want additive and dominance effects, you can provide a square 
 matrix of _contrasts_, as follows:
 
-```{r est_effects_liver_c2_contr}
+```{r est_effects_insulin_c2_contr}
 c2effB <- scan1coef(genoprobs = probs[,chr], 
                     pheno     = cross$pheno[,"log10_insulin_10wk", drop = FALSE],
                     kinship   = kinship_loco[[chr]],
@@ -305,7 +302,7 @@ specified value (the argument `minprob`). Note that the “marg” in “maxmarg
 stands for “marginal”, as this function is selecting the genotype at each
 position that has maximum marginal probability.
 
-For example, we could get inferred genotypes at the chr 2 QTL for the liver 
+For example, we could get inferred genotypes at the chr 2 QTL for the insulin 
 phenotype (at 28.6 cM) as follows:
 
 ```{r get_inferred_genotypes}
@@ -371,8 +368,8 @@ chromosome 19.
 
 ```{r challenge2}
 chr <- '19'
-blup_chr19 <- scan1blup(genoprobs = probs[,chr], 
-                        pheno     = cross$pheno[,"log10_insulin_10wk"],
+blup_chr19 <- scan1blup(genoprobs = probs[, chr], 
+                        pheno     = cross$pheno[, "log10_insulin_10wk"],
                         addcovar  = addcovar,
                         kinship   = kinship_loco[[chr]])  
 plot_coef(x       = blup_chr19, 
