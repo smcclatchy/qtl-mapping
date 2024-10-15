@@ -6,10 +6,10 @@ exercises: 30
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "How do I calculate QTL at positions between genotyped markers?"
-- "How do I calculate QTL genotype probabilities?"
-- "How do I calculate allele probabilities?"
-- "How can I speed up calculations if I have a large data set?"
+- How do I calculate QTL at positions between genotyped markers?
+- How do I calculate QTL genotype probabilities?
+- How do I calculate allele probabilities?
+- How can I speed up calculations if I have a large data set?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -32,9 +32,9 @@ The `calc_genoprob()` function calculates QTL genotype probabilities,
 conditional on the available marker data. These are needed for most of the QTL 
 mapping functions. The result is returned as a list of three-dimensional arrays 
 (one per chromosome). Each 3d array of probabilities is arranged as individuals 
-&times; genotypes &times; positions.
+$\times$ genotypes $\times$ positions.
 
-![Three-dimentional Genoporbs Array](fig/threeD_array.png){alt='Figure showing three-dimensional array of genoprobs'}
+![Three-dimensional genotype probabilities array](fig/threeD_array.png){alt='Figure showing three-dimensional array of genoprobs'}
 
 ![See this page for a graphical review of data structures in R](http://venus.ifca.unican.es/Rintro/_images/dataStructuresNew.png).  
 
@@ -43,16 +43,10 @@ We'll use the
 from 
 [Tian et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4649649/)
 (an intercross) as an example. In this study, circulating insulin levels were 
-measured in an F2 cross between mouse strains C57BL/6J and BTBTR T+ <tf>. C57BL/6J 
-mice exhibit low levels of non-heme iron, while SWR mice exhibit high levels. Iron 
-levels between spleen and liver in the F2s were poorly correlated, indicating 
-tissue-specific regulation. Significant QTL were found on chromosomes 2 and 16 
-for liver, and on chromosomes 8 and 9 in spleen. Candidate genes included 
-transferrin near the chromosome 9 peak, and <i>&beta;</i>2-microglobulin near 
-the chromosome 2 peak.
+measured in an F2 cross between mouse strains C57BL/6J and BTBTR T+ <tf>. 
 
-First, we will load in the [qtl2]() library, which provides the functions that
-we will use for QTL analysis.
+First, we will load in the [qtl2](https://kbroman.org/qtl2/) library, which 
+provides the functions that we will use for QTL analysis.
 
 
 ``` r
@@ -71,7 +65,6 @@ We need the following block for the site to build on Github. The students do
 not need to see or run the next block.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
 
 
 
@@ -95,7 +88,7 @@ zipped together for loading.
 myQTLdata <- read_cross2(file = "/Users/myUserName/qtlProject/data/myqtldata.zip" )
 ```
 
-Back to the iron data. Now look at a summary of the cross data and the names of 
+Back to the BTBR data. Now look at a summary of the cross data and the names of 
 each variable within the data.
 
 
@@ -402,8 +395,8 @@ The argument `error_prob` supplies an assumed genotyping error probability of
 0.002. If a value for `error_prob` is not supplied, the default probability is 
 0.0001. 
 
-Recall that the result of `calc_genoprob`, `probs`, is a list of three-dimensional 
-arrays (one per chromosome). 
+Recall that the result of `calc_genoprob`, `probs`, is a list of 
+three-dimensional arrays (one per chromosome). 
 
 
 ``` r
@@ -415,9 +408,9 @@ names(probs)
 [16] "16" "17" "18" "19" "X" 
 ```
 
-Each three-dimensional array of probabilities is arranged as individuals &times; 
-genotypes &times; positions. Have a look at the names of each of the three 
-dimensions for chromosome 19.
+Each three-dimensional array of probabilities is arranged as individuals 
+$\times$ genotypes $\times$ positions. Have a look at the names of each of the 
+three dimensions for chromosome 19.
 
 
 ``` r
@@ -526,9 +519,7 @@ dimnames(probs$`19`)
 ```
 
 View the first three rows of genotype probabilities for the first genotyped 
-marker on chromosome 19, and the two adjacent pseudomarkers located at 1 cM 
-intervals away. Compare the probabilities for each pseudomarker genotype with 
-those of the genotyped marker.
+marker on chromosome 19.
 
 
 ``` r
@@ -548,10 +539,10 @@ We can also view the genotype probabilities using
 [plot_genoprob](https://github.com/rqtl/qtl2/blob/master/R/plot_genoprob.R). The 
 arguments to this function specify:
 
-1. probs: the genotype probabilities,
-1. map: the marker map,
-1. ind: the index of the individual to plot,
-1. chr: the index of the chromosome to plot.
+1. `probs`: the genotype probabilities,
+1. `map`: the marker map,
+1. `ind`: the index of the individual to plot,
+1. `chr`: the index of the chromosome to plot.
 
 
 ``` r
@@ -568,7 +559,6 @@ The coordinates along chromosome 19 are shown on the horizontal axis and the
 three genotypes are shown on the vertical axis. Higher genotype probabilities 
 are plotted in darker shades. This mouse has a RR genotype on the proximal end 
 of the chromosome and transitions to BR.
-
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -690,6 +680,6 @@ probability of 0.5 for allele B, and 0.25 for both G and H.
 
 - The first step in QTL analysis is to calculate genotype probabilities.
 - Calculate genotype probabilities between genotyped markers with 
-calc_genoprob().
+`calc_genoprob()`.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
