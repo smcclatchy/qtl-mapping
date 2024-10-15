@@ -375,12 +375,45 @@
       <hr></nav><main id="main-content" class="main-content"><h1 class="schedule-heading">Summary and Setup</h1>
       
 
-<p>This is a new lesson built with <a href="https://carpentries.github.io/sandpaper-docs" class="external-link">The Carpentries
-Workbench</a>.</p>
-<!--
+<p>Quantitative trait mapping is used in biomedical, agricultural, and
+evolutionary studies to find causal genes for quantitative traits, to
+aid crop and breed selection in agriculture, and to shed light on
+natural selection. Examples of quantitative traits include cholesterol
+level, plant yield, or egg size, all of which are continuous variables.
+The goal of quantitative trait locus (QTL) analysis is to identify
+genomic regions linked to a phenotype, to map these regions precisely,
+and to define the effects, number, and interactions of QTL.</p>
+<p>QTL analysis can be performed in natural populations or in
+experimental crosses, and can be studied in humans and non-human
+species. Human studies, however, are very expensive, lack environmental
+control, and can be confounded by <a href="https://en.wikipedia.org/wiki/Population_stratification" class="external-link">population
+structure</a> such that associations between genotype and phenotype are
+not necessarily causal.</p>
+<p>QTL analysis in experimental crosses requires two or more strains
+that differ genetically with regard to a phenotype of interest. Genetic
+markers, such as SNPs or microsatellites, distinguish between parental
+strains in the experimental cross. Markers that are genetically linked
+to a phenotype will segregate more often with phenotype values (high or
+low values, for example), while unlinked markers will not be
+significantly associated with the phenotype. The markers themselves
+might be associated with the phenotype but are not causal. Rather,
+markers may be associated with the phenotype through linkage to nearby
+QTL. They serve as signposts indicating the neighborhood of a QTL that
+influences a phenotype. Covariates such as sex or diet can also
+influence the phenotype.</p>
+<p><a href="http://kbroman.org/qtl2" class="external-link">R/qtl2</a> (aka qtl2) is a
+reimplementation of the QTL analysis software <a href="http://rqtl.org" class="external-link">R/qtl</a> to better handle high-dimensional data
+and complex cross designs such as the Diversity Outbred. Typically
+R/qtl2 will be employed in “batch” (for example, on a cluster) rather
+than interactively.</p>
+<p>This lesson will focus on the R/qtl2 package in R. A workflow for
+quantitative trait mapping with R/qtl2 is shown here.</p>
+<figure><img src="fig/mapping-workflow.png" class="figure mx-auto d-block"></figure><p>To cite R/qtl in publications, use Broman KW, Wu H, Sen S, Churchill
+GA (2003) R/qtl: QTL mapping in experimental crosses. Bioinformatics
+19:889-89 <!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
- -->
+ --></p>
 
 
       <section id="setup"><section><h2 class="section-heading" id="software-setup">Software Setup<a class="anchor" aria-label="anchor" href="#software-setup"></a></h2>
