@@ -121,8 +121,11 @@ view the insulin permutation LOD scores by making a histogram.
 
 
 ``` r
-hist(perm_add, breaks = 50, xlab = "LOD", las = 1,
-     main = "Empirical distribution of maximum LOD scores under permuation")
+hist(perm_add, 
+     breaks = 50, 
+     xlab   = "LOD", 
+     las    = 1,
+     main   = "Empirical distribution of maximum LOD scores under permuation")
 abline(v = summary(perm_add), col = 'red', lwd = 2)
 ```
 
@@ -145,7 +148,7 @@ summary(perm_add)
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.05               3.87
+0.05               3.91
 ```
 
 The default is to return the 5% significance thresholds. Thresholds for other 
@@ -160,8 +163,8 @@ summary(perm_add,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.16
-0.05               3.87
+0.2                3.18
+0.05               3.91
 ```
 
 ## Estimating an X Chromosome Specific Threshold
@@ -177,7 +180,7 @@ perm_add2 <- scan1perm(genoprobs   = probs,
                        addcovar    = addcovar, 
                        n_perm      = 1000,
                        perm_Xsp    = TRUE, 
-                       chr_lengths = chr_lengths(map))
+                       chr_lengths = chr_lengths(cross$pmap))
 ```
 
 Separate permutations are performed for the autosomes and X chromosome, and 
@@ -194,8 +197,16 @@ summary(perm_add2,
         alpha = c(0.2, 0.05))
 ```
 
-``` error
-Error in eval(expr, envir, enclos): object 'perm_add2' not found
+``` output
+Autosome LOD thresholds (1000 permutations)
+     log10_insulin_10wk
+0.2                3.18
+0.05               3.91
+
+X chromosome LOD thresholds (14369 permutations)
+     log10_insulin_10wk
+0.2                3.04
+0.05               3.75
 ```
 
 ## Estimating Significance Thresholds with the Kinship Matrix
@@ -224,8 +235,8 @@ summary(perm_add_loco,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.14
-0.05               3.86
+0.2                3.16
+0.05               3.87
 ```
 
 There is not a large difference in the thresholds. Currently, we are on the
@@ -240,8 +251,12 @@ We ran 1000 permutations of the insulin phenotype and estimated the 0.05
 significance threshold with and without the kinship matrices. We repeated this
 process 100 times and plotted the thresholds below.
 
-<!-- DMG: I'm running the simulations and will add a figure once they're done. -->
+![Significance Thresholds with/without Kinship](fig/perm_kinship.png)
 
+The plot shows that the median significance threshold is the same. The lines
+connecting the points denote matched simulations in which the permutation
+order was the same. While the exact value of the LOD threshold is different, 
+the median value and the variance are similar.
 
 ## Estimating Binary Model Significance Thresholds
 
@@ -253,15 +268,11 @@ the other arguments can be applied.
 ``` r
 perm_bin <- scan1perm(genoprobs = probs, 
                       pheno     = cross$pheno[,"agouti_tan",drop = FALSE], 
-                      Xcovar    = Xcovar, 
+                      addcovar  = addcovar, 
                       n_perm    = 1000, 
                       perm_Xsp  = TRUE, 
-                      chr_lengths = chr_lengths(map),
+                      chr_lengths = chr_lengths(cross$pmap),
                       model     = "binary")
-```
-
-``` error
-Error in eval(expr, envir, enclos): object 'Xcovar' not found
 ```
 
 Here are the estimated 5% and 20% significance thresholds.
@@ -272,11 +283,19 @@ summary(perm_bin,
         alpha = c(0.2, 0.05))
 ```
 
-``` error
-Error in eval(expr, envir, enclos): object 'perm_bin' not found
+``` output
+Autosome LOD thresholds (1000 permutations)
+     agouti_tan
+0.2        3.18
+0.05       3.93
+
+X chromosome LOD thresholds (14369 permutations)
+     agouti_tan
+0.2        3.13
+0.05       3.94
 ```
 
-## Selecting the number of permutations
+## Selecting the Number of Permutations
 
 How do we know how many permutations to perform in order to obtain a good 
 estimate of the significance threshold? Could we get a good estimate with 10
