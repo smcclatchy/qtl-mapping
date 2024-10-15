@@ -419,29 +419,30 @@
 </div>
 </div>
 <section><h2 class="section-heading" id="estimating-founder-allele-effects">Estimating Founder Allele Effects<a class="anchor" aria-label="anchor" href="#estimating-founder-allele-effects"></a></h2>
-<hr class="half-width"><!-- DMG: Sue, can you make the equations Latex? --><p>Recall that to model data from a cross, we use</p>
-<figure><img src="fig/linear-genetic-model.png" class="figure mx-auto d-block"></figure><p>where <i>y<sub>j</sub></i> is the phenotype of the <i>j</i>th
-individual, μ is the mean phenotype value, <i>β<sub>k</sub></i> is the
-effect of the <i>kth</i> genotype, <i>X<sub>jk</sub></i> is the genotype
-for individual j, and ε<sub>j</sub> is the error for the <i>j</i>th
-individual. In the figure below, μ equals 1, and β equals 0.1 for the
-alternative hypothesis (QTL exists).</p>
-<figure><img src="fig/nullvalt.png" class="figure mx-auto d-block"></figure><p>This linear model is <i>y</i> = 1 + 0.1X + ε. The model intersects
-the genotype groups at their group means, and is based on μ and
-<i>β<sub>k</sub></i> for chromosome 2 marker D2Mit17 located at 56.8
-cM.</p>
-<p>The effect of genotype RR (the β for the RR genotype) at marker
-D2Mit17 is 0.1, while the effect of the BB genotype is -0.1 on the liver
-phenotype. The effect of the BR genotype is 0 relative to μ equals
-1.</p>
+<hr class="half-width"><p>Recall that to model data from a cross, we use</p>
+<p><span class="math inline">\(y_j = \mu + \beta_k G_{jk} +
+\epsilon_j\)</span></p>
+<p>where <span class="math inline">\(y_{ij}\)</span> is the phenotype of
+the <span class="math inline">\(j\)</span>th individual, <span class="math inline">\(\mu\)</span> is the mean phenotype value, <span class="math inline">\(\beta_k\)</span> is the effect of the <span class="math inline">\(k\)</span>th genotype, <span class="math inline">\(G_{jk}\)</span> is the genotype for individual
+<span class="math inline">\(j\)</span>, and <span class="math inline">\(\epsilon_j\)</span> is the error for the <span class="math inline">\(j\)</span>th individual. In the figure below,
+<span class="math inline">\(\mu\)</span> equals 1, and <span class="math inline">\(\beta\)</span> equals 0.1 for the alternative
+hypothesis (QTL exists).</p>
+<figure><img src="fig/nullvalt.png" class="figure mx-auto d-block"></figure><p>This linear model is <span class="math inline">\(y\)</span> = 1 +
+0.1<span class="math inline">\(G + \epsilon\)</span>. The model
+intersects the genotype groups at their group means, and is based on
+<span class="math inline">\(\mu\)</span> and <span class="math inline">\(\beta_k\)</span> for chromosome 2 marker D2Mit17
+located at 56.8 cM.</p>
+<p>The effect of genotype RR (the <span class="math inline">\(\beta\)</span> for the RR genotype) at marker
+D2Mit17 is 0.1, while the effect of the BB genotype is -0.1 on the
+insulin phenotype. The effect of the BR genotype is 0 relative to <span class="math inline">\(\mu\)</span> equals 1.</p>
 <p>The <code>scan1()</code> function returns only LOD scores. To obtain
 estimated QTL effects, use the function <code>scan1coef()</code>. This
 function takes a single phenotype and the genotype probabilities for a
 single chromosome and returns a matrix with the estimated coefficients
 at each putative QTL location along the chromosome.</p>
 <p>For example, to get the estimated QTL effects on chromosome 2 for the
-liver phenotype, we would provide the chromosome 2 genotype
-probabilities and the liver phenotype to the function
+insulin phenotype, we would provide the chromosome 2 genotype
+probabilities and the insulin phenotype to the function
 <code>scan1coef()</code> as follows:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -453,8 +454,8 @@ probabilities and the liver phenotype to the function
 <span>                      kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>                      addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
 </div>
-<p>The result is a matrix of 135 positions × 4 genotypes. An additional
-column contains the intercept values (μ).</p>
+<p>The result is a matrix of 135 positions <span class="math inline">\(\times\)</span><br>
+4 genotypes. An additional column contains the intercept values (<span class="math inline">\(\mu\)</span>).</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -480,7 +481,7 @@ LOD plot at the bottom.</p>
 <span>          legend       <span class="op">=</span> <span class="st">"topright"</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/est-qtl-effects-rendered-plot_coef-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The plot shows effect values on the y-axis and cM values on the
-x-axis. The value of the intercept (μ) appears at the top. The effect of
+x-axis. The value of the intercept (<span class="math inline">\(\mu\)</span>) appears at the top. The effect of
 the BR genotype is centered around zero, with the effects of the other
 two genotypes above and below. We are usually not directly interested in
 how the additive covariates change across the genome, but rather, the
@@ -737,7 +738,7 @@ specified value (the argument <code>minprob</code>). Note that the
 “marg” in “maxmarg” stands for “marginal”, as this function is selecting
 the genotype at each position that has maximum marginal probability.</p>
 <p>For example, we could get inferred genotypes at the chr 2 QTL for the
-liver phenotype (at 28.6 cM) as follows:</p>
+insulin phenotype (at 28.6 cM) as follows:</p>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -781,7 +782,7 @@ founder allele increases insulin levels?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -825,15 +826,15 @@ genotype at the marker with the higest LOD on chromosome 19.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">chr</span> <span class="op">&lt;-</span> <span class="st">'19'</span></span>
-<span><span class="va">blup_chr19</span> <span class="op">&lt;-</span> <span class="fu">scan1blup</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>, </span>
-<span>                        pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"log10_insulin_10wk"</span><span class="op">]</span>,</span>
+<span><span class="va">blup_chr19</span> <span class="op">&lt;-</span> <span class="fu">scan1blup</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>, <span class="va">chr</span><span class="op">]</span>, </span>
+<span>                        pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>, <span class="st">"log10_insulin_10wk"</span><span class="op">]</span>,</span>
 <span>                        addcovar  <span class="op">=</span> <span class="va">addcovar</span>,</span>
 <span>                        kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>  </span>
 <span><span class="fu">plot_coef</span><span class="op">(</span>x       <span class="op">=</span> <span class="va">blup_chr19</span>, </span>
