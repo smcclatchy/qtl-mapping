@@ -32,7 +32,12 @@ lod_add_loco <- scan1(genoprobs = probs,
                       pheno = cross$pheno[,"log10_insulin_10wk"], 
                       kinship = kinship_loco, addcovar = addcovar)
 perm_add_loco = readRDS(url("https://thejacksonlaboratory.box.com/shared/static/fatud2gsjogbfg4xntyix05j6dg3pdnj.rds"))
-thr = summary(perm_add_loco, alpha = 0.05)
+thr   <- summary(perm_add_loco, alpha = 0.05)
+peaks <- find_peaks(lod_add_loco, cross$pmap, threshold = thr, prob = 0.95)
+c2eff <- scan1blup(genoprobs = probs[,'2'], 
+                   pheno = cross$pheno[,"log10_insulin_10wk"], 
+                   kinship = kinship_loco[['2']], addcovar = addcovar)
+max_mkr <- find_marker(cross$pmap, chr = '2', pos = peaks$pos[peaks$chr == '2']) 
 ```
 
 ## Estimating Founder Allele Effects
@@ -46,25 +51,26 @@ Recall that to model data from a cross, we use
 
 where <i>y<sub>j</sub></i> is the phenotype of the <i>j</i>th individual, &mu; 
 is the mean phenotype value, <i>&beta;<sub>k</sub></i> is the effect of the 
-<i>kth</i> genotype, <i>X<sub>jk</sub></i> is the genotype for individual j, and &epsilon;<sub>j</sub> is the error for the <i>j</i>th individual. In the figure 
-below, &mu; equals `r round(c2eff["D2Mit17", 4], 1)`, and &beta; equals 
-`r round(abs(c2eff["D2Mit17", 1]), 1)` for the alternative hypothesis 
+<i>kth</i> genotype, <i>X<sub>jk</sub></i> is the genotype for individual j, 
+and &epsilon;<sub>j</sub> is the error for the <i>j</i>th individual. In the figure 
+below, &mu; equals `r round(c2eff[max_mkr, 4], 1)`, and &beta; equals 
+`r round(abs(c2eff[max_mkr, 1]), 1)` for the alternative hypothesis 
 (QTL exists).
 
 ![](../fig/nullvalt.png)
 
-This linear model is <i>y</i> = `r round(c2eff["D2Mit17",4], 1)` + 
-`r round(abs(c2eff["D2Mit17",1]), 1)`X + &epsilon;. The model intersects the 
+This linear model is <i>y</i> = `r round(c2eff[max_mkr,4], 1)` + 
+`r round(abs(c2eff[max_mkr,1]), 1)`X + &epsilon;. The model intersects the 
 genotype groups at their group means, and is based on &mu; and 
 <i>&beta;<sub>k</sub></i> for chromosome 2 marker D2Mit17 located at 56.8 cM.  
 
 The effect of genotype `r dimnames(c2eff)[[2]][[3]]` (the &beta; for the 
 `r dimnames(c2eff)[[2]][[3]]` genotype) at marker D2Mit17 is 
-`r round(c2eff["D2Mit17", 3], 1)`, while the effect of the 
-`r dimnames(c2eff)[[2]][[1]]` genotype is `r round(c2eff["D2Mit17", 1], 1)` on 
+`r round(c2eff[max_mkr, 3], 1)`, while the effect of the 
+`r dimnames(c2eff)[[2]][[1]]` genotype is `r round(c2eff[max_mkr, 1], 1)` on 
 the liver phenotype. The effect of the `r dimnames(c2eff)[[2]][[2]]` genotype is 
-`r round(c2eff["D2Mit17",2], 1)` relative to &mu; equals 
-`r round(c2eff["D2Mit17",4], 1)`.
+`r round(c2eff[max_mkr,2], 1)` relative to &mu; equals 
+`r round(c2eff[max_mkr,4], 1)`.
 
 The `scan1()` function returns only LOD scores. To obtain estimated QTL effects,
 use the function `scan1coef()`. This function takes a single phenotype and the 
