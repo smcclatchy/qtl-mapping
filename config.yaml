@@ -77,11 +77,13 @@ episodes:
 - perform-perm-test.Rmd
 - find-lod-peaks.Rmd
 - est-qtl-effects.Rmd
-#- integrating-gene-expression.Rmd
+- integrating-gene-expression.Rmd
 - do_qtl_mapping.Rmd
 
 # Information for Learners
 learners:
+- setup.md
+-reference.md
 
 # Information for Instructors
 instructors:
