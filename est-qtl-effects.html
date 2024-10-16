@@ -118,11 +118,11 @@
   Quantitative Trait Mapping
 </div>
 
-<aside class="col-md-12 lesson-progress"><div style="width: 69%" class="percentage">
-    69%
+<aside class="col-md-12 lesson-progress"><div style="width: 62%" class="percentage">
+    62%
   </div>
   <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: 69%" aria-valuenow="69" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
+    <div class="progress-bar incubator" role="progressbar" style="width: 62%" aria-valuenow="62" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
     </div>
   </div>
 </aside><div class="container">
@@ -301,7 +301,7 @@
 <li><a href="#plotting-founder-allele-effects-along-a-chromosome">Plotting Founder Allele Effects Along a Chromosome</a></li>
 <li><a href="#estimating-founder-allele-effects-using-blups">Estimating Founder Allele Effects using BLUPs</a></li>
 <li><a href="#plotting-allele-effects-at-one-marker">Plotting Allele Effects at one Marker</a></li>
-<li><a href="#plotting-phenotypes-versus-genootypes">Plotting Phenotypes versus Genootypes</a></li>
+<li><a href="#plotting-phenotypes-versus-genotypes">Plotting Phenotypes versus Genotypes</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -384,7 +384,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Estimating QTL effects</h1>
-        <p>Last updated on 2024-10-15 |
+        <p>Last updated on 2024-10-16 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/est-qtl-effects.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -419,7 +419,8 @@
 </div>
 </div>
 <section><h2 class="section-heading" id="estimating-founder-allele-effects">Estimating Founder Allele Effects<a class="anchor" aria-label="anchor" href="#estimating-founder-allele-effects"></a></h2>
-<hr class="half-width"><p>Recall that to model data from a cross, we use</p>
+<hr class="half-width"><!-- DMG: Sue, can you make the equations Latex and remake the figures
+with the BTBR data? --><p>Recall that to model data from a cross, we use</p>
 <p><span class="math inline">\(y_j = \mu + \beta_k G_{jk} +
 \epsilon_j\)</span></p>
 <p>where <span class="math inline">\(y_{ij}\)</span> is the phenotype of
@@ -427,13 +428,12 @@ the <span class="math inline">\(j\)</span>th individual, <span class="math inlin
 <span class="math inline">\(j\)</span>, and <span class="math inline">\(\epsilon_j\)</span> is the error for the <span class="math inline">\(j\)</span>th individual. In the figure below,
 <span class="math inline">\(\mu\)</span> equals 1, and <span class="math inline">\(\beta\)</span> equals 0.1 for the alternative
 hypothesis (QTL exists).</p>
-<figure><img src="fig/nullvalt.png" class="figure mx-auto d-block"></figure><p>This linear model is <span class="math inline">\(y\)</span> = 1 +
-0.1<span class="math inline">\(G + \epsilon\)</span>. The model
-intersects the genotype groups at their group means, and is based on
-<span class="math inline">\(\mu\)</span> and <span class="math inline">\(\beta_k\)</span> for chromosome 2 marker D2Mit17
-located at 56.8 cM.</p>
-<p>The effect of genotype RR (the <span class="math inline">\(\beta\)</span> for the RR genotype) at marker
-D2Mit17 is 0.1, while the effect of the BB genotype is -0.1 on the
+<figure><img src="fig/nullvalt.png" class="figure mx-auto d-block"></figure><p>This linear model is <i>y</i> = 1 + 0.1X + ε. The model intersects
+the genotype groups at their group means, and is based on μ and
+<i>β<sub>k</sub></i> for chromosome 2 marker rs13476803 located at
+138.944754 Mb.</p>
+<p>The effect of genotype RR (the β for the RR genotype) at marker
+rs13476803 is 0.1, while the effect of the BB genotype is -0.1 on the
 insulin phenotype. The effect of the BR genotype is 0 relative to <span class="math inline">\(\mu\)</span> equals 1.</p>
 <p>The <code>scan1()</code> function returns only LOD scores. To obtain
 estimated QTL effects, use the function <code>scan1coef()</code>. This
@@ -448,24 +448,24 @@ probabilities and the insulin phenotype to the function
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">chr</span>      <span class="op">&lt;-</span> <span class="st">"2"</span></span>
-<span><span class="va">eff_chr2</span> <span class="op">&lt;-</span> <span class="fu">scan1coef</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>, </span>
+<code class="sourceCode R"><span><span class="va">chr</span>      <span class="op">&lt;-</span> <span class="st">"7"</span></span>
+<span><span class="va">eff_chr7</span> <span class="op">&lt;-</span> <span class="fu">scan1coef</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>, </span>
 <span>                      pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"log10_insulin_10wk"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
 <span>                      kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>                      addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
 </div>
-<p>The result is a matrix of 135 positions <span class="math inline">\(\times\)</span><br>
+<p>The result is a matrix of 109 positions <span class="math inline">\(\times\)</span><br>
 4 genotypes. An additional column contains the intercept values (<span class="math inline">\(\mu\)</span>).</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">dim</span><span class="op">(</span><span class="va">eff_chr2</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">dim</span><span class="op">(</span><span class="va">eff_chr7</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 135   5</code></pre>
+<pre class="output" tabindex="0"><code>[1] 109   5</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="plotting-founder-allele-effects-along-a-chromosome">Plotting Founder Allele Effects Along a Chromosome<a class="anchor" aria-label="anchor" href="#plotting-founder-allele-effects-along-a-chromosome"></a></h2>
 <hr class="half-width"><p>To plot the QTL effects, use the <code>plot_coef()</code> function.
@@ -475,13 +475,13 @@ LOD plot at the bottom.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_coef</span><span class="op">(</span>x            <span class="op">=</span> <span class="va">eff_chr2</span>, </span>
+<code class="sourceCode R"><span><span class="fu">plot_coef</span><span class="op">(</span>x            <span class="op">=</span> <span class="va">eff_chr7</span>, </span>
 <span>          map          <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
 <span>          scan1_output <span class="op">=</span> <span class="va">lod_add_loco</span>, </span>
 <span>          legend       <span class="op">=</span> <span class="st">"topright"</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/est-qtl-effects-rendered-plot_coef-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The plot shows effect values on the y-axis and cM values on the
-x-axis. The value of the intercept (<span class="math inline">\(\mu\)</span>) appears at the top. The effect of
+x-axis. The value of the intercept (μ) appears at the top. The effect of
 the BR genotype is centered around zero, with the effects of the other
 two genotypes above and below. We are usually not directly interested in
 how the additive covariates change across the genome, but rather, the
@@ -493,18 +493,18 @@ at the columns which contain the founder allele effects.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">eff_chr2</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">eff_chr7</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>                    BB          BR         RR    SexMale intercept
-rs13476325 -0.03431856 -0.02163346 0.05595202 -0.1633378  1.004710
-rs13476327 -0.03623308 -0.01955842 0.05579150 -0.1628682  1.003782
-rs13476328 -0.03623340 -0.01955799 0.05579139 -0.1628681  1.003782
-rs13476330 -0.03623339 -0.01955845 0.05579184 -0.1628681  1.003782
-rs3695983  -0.03623331 -0.01955810 0.05579142 -0.1628681  1.003782
-rs13476334 -0.02971495 -0.02521427 0.05492922 -0.1638468  1.005488</code></pre>
+<pre class="output" tabindex="0"><code>                   BB           BR          RR    SexMale intercept
+rs8252589  0.02792439 -0.002516938 -0.02540745 -0.1753913  1.011125
+rs13479104 0.02140644  0.002728978 -0.02413541 -0.1751367  1.009704
+rs13479112 0.02010520  0.006609288 -0.02671449 -0.1750756  1.008747
+rs13479114 0.01880760  0.007656166 -0.02646377 -0.1750906  1.008527
+rs13479120 0.02083594  0.005991180 -0.02682712 -0.1752293  1.008946
+rs13479124 0.02061108  0.002498998 -0.02311008 -0.1751596  1.009863</code></pre>
 </div>
 <p>We would like to plot the columns “BB”, “BR”, and “RR”, which are in
 columns 1 through 3. This is what we pass into the <code>columns</code>
@@ -513,7 +513,7 @@ argument.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_coef</span><span class="op">(</span>x       <span class="op">=</span> <span class="va">eff_chr2</span>, </span>
+<code class="sourceCode R"><span><span class="fu">plot_coef</span><span class="op">(</span>x       <span class="op">=</span> <span class="va">eff_chr7</span>, </span>
 <span>          map     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>, </span>
 <span>          columns <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, </span>
 <span>          scan1_output <span class="op">=</span> <span class="va">lod_add_loco</span>, </span>
@@ -537,7 +537,7 @@ matrix to account for a residual polygenic effect.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">blup_chr2</span> <span class="op">&lt;-</span> <span class="fu">scan1blup</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>, </span>
+<code class="sourceCode R"><span><span class="va">blup_chr7</span> <span class="op">&lt;-</span> <span class="fu">scan1blup</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>, </span>
 <span>                       pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"log10_insulin_10wk"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
 <span>                       kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>                       addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
@@ -548,33 +548,33 @@ before.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_coef</span><span class="op">(</span>x       <span class="op">=</span> <span class="va">blup_chr2</span>, </span>
+<code class="sourceCode R"><span><span class="fu">plot_coef</span><span class="op">(</span>x       <span class="op">=</span> <span class="va">blup_chr7</span>, </span>
 <span>          map     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>, </span>
 <span>          columns <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, </span>
 <span>          scan1_output <span class="op">=</span> <span class="va">lod_add_loco</span>, </span>
-<span>          main    <span class="op">=</span> <span class="st">"Chromosome 2 QTL BLUP effects and LOD scores"</span>,</span>
+<span>          main    <span class="op">=</span> <span class="fu">paste</span><span class="op">(</span><span class="st">"Chromosome"</span>, <span class="va">chr</span>, <span class="st">"QTL BLUP effects and LOD scores"</span><span class="op">)</span>,</span>
 <span>          legend  <span class="op">=</span> <span class="st">"topleft"</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/est-qtl-effects-rendered-plot_blup_chr2-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In the plot below, we plotted the founder allele effects (solid
+<figure><img src="fig/est-qtl-effects-rendered-plot_blup_chr7-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In the plot below, we plotted the founder allele effects (solid
 lines) and the BLUPs (dashed lines). In this case, the effects are not
 greatly different, but the effects are “shrunken” toward zero.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_coef</span><span class="op">(</span>x       <span class="op">=</span> <span class="va">eff_chr2</span>, </span>
+<code class="sourceCode R"><span><span class="fu">plot_coef</span><span class="op">(</span>x       <span class="op">=</span> <span class="va">eff_chr7</span>, </span>
 <span>          map     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>, </span>
 <span>          columns <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, </span>
-<span>          main    <span class="op">=</span> <span class="st">"Chromosome 2 QTL BLUP effects and LOD scores"</span>,</span>
+<span>          main    <span class="op">=</span> <span class="fu">paste</span><span class="op">(</span><span class="st">"Chromosome"</span>, <span class="va">chr</span>,<span class="st">"QTL BLUP effects and LOD scores"</span><span class="op">)</span>,</span>
 <span>          legend  <span class="op">=</span> <span class="st">"topleft"</span><span class="op">)</span></span>
-<span><span class="fu">plot_coef</span><span class="op">(</span>x       <span class="op">=</span> <span class="va">blup_chr2</span>, </span>
+<span><span class="fu">plot_coef</span><span class="op">(</span>x       <span class="op">=</span> <span class="va">blup_chr7</span>, </span>
 <span>          map     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>, </span>
 <span>          columns <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,</span>
 <span>          lty     <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>          legend  <span class="op">=</span> <span class="st">"topleft"</span>,</span>
 <span>          add     <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/est-qtl-effects-rendered-plot_blup_chr2_again-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="plotting-allele-effects-at-one-marker">Plotting Allele Effects at one Marker<a class="anchor" aria-label="anchor" href="#plotting-allele-effects-at-one-marker"></a></h2>
+<figure><img src="fig/est-qtl-effects-rendered-plot_blup_chr7_again-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="plotting-allele-effects-at-one-marker">Plotting Allele Effects at one Marker<a class="anchor" aria-label="anchor" href="#plotting-allele-effects-at-one-marker"></a></h2>
 <hr class="half-width"><p>You may also want plot the founder allele effects at the marker with
 the highest LOD. To do this, you first need to get the position of the
 marker from the peak list.</p>
@@ -583,8 +583,8 @@ marker from the peak list.</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">peaks</span> <span class="op">&lt;-</span> <span class="fu">find_peaks</span><span class="op">(</span>scan1_output <span class="op">=</span> <span class="va">lod_add_loco</span>,</span>
-<span>                   map          <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
-<span>                   threshold    <span class="op">=</span> <span class="va">thr</span><span class="op">)</span></span>
+<span>                    map          <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
+<span>                    threshold    <span class="op">=</span> <span class="va">thr</span><span class="op">)</span></span>
 <span><span class="va">peaks</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -598,14 +598,14 @@ marker from the peak list.</p>
 5        1    pheno1  16  80.37433 4.114024
 6        1    pheno1  19  54.83012 5.476587</code></pre>
 </div>
-<p>The position of the maximum LOD on chromosome 2 is 138.944754 Mb. We
+<p>The position of the maximum LOD on chromosome 7 is 144.182298 Mb. We
 can pass this value into the <code>qtl2</code> function
 <code>pull_genoprobpos</code> to get the genoprobs at this marker.</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">max_pos</span> <span class="op">&lt;-</span> <span class="fu">subset</span><span class="op">(</span><span class="va">peaks</span>, <span class="va">chr</span> <span class="op">==</span> <span class="st">'2'</span><span class="op">)</span><span class="op">$</span><span class="va">pos</span></span>
+<code class="sourceCode R"><span><span class="va">max_pos</span> <span class="op">&lt;-</span> <span class="fu">subset</span><span class="op">(</span><span class="va">peaks</span>, <span class="va">chr</span> <span class="op">==</span> <span class="st">'7'</span><span class="op">)</span><span class="op">$</span><span class="va">pos</span></span>
 <span><span class="va">max_mkr</span> <span class="op">&lt;-</span> <span class="fu">find_marker</span><span class="op">(</span>map <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>, </span>
 <span>                       chr <span class="op">=</span> <span class="va">chr</span>, </span>
 <span>                       pos <span class="op">=</span> <span class="va">max_pos</span><span class="op">)</span></span>
@@ -624,7 +624,7 @@ can pass this value into the <code>qtl2</code> function
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code> num [1:490, 1:3] 6.83e-08 6.83e-08 1.00 6.83e-08 1.00 ...
+<pre class="output" tabindex="0"><code> num [1:490, 1:3] 1.55e-06 1.55e-06 1.55e-06 3.94e-05 1.00 ...
  - attr(*, "dimnames")=List of 2
   ..$ : chr [1:490] "Mouse3051" "Mouse3551" "Mouse3430" "Mouse3476" ...
   ..$ : chr [1:3] "BB" "BR" "RR"</code></pre>
@@ -662,26 +662,25 @@ error.</p>
 <span>                                ymax <span class="op">=</span> <span class="va">eff</span> <span class="op">+</span> <span class="va">se</span><span class="op">)</span>,</span>
 <span>                  size       <span class="op">=</span> <span class="fl">1.5</span>,</span>
 <span>                  linewidth  <span class="op">=</span> <span class="fl">1.25</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Founder Allele Effects on Chr 2"</span>,</span>
+<span>  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="fu">paste</span><span class="op">(</span><span class="st">"Founder Allele Effects on Chr"</span>, <span class="va">chr</span><span class="op">)</span>,</span>
 <span>       x     <span class="op">=</span> <span class="st">"Genotype"</span>, y <span class="op">=</span> <span class="st">"Founder Allele Effects"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">theme</span><span class="op">(</span>text <span class="op">=</span> <span class="fu">element_text</span><span class="op">(</span>size <span class="op">=</span> <span class="fl">20</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/est-qtl-effects-rendered-plot_fit1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In the plot above, which founder allele contributes to higher insulin
 levels? Is that consistent with the plot created using
 <code>plot_coef</code> above?</p>
-<!-- DMG: STOPPED HERE -->
 <p>If instead you want additive and dominance effects, you can provide a
 square matrix of <em>contrasts</em>, as follows:</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">c2effB</span> <span class="op">&lt;-</span> <span class="fu">scan1coef</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>, </span>
+<code class="sourceCode R"><span><span class="va">c7effB</span> <span class="op">&lt;-</span> <span class="fu">scan1coef</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>, </span>
 <span>                    pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"log10_insulin_10wk"</span>, drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
 <span>                    kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>                    addcovar  <span class="op">=</span> <span class="va">addcovar</span>,</span>
-<span>                    contrasts <span class="op">=</span> <span class="fu">cbind</span><span class="op">(</span>mu <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, </span>
-<span>                                      a  <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span>, </span>
+<span>                    contrasts <span class="op">=</span> <span class="fu">cbind</span><span class="op">(</span>mu <span class="op">=</span> <span class="fu">c</span><span class="op">(</span>   <span class="fl">1</span>, <span class="fl">1</span>,    <span class="fl">1</span><span class="op">)</span>, </span>
+<span>                                      a  <span class="op">=</span> <span class="fu">c</span><span class="op">(</span>  <span class="op">-</span><span class="fl">1</span>, <span class="fl">0</span>,    <span class="fl">1</span><span class="op">)</span>, </span>
 <span>                                      d  <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">0.5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <p>The result will then contain the estimates of <code>mu</code>,
@@ -691,44 +690,45 @@ effect).</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">dim</span><span class="op">(</span><span class="va">c2effB</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">dim</span><span class="op">(</span><span class="va">c7effB</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>[1] 135   4</code></pre>
+<pre class="output" tabindex="0"><code>[1] 109   4</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">c2effB</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">c7effB</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>                 mu          a           d    SexMale
-rs13476325 1.004710 0.04513529 -0.02163346 -0.1633378
-rs13476327 1.003782 0.04601229 -0.01955842 -0.1628682
-rs13476328 1.003782 0.04601240 -0.01955799 -0.1628681
-rs13476330 1.003782 0.04601261 -0.01955845 -0.1628681
-rs3695983  1.003782 0.04601237 -0.01955810 -0.1628681
-rs13476334 1.005488 0.04232209 -0.02521427 -0.1638468</code></pre>
+<pre class="output" tabindex="0"><code>                 mu           a            d    SexMale
+rs8252589  1.011125 -0.02666592 -0.002516938 -0.1753913
+rs13479104 1.009704 -0.02277092  0.002728978 -0.1751367
+rs13479112 1.008747 -0.02340984  0.006609288 -0.1750756
+rs13479114 1.008527 -0.02263568  0.007656166 -0.1750906
+rs13479120 1.008946 -0.02383153  0.005991180 -0.1752293
+rs13479124 1.009863 -0.02186058  0.002498998 -0.1751596</code></pre>
 </div>
-<p>For marker rs13476803, <code>mu</code>, <code>a</code>, and
-<code>d</code> are 1.0110988, 0.1335155, 0.0089742, -0.1769879.</p>
-<p>Here’s a plot of the chromosome 2 additive and dominance effects,
+<p>For marker rs13479570, <code>mu</code>, <code>a</code>, and
+<code>d</code> are 1.0058686, -0.1114157, -0.0201158, -0.164111.</p>
+<p>Here’s a plot of the chromosome 7 additive and dominance effects,
 which are in the second and third columns.</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_coef</span><span class="op">(</span>x       <span class="op">=</span> <span class="va">c2effB</span>, </span>
+<code class="sourceCode R"><span><span class="fu">plot_coef</span><span class="op">(</span>x       <span class="op">=</span> <span class="va">c7effB</span>, </span>
 <span>          map     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span><span class="op">[</span><span class="va">chr</span><span class="op">]</span>, </span>
 <span>          columns <span class="op">=</span> <span class="fl">2</span><span class="op">:</span><span class="fl">3</span>, </span>
-<span>          col     <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
+<span>          col     <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu">legend</span><span class="op">(</span><span class="st">'bottomleft'</span>, lty <span class="op">=</span> <span class="fl">1</span>, col <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"additive"</span>, <span class="st">"dominant"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/est-qtl-effects-rendered-add_dom_contrasts-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="plotting-phenotypes-versus-genootypes">Plotting Phenotypes versus Genootypes<a class="anchor" aria-label="anchor" href="#plotting-phenotypes-versus-genootypes"></a></h2>
+<figure><img src="fig/est-qtl-effects-rendered-add_dom_contrasts-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure></section><section><h2 class="section-heading" id="plotting-phenotypes-versus-genotypes">Plotting Phenotypes versus Genotypes<a class="anchor" aria-label="anchor" href="#plotting-phenotypes-versus-genotypes"></a></h2>
 <hr class="half-width"><p>Finally, to plot the raw phenotypes against the genotypes at a single
 putative QTL position, you can use the function <code>plot_pxg()</code>.
 This takes a vector of genotypes as produced by the
@@ -737,7 +737,8 @@ from a set of genotype probabilities, provided it is greater than some
 specified value (the argument <code>minprob</code>). Note that the
 “marg” in “maxmarg” stands for “marginal”, as this function is selecting
 the genotype at each position that has maximum marginal probability.</p>
-<p>For example, we could get inferred genotypes at the chr 2 QTL for the
+<!-- DMG: Change this to Chr 7 -->
+<p>For example, we could get inferred genotypes at the chr 7 QTL for the
 insulin phenotype (at 28.6 cM) as follows:</p>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -760,7 +761,7 @@ follows:</p>
 <code class="sourceCode R"><span><span class="fu">plot_pxg</span><span class="op">(</span>geno   <span class="op">=</span> <span class="va">g</span>, </span>
 <span>         pheno  <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"log10_insulin_10wk"</span><span class="op">]</span>, </span>
 <span>         SEmult <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>         main   <span class="op">=</span> <span class="st">"Insulin vs Chr 2 Genotype"</span><span class="op">)</span></span></code></pre>
+<span>         main   <span class="op">=</span> <span class="fu">paste</span><span class="op">(</span><span class="st">"Insulin vs Chr"</span>, <span class="va">chr</span> ,<span class="st">"Genotype"</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
 <figure><img src="fig/est-qtl-effects-rendered-plot_pheno_geno_se-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div id="challenge-1" class="callout challenge">
 <div class="callout-square">
@@ -941,8 +942,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/est-qtl-effects.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/est-qtl-effects.html",
   "dateCreated": "2024-09-06",
-  "dateModified": "2024-10-15",
-  "datePublished": "2024-10-15"
+  "dateModified": "2024-10-16",
+  "datePublished": "2024-10-16"
 }
 
   </script><script>
