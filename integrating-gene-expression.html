@@ -447,6 +447,17 @@ and the gene annotation.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">Sys.getenv</span><span class="op">(</span><span class="st">"VROOM_CONNECTION_SIZE"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] ""</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb3">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">annot</span> <span class="op">&lt;-</span> <span class="fu">read_csv</span><span class="op">(</span><span class="st">"data/attie_b6btbr_grcm39/attie_gene_annot.csv"</span>,</span>
 <span>                  show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>           <span class="fu">mutate</span><span class="op">(</span>a_gene_id <span class="op">=</span> <span class="fu">as.character</span><span class="op">(</span><span class="va">a_gene_id</span><span class="op">)</span><span class="op">)</span></span>
@@ -474,7 +485,7 @@ and the gene annotation.</p>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Dimensions of <code>annot</code>.</p>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -486,7 +497,7 @@ and the gene annotation.</p>
 <pre class="output" tabindex="0"><code>[1] 29860    13</code></pre>
 </div>
 <p>Column names of <code>annot</code>.</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -524,7 +535,7 @@ and the gene annotation.</p>
 <div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>Dimensions of <code>expr</code>.</li>
-</ol><div class="codewrapper sourceCode" id="cb6">
+</ol><div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -536,7 +547,7 @@ and the gene annotation.</p>
 <pre class="output" tabindex="0"><code>[1]   490 29861</code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal"><li>Top-left block of <code>expr</code>.</li>
-</ol><div class="codewrapper sourceCode" id="cb8">
+</ol><div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -565,7 +576,7 @@ columns. The first column in <code>expr</code> contains the mouse ID and
 the remaining columns contain the expression values for each gene. The
 gene IDs are in the column names. These are Agilent gene IDs. They are
 also in the <code>a_gene_id</code> column in the annotation.</p>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -584,7 +595,7 @@ annotation data.</p>
 and the expression data. We saw above that the mouse IDs are in the
 first column of the expression data. Let’s see where the mouse IDs are
 in the phenotype data.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -603,7 +614,7 @@ Mouse3145          1.7827215          1      0</code></pre>
 </div>
 <p><code>cross$pheno</code> is a matrix which contains the mouse IDs in
 the rownames. Let’s convert the expression data to a matrix as well.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -615,7 +626,7 @@ the rownames. Let’s convert the expression data to a matrix as well.</p>
 <code>cross$pheno</code> and <code>expr</code>. Again, when you assemble
 your phenotype and expression data, you will need to make sure that the
 sample IDs are aligned between the data sets.</p>
-<div class="codewrapper sourceCode" id="cb15">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -629,7 +640,7 @@ sample IDs are aligned between the data sets.</p>
 </section><section><h2 class="section-heading" id="identifying-genes-in-a-qtl-support-interval">Identifying Genes in a QTL Support Interval<a class="anchor" aria-label="anchor" href="#identifying-genes-in-a-qtl-support-interval"></a></h2>
 <hr class="half-width"><p>In previous episodes, we found significant QTL peaks using the
 <code>find_peaks</code> function. Let’s look at those peaks again.</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -649,7 +660,7 @@ sample IDs are aligned between the data sets.</p>
 <p>We looked at the QTL peak on chromosome 2 in a previous lesson. The
 QTL interval is 84.627999 Mb wide. This is quite wide. Let’s get the
 genes expressed in the pancreas within this region.</p>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -694,13 +705,13 @@ correlated with the insulin levels may be correlated because they
 control insulin levels, respond to insulin levels, or are correlated by
 chance. Genes which are strongly correlated with insulin levels should
 have QTL peaks in similar positions.</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cor_chr2</span> <span class="op">=</span> <span class="fu">cor</span><span class="op">(</span><span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">'log10_insulin_10wk'</span><span class="op">]</span>, <span class="va">expr_chr2</span>, use <span class="op">=</span> <span class="st">'pairwise'</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -711,7 +722,7 @@ have QTL peaks in similar positions.</p>
 </h3>
 <pre class="error" tabindex="0"><code>Error in hist.default(cor_chr2): invalid number of 'breaks'</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb23">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -729,7 +740,7 @@ have QTL peaks in similar positions.</p>
 <span><span class="co">#   entrezid &lt;lgl&gt;</span></span></code></pre>
 </div>
 <p>Mediation.</p>
-<div class="codewrapper sourceCode" id="cb25">
+<div class="codewrapper sourceCode" id="cb27">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -748,7 +759,7 @@ have QTL peaks in similar positions.</p>
 </h3>
 <pre class="error" tabindex="0"><code>Error in data.frame(a_gene_id = colnames(expr_chr2), lod = 0): arguments imply differing number of rows: 0, 1</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -771,7 +782,7 @@ have QTL peaks in similar positions.</p>
 </h3>
 <pre class="error" tabindex="0"><code>Error in expr_chr2[, i]: subscript out of bounds</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb29">
+<div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -782,7 +793,7 @@ have QTL peaks in similar positions.</p>
 </h3>
 <pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'lod_drop' not found</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb31">
+<div class="codewrapper sourceCode" id="cb33">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -793,7 +804,7 @@ have QTL peaks in similar positions.</p>
 </h3>
 <pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'lod_drop' not found</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb33">
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -804,7 +815,7 @@ have QTL peaks in similar positions.</p>
 </h3>
 <pre class="error" tabindex="0"><code>Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb35">
+<div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -817,7 +828,7 @@ have QTL peaks in similar positions.</p>
 </div>
 <p>If you have</p>
 
-<div class="codewrapper sourceCode" id="cb37">
+<div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -831,7 +842,7 @@ have QTL peaks in similar positions.</p>
 </h3>
 <pre class="error" tabindex="0"><code>Error in dimnames(x) &lt;- dn: length of 'dimnames' [2] not equal to array extent</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb39">
+<div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -842,7 +853,7 @@ have QTL peaks in similar positions.</p>
 </h3>
 <pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'eqtl_chr2' not found</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb41">
+<div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -853,7 +864,7 @@ have QTL peaks in similar positions.</p>
 </h3>
 <pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'eqtl_chr2' not found</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb43">
+<div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
