@@ -26,7 +26,7 @@ IDs for the rows, and the first row is a set of IDs for the columns. For
 example, the genotype data file will have individual IDs in the first column, 
 marker names for the rest of the column headers.
 
-![Attie Sample Genotypes](fig/attie_geno_sample.png){Table showing the mouse genotypes as BB, BR, and RR.}
+![Attie Sample Genotypes](fig/attie_geno_sample.png){alt="Table showing the mouse genotypes as BB, BR, and RR."}
 
 The sample genotype file above shows two alleles: B and R. These represent the 
 founder strains for an intercross, which are C57BL/6 (BB) and BTBR (RR) 
@@ -37,7 +37,7 @@ parental strains C57BL/6 and BTBR.
 In the Diversity Outbred (DO) and Collaborative Cross (CC), alleles A to H 
 represent haplotypes of the 8 founder strains.
 
-![CC and DO Founder Alleles](fig/cc-founder-alleles.png){Figure showing the colors and letter codes of the CC/DO founders.}
+![CC and DO Founder Alleles](fig/cc-founder-alleles.png){alt="Figure showing the colors and letter codes of the CC/DO founders."}
 
 CC lines have very low heterozygosity throughout their genomes. For most loci, 
 CC lines will be homozygous for one of the founder strains A-H above, and as
@@ -45,7 +45,7 @@ such will have one of only 8 genotypes (*e.g.* AA, BB, CC, ...). In contrast,
 DO *mice* (not lines) have high heterozygosity throughout their genomes. Each
 locus will have one of 36 possible genotypes (*e.g.* AA, AB, AC, ..., BB, BC, BD,...).
 
-![](fig/cc-do-genome-comparison.png)
+![](fig/cc-do-genome-comparison.png){alt="Figure showing CC and DO genomes"}
 For the purposes of learning QTL mapping, this lesson begins with the simplest
 cases: backcrosses (2 possible genotypes) and intercrosses 
 (3 possible genotypes).
@@ -95,7 +95,8 @@ simplifies the function for reading in the data. That function,
 `read_cross2()`, has a _single_ argument: the name (with path) of the control 
 file.
 
-For further details, see the separate [vignette on the input file format](http://kbroman.org/qtl2/assets/vignettes/input_files.html).
+For further details, see the separate 
+[vignette on the input file format](http://kbroman.org/qtl2/assets/vignettes/input_files.html).
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -118,29 +119,40 @@ For further details, see the separate [vignette on the input file format](http:/
 ## Sample data sets
 
 In this lesson, we'll work with data sets included in the `qtl2` package. You 
-can find out more about the [sample data files](http://kbroman.org/qtl2/pages/sampledata.html) from the R/qtl2 web site. Zipped versions of these datasets are included with the [qtl2geno](https://github.com/rqtl/qtl2geno) package and can be loaded into R 
+can find out more about the 
+[sample data files](http://kbroman.org/qtl2/pages/sampledata.html) from the 
+R/qtl2 web site. Zipped versions of these datasets are included with the 
+[qtl2geno](https://github.com/rqtl/qtl2geno) package and can be loaded into R 
 using the `read_cross2()` function.
-Additional sample data sets, including data on Diversity Outbred (DO) mice, are available at <https://github.com/rqtl/qtl2data>.
+Additional sample data sets, including data on Diversity Outbred (DO) mice, are 
+available at <https://github.com/rqtl/qtl2data>.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge 2: Can you do it?
 
 Go to <https://github.com/rqtl/qtl2data> to view additional sample data.  
-1). Find the Recla data and locate the phenotype data file. Open the file by clicking on the file name. What is in the first column? the first row?  
+1). Find the Recla data and locate the phenotype data file. Open the file by 
+clicking on the file name. What is in the first column? the first row?  
 2). Locate the genotype data file, click on the file name, and view the raw 
 data. What is in the first column? the first row?  
 3). Locate the covariates file and open it by clicking on the file name. What 
 kind of information does this file contain?  
-4). Locate the control file (YAML or JSON format) and open it. What kind of information does this file contain? 
+4). Locate the control file (YAML or JSON format) and open it. What kind of 
+information does this file contain? 
 
 :::::::::::::::::::::::: solution 
 
-1). What is in the first column of the phenotype file? Animal ID. The first row? Phenotype variable names - OF_distance_first4, OF_distance, OF_corner_pct, OF_periphery_pct, ...  
-2). What is in the first column of the genotype file? marker ID. the first row? Animal ID - 1,4,5,6,7,8,9,10, ...  
+1). What is in the first column of the phenotype file? Animal ID. The first row?
+Phenotype variable names - OF_distance_first4, OF_distance, OF_corner_pct, 
+OF_periphery_pct, ...  
+2). What is in the first column of the genotype file? marker ID. the first row? 
+Animal ID - 1,4,5,6,7,8,9,10, ...  
 3). Locate the covariates file and open it. What kind of information does this 
 file contain? Animal ID, sex, cohort, group, subgroup, ngen, and coat color.  
-4). Locate the control file (YAML or JSON format) and open it. What kind of information does this file contain? Names of primary data files, genotype and allele codes, cross type, description, and other metadata.
+4). Locate the control file (YAML or JSON format) and open it. What kind of 
+information does this file contain? Names of primary data files, genotype and 
+allele codes, cross type, description, and other metadata.
 
 :::::::::::::::::::::::::::::::::
 

@@ -24,7 +24,7 @@ probabilities.
 The first task in QTL analysis is to calculate conditional genotype 
 probabilities, given the observed marker data, at each putative QTL position. 
 For example, the first step would be to determine the probabilities for 
-genotypes SS and SB at the locus indicated below.
+genotypes BR and RR at the locus indicated below.
 
 ![adapted from Broman & Sen, 2009](fig/unknown_genotype.png)
 

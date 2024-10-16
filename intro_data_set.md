@@ -25,7 +25,7 @@ type 1, in which the immune system attacks insulin-secreting cells and prevents
 insulin production, and type 2, in which the pancreas makes less insulin and
 the body becomes less responsive to insulin.
 
-![Insulin resistance in Type 2 diabetes](fig/healthy-vs-T2D.png)
+![Insulin resistance in Type 2 diabetes](fig/healthy-vs-T2D.png){alt="Figure showing Type 2 diabetes & insulin."}
 Created in  BioRender.com
 
 This study is from 
@@ -34,7 +34,7 @@ and involves an intercross between the diabetes-resistant C57BL/6J (B6 or B)
 strain and the diabetes-susceptible BTBR T+ tf/J (BTBR or R) strain mice 
 carrying a Leptin^ob/ob^ mutation. 
 
-![](fig/intercross.png)
+![](fig/intercross.png){alt="Figure showing intercross breeding design."}
 
 The <ob> mutation causes the mice to not produce 
 [leptin](https://en.wikipedia.org/wiki/Leptin), a hormone that 
