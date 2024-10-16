@@ -230,17 +230,17 @@ peaks
 6        1    pheno1  19  54.83012 5.476587  48.370980  55.15007
 ```
 
-We looked at the QTL peak on chromosome 2 in a previous lesson. The QTL interval
-is 84.627999 Mb wide.
+We looked at the QTL peak on chromosome 7 in a previous lesson. The QTL interval
+is 4.814008 Mb wide.
 This is quite wide. Let's get the genes expressed in the pancreas within this
 region. 
 
 
 ``` r
-chr <- '2'
-peaks_chr2 <- filter(peaks, chr == '2')
-annot_chr2 <- filter(annot, chr == '2' & start > peaks_chr2$ci_lo & end < peaks_chr2$ci_hi)
-expr_chr2  <- expr[,annot_chr2$a_gene_id]
+chr <- '7'
+peaks_chr7 <- filter(peaks, chr == '7')
+annot_chr7 <- filter(annot, chr == '7' & start > peaks_chr7$ci_lo & end < peaks_chr7$ci_hi)
+expr_chr7  <- expr[,annot_chr7$a_gene_id]
 ```
 
 There are 0 genes! How can we start to narrow down which 
@@ -272,23 +272,23 @@ correlated with insulin levels should have QTL peaks in similar positions.
 
 
 ``` r
-cor_chr2 = cor(cross$pheno[,'log10_insulin_10wk'], expr_chr2, use = 'pairwise')
+cor_chr7 = cor(cross$pheno[,'log10_insulin_10wk'], expr_chr7, use = 'pairwise')
 ```
 
 
 ``` r
-hist(cor_chr2)
+hist(cor_chr7)
 ```
 
 ``` error
-Error in hist.default(cor_chr2): invalid number of 'breaks'
+Error in hist.default(cor_chr7): invalid number of 'breaks'
 ```
 
 
 ``` r
-ids_chr2 <- colnames(cor_chr2)[abs(cor_chr2) > 0.5]
+ids_chr7 <- colnames(cor_chr7)[abs(cor_chr7) > 0.5]
 annot |>
-  filter(a_gene_id %in% ids_chr2)
+  filter(a_gene_id %in% ids_chr7)
 ```
 
 ``` output
@@ -303,28 +303,28 @@ Mediation.
 
 
 ``` r
-# Get the probs at the maximum insulin QTL on Chr 2.
-pr_chr2 = pull_genoprobpos(genoprobs = probs,
+# Get the probs at the maximum insulin QTL on Chr 7.
+pr_chr7 = pull_genoprobpos(genoprobs = probs,
                            map       = cross$pmap,
                            chr       = chr,
-                           pos       = peaks_chr2$pos)
+                           pos       = peaks_chr7$pos)
 
 # Create data sructure for results.
-lod_drop = data.frame(a_gene_id = colnames(expr_chr2),
+lod_drop = data.frame(a_gene_id = colnames(expr_chr7),
                       lod       = 0)
 ```
 
 ``` error
-Error in data.frame(a_gene_id = colnames(expr_chr2), lod = 0): arguments imply differing number of rows: 0, 1
+Error in data.frame(a_gene_id = colnames(expr_chr7), lod = 0): arguments imply differing number of rows: 0, 1
 ```
 
 ``` r
-for(i in 1:ncol(expr_chr2)) {
+for(i in 1:ncol(expr_chr7)) {
 
   # Make new covariates.
-  curr_covar = cbind(addcovar, expr_chr2[,i])
+  curr_covar = cbind(addcovar, expr_chr7[,i])
   
-  mod = fit1(genoprobs = pr_chr2,
+  mod = fit1(genoprobs = pr_chr7,
              pheno     = cross$pheno[,'log10_insulin_10wk',drop = FALSE],
              kinship   = kinship_loco[[chr]],
              addcovar  = curr_covar)
@@ -335,13 +335,13 @@ for(i in 1:ncol(expr_chr2)) {
 ```
 
 ``` error
-Error in expr_chr2[, i]: subscript out of bounds
+Error in expr_chr7[, i]: subscript out of bounds
 ```
 
 
 
 ``` r
-lod_drop <- left_join(lod_drop, annot_chr2, by = 'a_gene_id')
+lod_drop <- left_join(lod_drop, annot_chr7, by = 'a_gene_id')
 ```
 
 ``` error
@@ -349,7 +349,7 @@ Error in eval(expr, envir, enclos): object 'lod_drop' not found
 ```
 
 ``` r
-plot(lod_drop$start, lod_drop$lod, xlim = c(120, 145))
+plot(lod_drop$start, lod_drop$lod)
 ```
 
 ``` error
@@ -357,7 +357,7 @@ Error in eval(expr, envir, enclos): object 'lod_drop' not found
 ```
 
 ``` r
-abline(v = peaks_chr2$pos, col = 2)
+abline(v = peaks_chr7$pos, col = 2)
 ```
 
 ``` error
@@ -370,7 +370,7 @@ plot(cor_chr2, lod_drop$lod)
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'lod_drop' not found
+Error in eval(expr, envir, enclos): object 'cor_chr2' not found
 ```
 
 
@@ -387,8 +387,8 @@ This takes about 2 minutes to run.
 
 
 ``` r
-eqtl_chr2 <- scan1(genoprobs = probs[,chr],
-                   pheno     = expr_chr2,
+eqtl_chr7 <- scan1(genoprobs = probs[,chr],
+                   pheno     = expr_chr7,
                    kinship   = kinship_loco[[chr]],
                    addcovar  = addcovar)
 ```
@@ -399,28 +399,28 @@ Error in dimnames(x) <- dn: length of 'dimnames' [2] not equal to array extent
 
 
 ``` r
-eqtl_chr2 <- apply(eqtl_chr2, 2, max, simplify = TRUE)
+eqtl_chr7 <- apply(eqtl_chr7, 2, max, simplify = TRUE)
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'eqtl_chr2' not found
+Error in eval(expr, envir, enclos): object 'eqtl_chr7' not found
 ```
 
 ``` r
-eqtl_chr2 <- eqtl_chr2[eqtl_chr2 > thr[1]]
+eqtl_chr7 <- eqtl_chr7[eqtl_chr7 > thr[1]]
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'eqtl_chr2' not found
+Error in eval(expr, envir, enclos): object 'eqtl_chr7' not found
 ```
 
 
 ``` r
-length(eqtl_chr2)
+length(eqtl_chr7)
 ```
 
 ``` error
-Error in eval(expr, envir, enclos): object 'eqtl_chr2' not found
+Error in eval(expr, envir, enclos): object 'eqtl_chr7' not found
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
