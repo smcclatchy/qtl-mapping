@@ -68,6 +68,7 @@ We have prepared two files containing normalized gene expression data and the
 gene annotation.
 
 ```{r include=FALSE}
+Sys.setenv("VROOM_CONNECTION_SIZE" = 128000)
 # We need this because the expression files are too big for Github.
 annot <- read_csv("https://thejacksonlaboratory.box.com/shared/static/2hvsoa1bs64ic2zad8isy9qrurzr4svi.csv",
                  show_col_types = FALSE) |>
