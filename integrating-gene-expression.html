@@ -482,7 +482,7 @@ and the gene annotation.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Dimensions of <code>annot</code>.</p>
 <div class="codewrapper sourceCode" id="cb4">
@@ -532,7 +532,7 @@ and the gene annotation.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>Dimensions of <code>expr</code>.</li>
 </ol><div class="codewrapper sourceCode" id="cb8">
@@ -657,17 +657,17 @@ sample IDs are aligned between the data sets.</p>
 5        1    pheno1  16  80.37433 4.114024  10.238134  80.37433
 6        1    pheno1  19  54.83012 5.476587  48.370980  55.15007</code></pre>
 </div>
-<p>We looked at the QTL peak on chromosome 2 in a previous lesson. The
-QTL interval is 84.627999 Mb wide. This is quite wide. Let’s get the
+<p>We looked at the QTL peak on chromosome 7 in a previous lesson. The
+QTL interval is 4.814008 Mb wide. This is quite wide. Let’s get the
 genes expressed in the pancreas within this region.</p>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">chr</span> <span class="op">&lt;-</span> <span class="st">'2'</span></span>
-<span><span class="va">peaks_chr2</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">peaks</span>, <span class="va">chr</span> <span class="op">==</span> <span class="st">'2'</span><span class="op">)</span></span>
-<span><span class="va">annot_chr2</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">annot</span>, <span class="va">chr</span> <span class="op">==</span> <span class="st">'2'</span> <span class="op">&amp;</span> <span class="va">start</span> <span class="op">&gt;</span> <span class="va">peaks_chr2</span><span class="op">$</span><span class="va">ci_lo</span> <span class="op">&amp;</span> <span class="va">end</span> <span class="op">&lt;</span> <span class="va">peaks_chr2</span><span class="op">$</span><span class="va">ci_hi</span><span class="op">)</span></span>
-<span><span class="va">expr_chr2</span>  <span class="op">&lt;-</span> <span class="va">expr</span><span class="op">[</span>,<span class="va">annot_chr2</span><span class="op">$</span><span class="va">a_gene_id</span><span class="op">]</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">chr</span> <span class="op">&lt;-</span> <span class="st">'7'</span></span>
+<span><span class="va">peaks_chr7</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">peaks</span>, <span class="va">chr</span> <span class="op">==</span> <span class="st">'7'</span><span class="op">)</span></span>
+<span><span class="va">annot_chr7</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">annot</span>, <span class="va">chr</span> <span class="op">==</span> <span class="st">'7'</span> <span class="op">&amp;</span> <span class="va">start</span> <span class="op">&gt;</span> <span class="va">peaks_chr7</span><span class="op">$</span><span class="va">ci_lo</span> <span class="op">&amp;</span> <span class="va">end</span> <span class="op">&lt;</span> <span class="va">peaks_chr7</span><span class="op">$</span><span class="va">ci_hi</span><span class="op">)</span></span>
+<span><span class="va">expr_chr7</span>  <span class="op">&lt;-</span> <span class="va">expr</span><span class="op">[</span>,<span class="va">annot_chr7</span><span class="op">$</span><span class="va">a_gene_id</span><span class="op">]</span></span></code></pre>
 </div>
 <p>There are 0 genes! How can we start to narrow down which ones may be
 candidate genes?</p>
@@ -691,7 +691,7 @@ levels.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <!-- DMG: Correlation, eQTL, annotation? -->
 </div>
@@ -709,26 +709,26 @@ have QTL peaks in similar positions.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cor_chr2</span> <span class="op">=</span> <span class="fu">cor</span><span class="op">(</span><span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">'log10_insulin_10wk'</span><span class="op">]</span>, <span class="va">expr_chr2</span>, use <span class="op">=</span> <span class="st">'pairwise'</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">cor_chr7</span> <span class="op">=</span> <span class="fu">cor</span><span class="op">(</span><span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">'log10_insulin_10wk'</span><span class="op">]</span>, <span class="va">expr_chr7</span>, use <span class="op">=</span> <span class="st">'pairwise'</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">cor_chr2</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">cor_chr7</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in hist.default(cor_chr2): invalid number of 'breaks'</code></pre>
+<pre class="error" tabindex="0"><code>Error in hist.default(cor_chr7): invalid number of 'breaks'</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ids_chr2</span> <span class="op">&lt;-</span> <span class="fu">colnames</span><span class="op">(</span><span class="va">cor_chr2</span><span class="op">)</span><span class="op">[</span><span class="fu">abs</span><span class="op">(</span><span class="va">cor_chr2</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0.5</span><span class="op">]</span></span>
+<code class="sourceCode R"><span><span class="va">ids_chr7</span> <span class="op">&lt;-</span> <span class="fu">colnames</span><span class="op">(</span><span class="va">cor_chr7</span><span class="op">)</span><span class="op">[</span><span class="fu">abs</span><span class="op">(</span><span class="va">cor_chr7</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0.5</span><span class="op">]</span></span>
 <span><span class="va">annot</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">a_gene_id</span> <span class="op">%in%</span> <span class="va">ids_chr2</span><span class="op">)</span></span></code></pre>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">a_gene_id</span> <span class="op">%in%</span> <span class="va">ids_chr7</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -744,31 +744,31 @@ have QTL peaks in similar positions.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Get the probs at the maximum insulin QTL on Chr 2.</span></span>
-<span><span class="va">pr_chr2</span> <span class="op">=</span> <span class="fu">pull_genoprobpos</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>,</span>
+<code class="sourceCode R"><span><span class="co"># Get the probs at the maximum insulin QTL on Chr 7.</span></span>
+<span><span class="va">pr_chr7</span> <span class="op">=</span> <span class="fu">pull_genoprobpos</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>,</span>
 <span>                           map       <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
 <span>                           chr       <span class="op">=</span> <span class="va">chr</span>,</span>
-<span>                           pos       <span class="op">=</span> <span class="va">peaks_chr2</span><span class="op">$</span><span class="va">pos</span><span class="op">)</span></span>
+<span>                           pos       <span class="op">=</span> <span class="va">peaks_chr7</span><span class="op">$</span><span class="va">pos</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create data sructure for results.</span></span>
-<span><span class="va">lod_drop</span> <span class="op">=</span> <span class="fu">data.frame</span><span class="op">(</span>a_gene_id <span class="op">=</span> <span class="fu">colnames</span><span class="op">(</span><span class="va">expr_chr2</span><span class="op">)</span>,</span>
+<span><span class="va">lod_drop</span> <span class="op">=</span> <span class="fu">data.frame</span><span class="op">(</span>a_gene_id <span class="op">=</span> <span class="fu">colnames</span><span class="op">(</span><span class="va">expr_chr7</span><span class="op">)</span>,</span>
 <span>                      lod       <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in data.frame(a_gene_id = colnames(expr_chr2), lod = 0): arguments imply differing number of rows: 0, 1</code></pre>
+<pre class="error" tabindex="0"><code>Error in data.frame(a_gene_id = colnames(expr_chr7), lod = 0): arguments imply differing number of rows: 0, 1</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb29">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">ncol</span><span class="op">(</span><span class="va">expr_chr2</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<code class="sourceCode R"><span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">ncol</span><span class="op">(</span><span class="va">expr_chr7</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span></span>
 <span>  <span class="co"># Make new covariates.</span></span>
-<span>  <span class="va">curr_covar</span> <span class="op">=</span> <span class="fu">cbind</span><span class="op">(</span><span class="va">addcovar</span>, <span class="va">expr_chr2</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">curr_covar</span> <span class="op">=</span> <span class="fu">cbind</span><span class="op">(</span><span class="va">addcovar</span>, <span class="va">expr_chr7</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
 <span>  </span>
-<span>  <span class="va">mod</span> <span class="op">=</span> <span class="fu">fit1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">pr_chr2</span>,</span>
+<span>  <span class="va">mod</span> <span class="op">=</span> <span class="fu">fit1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">pr_chr7</span>,</span>
 <span>             pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">'log10_insulin_10wk'</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
 <span>             kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>             addcovar  <span class="op">=</span> <span class="va">curr_covar</span><span class="op">)</span></span>
@@ -780,13 +780,13 @@ have QTL peaks in similar positions.</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in expr_chr2[, i]: subscript out of bounds</code></pre>
+<pre class="error" tabindex="0"><code>Error in expr_chr7[, i]: subscript out of bounds</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lod_drop</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">lod_drop</span>, <span class="va">annot_chr2</span>, by <span class="op">=</span> <span class="st">'a_gene_id'</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">lod_drop</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">lod_drop</span>, <span class="va">annot_chr7</span>, by <span class="op">=</span> <span class="st">'a_gene_id'</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -797,7 +797,7 @@ have QTL peaks in similar positions.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">lod_drop</span><span class="op">$</span><span class="va">start</span>, <span class="va">lod_drop</span><span class="op">$</span><span class="va">lod</span>, xlim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="fl">120</span>, <span class="fl">145</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">lod_drop</span><span class="op">$</span><span class="va">start</span>, <span class="va">lod_drop</span><span class="op">$</span><span class="va">lod</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -808,7 +808,7 @@ have QTL peaks in similar positions.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">abline</span><span class="op">(</span>v <span class="op">=</span> <span class="va">peaks_chr2</span><span class="op">$</span><span class="va">pos</span>, col <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">abline</span><span class="op">(</span>v <span class="op">=</span> <span class="va">peaks_chr7</span><span class="op">$</span><span class="va">pos</span>, col <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -824,7 +824,7 @@ have QTL peaks in similar positions.</p>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'lod_drop' not found</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'cor_chr2' not found</code></pre>
 </div>
 <p>If you have</p>
 
@@ -832,8 +832,8 @@ have QTL peaks in similar positions.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">eqtl_chr2</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>,</span>
-<span>                   pheno     <span class="op">=</span> <span class="va">expr_chr2</span>,</span>
+<code class="sourceCode R"><span><span class="va">eqtl_chr7</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>,</span>
+<span>                   pheno     <span class="op">=</span> <span class="va">expr_chr7</span>,</span>
 <span>                   kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>                   addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
 </div>
@@ -846,34 +846,34 @@ have QTL peaks in similar positions.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">eqtl_chr2</span> <span class="op">&lt;-</span> <span class="fu">apply</span><span class="op">(</span><span class="va">eqtl_chr2</span>, <span class="fl">2</span>, <span class="va">max</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">eqtl_chr7</span> <span class="op">&lt;-</span> <span class="fu">apply</span><span class="op">(</span><span class="va">eqtl_chr7</span>, <span class="fl">2</span>, <span class="va">max</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'eqtl_chr2' not found</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'eqtl_chr7' not found</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">eqtl_chr2</span> <span class="op">&lt;-</span> <span class="va">eqtl_chr2</span><span class="op">[</span><span class="va">eqtl_chr2</span> <span class="op">&gt;</span> <span class="va">thr</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">eqtl_chr7</span> <span class="op">&lt;-</span> <span class="va">eqtl_chr7</span><span class="op">[</span><span class="va">eqtl_chr7</span> <span class="op">&gt;</span> <span class="va">thr</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'eqtl_chr2' not found</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'eqtl_chr7' not found</code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">length</span><span class="op">(</span><span class="va">eqtl_chr2</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">length</span><span class="op">(</span><span class="va">eqtl_chr7</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'eqtl_chr2' not found</code></pre>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'eqtl_chr7' not found</code></pre>
 </div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
