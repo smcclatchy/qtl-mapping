@@ -277,7 +277,7 @@ cor_chr7 = cor(cross$pheno[,'log10_insulin_10wk'], expr_chr7, use = 'pairwise')
 
 
 ``` r
-hist(cor_chr7)
+hist(cor_chr7, breaks = 20)
 ```
 
 <img src="fig/integrating-gene-expression-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
@@ -353,12 +353,10 @@ abline(v = peaks_chr7$pos, col = 2)
 
 
 ``` r
-plot(cor_chr2, lod_drop$lod)
+plot(cor_chr7, lod_drop$lod)
 ```
 
-``` error
-Error in eval(expr, envir, enclos): object 'cor_chr2' not found
-```
+<img src="fig/integrating-gene-expression-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 
 
