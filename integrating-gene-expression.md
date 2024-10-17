@@ -230,20 +230,20 @@ peaks
 6        1    pheno1  19  54.83012 5.476587  48.370980  55.15007
 ```
 
-We looked at the QTL peak on chromosome 7 in a previous lesson. The QTL interval
-is 4.814008 Mb wide.
+We looked at the QTL peak on chromosome 19 in a previous lesson. The QTL interval
+is 6.779094 Mb wide.
 This is quite wide. Let's get the genes expressed in the pancreas within this
 region. 
 
 
 ``` r
-chr <- '7'
-peaks_chr7 <- filter(peaks, chr == '7')
-annot_chr7 <- filter(annot, chr == '7' & start > peaks_chr7$ci_lo & end < peaks_chr7$ci_hi)
-expr_chr7  <- expr[,annot_chr7$a_gene_id]
+chr         <- '19'
+peaks_chr19 <- filter(peaks, chr == '19')
+annot_chr19 <- filter(annot, chr == '19' & start > peaks_chr19$ci_lo & end < peaks_chr19$ci_hi)
+expr_chr19  <- expr[,annot_chr19$a_gene_id]
 ```
 
-There are 117 genes! How can we start to narrow down which 
+There are 22 genes! How can we start to narrow down which 
 ones may be candidate genes?
 
 ::::::::::::::::::::::::::::::::::::: challenge 
@@ -264,74 +264,213 @@ select the most promising candidate genes that regulate insulin levels.
 
 ## Using Expression QTL Mapping
 
-One method to search for candidate genes is to look for genes with expression 
-that is correlated with the phenotype. Genes which are correlated with the 
-insulin levels may be correlated because they control insulin levels, respond
-to insulin levels, or are correlated by chance. Genes which are strongly
-correlated with insulin levels should have QTL peaks in similar positions.
+One method to search for candidate genes is to look for genes which have QTL
+peaks in the same location as the insulin QTL. Genes which have QTL that are
+co-located with insulin QTL will also be strongly correlated with insulin
+levels. These genes may be correlated with insulin because they control insulin 
+levels, respond to insulin levels, or are correlated by chance. However, genes
+which have QTL within the insulin QTL support interval are reasonable candidate
+genes since we expect the genotype to influence expression levels.
+
+Let's perform QTL mapping on the genes within the chromosome 19 insulin QTL
+support interval. We can do this by passing in the expression values as 
+phenotypes into `scan1`.
 
 
 ``` r
-cor_chr7 = cor(cross$pheno[,'log10_insulin_10wk'], expr_chr7, use = 'pairwise')
+eqtl_chr19 <- scan1(genoprobs = probs[,chr],
+                   pheno     = expr_chr19,
+                   kinship   = kinship_loco[[chr]],
+                   addcovar  = addcovar)
 ```
 
-
-``` r
-hist(cor_chr7, breaks = 20)
-```
-
-<img src="fig/integrating-gene-expression-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
+Let's look at the top of the results.
 
 
 ``` r
-ids_chr7 <- colnames(cor_chr7)[abs(cor_chr7) > 0.5]
-annot |>
-  filter(a_gene_id %in% ids_chr7)
+head(eqtl_chr19[,1:6])
 ```
 
 ``` output
-# A tibble: 15 × 13
-   a_gene_id   chr   start   end  width strand gene_id    gene_name gene_biotype
-   <chr>       <chr> <dbl> <dbl>  <dbl> <chr>  <chr>      <chr>     <chr>       
- 1 500662      7      143.  143.  25490 -      ENSMUSG00… Trpm5     protein_cod…
- 2 500987      7      143.  143.   1606 -      ENSMUSG00… Phlda2    protein_cod…
- 3 501974      7      142.  142.   2603 +      ENSMUSG00… Tnni2     protein_cod…
- 4 511402      7      141.  141.  31848 +      ENSMUSG00… Muc2      protein_cod…
- 5 511562      7      140.  140.   1324 +      ENSMUSG00… Utf1      protein_cod…
- 6 10002172333 7      142.  142.    785 -      ENSMUSG00… Krtap5-1  protein_cod…
- 7 10002902680 7      142.  142.  64726 -      ENSMUSG00… Ins2      protein_cod…
- 8 10002908240 7      141.  141.   2226 -      ENSMUSG00… Ifitm6    protein_cod…
- 9 10002909031 7      141.  141.  24141 +      ENSMUSG00… Eps8l2    protein_cod…
-10 10002913589 7      140.  140.   1223 +      ENSMUSG00… Scgb1c1   protein_cod…
-11 10004033038 7      143.  143. 320681 +      ENSMUSG00… Kcnq1     protein_cod…
-12 10004033274 7      143.  143.  14856 -      ENSMUSG00… Tnfrsf22  protein_cod…
-13 10004034230 7      141.  141.   1334 -      ENSMUSG00… Ifitm5    protein_cod…
-14 10004034537 7      143.  143.   3284 -      ENSMUSG00… Mrgprg    protein_cod…
-15 10004034772 7      143.  143. 320681 +      ENSMUSG00… Kcnq1     protein_cod…
-# ℹ 4 more variables: description <chr>, gene_id_version <chr>, symbol <chr>,
-#   entrezid <lgl>
+             498370   500695    501344    504488    505754     506116
+rs4232073  2.382757 2.017080 0.7656653 0.2790253 0.9177116 0.15670328
+rs13483548 2.340860 2.005920 0.7778981 0.2792932 0.9191257 0.15667150
+rs13483549 2.334980 1.995714 0.7841222 0.2779127 0.9132370 0.14886307
+rs13483550 2.227526 1.720540 0.8645001 0.2454031 0.7653925 0.06175031
+rs13483554 1.939305 1.690000 0.8860579 0.2489432 0.8189368 0.11267374
+rs13483555 2.083754 1.623693 0.8624511 0.2550340 0.8669779 0.12892654
 ```
 
-Mediation.
+The eQTL results have one row for each marker and one column for each gene.
+Each column represents the LOD plot for one gene. Let's plot the genome scan
+for one gene.
 
 
 ``` r
-# Get the probs at the maximum insulin QTL on Chr 7.
-pr_chr7 = pull_genoprobpos(genoprobs = probs,
-                           map       = cross$pmap,
-                           chr       = chr,
-                           pos       = peaks_chr7$pos)
+gene_id = '10002678668'
+plot_scan1(x   = eqtl_chr19, 
+           map = cross$pmap,
+           lodcolumn = gene_id,
+           main      = gene_id)
+```
+
+<img src="fig/integrating-gene-expression-rendered-plot_1_eqtl-1.png" style="display: block; margin: auto;" />
+
+This gene seems to have a QTL on chromosome 19 near 52 Mb with a LOD of 34. 
+The insulin QTL is closer to 55 Mb, so this may be a good candidate gene. 
+
+We can harvest the significant QTL peaks on chromosome 19 using `find_peaks`.
+We will use the default threshold of LOD = 3.
+
+
+``` r
+eqtl_chr19_peaks = find_peaks(eqtl_chr19, map = cross$pmap) |>
+                    arrange(pos)
+eqtl_chr19_peaks
+```
+
+``` output
+  lodindex   lodcolumn chr      pos       lod
+1       21 10004035475  19 47.36185  4.655021
+2       17 10002936879  19 51.36235  7.657043
+3       16 10002928587  19 51.82752  7.117759
+4       11 10002678668  19 52.42857 34.668074
+5        1      498370  19 52.99433 12.391144
+6       14 10002910800  19 54.83012  4.233249
+```
+
+We can see that there are 6 significant QTL on 
+chromosome 19. All of these genes are within the support interval of the insulin
+QTL.
+
+Let's filter the eQTL genes and add in gene annotation for them.
+
+
+``` r
+eqtl_chr19_peaks <- eqtl_chr19_peaks |>
+                     filter(pos > peaks_chr19$ci_lo & pos < peaks_chr19$ci_hi) |>
+                     left_join(annot, by = c('lodcolumn' = 'a_gene_id'))
+eqtl_chr19_peaks
+```
+
+``` output
+  lodindex   lodcolumn chr.x      pos       lod chr.y    start      end  width
+1       17 10002936879    19 51.36235  7.657043    19 53.66574 53.85551 189775
+2       16 10002928587    19 51.82752  7.117759    19 50.13174 50.66708 535348
+3       11 10002678668    19 52.42857 34.668074    19 52.92036 53.02864 108289
+4        1      498370    19 52.99433 12.391144    19 53.36782 53.37901  11189
+5       14 10002910800    19 54.83012  4.233249    19 52.25273 52.25391   1180
+  strand            gene_id gene_name   gene_biotype
+1      + ENSMUSG00000043639     Rbm20 protein_coding
+2      - ENSMUSG00000043531    Sorcs1 protein_coding
+3      - ENSMUSG00000025027   Xpnpep1 protein_coding
+4      - ENSMUSG00000025024    Smndc1 protein_coding
+5      + ENSMUSG00000035804      Ins1 protein_coding
+                                                                                description
+1                          RNA binding motif protein 20 [Source:MGI Symbol;Acc:MGI:1920963]
+2   sortilin-related VPS10 domain containing receptor 1 [Source:MGI Symbol;Acc:MGI:1929666]
+3 X-prolyl aminopeptidase (aminopeptidase P) 1, soluble [Source:MGI Symbol;Acc:MGI:2180003]
+4             survival motor neuron domain containing 1 [Source:MGI Symbol;Acc:MGI:1923729]
+5                                               insulin I [Source:MGI Symbol;Acc:MGI:96572]
+        gene_id_version  symbol entrezid
+1 ENSMUSG00000043639.16   Rbm20       NA
+2 ENSMUSG00000043531.17  Sorcs1       NA
+3 ENSMUSG00000025027.19 Xpnpep1       NA
+4  ENSMUSG00000025024.8  Smndc1       NA
+5  ENSMUSG00000035804.6    Ins1       NA
+```
+
+Let's plot the insulin QTL again to remind ourselves what the peak on chromosome
+19 look like. We will also plot the genome scan for one of the genes on
+chromosome 19.
+
+
+``` r
+plot_scan1(x    = eqtl_chr19,
+           map  = cross$pmap,
+           lodcolumn = "10002936879",
+           main = "Insulin")
+plot_scan1(x    = lod_add_loco, 
+           map  = cross$pmap,
+           chr  = '19',
+           col  = 'blue',
+           add  = TRUE)
+legend("topleft", legend = c("insluin", "10002936879"), 
+       col = c('blue', 'black'), lwd = 2)
+```
+
+<img src="fig/integrating-gene-expression-rendered-plot_insulin_qtl-1.png" style="display: block; margin: auto;" />
+
+<!-- DMG: Add more explanatory text about why we prioritize genes with eQTL in
+the same location as the insulin QTL -->
+
+## Mediation Analysis
+
+If a gene is correlated with insulin levels and if it has an eQTL in the same
+location as insulin, then we could add it into the insulin QTL model and see if
+it reduces the LOD on chromosome 19.
+
+
+``` r
+stopifnot(rownames(addcovar) == rownames(expr_chr19))
+addcovar_chr19 <- cbind(addcovar, expr_chr19[,"10002936879"])
+
+lod_med = scan1(genoprobs = probs[,chr],
+                pheno     = cross$pheno[,'log10_insulin_10wk',drop = FALSE],
+                kinship   = kinship_loco[[chr]],
+                addcovar  = addcovar_chr19)
+```
+
+Next, we will plot the original insulin genome scan and overlay the genome scan
+with gene `10002936879` in the model.
+
+
+``` r
+plot_scan1(x    = lod_add_loco,
+           map  = cross$pmap,
+           chr  = '19',
+           main = "Insulin with/without 10002936879")
+plot_scan1(x   = lod_med,
+           map = cross$pmap,
+           chr  = '19',
+           col = "blue",
+           add = TRUE)
+legend("topleft", legend = c("insluin", "mediation"), 
+       col = c('black', 'blue'), lwd = 2)
+```
+
+<img src="fig/integrating-gene-expression-rendered-med_plot_10002936879-1.png" style="display: block; margin: auto;" />
+
+The LOD dropped from 5.4765866 to 
+2.0202412. This is a difference
+of 3.4563455.
+
+It would be slow to run a genome scan for each gene on chromosome 19 and look
+at the LOD drop. Also, we don't really need the LOD drop across the entire 
+chromosome. We only need the LOD drop at the location of the peak LOD. To do
+this, we can use the `fit1` function to get the LOD at the marker with the
+highest LOD in the insulin genome scan.
+
+<!-- DMG: Sorcs1 is implicated in Clee Nat Gen 2006 -->
+
+
+``` r
+# Get the probs at the maximum insulin QTL on Chr 19.
+pr_chr19 = pull_genoprobpos(genoprobs = probs,
+                            map       = cross$pmap,
+                            chr       = chr,
+                            pos       = peaks_chr19$pos)
 
 # Create data sructure for results.
-lod_drop = data.frame(a_gene_id = colnames(expr_chr7),
+lod_drop = data.frame(a_gene_id = colnames(expr_chr19),
                       lod       = 0)
 
-for(i in 1:ncol(expr_chr7)) {
+for(i in 1:ncol(expr_chr19)) {
 
   # Make new covariates.
-  curr_covar = cbind(addcovar, expr_chr7[,i])
+  curr_covar = cbind(addcovar, expr_chr19[,i])
   
-  mod = fit1(genoprobs = pr_chr7,
+  mod = fit1(genoprobs = pr_chr19,
              pheno     = cross$pheno[,'log10_insulin_10wk',drop = FALSE],
              kinship   = kinship_loco[[chr]],
              addcovar  = curr_covar)
@@ -339,28 +478,49 @@ for(i in 1:ncol(expr_chr7)) {
   lod_drop$lod[i] = mod$lod
   
 } # for(i)
+
+lod_drop$lod_drop = lod_drop$lod - peaks_chr19$lod
 ```
 
 
 
 ``` r
-lod_drop <- left_join(lod_drop, annot_chr7, by = 'a_gene_id')
-plot(lod_drop$start, lod_drop$lod)
-abline(v = peaks_chr7$pos, col = 2)
+lod_drop <- left_join(lod_drop, annot_chr19, by = 'a_gene_id')
+
+plot(lod_drop$start, lod_drop$lod_drop, col = NA, 
+     main = "Mediation Analysis on Chr 19",
+     xlab = "Posiiton (Mb)", ylab = "LOD Drop")
+text(lod_drop$start, lod_drop$lod_drop, labels = lod_drop$gene_name)
+abline(v = peaks_chr19$pos, col = 2)
 ```
 
 <img src="fig/integrating-gene-expression-rendered-plot_mediation-1.png" style="display: block; margin: auto;" />
 
+In the plot above, we plotted the position of each gene versus the decrease in
+the LOD score (i.e. LOD drop). Genes with the lowest LOD drop are the best 
+candidate genes based on mediation analysis.
+
+Let's look at the annotation for the genes with LOD drop less than -2.
+
 
 ``` r
-plot(cor_chr7, lod_drop$lod)
+lod_drop |>
+  filter(lod_drop < -2) |>
+  select(gene_id, symbol, chr, start, end, lod, lod_drop, description)
 ```
 
-<img src="fig/integrating-gene-expression-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+``` output
+             gene_id  symbol chr    start      end      lod  lod_drop
+1 ENSMUSG00000025027 Xpnpep1  19 52.92036 53.02864 2.850368 -2.626219
+2 ENSMUSG00000035804    Ins1  19 52.25273 52.25391 2.598842 -2.877745
+3 ENSMUSG00000043639   Rbm20  19 53.66574 53.85551 2.020241 -3.456345
+                                                                                description
+1 X-prolyl aminopeptidase (aminopeptidase P) 1, soluble [Source:MGI Symbol;Acc:MGI:2180003]
+2                                               insulin I [Source:MGI Symbol;Acc:MGI:96572]
+3                          RNA binding motif protein 20 [Source:MGI Symbol;Acc:MGI:1920963]
+```
 
-
-
-If you have 
+Do you see any good candidate genes which might regulate insulin?
 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -371,27 +531,7 @@ This takes about 2 minutes to run.
 
 
 
-``` r
-eqtl_chr7 <- scan1(genoprobs = probs[,chr],
-                   pheno     = expr_chr7,
-                   kinship   = kinship_loco[[chr]],
-                   addcovar  = addcovar)
-```
 
-
-``` r
-eqtl_chr7 <- apply(eqtl_chr7, 2, max, simplify = TRUE)
-eqtl_chr7 <- eqtl_chr7[eqtl_chr7 > thr[1]]
-```
-
-
-``` r
-length(eqtl_chr7)
-```
-
-``` output
-[1] 8
-```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
