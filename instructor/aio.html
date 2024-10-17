@@ -652,7 +652,7 @@ on the input file format</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>marker genotypes, phenotypes, genetic map</li>
@@ -699,7 +699,7 @@ of information does this file contain?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>1). What is in the first column of the phenotype file? Animal ID. The
 first row? Phenotype variable names - OF_distance_first4, OF_distance,
@@ -826,7 +826,7 @@ functions that we will use for QTL analysis.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>We need the following block for the site to build on Github. The
 students do not need to see or run the next block.</p>
@@ -1366,7 +1366,7 @@ individuals.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>1).
 <code>grav &lt;- read_cross2(file = system.file('extdata', 'grav2.zip', package = 'qtl2'))</code><br>
@@ -1424,7 +1424,7 @@ on chromosome 18.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>1). Create a new script in RStudio with File -&gt; New File -&gt; R
 Script.<br>
@@ -1710,7 +1710,7 @@ highest LOD score? What chromosome number are they on?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p><code>sort(out[,1])</code> for column 1 or
 <code>sort(out[,"liver"])</code> for the column named “liver”.<br>
@@ -1740,7 +1740,7 @@ on?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p><code>sort(out[,2])</code> or <code>sort(out[,"spleen"])</code> The
 pseudomarker with the largest score is c9.loc57, with a LOD of 12.1. The
@@ -1767,7 +1767,7 @@ any large-ish peaks with the scan for liver?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <p><code>plot_scan1(out, map = map, lodcolumn = "spleen")</code> Both
 liver and spleen genome scans share a peak on chromosome 8 with a LOD
@@ -2038,7 +2038,7 @@ collaborative document or in your own personal notes.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 
 </div>
@@ -2293,7 +2293,7 @@ neighbor, and share your thoughts in the collaborative document.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 
 </div>
@@ -2337,7 +2337,7 @@ colors.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p><code>file &lt;- paste0("https://raw.githubusercontent.com/rqtl/", "qtl2data/master/B6BTBR/b6btbr.zip")</code><br><code>b6btbr &lt;- read_cross2(file)</code><br><code>summary(b6btbr)</code><br><code>head(b6btbr$pheno)</code><br><code>colnames(b6btbr$pheno)</code><br><code>b6bmap &lt;- insert_pseudomarkers(map=b6btbr$gmap, step=1)</code><br><code>prb6b &lt;- calc_genoprob(cross=b6btbr, map=b6bmap, error_prob=0.002)</code><br><code>b6baddcovar &lt;- get_x_covar(b6btbr)</code><br><code>b6bout &lt;- scan1(genoprobs = prb6b, pheno = b6btbr$pheno, addcovar=b6baddcovar)</code><br><code>plot(b6bout, map = b6bmap)</code><br><code>b6bkinship &lt;- calc_kinship(probs = prb6b)</code><br><code>out_pg_b6b &lt;- scan1(prb6b, b6btbr$pheno, kinship=b6bkinship, addcovar=b6baddcovar)</code><br><code>kinship_loco_b6b &lt;- calc_kinship(prb6b, "loco")</code><br><code>out_pg_loco_b6b &lt;- scan1(prb6b, b6btbr$pheno, kinship_loco_b6b, addcovar=b6baddcovar)</code><br><code>plot_scan1(out_pg_loco_b6b, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "black")</code><br><code>plot_scan1(out_pg_b6b, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "blue", add = TRUE)</code><br><code>plot_scan1(b6bout, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "green", add = TRUE)</code></p>
 </div>
@@ -2503,7 +2503,7 @@ explain the frequency of black mice?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>First, get the number of black and agouti mice.</p>
 <div class="codewrapper sourceCode" id="cb7">
@@ -2589,7 +2589,7 @@ this trait.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>First, map the trait.</p>
 <div class="codewrapper sourceCode" id="cb11">
@@ -2673,7 +2673,7 @@ results?”</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>We need the following block for the site to build on Github. The
 students do not need to see or run the next block.</p>
@@ -2741,7 +2741,7 @@ recommended.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
   <h3 class="accordion-header" id="headingInstructor2">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
 <div class="accordion-body">
 <p>Replace number of permutations (1000) with 100 for expediency. 1000
 permutations takes about 2 minutes.</p>
@@ -2817,7 +2817,7 @@ of estimating a significance threshold for QTL plots.</p>
 </h3>
 <pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.05               3.87</code></pre>
+0.05               3.83</code></pre>
 </div>
 <p>The default is to return the 5% significance thresholds. Thresholds
 for other (or for multiple) significance levels can be obtained via the
@@ -2834,8 +2834,8 @@ for other (or for multiple) significance levels can be obtained via the
 </h3>
 <pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.15
-0.05               3.87</code></pre>
+0.2                3.18
+0.05               3.83</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="estimating-an-x-chromosome-specific-threshold">Estimating an X Chromosome Specific Threshold<a class="anchor" aria-label="anchor" href="#estimating-an-x-chromosome-specific-threshold"></a>
 </h2>
@@ -2873,13 +2873,13 @@ Genetics 174:2151-2158</a>.</p>
 </h3>
 <pre class="output" tabindex="0"><code>Autosome LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.18
-0.05               3.86
+0.2                3.23
+0.05               3.98
 
 X chromosome LOD thresholds (14369 permutations)
      log10_insulin_10wk
-0.2                3.09
-0.05               3.82</code></pre>
+0.2                3.10
+0.05               3.78</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="estimating-significance-thresholds-with-the-kinship-matrix">Estimating Significance Thresholds with the Kinship Matrix<a class="anchor" aria-label="anchor" href="#estimating-significance-thresholds-with-the-kinship-matrix"></a>
 </h2>
@@ -2911,8 +2911,8 @@ insulin previously.</p>
 </h3>
 <pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.20
-0.05               3.84</code></pre>
+0.2                3.22
+0.05               3.92</code></pre>
 </div>
 <p>There is not a large difference in the thresholds. Currently, we are
 on the fence about using the kinship matrices to estimate significance
@@ -2964,13 +2964,13 @@ can be applied.</p>
 </h3>
 <pre class="output" tabindex="0"><code>Autosome LOD thresholds (1000 permutations)
      agouti_tan
-0.2        3.17
-0.05       3.85
+0.2        3.19
+0.05       3.74
 
 X chromosome LOD thresholds (14369 permutations)
      agouti_tan
-0.2        3.16
-0.05       3.87</code></pre>
+0.2        3.05
+0.05       3.72</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="selecting-the-number-of-permutations">Selecting the Number of Permutations<a class="anchor" aria-label="anchor" href="#selecting-the-number-of-permutations"></a>
 </h2>
@@ -3042,7 +3042,7 @@ etherpad.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 
 </div>
@@ -3071,7 +3071,7 @@ scores?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>
@@ -3146,7 +3146,7 @@ genome.</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>We need the following block for the site to build on Github. The
 students do not need to see or run the next block.</p>
@@ -3261,7 +3261,7 @@ maximum peaks on each chromosome?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -3312,7 +3312,7 @@ does the interval change as you increase the probability? Why?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>1). This produces a range from 118.0 to 149.6 Mb.</p>
 <div class="codewrapper sourceCode" id="cb8">
@@ -3990,7 +3990,7 @@ and the gene annotation.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Dimensions of <code>annot</code>.</p>
 <div class="codewrapper sourceCode" id="cb4">
@@ -4042,7 +4042,7 @@ and the gene annotation.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>Dimensions of <code>expr</code>.</li>
@@ -4173,20 +4173,20 @@ sample IDs are aligned between the data sets.</p>
 5        1    pheno1  16  80.37433 4.114024  10.238134  80.37433
 6        1    pheno1  19  54.83012 5.476587  48.370980  55.15007</code></pre>
 </div>
-<p>We looked at the QTL peak on chromosome 7 in a previous lesson. The
-QTL interval is 4.814008 Mb wide. This is quite wide. Let’s get the
+<p>We looked at the QTL peak on chromosome 19 in a previous lesson. The
+QTL interval is 6.779094 Mb wide. This is quite wide. Let’s get the
 genes expressed in the pancreas within this region.</p>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">chr</span> <span class="op">&lt;-</span> <span class="st">'7'</span></span>
-<span><span class="va">peaks_chr7</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">peaks</span>, <span class="va">chr</span> <span class="op">==</span> <span class="st">'7'</span><span class="op">)</span></span>
-<span><span class="va">annot_chr7</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">annot</span>, <span class="va">chr</span> <span class="op">==</span> <span class="st">'7'</span> <span class="op">&amp;</span> <span class="va">start</span> <span class="op">&gt;</span> <span class="va">peaks_chr7</span><span class="op">$</span><span class="va">ci_lo</span> <span class="op">&amp;</span> <span class="va">end</span> <span class="op">&lt;</span> <span class="va">peaks_chr7</span><span class="op">$</span><span class="va">ci_hi</span><span class="op">)</span></span>
-<span><span class="va">expr_chr7</span>  <span class="op">&lt;-</span> <span class="va">expr</span><span class="op">[</span>,<span class="va">annot_chr7</span><span class="op">$</span><span class="va">a_gene_id</span><span class="op">]</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">chr</span>         <span class="op">&lt;-</span> <span class="st">'19'</span></span>
+<span><span class="va">peaks_chr19</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">peaks</span>, <span class="va">chr</span> <span class="op">==</span> <span class="st">'19'</span><span class="op">)</span></span>
+<span><span class="va">annot_chr19</span> <span class="op">&lt;-</span> <span class="fu">filter</span><span class="op">(</span><span class="va">annot</span>, <span class="va">chr</span> <span class="op">==</span> <span class="st">'19'</span> <span class="op">&amp;</span> <span class="va">start</span> <span class="op">&gt;</span> <span class="va">peaks_chr19</span><span class="op">$</span><span class="va">ci_lo</span> <span class="op">&amp;</span> <span class="va">end</span> <span class="op">&lt;</span> <span class="va">peaks_chr19</span><span class="op">$</span><span class="va">ci_hi</span><span class="op">)</span></span>
+<span><span class="va">expr_chr19</span>  <span class="op">&lt;-</span> <span class="va">expr</span><span class="op">[</span>,<span class="va">annot_chr19</span><span class="op">$</span><span class="va">a_gene_id</span><span class="op">]</span></span></code></pre>
 </div>
-<p>There are 117 genes! How can we start to narrow down which ones may
-be candidate genes?</p>
+<p>There are 22 genes! How can we start to narrow down which ones may be
+candidate genes?</p>
 <div id="challenge-1-how-can-we-narrow-down-the-candidate-gene-list" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -4209,7 +4209,7 @@ levels.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <!-- DMG: Correlation, eQTL, annotation? -->
 </div>
@@ -4219,138 +4219,266 @@ levels.</li>
 </section><section><h2 class="section-heading" id="using-expression-qtl-mapping">Using Expression QTL Mapping<a class="anchor" aria-label="anchor" href="#using-expression-qtl-mapping"></a>
 </h2>
 <hr class="half-width">
-<p>One method to search for candidate genes is to look for genes with
-expression that is correlated with the phenotype. Genes which are
-correlated with the insulin levels may be correlated because they
-control insulin levels, respond to insulin levels, or are correlated by
-chance. Genes which are strongly correlated with insulin levels should
-have QTL peaks in similar positions.</p>
+<p>One method to search for candidate genes is to look for genes which
+have QTL peaks in the same location as the insulin QTL. Genes which have
+QTL that are co-located with insulin QTL will also be strongly
+correlated with insulin levels. These genes may be correlated with
+insulin because they control insulin levels, respond to insulin levels,
+or are correlated by chance. However, genes which have QTL within the
+insulin QTL support interval are reasonable candidate genes since we
+expect the genotype to influence expression levels.</p>
+<p>Let’s perform QTL mapping on the genes within the chromosome 19
+insulin QTL support interval. We can do this by passing in the
+expression values as phenotypes into <code>scan1</code>.</p>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cor_chr7</span> <span class="op">=</span> <span class="fu">cor</span><span class="op">(</span><span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">'log10_insulin_10wk'</span><span class="op">]</span>, <span class="va">expr_chr7</span>, use <span class="op">=</span> <span class="st">'pairwise'</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">eqtl_chr19</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>,</span>
+<span>                   pheno     <span class="op">=</span> <span class="va">expr_chr19</span>,</span>
+<span>                   kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>                   addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
 </div>
+<p>Let’s look at the top of the results.</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">hist</span><span class="op">(</span><span class="va">cor_chr7</span>, breaks <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span></code></pre>
-</div>
-<figure><img src="../fig/integrating-gene-expression-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb24">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ids_chr7</span> <span class="op">&lt;-</span> <span class="fu">colnames</span><span class="op">(</span><span class="va">cor_chr7</span><span class="op">)</span><span class="op">[</span><span class="fu">abs</span><span class="op">(</span><span class="va">cor_chr7</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">0.5</span><span class="op">]</span></span>
-<span><span class="va">annot</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">a_gene_id</span> <span class="op">%in%</span> <span class="va">ids_chr7</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">eqtl_chr19</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code># A tibble: 15 × 13
-   a_gene_id   chr   start   end  width strand gene_id    gene_name gene_biotype
-   &lt;chr&gt;       &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt;
- 1 500662      7      143.  143.  25490 -      ENSMUSG00… Trpm5     protein_cod…
- 2 500987      7      143.  143.   1606 -      ENSMUSG00… Phlda2    protein_cod…
- 3 501974      7      142.  142.   2603 +      ENSMUSG00… Tnni2     protein_cod…
- 4 511402      7      141.  141.  31848 +      ENSMUSG00… Muc2      protein_cod…
- 5 511562      7      140.  140.   1324 +      ENSMUSG00… Utf1      protein_cod…
- 6 10002172333 7      142.  142.    785 -      ENSMUSG00… Krtap5-1  protein_cod…
- 7 10002902680 7      142.  142.  64726 -      ENSMUSG00… Ins2      protein_cod…
- 8 10002908240 7      141.  141.   2226 -      ENSMUSG00… Ifitm6    protein_cod…
- 9 10002909031 7      141.  141.  24141 +      ENSMUSG00… Eps8l2    protein_cod…
-10 10002913589 7      140.  140.   1223 +      ENSMUSG00… Scgb1c1   protein_cod…
-11 10004033038 7      143.  143. 320681 +      ENSMUSG00… Kcnq1     protein_cod…
-12 10004033274 7      143.  143.  14856 -      ENSMUSG00… Tnfrsf22  protein_cod…
-13 10004034230 7      141.  141.   1334 -      ENSMUSG00… Ifitm5    protein_cod…
-14 10004034537 7      143.  143.   3284 -      ENSMUSG00… Mrgprg    protein_cod…
-15 10004034772 7      143.  143. 320681 +      ENSMUSG00… Kcnq1     protein_cod…
-# ℹ 4 more variables: description &lt;chr&gt;, gene_id_version &lt;chr&gt;, symbol &lt;chr&gt;,
-#   entrezid &lt;lgl&gt;</code></pre>
+<pre class="output" tabindex="0"><code>             498370   500695    501344    504488    505754     506116
+rs4232073  2.382757 2.017080 0.7656653 0.2790253 0.9177116 0.15670328
+rs13483548 2.340860 2.005920 0.7778981 0.2792932 0.9191257 0.15667150
+rs13483549 2.334980 1.995714 0.7841222 0.2779127 0.9132370 0.14886307
+rs13483550 2.227526 1.720540 0.8645001 0.2454031 0.7653925 0.06175031
+rs13483554 1.939305 1.690000 0.8860579 0.2489432 0.8189368 0.11267374
+rs13483555 2.083754 1.623693 0.8624511 0.2550340 0.8669779 0.12892654</code></pre>
 </div>
-<p>Mediation.</p>
+<p>The eQTL results have one row for each marker and one column for each
+gene. Each column represents the LOD plot for one gene. Let’s plot the
+genome scan for one gene.</p>
+<div class="codewrapper sourceCode" id="cb25">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gene_id</span> <span class="op">=</span> <span class="st">'10002678668'</span></span>
+<span><span class="fu">plot_scan1</span><span class="op">(</span>x   <span class="op">=</span> <span class="va">eqtl_chr19</span>, </span>
+<span>           map <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
+<span>           lodcolumn <span class="op">=</span> <span class="va">gene_id</span>,</span>
+<span>           main      <span class="op">=</span> <span class="va">gene_id</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="../fig/integrating-gene-expression-rendered-plot_1_eqtl-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>This gene seems to have a QTL on chromosome 19 near 52 Mb with a LOD
+of 34. The insulin QTL is closer to 55 Mb, so this may be a good
+candidate gene.</p>
+<p>We can harvest the significant QTL peaks on chromosome 19 using
+<code>find_peaks</code>. We will use the default threshold of LOD =
+3.</p>
 <div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Get the probs at the maximum insulin QTL on Chr 7.</span></span>
-<span><span class="va">pr_chr7</span> <span class="op">=</span> <span class="fu">pull_genoprobpos</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>,</span>
-<span>                           map       <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
-<span>                           chr       <span class="op">=</span> <span class="va">chr</span>,</span>
-<span>                           pos       <span class="op">=</span> <span class="va">peaks_chr7</span><span class="op">$</span><span class="va">pos</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">eqtl_chr19_peaks</span> <span class="op">=</span> <span class="fu">find_peaks</span><span class="op">(</span><span class="va">eqtl_chr19</span>, map <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                    <span class="fu">arrange</span><span class="op">(</span><span class="va">pos</span><span class="op">)</span></span>
+<span><span class="va">eqtl_chr19_peaks</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>  lodindex   lodcolumn chr      pos       lod
+1       21 10004035475  19 47.36185  4.655021
+2       17 10002936879  19 51.36235  7.657043
+3       16 10002928587  19 51.82752  7.117759
+4       11 10002678668  19 52.42857 34.668074
+5        1      498370  19 52.99433 12.391144
+6       14 10002910800  19 54.83012  4.233249</code></pre>
+</div>
+<p>We can see that there are 6 significant QTL on chromosome 19. All of
+these genes are within the support interval of the insulin QTL.</p>
+<p>Let’s filter the eQTL genes and add in gene annotation for them.</p>
+<div class="codewrapper sourceCode" id="cb28">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">eqtl_chr19_peaks</span> <span class="op">&lt;-</span> <span class="va">eqtl_chr19_peaks</span> <span class="op">|&gt;</span></span>
+<span>                     <span class="fu">filter</span><span class="op">(</span><span class="va">pos</span> <span class="op">&gt;</span> <span class="va">peaks_chr19</span><span class="op">$</span><span class="va">ci_lo</span> <span class="op">&amp;</span> <span class="va">pos</span> <span class="op">&lt;</span> <span class="va">peaks_chr19</span><span class="op">$</span><span class="va">ci_hi</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                     <span class="fu">left_join</span><span class="op">(</span><span class="va">annot</span>, by <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">'lodcolumn'</span> <span class="op">=</span> <span class="st">'a_gene_id'</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">eqtl_chr19_peaks</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>  lodindex   lodcolumn chr.x      pos       lod chr.y    start      end  width
+1       17 10002936879    19 51.36235  7.657043    19 53.66574 53.85551 189775
+2       16 10002928587    19 51.82752  7.117759    19 50.13174 50.66708 535348
+3       11 10002678668    19 52.42857 34.668074    19 52.92036 53.02864 108289
+4        1      498370    19 52.99433 12.391144    19 53.36782 53.37901  11189
+5       14 10002910800    19 54.83012  4.233249    19 52.25273 52.25391   1180
+  strand            gene_id gene_name   gene_biotype
+1      + ENSMUSG00000043639     Rbm20 protein_coding
+2      - ENSMUSG00000043531    Sorcs1 protein_coding
+3      - ENSMUSG00000025027   Xpnpep1 protein_coding
+4      - ENSMUSG00000025024    Smndc1 protein_coding
+5      + ENSMUSG00000035804      Ins1 protein_coding
+                                                                                description
+1                          RNA binding motif protein 20 [Source:MGI Symbol;Acc:MGI:1920963]
+2   sortilin-related VPS10 domain containing receptor 1 [Source:MGI Symbol;Acc:MGI:1929666]
+3 X-prolyl aminopeptidase (aminopeptidase P) 1, soluble [Source:MGI Symbol;Acc:MGI:2180003]
+4             survival motor neuron domain containing 1 [Source:MGI Symbol;Acc:MGI:1923729]
+5                                               insulin I [Source:MGI Symbol;Acc:MGI:96572]
+        gene_id_version  symbol entrezid
+1 ENSMUSG00000043639.16   Rbm20       NA
+2 ENSMUSG00000043531.17  Sorcs1       NA
+3 ENSMUSG00000025027.19 Xpnpep1       NA
+4  ENSMUSG00000025024.8  Smndc1       NA
+5  ENSMUSG00000035804.6    Ins1       NA</code></pre>
+</div>
+<p>Let’s plot the insulin QTL again to remind ourselves what the peak on
+chromosome 19 look like. We will also plot the genome scan for one of
+the genes on chromosome 19.</p>
+<div class="codewrapper sourceCode" id="cb30">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span>x    <span class="op">=</span> <span class="va">eqtl_chr19</span>,</span>
+<span>           map  <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
+<span>           lodcolumn <span class="op">=</span> <span class="st">"10002936879"</span>,</span>
+<span>           main <span class="op">=</span> <span class="st">"Insulin"</span><span class="op">)</span></span>
+<span><span class="fu">plot_scan1</span><span class="op">(</span>x    <span class="op">=</span> <span class="va">lod_add_loco</span>, </span>
+<span>           map  <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
+<span>           chr  <span class="op">=</span> <span class="st">'19'</span>,</span>
+<span>           col  <span class="op">=</span> <span class="st">'blue'</span>,</span>
+<span>           add  <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">legend</span><span class="op">(</span><span class="st">"topleft"</span>, legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"insluin"</span>, <span class="st">"10002936879"</span><span class="op">)</span>, </span>
+<span>       col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">'blue'</span>, <span class="st">'black'</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="../fig/integrating-gene-expression-rendered-plot_insulin_qtl-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><!-- DMG: Add more explanatory text about why we prioritize genes with eQTL in
+the same location as the insulin QTL --></section><section><h2 class="section-heading" id="mediation-analysis">Mediation Analysis<a class="anchor" aria-label="anchor" href="#mediation-analysis"></a>
+</h2>
+<hr class="half-width">
+<p>If a gene is correlated with insulin levels and if it has an eQTL in
+the same location as insulin, then we could add it into the insulin QTL
+model and see if it reduces the LOD on chromosome 19.</p>
+<div class="codewrapper sourceCode" id="cb31">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">stopifnot</span><span class="op">(</span><span class="fu">rownames</span><span class="op">(</span><span class="va">addcovar</span><span class="op">)</span> <span class="op">==</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">expr_chr19</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">addcovar_chr19</span> <span class="op">&lt;-</span> <span class="fu">cbind</span><span class="op">(</span><span class="va">addcovar</span>, <span class="va">expr_chr19</span><span class="op">[</span>,<span class="st">"10002936879"</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">lod_med</span> <span class="op">=</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>,</span>
+<span>                pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">'log10_insulin_10wk'</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
+<span>                kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>                addcovar  <span class="op">=</span> <span class="va">addcovar_chr19</span><span class="op">)</span></span></code></pre>
+</div>
+<p>Next, we will plot the original insulin genome scan and overlay the
+genome scan with gene <code>10002936879</code> in the model.</p>
+<div class="codewrapper sourceCode" id="cb32">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span>x    <span class="op">=</span> <span class="va">lod_add_loco</span>,</span>
+<span>           map  <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
+<span>           chr  <span class="op">=</span> <span class="st">'19'</span>,</span>
+<span>           main <span class="op">=</span> <span class="st">"Insulin with/without 10002936879"</span><span class="op">)</span></span>
+<span><span class="fu">plot_scan1</span><span class="op">(</span>x   <span class="op">=</span> <span class="va">lod_med</span>,</span>
+<span>           map <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
+<span>           chr  <span class="op">=</span> <span class="st">'19'</span>,</span>
+<span>           col <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>           add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">legend</span><span class="op">(</span><span class="st">"topleft"</span>, legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"insluin"</span>, <span class="st">"mediation"</span><span class="op">)</span>, </span>
+<span>       col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">'black'</span>, <span class="st">'blue'</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="../fig/integrating-gene-expression-rendered-med_plot_10002936879-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>The LOD dropped from 5.4765866 to 2.0202412. This is a difference of
+3.4563455.</p>
+<p>It would be slow to run a genome scan for each gene on chromosome 19
+and look at the LOD drop. Also, we don’t really need the LOD drop across
+the entire chromosome. We only need the LOD drop at the location of the
+peak LOD. To do this, we can use the <code>fit1</code> function to get
+the LOD at the marker with the highest LOD in the insulin genome
+scan.</p>
+<!-- DMG: Sorcs1 is implicated in Clee Nat Gen 2006 -->
+<div class="codewrapper sourceCode" id="cb33">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get the probs at the maximum insulin QTL on Chr 19.</span></span>
+<span><span class="va">pr_chr19</span> <span class="op">=</span> <span class="fu">pull_genoprobpos</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>,</span>
+<span>                            map       <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
+<span>                            chr       <span class="op">=</span> <span class="va">chr</span>,</span>
+<span>                            pos       <span class="op">=</span> <span class="va">peaks_chr19</span><span class="op">$</span><span class="va">pos</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create data sructure for results.</span></span>
-<span><span class="va">lod_drop</span> <span class="op">=</span> <span class="fu">data.frame</span><span class="op">(</span>a_gene_id <span class="op">=</span> <span class="fu">colnames</span><span class="op">(</span><span class="va">expr_chr7</span><span class="op">)</span>,</span>
+<span><span class="va">lod_drop</span> <span class="op">=</span> <span class="fu">data.frame</span><span class="op">(</span>a_gene_id <span class="op">=</span> <span class="fu">colnames</span><span class="op">(</span><span class="va">expr_chr19</span><span class="op">)</span>,</span>
 <span>                      lod       <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span></span>
-<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">ncol</span><span class="op">(</span><span class="va">expr_chr7</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="kw">for</span><span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">ncol</span><span class="op">(</span><span class="va">expr_chr19</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span></span>
 <span>  <span class="co"># Make new covariates.</span></span>
-<span>  <span class="va">curr_covar</span> <span class="op">=</span> <span class="fu">cbind</span><span class="op">(</span><span class="va">addcovar</span>, <span class="va">expr_chr7</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">curr_covar</span> <span class="op">=</span> <span class="fu">cbind</span><span class="op">(</span><span class="va">addcovar</span>, <span class="va">expr_chr19</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
 <span>  </span>
-<span>  <span class="va">mod</span> <span class="op">=</span> <span class="fu">fit1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">pr_chr7</span>,</span>
+<span>  <span class="va">mod</span> <span class="op">=</span> <span class="fu">fit1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">pr_chr19</span>,</span>
 <span>             pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">'log10_insulin_10wk'</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
 <span>             kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>             addcovar  <span class="op">=</span> <span class="va">curr_covar</span><span class="op">)</span></span>
 <span>  </span>
 <span>  <span class="va">lod_drop</span><span class="op">$</span><span class="va">lod</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">lod</span></span>
 <span>  </span>
-<span><span class="op">}</span> <span class="co"># for(i)</span></span></code></pre>
+<span><span class="op">}</span> <span class="co"># for(i)</span></span>
+<span></span>
+<span><span class="va">lod_drop</span><span class="op">$</span><span class="va">lod_drop</span> <span class="op">=</span> <span class="va">lod_drop</span><span class="op">$</span><span class="va">lod</span> <span class="op">-</span> <span class="va">peaks_chr19</span><span class="op">$</span><span class="va">lod</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb27">
+<div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lod_drop</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">lod_drop</span>, <span class="va">annot_chr7</span>, by <span class="op">=</span> <span class="st">'a_gene_id'</span><span class="op">)</span></span>
-<span><span class="fu">plot</span><span class="op">(</span><span class="va">lod_drop</span><span class="op">$</span><span class="va">start</span>, <span class="va">lod_drop</span><span class="op">$</span><span class="va">lod</span><span class="op">)</span></span>
-<span><span class="fu">abline</span><span class="op">(</span>v <span class="op">=</span> <span class="va">peaks_chr7</span><span class="op">$</span><span class="va">pos</span>, col <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">lod_drop</span> <span class="op">&lt;-</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">lod_drop</span>, <span class="va">annot_chr19</span>, by <span class="op">=</span> <span class="st">'a_gene_id'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">lod_drop</span><span class="op">$</span><span class="va">start</span>, <span class="va">lod_drop</span><span class="op">$</span><span class="va">lod_drop</span>, col <span class="op">=</span> <span class="cn">NA</span>, </span>
+<span>     main <span class="op">=</span> <span class="st">"Mediation Analysis on Chr 19"</span>,</span>
+<span>     xlab <span class="op">=</span> <span class="st">"Posiiton (Mb)"</span>, ylab <span class="op">=</span> <span class="st">"LOD Drop"</span><span class="op">)</span></span>
+<span><span class="fu">text</span><span class="op">(</span><span class="va">lod_drop</span><span class="op">$</span><span class="va">start</span>, <span class="va">lod_drop</span><span class="op">$</span><span class="va">lod_drop</span>, labels <span class="op">=</span> <span class="va">lod_drop</span><span class="op">$</span><span class="va">gene_name</span><span class="op">)</span></span>
+<span><span class="fu">abline</span><span class="op">(</span>v <span class="op">=</span> <span class="va">peaks_chr19</span><span class="op">$</span><span class="va">pos</span>, col <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/integrating-gene-expression-rendered-plot_mediation-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><div class="codewrapper sourceCode" id="cb28">
+<figure><img src="../fig/integrating-gene-expression-rendered-plot_mediation-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>In the plot above, we plotted the position of each gene versus the
+decrease in the LOD score (i.e. LOD drop). Genes with the lowest LOD
+drop are the best candidate genes based on mediation analysis.</p>
+<p>Let’s look at the annotation for the genes with LOD drop less than
+-2.</p>
+<div class="codewrapper sourceCode" id="cb35">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span><span class="va">cor_chr7</span>, <span class="va">lod_drop</span><span class="op">$</span><span class="va">lod</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="va">lod_drop</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">filter</span><span class="op">(</span><span class="va">lod_drop</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">select</span><span class="op">(</span><span class="va">gene_id</span>, <span class="va">symbol</span>, <span class="va">chr</span>, <span class="va">start</span>, <span class="va">end</span>, <span class="va">lod</span>, <span class="va">lod_drop</span>, <span class="va">description</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="../fig/integrating-gene-expression-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>If you have</p>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>             gene_id  symbol chr    start      end      lod  lod_drop
+1 ENSMUSG00000025027 Xpnpep1  19 52.92036 53.02864 2.850368 -2.626219
+2 ENSMUSG00000035804    Ins1  19 52.25273 52.25391 2.598842 -2.877745
+3 ENSMUSG00000043639   Rbm20  19 53.66574 53.85551 2.020241 -3.456345
+                                                                                description
+1 X-prolyl aminopeptidase (aminopeptidase P) 1, soluble [Source:MGI Symbol;Acc:MGI:2180003]
+2                                               insulin I [Source:MGI Symbol;Acc:MGI:96572]
+3                          RNA binding motif protein 20 [Source:MGI Symbol;Acc:MGI:1920963]</code></pre>
+</div>
+<p>Do you see any good candidate genes which might regulate insulin?</p>
 <div id="accordionInstructor1" class="accordion instructor-note accordion-flush">
 <div class="accordion-item">
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>This takes about 2 minutes to run.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="codewrapper sourceCode" id="cb29">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">eqtl_chr7</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>,</span>
-<span>                   pheno     <span class="op">=</span> <span class="va">expr_chr7</span>,</span>
-<span>                   kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
-<span>                   addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb30">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">eqtl_chr7</span> <span class="op">&lt;-</span> <span class="fu">apply</span><span class="op">(</span><span class="va">eqtl_chr7</span>, <span class="fl">2</span>, <span class="va">max</span>, simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">eqtl_chr7</span> <span class="op">&lt;-</span> <span class="va">eqtl_chr7</span><span class="op">[</span><span class="va">eqtl_chr7</span> <span class="op">&gt;</span> <span class="va">thr</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb31">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">length</span><span class="op">(</span><span class="va">eqtl_chr7</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="output" tabindex="0"><code>[1] 8</code></pre>
 </div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
@@ -4499,7 +4627,7 @@ command in your new script.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>The code below is needed to load in the data objects to build the
 lesson on Github. The <code>*.Rdata</code> file is over 200 Mb and
@@ -4514,7 +4642,7 @@ Github has a file size limit of 100 Mb. The students should
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
   <h3 class="accordion-header" id="headingInstructor2">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
 <div class="accordion-body">
 <p>This is the only block that the students need to run.</p>
 </div>
@@ -4575,7 +4703,7 @@ mice there are in the phenotype data.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Output </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>You can look at the number of observations in the Environment tab or
 you can get the number of rows in <code>pheno</code> in the Console.</p>
@@ -4612,7 +4740,7 @@ sex.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Output </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>You can look at the number of observations in the Environment tab or
 you can get the number of rows in <code>pheno</code> in the Console.</p>
@@ -4650,7 +4778,7 @@ is normally distributed.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Output </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <p>You can look at the number of observations in the Environment tab or
 you can get the number of rows in <code>pheno</code> in the Console.</p>
@@ -4690,7 +4818,7 @@ histogram.Assess whether it is normally distributed.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Output </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>You can look at the number of observations in the Environment tab or
 you can get the number of rows in <code>pheno</code> in the Console.</p>
@@ -4746,7 +4874,7 @@ benzene concentration for each study cohort.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor3" aria-expanded="false" aria-controls="collapseInstructor3">
   <h3 class="accordion-header" id="headingInstructor3">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor3" class="accordion-collapse collapse" aria-labelledby="headingInstructor3" data-bs-parent="#accordionInstructor3">
+<div id="collapseInstructor3" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor3" aria-labelledby="headingInstructor3">
 <div class="accordion-body">
 <p>Remember, you just need to show the basic plot. Just type out the
 ggplot, geom, log scale, and facet wrap lines in class.</p>
@@ -4814,7 +4942,7 @@ coordinate system.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution5" aria-expanded="false" aria-controls="collapseSolution5">
   <h4 class="accordion-header" id="headingSolution5"> Show me the solution </h4>
 </button>
-<div id="collapseSolution5" class="accordion-collapse collapse" aria-labelledby="headingSolution5" data-bs-parent="#accordionSolution5">
+<div id="collapseSolution5" class="accordion-collapse collapse" data-bs-parent="#accordionSolution5" aria-labelledby="headingSolution5">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4861,7 +4989,7 @@ marker positions.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution6" aria-expanded="false" aria-controls="collapseSolution6">
   <h4 class="accordion-header" id="headingSolution6"> Show me the solution </h4>
 </button>
-<div id="collapseSolution6" class="accordion-collapse collapse" aria-labelledby="headingSolution6" data-bs-parent="#accordionSolution6">
+<div id="collapseSolution6" class="accordion-collapse collapse" data-bs-parent="#accordionSolution6" aria-labelledby="headingSolution6">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -4921,7 +5049,7 @@ two column are. Then share your ideas with the class.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution7" aria-expanded="false" aria-controls="collapseSolution7">
   <h4 class="accordion-header" id="headingSolution7"> Show me the solution </h4>
 </button>
-<div id="collapseSolution7" class="accordion-collapse collapse" aria-labelledby="headingSolution7" data-bs-parent="#accordionSolution7">
+<div id="collapseSolution7" class="accordion-collapse collapse" data-bs-parent="#accordionSolution7" aria-labelledby="headingSolution7">
 <div class="accordion-body">
 <p>There are different builds of the mouse genome. The Genome Resource
 Consortium (GRC) named mouse builds from build 1 to 39. The University
@@ -5002,7 +5130,7 @@ of one sample on chromosome 1.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor4" aria-expanded="false" aria-controls="collapseInstructor4">
   <h3 class="accordion-header" id="headingInstructor4">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor4" class="accordion-collapse collapse" aria-labelledby="headingInstructor4" data-bs-parent="#accordionInstructor4">
+<div id="collapseInstructor4" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor4" aria-labelledby="headingInstructor4">
 <div class="accordion-body">
 <p>This code is intended to throw an error. It is used to illustrate the
 point that you have to align the markers between <code>probs</code> and
@@ -5046,7 +5174,7 @@ contains the marker names for chromosome 1.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution8" aria-expanded="false" aria-controls="collapseSolution8">
   <h4 class="accordion-header" id="headingSolution8"> Show me the solution </h4>
 </button>
-<div id="collapseSolution8" class="accordion-collapse collapse" aria-labelledby="headingSolution8" data-bs-parent="#accordionSolution8">
+<div id="collapseSolution8" class="accordion-collapse collapse" data-bs-parent="#accordionSolution8" aria-labelledby="headingSolution8">
 <div class="accordion-body">
 <p>We will write a loop that gets the common markers between probs and
 map for each chromosome and then subsets them.</p>
@@ -5232,7 +5360,7 @@ smaller phenotype data.frame.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution9" aria-expanded="false" aria-controls="collapseSolution9">
   <h4 class="accordion-header" id="headingSolution9"> Show me the solution </h4>
 </button>
-<div id="collapseSolution9" class="accordion-collapse collapse" aria-labelledby="headingSolution9" data-bs-parent="#accordionSolution9">
+<div id="collapseSolution9" class="accordion-collapse collapse" data-bs-parent="#accordionSolution9" aria-labelledby="headingSolution9">
 <div class="accordion-body">
 <p>You can do this by looking at the number of observations for
 <code>pheno_100</code> in the Environment tab or in the Console.</p>
@@ -5300,7 +5428,7 @@ above).</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution10" aria-expanded="false" aria-controls="collapseSolution10">
   <h4 class="accordion-header" id="headingSolution10"> Show me the solution </h4>
 </button>
-<div id="collapseSolution10" class="accordion-collapse collapse" aria-labelledby="headingSolution10" data-bs-parent="#accordionSolution10">
+<div id="collapseSolution10" class="accordion-collapse collapse" data-bs-parent="#accordionSolution10" aria-labelledby="headingSolution10">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb34">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -5440,7 +5568,7 @@ the <code>summary()</code> function.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution11" aria-expanded="false" aria-controls="collapseSolution11">
   <h4 class="accordion-header" id="headingSolution11"> Show me the solution </h4>
 </button>
-<div id="collapseSolution11" class="accordion-collapse collapse" aria-labelledby="headingSolution11" data-bs-parent="#accordionSolution11">
+<div id="collapseSolution11" class="accordion-collapse collapse" data-bs-parent="#accordionSolution11" aria-labelledby="headingSolution11">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb38">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -5459,7 +5587,7 @@ the <code>summary()</code> function.</li>
 </h3>
 <pre class="output" tabindex="0"><code>LOD thresholds (100 permutations)
      log_mnret
-0.05         7</code></pre>
+0.05      7.35</code></pre>
 </div>
 <p>Note that this summary function returns the 95th percentile value of
 the LOD distribution.</p>
@@ -5518,7 +5646,7 @@ significance threshold.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution12" aria-expanded="false" aria-controls="collapseSolution12">
   <h4 class="accordion-header" id="headingSolution12"> Show me the solution </h4>
 </button>
-<div id="collapseSolution12" class="accordion-collapse collapse" aria-labelledby="headingSolution12" data-bs-parent="#accordionSolution12">
+<div id="collapseSolution12" class="accordion-collapse collapse" data-bs-parent="#accordionSolution12" aria-labelledby="headingSolution12">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb44">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -5757,7 +5885,7 @@ top) and genes (on the bottom) using the ‘top_panel_prop’ argument.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor5" aria-expanded="false" aria-controls="collapseInstructor5">
   <h3 class="accordion-header" id="headingInstructor5">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor5" class="accordion-collapse collapse" aria-labelledby="headingInstructor5" data-bs-parent="#accordionInstructor5">
+<div id="collapseInstructor5" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor5" aria-labelledby="headingInstructor5">
 <div class="accordion-body">
 <p>Note that you have to add the “genes”, “colors”, and “top_panel_prop”
 arguments.</p>
@@ -5790,7 +5918,7 @@ contributes the minor allele at the highlighted SNPs.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor6" aria-expanded="false" aria-controls="collapseInstructor6">
   <h3 class="accordion-header" id="headingInstructor6">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor6" class="accordion-collapse collapse" aria-labelledby="headingInstructor6" data-bs-parent="#accordionInstructor6">
+<div id="collapseInstructor6" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor6" aria-labelledby="headingInstructor6">
 <div class="accordion-body">
 <p>Note that you have to change the “top_panel_prop” argument to
 “panel_prop” and add the “drop_hilit”, “col_hilit”, and “sdp_panel”
@@ -5859,7 +5987,7 @@ button. Then search on <em>Sult3a2</em>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution13" aria-expanded="false" aria-controls="collapseSolution13">
   <h4 class="accordion-header" id="headingSolution13"> Output </h4>
 </button>
-<div id="collapseSolution13" class="accordion-collapse collapse" aria-labelledby="headingSolution13" data-bs-parent="#accordionSolution13">
+<div id="collapseSolution13" class="accordion-collapse collapse" data-bs-parent="#accordionSolution13" aria-labelledby="headingSolution13">
 <div class="accordion-body">
 <p>Neither <em>Sult3a1</em> or <em>Sult3a2</em> has an eQTL in the DO
 bone marrow data set.</p>
@@ -5895,7 +6023,7 @@ region.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution14" aria-expanded="false" aria-controls="collapseSolution14">
   <h4 class="accordion-header" id="headingSolution14"> Output </h4>
 </button>
-<div id="collapseSolution14" class="accordion-collapse collapse" aria-labelledby="headingSolution14" data-bs-parent="#accordionSolution14">
+<div id="collapseSolution14" class="accordion-collapse collapse" data-bs-parent="#accordionSolution14" aria-labelledby="headingSolution14">
 <div class="accordion-body">
 <p>You should see a plot similar to the one below.</p>
 <p><img src=".././fig/Ensembl_SV_Chr10.png" alt="Ensembl Structural Variants" class="figure">{alt=“Ensembl viewer showing genes
@@ -5996,7 +6124,7 @@ mapping plot.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution15" aria-expanded="false" aria-controls="collapseSolution15">
   <h4 class="accordion-header" id="headingSolution15"> Output </h4>
 </button>
-<div id="collapseSolution15" class="accordion-collapse collapse" aria-labelledby="headingSolution15" data-bs-parent="#accordionSolution15">
+<div id="collapseSolution15" class="accordion-collapse collapse" data-bs-parent="#accordionSolution15" aria-labelledby="headingSolution15">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>Plot the distribution of</li>
