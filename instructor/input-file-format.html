@@ -381,7 +381,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Input File Format</h1>
-        <p>Last updated on 2024-10-16 |
+        <p>Last updated on 2024-10-17 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/input-file-format.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -473,15 +473,15 @@ IDs.</p>
 separate control file with various control parameters (or metadata),
 including the names of all of the other data files and the genotype
 codes used in the genotype data file. The control file is in a specific
-format using either <a href="http://www.yaml.org" class="external-link">YAML</a> or <a href="http://json.org" class="external-link">JSON</a>; these are human-readable text files for
-representing relatively complex data.</p>
+format using either <a href="https://www.yaml.org" class="external-link">YAML</a> or <a href="https://json.org" class="external-link">JSON</a>; these are human-readable text files
+for representing relatively complex data.</p>
 <p><img src="../fig/attie_control_file_sample.png" alt="Attie Control File" class="figure">{alt=‘Figure showing the qtl2 control
 file’,width=75%}</p>
 <p>A big advantage of this control file scheme is that it greatly
 simplifies the function for reading in the data. That function,
 <code>read_cross2()</code>, has a <em>single</em> argument: the name
 (with path) of the control file.</p>
-<p>For further details, see the separate <a href="http://kbroman.org/qtl2/assets/vignettes/input_files.html" class="external-link">vignette
+<p>For further details, see the separate <a href="https://kbroman.org/qtl2/assets/vignettes/input_files.html" class="external-link">vignette
 on the input file format</a>.</p>
 <div id="challenge-1-what-data-does-qtl2-need" class="callout challenge">
 <div class="callout-square">
@@ -501,7 +501,7 @@ on the input file format</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>marker genotypes, phenotypes, genetic map</li>
 <li>physical map</li>
@@ -512,7 +512,7 @@ on the input file format</a>.</p>
 </div>
 <section><h2 class="section-heading" id="sample-data-sets">Sample data sets<a class="anchor" aria-label="anchor" href="#sample-data-sets"></a></h2>
 <hr class="half-width"><p>In this lesson, we’ll work with data sets included in the
-<code>qtl2</code> package. You can find out more about the <a href="http://kbroman.org/qtl2/pages/sampledata.html" class="external-link">sample data
+<code>qtl2</code> package. You can find out more about the <a href="https://kbroman.org/qtl2/pages/sampledata.html" class="external-link">sample data
 files</a> from the R/qtl2 web site. Zipped versions of these datasets
 are included with the <a href="https://github.com/rqtl/qtl2geno" class="external-link">qtl2geno</a> package and can be
 loaded into R using the <code>read_cross2()</code> function. Additional
@@ -544,7 +544,7 @@ of information does this file contain?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>1). What is in the first column of the phenotype file? Animal ID. The
 first row? Phenotype variable names - OF_distance_first4, OF_distance,
@@ -579,7 +579,7 @@ files.”</li>
 <li>“In each file, the first column is a set of IDs for the rows, and
 the first row is a set of IDs for the columns.”</li>
 <li>“In addition to primary data, a separate file with control
-parameters (or metadata) in either <a href="http://www.yaml.org" class="external-link">YAML</a> or <a href="http://json.org" class="external-link">JSON</a> format is required.”</li>
+parameters (or metadata) in either <a href="https://www.yaml.org" class="external-link">YAML</a> or <a href="https://json.org" class="external-link">JSON</a> format is required.”</li>
 <li>“Published and public data already formatted for QTL mapping are
 available on the web.”</li>
 <li>“These data can be used as a model for formatting your own QTL
@@ -649,8 +649,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/instructor/input-file-format.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/instructor/input-file-format.html",
   "dateCreated": "2024-09-06",
-  "dateModified": "2024-10-16",
-  "datePublished": "2024-10-16"
+  "dateModified": "2024-10-17",
+  "datePublished": "2024-10-17"
 }
 
   </script><script>
