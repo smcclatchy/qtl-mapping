@@ -243,7 +243,7 @@ annot_chr7 <- filter(annot, chr == '7' & start > peaks_chr7$ci_lo & end < peaks_
 expr_chr7  <- expr[,annot_chr7$a_gene_id]
 ```
 
-There are 0 genes! How can we start to narrow down which 
+There are 117 genes! How can we start to narrow down which 
 ones may be candidate genes?
 
 ::::::::::::::::::::::::::::::::::::: challenge 
@@ -280,9 +280,7 @@ cor_chr7 = cor(cross$pheno[,'log10_insulin_10wk'], expr_chr7, use = 'pairwise')
 hist(cor_chr7)
 ```
 
-``` error
-Error in hist.default(cor_chr7): invalid number of 'breaks'
-```
+<img src="fig/integrating-gene-expression-rendered-unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
 
 
 ``` r
@@ -292,10 +290,25 @@ annot |>
 ```
 
 ``` output
-# A tibble: 0 × 13
-# ℹ 13 variables: a_gene_id <chr>, chr <chr>, start <dbl>, end <dbl>,
-#   width <dbl>, strand <chr>, gene_id <chr>, gene_name <chr>,
-#   gene_biotype <chr>, description <chr>, gene_id_version <chr>, symbol <chr>,
+# A tibble: 15 × 13
+   a_gene_id   chr   start   end  width strand gene_id    gene_name gene_biotype
+   <chr>       <chr> <dbl> <dbl>  <dbl> <chr>  <chr>      <chr>     <chr>       
+ 1 500662      7      143.  143.  25490 -      ENSMUSG00… Trpm5     protein_cod…
+ 2 500987      7      143.  143.   1606 -      ENSMUSG00… Phlda2    protein_cod…
+ 3 501974      7      142.  142.   2603 +      ENSMUSG00… Tnni2     protein_cod…
+ 4 511402      7      141.  141.  31848 +      ENSMUSG00… Muc2      protein_cod…
+ 5 511562      7      140.  140.   1324 +      ENSMUSG00… Utf1      protein_cod…
+ 6 10002172333 7      142.  142.    785 -      ENSMUSG00… Krtap5-1  protein_cod…
+ 7 10002902680 7      142.  142.  64726 -      ENSMUSG00… Ins2      protein_cod…
+ 8 10002908240 7      141.  141.   2226 -      ENSMUSG00… Ifitm6    protein_cod…
+ 9 10002909031 7      141.  141.  24141 +      ENSMUSG00… Eps8l2    protein_cod…
+10 10002913589 7      140.  140.   1223 +      ENSMUSG00… Scgb1c1   protein_cod…
+11 10004033038 7      143.  143. 320681 +      ENSMUSG00… Kcnq1     protein_cod…
+12 10004033274 7      143.  143.  14856 -      ENSMUSG00… Tnfrsf22  protein_cod…
+13 10004034230 7      141.  141.   1334 -      ENSMUSG00… Ifitm5    protein_cod…
+14 10004034537 7      143.  143.   3284 -      ENSMUSG00… Mrgprg    protein_cod…
+15 10004034772 7      143.  143. 320681 +      ENSMUSG00… Kcnq1     protein_cod…
+# ℹ 4 more variables: description <chr>, gene_id_version <chr>, symbol <chr>,
 #   entrezid <lgl>
 ```
 
@@ -312,13 +325,7 @@ pr_chr7 = pull_genoprobpos(genoprobs = probs,
 # Create data sructure for results.
 lod_drop = data.frame(a_gene_id = colnames(expr_chr7),
                       lod       = 0)
-```
 
-``` error
-Error in data.frame(a_gene_id = colnames(expr_chr7), lod = 0): arguments imply differing number of rows: 0, 1
-```
-
-``` r
 for(i in 1:ncol(expr_chr7)) {
 
   # Make new covariates.
@@ -334,35 +341,15 @@ for(i in 1:ncol(expr_chr7)) {
 } # for(i)
 ```
 
-``` error
-Error in expr_chr7[, i]: subscript out of bounds
-```
-
 
 
 ``` r
 lod_drop <- left_join(lod_drop, annot_chr7, by = 'a_gene_id')
-```
-
-``` error
-Error in eval(expr, envir, enclos): object 'lod_drop' not found
-```
-
-``` r
 plot(lod_drop$start, lod_drop$lod)
-```
-
-``` error
-Error in eval(expr, envir, enclos): object 'lod_drop' not found
-```
-
-``` r
 abline(v = peaks_chr7$pos, col = 2)
 ```
 
-``` error
-Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet
-```
+<img src="fig/integrating-gene-expression-rendered-plot_mediation-1.png" style="display: block; margin: auto;" />
 
 
 ``` r
@@ -393,25 +380,10 @@ eqtl_chr7 <- scan1(genoprobs = probs[,chr],
                    addcovar  = addcovar)
 ```
 
-``` error
-Error in dimnames(x) <- dn: length of 'dimnames' [2] not equal to array extent
-```
-
 
 ``` r
 eqtl_chr7 <- apply(eqtl_chr7, 2, max, simplify = TRUE)
-```
-
-``` error
-Error in eval(expr, envir, enclos): object 'eqtl_chr7' not found
-```
-
-``` r
 eqtl_chr7 <- eqtl_chr7[eqtl_chr7 > thr[1]]
-```
-
-``` error
-Error in eval(expr, envir, enclos): object 'eqtl_chr7' not found
 ```
 
 
@@ -419,8 +391,8 @@ Error in eval(expr, envir, enclos): object 'eqtl_chr7' not found
 length(eqtl_chr7)
 ```
 
-``` error
-Error in eval(expr, envir, enclos): object 'eqtl_chr7' not found
+``` output
+[1] 8
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 

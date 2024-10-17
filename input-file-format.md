@@ -6,9 +6,9 @@ exercises: 30
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "How are the data files formatted for qtl2?"
-- "Which data files are required for qtl2?"
-- "Where can I find sample data for mapping with the qtl2 package?"
+- How are the data files formatted for qtl2?
+- Which data files are required for qtl2?
+- Where can I find sample data for mapping with the qtl2 package?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
