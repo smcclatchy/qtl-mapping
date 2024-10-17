@@ -83,8 +83,8 @@ chromosome and physical position of genes, as well as gene IDs.
 
 In addition to the set of CSV files with the primary data, we need a separate control file with various control parameters
 (or metadata), including the names of all of the other data files and the 
-genotype codes used in the genotype data file. The control file is in a specific format using either [YAML](http://www.yaml.org) or
-[JSON](http://json.org); these are human-readable text files for
+genotype codes used in the genotype data file. The control file is in a specific format using either [YAML](https://www.yaml.org) or
+[JSON](https://json.org); these are human-readable text files for
 representing relatively complex data.
 
 ![Attie Control File](fig/attie_control_file_sample.png){alt='Figure showing the qtl2 control file',width=75%}
@@ -96,7 +96,7 @@ simplifies the function for reading in the data. That function,
 file.
 
 For further details, see the separate 
-[vignette on the input file format](http://kbroman.org/qtl2/assets/vignettes/input_files.html).
+[vignette on the input file format](https://kbroman.org/qtl2/assets/vignettes/input_files.html).
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -120,7 +120,7 @@ For further details, see the separate
 
 In this lesson, we'll work with data sets included in the `qtl2` package. You 
 can find out more about the 
-[sample data files](http://kbroman.org/qtl2/pages/sampledata.html) from the 
+[sample data files](https://kbroman.org/qtl2/pages/sampledata.html) from the 
 R/qtl2 web site. Zipped versions of these datasets are included with the 
 [qtl2geno](https://github.com/rqtl/qtl2geno) package and can be loaded into R 
 using the `read_cross2()` function.
@@ -172,7 +172,7 @@ phenotypes, marker maps, etc."
 - "In each file, the first column is a set of IDs for the rows, and the first 
 row is a set of IDs for the columns."
 - "In addition to primary data, a separate file with control parameters (or 
-metadata) in either [YAML](http://www.yaml.org) or [JSON](http://json.org) 
+metadata) in either [YAML](https://www.yaml.org) or [JSON](https://json.org) 
 format is required."
 - "Published and public data already formatted for QTL mapping are available on 
 the web."
