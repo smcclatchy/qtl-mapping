@@ -186,19 +186,19 @@ function. Let's look at those peaks again.
 peaks
 ```
 
-We looked at the QTL peak on chromosome 7 in a previous lesson. The QTL interval
-is `r peaks$ci_hi[peaks$chr == '7'] - peaks$ci_lo[peaks$chr == '7']` Mb wide.
+We looked at the QTL peak on chromosome 19 in a previous lesson. The QTL interval
+is `r peaks$ci_hi[peaks$chr == '19'] - peaks$ci_lo[peaks$chr == '19']` Mb wide.
 This is quite wide. Let's get the genes expressed in the pancreas within this
 region. 
 
-```{r}
-chr <- '7'
-peaks_chr7 <- filter(peaks, chr == '7')
-annot_chr7 <- filter(annot, chr == '7' & start > peaks_chr7$ci_lo & end < peaks_chr7$ci_hi)
-expr_chr7  <- expr[,annot_chr7$a_gene_id]
+```{r get_chr19_expr}
+chr         <- '19'
+peaks_chr19 <- filter(peaks, chr == '19')
+annot_chr19 <- filter(annot, chr == '19' & start > peaks_chr19$ci_lo & end < peaks_chr19$ci_hi)
+expr_chr19  <- expr[,annot_chr19$a_gene_id]
 ```
 
-There are `r nrow(annot_chr7)` genes! How can we start to narrow down which 
+There are `r nrow(annot_chr19)` genes! How can we start to narrow down which 
 ones may be candidate genes?
 
 ::::::::::::::::::::::::::::::::::::: challenge 
@@ -219,45 +219,151 @@ select the most promising candidate genes that regulate insulin levels.
 
 ## Using Expression QTL Mapping
 
-One method to search for candidate genes is to look for genes with expression 
-that is correlated with the phenotype. Genes which are correlated with the 
-insulin levels may be correlated because they control insulin levels, respond
-to insulin levels, or are correlated by chance. Genes which are strongly
-correlated with insulin levels should have QTL peaks in similar positions.
+One method to search for candidate genes is to look for genes which have QTL
+peaks in the same location as the insulin QTL. Genes which have QTL that are
+co-located with insulin QTL will also be strongly correlated with insulin
+levels. These genes may be correlated with insulin because they control insulin 
+levels, respond to insulin levels, or are correlated by chance. However, genes
+which have QTL within the insulin QTL support interval are reasonable candidate
+genes since we expect the genotype to influence expression levels.
 
-```{r}
-cor_chr7 = cor(cross$pheno[,'log10_insulin_10wk'], expr_chr7, use = 'pairwise')
+Let's perform QTL mapping on the genes within the chromosome 19 insulin QTL
+support interval. We can do this by passing in the expression values as 
+phenotypes into `scan1`.
+
+```{r eqtl_chr19}
+eqtl_chr19 <- scan1(genoprobs = probs[,chr],
+                   pheno     = expr_chr19,
+                   kinship   = kinship_loco[[chr]],
+                   addcovar  = addcovar)
 ```
 
-```{r}
-hist(cor_chr7, breaks = 20)
+Let's look at the top of the results.
+
+```{r head_eqtl_chr19}
+head(eqtl_chr19[,1:6])
 ```
 
-```{r get_chr7_genes}
-ids_chr7 <- colnames(cor_chr7)[abs(cor_chr7) > 0.5]
-annot |>
-  filter(a_gene_id %in% ids_chr7)
+The eQTL results have one row for each marker and one column for each gene.
+Each column represents the LOD plot for one gene. Let's plot the genome scan
+for one gene.
+
+```{r plot_1_eqtl}
+gene_id = '10002678668'
+plot_scan1(x   = eqtl_chr19, 
+           map = cross$pmap,
+           lodcolumn = gene_id,
+           main      = gene_id)
 ```
 
-Mediation.
+This gene seems to have a QTL on chromosome 19 near 52 Mb with a LOD of 34. 
+The insulin QTL is closer to 55 Mb, so this may be a good candidate gene. 
+
+We can harvest the significant QTL peaks on chromosome 19 using `find_peaks`.
+We will use the default threshold of LOD = 3.
+
+```{r eqtl_chr19_filter_peaks}
+eqtl_chr19_peaks = find_peaks(eqtl_chr19, map = cross$pmap) |>
+                    arrange(pos)
+eqtl_chr19_peaks
+```
+
+We can see that there are `r nrow(eqtl_chr19_peaks)` significant QTL on 
+chromosome 19. All of these genes are within the support interval of the insulin
+QTL.
+
+Let's filter the eQTL genes and add in gene annotation for them.
+
+```{r eqtl_chr19_add_annot}
+eqtl_chr19_peaks <- eqtl_chr19_peaks |>
+                     filter(pos > peaks_chr19$ci_lo & pos < peaks_chr19$ci_hi) |>
+                     left_join(annot, by = c('lodcolumn' = 'a_gene_id'))
+eqtl_chr19_peaks
+```
+
+Let's plot the insulin QTL again to remind ourselves what the peak on chromosome
+19 look like. We will also plot the genome scan for one of the genes on
+chromosome 19.
+
+```{r plot_insulin_qtl}
+plot_scan1(x    = eqtl_chr19,
+           map  = cross$pmap,
+           lodcolumn = "10002936879",
+           main = "Insulin")
+plot_scan1(x    = lod_add_loco, 
+           map  = cross$pmap,
+           chr  = '19',
+           col  = 'blue',
+           add  = TRUE)
+legend("topleft", legend = c("insluin", "10002936879"), 
+       col = c('blue', 'black'), lwd = 2)
+```
+
+<!-- DMG: Add more explanatory text about why we prioritize genes with eQTL in
+the same location as the insulin QTL -->
+
+## Mediation Analysis
+
+If a gene is correlated with insulin levels and if it has an eQTL in the same
+location as insulin, then we could add it into the insulin QTL model and see if
+it reduces the LOD on chromosome 19.
+
+```{r add_gene_to}
+stopifnot(rownames(addcovar) == rownames(expr_chr19))
+addcovar_chr19 <- cbind(addcovar, expr_chr19[,"10002936879"])
+
+lod_med = scan1(genoprobs = probs[,chr],
+                pheno     = cross$pheno[,'log10_insulin_10wk',drop = FALSE],
+                kinship   = kinship_loco[[chr]],
+                addcovar  = addcovar_chr19)
+```
+
+Next, we will plot the original insulin genome scan and overlay the genome scan
+with gene `10002936879` in the model.
+
+```{r med_plot_10002936879}
+plot_scan1(x    = lod_add_loco,
+           map  = cross$pmap,
+           chr  = '19',
+           main = "Insulin with/without 10002936879")
+plot_scan1(x   = lod_med,
+           map = cross$pmap,
+           chr  = '19',
+           col = "blue",
+           add = TRUE)
+legend("topleft", legend = c("insluin", "mediation"), 
+       col = c('black', 'blue'), lwd = 2)
+```
+
+The LOD dropped from `r peaks_chr19$lod` to 
+`r find_peaks(lod_med, cross$pmap, threshold = 1.9)$lod`. This is a difference
+of `r peaks_chr19$lod - find_peaks(lod_med, cross$pmap, threshold = 1.9)$lod`.
+
+It would be slow to run a genome scan for each gene on chromosome 19 and look
+at the LOD drop. Also, we don't really need the LOD drop across the entire 
+chromosome. We only need the LOD drop at the location of the peak LOD. To do
+this, we can use the `fit1` function to get the LOD at the marker with the
+highest LOD in the insulin genome scan.
+
+<!-- DMG: Sorcs1 is implicated in Clee Nat Gen 2006 -->
 
 ```{r mediation}
-# Get the probs at the maximum insulin QTL on Chr 7.
-pr_chr7 = pull_genoprobpos(genoprobs = probs,
-                           map       = cross$pmap,
-                           chr       = chr,
-                           pos       = peaks_chr7$pos)
+# Get the probs at the maximum insulin QTL on Chr 19.
+pr_chr19 = pull_genoprobpos(genoprobs = probs,
+                            map       = cross$pmap,
+                            chr       = chr,
+                            pos       = peaks_chr19$pos)
 
 # Create data sructure for results.
-lod_drop = data.frame(a_gene_id = colnames(expr_chr7),
+lod_drop = data.frame(a_gene_id = colnames(expr_chr19),
                       lod       = 0)
 
-for(i in 1:ncol(expr_chr7)) {
+for(i in 1:ncol(expr_chr19)) {
 
   # Make new covariates.
-  curr_covar = cbind(addcovar, expr_chr7[,i])
+  curr_covar = cbind(addcovar, expr_chr19[,i])
   
-  mod = fit1(genoprobs = pr_chr7,
+  mod = fit1(genoprobs = pr_chr19,
              pheno     = cross$pheno[,'log10_insulin_10wk',drop = FALSE],
              kinship   = kinship_loco[[chr]],
              addcovar  = curr_covar)
@@ -265,22 +371,34 @@ for(i in 1:ncol(expr_chr7)) {
   lod_drop$lod[i] = mod$lod
   
 } # for(i)
+
+lod_drop$lod_drop = lod_drop$lod - peaks_chr19$lod
 ```
 
 
 ```{r plot_mediation}
-lod_drop <- left_join(lod_drop, annot_chr7, by = 'a_gene_id')
-plot(lod_drop$start, lod_drop$lod)
-abline(v = peaks_chr7$pos, col = 2)
+lod_drop <- left_join(lod_drop, annot_chr19, by = 'a_gene_id')
+
+plot(lod_drop$start, lod_drop$lod_drop, col = NA, 
+     main = "Mediation Analysis on Chr 19",
+     xlab = "Posiiton (Mb)", ylab = "LOD Drop")
+text(lod_drop$start, lod_drop$lod_drop, labels = lod_drop$gene_name)
+abline(v = peaks_chr19$pos, col = 2)
 ```
 
-```{r}
-plot(cor_chr7, lod_drop$lod)
+In the plot above, we plotted the position of each gene versus the decrease in
+the LOD score (i.e. LOD drop). Genes with the lowest LOD drop are the best 
+candidate genes based on mediation analysis.
+
+Let's look at the annotation for the genes with LOD drop less than -2.
+
+```{r eqlt_chr19_lod_drop_annot}
+lod_drop |>
+  filter(lod_drop < -2) |>
+  select(gene_id, symbol, chr, start, end, lod, lod_drop, description)
 ```
 
-
-
-If you have 
+Do you see any good candidate genes which might regulate insulin?
 
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
@@ -290,21 +408,8 @@ This takes about 2 minutes to run.
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-```{r eqtl_chr7}
-eqtl_chr7 <- scan1(genoprobs = probs[,chr],
-                   pheno     = expr_chr7,
-                   kinship   = kinship_loco[[chr]],
-                   addcovar  = addcovar)
-```
 
-```{r}
-eqtl_chr7 <- apply(eqtl_chr7, 2, max, simplify = TRUE)
-eqtl_chr7 <- eqtl_chr7[eqtl_chr7 > thr[1]]
-```
 
-```{r}
-length(eqtl_chr7)
-```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
