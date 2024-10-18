@@ -248,7 +248,7 @@ ones may be candidate genes?
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 1: How can we narrow down the candidate gene list?
+## Challenge 3: How can we narrow down the candidate gene list?
 
 1. Take a moment to think of ways that you could narrow down the gene list to
 select the most promising candidate genes that regulate insulin levels.
@@ -262,10 +262,273 @@ select the most promising candidate genes that regulate insulin levels.
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
+## Identifying Coding SNPs in QTL Intervals
+
+When you have a QTL peak, you can search for SNPs which lie within the coding
+regions of genes. These SNPs may cause amino acid substitutions which will
+affect protein structure. The most comprehensive SNP resource is the
+[Mouse Genomes Project](https://www.sanger.ac.uk/data/mouse-genomes-project/).
+They have sequenced 52 inbred strains, including BTBR, and have made the data
+available in 
+[Variant Call Format](https://samtools.github.io/hts-specs/VCFv4.2.pdf) (VCF). 
+The full VCF files are available on the 
+[EBI FTP site](https://ftp.ebi.ac.uk/pub/databases/mousegenomes/REL-2112-v8-SNPs_Indels/).
+However, the full SNP file is 22 GB! When you need other strains, you can 
+download and query that file. However, for this workshop, we only need SNPs for
+the BTBR strain. We have created a VCF file containing only SNPs which 
+differ from C57BL/6J and BTBR. Let's read in this file now using the 
+[VariantAnnotation](https://bioconductor.org/packages/release/bioc/html/VariantAnnotation.html) 
+function [readVcf](https://rdrr.io/bioc/VariantAnnotation/man/readVcf-methods.html).
+
+
+
+
+
+
+``` r
+vcf <- readVcf(file.path("data", "btbr_snps_grcm39.vcf.gz"))
+```
+
+The `vcf` object contains both the SNP allele calls and information about the
+sequencing depth and SNP consequences. Let's see how many SNPs are in the VCF.
+
+
+``` r
+dim(vcf)
+```
+
+``` output
+[1] 4791000       1
+```
+
+There are about 4.8 million SNPs in `vcf`. There are many fields in the VCF
+file and there are 
+[vignettes](https://thejacksonlaboratory.box.com/shared/static/gwt3o0gh6pgaeyxuuym58zpur0ktvkz5.tbi)
+which document the more advanced features. Here, we will search for SNPs within
+QTL support intervals and filter them to retain missense or stop coding SNPs.
+
+In order to filter the SNPs by location, we need to create a 
+[GenomicRanges](https://www.bioconductor.org/packages/release/bioc/html/GenomicRanges.html) 
+object which contains the coordinates of the QTL support interval on chromosome 
+19. Note that the support interval is reported by `qtl2` in Mb and the GRanges
+object must be given bp positions, so we need to multiply these by 1e6.
+
+
+``` r
+chr19_gr <- GRanges(seqnames = peaks_chr19$chr, 
+                    ranges   = IRanges(peaks_chr19$ci_lo * 1e6, peaks_chr19$ci_hi * 1e6))
+chr19_gr
+```
+
+``` output
+GRanges object with 1 range and 0 metadata columns:
+      seqnames            ranges strand
+         <Rle>         <IRanges>  <Rle>
+  [1]       19 48370979-55150074      *
+  -------
+  seqinfo: 20 sequences from an unspecified genome; no seqlengths
+```
+
+Next, we will filter the `vcf` object to retain SNPs within the support interval.
+
+
+``` r
+vcf_chr19 <- subsetByOverlaps(vcf, ranges = chr19_gr)
+```
+
+Let's see how many SNPs there are.
+
+
+``` r
+dim(vcf_chr19)
+```
+
+``` output
+[1] 19065     1
+```
+
+There are still 19,000 SNPs! But many of them may not be in coding regions or
+may be synonymous. Next, we will search for SNPs that have missense or stop
+coding changes. These are likely to have the most severe effects. Note that
+synonymous SNPs and SNPs in the untranslated region of genes may affect RNA
+folding, RNA stability, and translation. But it is more difficult to predict
+those effects.
+
+The `vcf` object contains predicted SNP consequences in a field called `CSQ`.
+The format of this field is challenging to parse, so we will get it, search
+for missense and stop SNPs, and then do some data-wrangling to may the output
+readable.
+
+
+``` r
+csq <- info(vcf_chr19)$CSQ
+csq <- as.list(csq)
+
+wh  <- grep('missense|stop', csq)
+csq <- csq[wh]
+rr  <- rowRanges(vcf_chr19)[wh]
+```
+
+Let's see how many SNPs had missense or stop codon consequences.
+
+
+``` r
+length(csq)
+```
+
+``` output
+[1] 8
+```
+
+There were only 8 SNPs out of 19,000 SNPs with missense or stop 
+codon consequences. Next, let's do the data wrangling to reformat the
+consequences of these SNPs.
+
+
+``` r
+csq <- lapply(csq, strsplit, split = "\\|")
+csq <- lapply(csq, function(z) {
+                     matrix(unlist(z), ncol = length(z[[1]]), byrow = TRUE)
+                   })
+
+for(i in seq_along(csq)) {
+  
+  csq[[i]] <- data.frame(snp_id = names(rr)[i],
+                         csq[[i]])
+  
+} # for(i)
+
+csq = do.call(rbind, csq)
+```
+
+Let's look at the top of `csq`.
+
+
+``` r
+head(csq)
+```
+
+``` output
+           snp_id X1               X2       X3     X4                 X5
+1 19:50141282_A/G  G   intron_variant MODIFIER Sorcs1 ENSMUSG00000043531
+2 19:50141282_A/G  T   intron_variant MODIFIER Sorcs1 ENSMUSG00000043531
+3 19:50141282_A/G  C   intron_variant MODIFIER Sorcs1 ENSMUSG00000043531
+4 19:50141282_A/G  G missense_variant MODERATE Sorcs1 ENSMUSG00000043531
+5 19:50141282_A/G  T missense_variant MODERATE Sorcs1 ENSMUSG00000043531
+6 19:50141282_A/G  C missense_variant MODERATE Sorcs1 ENSMUSG00000043531
+          X6                 X7             X8    X9   X10 X11 X12  X13  X14
+1 Transcript ENSMUST00000072685 protein_coding       26/26                  
+2 Transcript ENSMUST00000072685 protein_coding       26/26                  
+3 Transcript ENSMUST00000072685 protein_coding       26/26                  
+4 Transcript ENSMUST00000111756 protein_coding 27/27               3465 3448
+5 Transcript ENSMUST00000111756 protein_coding 27/27               3465 3448
+6 Transcript ENSMUST00000111756 protein_coding 27/27               3465 3448
+   X15 X16     X17 X18 X19 X20 X21 X22 X23 X24               X25 X26 X27 X28
+1                           -1     SNV MGI                                  
+2                           -1     SNV MGI                                  
+3                           -1     SNV MGI                                  
+4 1150 S/P Tct/Cct          -1     SNV MGI       tolerated(0.09)            
+5 1150 S/T Tct/Act          -1     SNV MGI       tolerated(0.26)            
+6 1150 S/A Tct/Gct          -1     SNV MGI     deleterious(0.03)            
+  X29
+1    
+2    
+3    
+4    
+5    
+6    
+```
+
+There are a lot of columns and we may not need all of them. Next, let's reduce
+the number of columns to keep the ones that we need.
+
+
+``` r
+csq <- csq[,c(1:7,9,17,18,26)]
+```
+
+Next, we will subset the consequences to retain the unique rows and then retain
+rows which contain "missense" and "stop".
+
+
+``` r
+csq <- distinct(csq) |>
+         filter(str_detect(X2, "missense|stop"))
+```
+
+Let's look at the top of `csq` now.
+
+
+``` r
+head(csq)
+```
+
+``` output
+           snp_id X1               X2       X3     X4                 X5
+1 19:50141282_A/G  G missense_variant MODERATE Sorcs1 ENSMUSG00000043531
+2 19:50141282_A/G  T missense_variant MODERATE Sorcs1 ENSMUSG00000043531
+3 19:50141282_A/G  C missense_variant MODERATE Sorcs1 ENSMUSG00000043531
+4 19:50141444_G/A  A missense_variant MODERATE Sorcs1 ENSMUSG00000043531
+5 19:50141444_G/A  T missense_variant MODERATE Sorcs1 ENSMUSG00000043531
+6 19:50141444_G/A  C missense_variant MODERATE Sorcs1 ENSMUSG00000043531
+          X6             X8 X16     X17                              X25
+1 Transcript protein_coding S/P Tct/Cct                  tolerated(0.09)
+2 Transcript protein_coding S/T Tct/Act                  tolerated(0.26)
+3 Transcript protein_coding S/A Tct/Gct                deleterious(0.03)
+4 Transcript protein_coding S/F tCc/tTc deleterious_low_confidence(0.01)
+5 Transcript protein_coding S/Y tCc/tAc deleterious_low_confidence(0.01)
+6 Transcript protein_coding S/C tCc/tGc deleterious_low_confidence(0.01)
+```
+
+Column `X4` contains gene names. Let's get the unique gene names.
+
+
+``` r
+csq |>
+  distinct(X4)
+```
+
+``` output
+      X4
+1 Sorcs1
+2  Rbm20
+```
+
+There are only two genes in the QTL support interval which contain missense
+SNPs. 
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 4: Search Genes using Pubmed
+
+1. Go to Pubmed and search for papers involving the two genes and insulin or
+diabetes.
+
+:::::::::::::::::::::::: solution 
+
+Both genes return published papers relating to insulin:
+
+[Sorcs1](https://pubmed.ncbi.nlm.nih.gov/?term=Sorcs1+insulin)
+
+[Rbm2](https://pubmed.ncbi.nlm.nih.gov/?term=rbm20+insulin)
+
+[Sorcs1](https://pubmed.ncbi.nlm.nih.gov/16682971/) was identified as a gene 
+which relates to obesity-induced type 2 diabetes by the same group that
+provided this data set. In fact, it was identified in the same type of mouse
+cross between C57BL/6J and BTBR.
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+In this case, we used published SNPs data to identify two potential candidate
+genes. If we had not found publications that had already associated these 
+genes with diabetes, these would be genes that you would follow up on in the
+lab.
+
 ## Using Expression QTL Mapping
 
-One method to search for candidate genes is to look for genes which have QTL
-peaks in the same location as the insulin QTL. Genes which have QTL that are
+Another method of searching for candidate genes is to look for genes which have
+QTL peaks in the same location as the insulin QTL. Genes which have QTL that are
 co-located with insulin QTL will also be strongly correlated with insulin
 levels. These genes may be correlated with insulin because they control insulin 
 levels, respond to insulin levels, or are correlated by chance. However, genes
@@ -522,12 +785,6 @@ lod_drop |>
 
 Do you see any good candidate genes which might regulate insulin?
 
-
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
-
-This takes about 2 minutes to run.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 
