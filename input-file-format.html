@@ -381,7 +381,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Input File Format</h1>
-        <p>Last updated on 2024-10-17 |
+        <p>Last updated on 2024-10-18 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/input-file-format.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -440,18 +440,20 @@ A-H above, and as such will have one of only 8 genotypes (<em>e.g.</em>
 AA, BB, CC, …). In contrast, DO <em>mice</em> (not lines) have high
 heterozygosity throughout their genomes. Each locus will have one of 36
 possible genotypes (<em>e.g.</em> AA, AB, AC, …, BB, BC, BD,…).</p>
-<p><img src="fig/cc-do-genome-comparison.png" alt="Figure showing CC and DO genomes" class="figure"> For the purposes of learning
-QTL mapping, this lesson begins with the simplest cases: backcrosses (2
-possible genotypes) and intercrosses (3 possible genotypes). Once we
-have learned how to use <code>qtl2</code> for these simpler cases, we
+<figure><img src="fig/cc-do-genome-comparison.png" alt="Figure showing CC and DO genomes" class="figure mx-auto d-block"><div class="figcaption">Example Collaborative Cross and Diversity
+Outbred genomes</div>
+</figure><p>For the purposes of learning QTL mapping, this lesson begins with an
+intercross that has only 3 possible genotypes instead of 8 or 36. Once
+we have learned how to use <code>qtl2</code> for the simpler case, we
 will advance to the most complex case involving mapping in DO mice.</p>
-<p>R/qtl2 accepts the following files: 1. genotypes 2. phenotypes 3.
-phenotype covariates (<em>i.e.</em> tissue type, time points)<br>
+<p>R/qtl2 accepts the following files:<br>
+1. genotypes. 2. phenotypes. 3. phenotype covariates (<em>i.e.</em>
+tissue type, time points)<br>
 4. genetic map<br>
 5. physical map (optional)<br>
-6. control file (YAML or JSON format, not CSV)</p>
+6. control file (YAML or JSON format, not CSV).</p>
 <p>We use both a genetic marker map and a physical map (if available). A
-sample from a genetic map of MIT markers is shown here.</p>
+sample from a genetic map of SNP markers is shown here.</p>
 <figure><img src="fig/attie_geno_map_sample.png" alt="Table showing the marker, chromosome, and centimorgan position for five markers" class="figure mx-auto d-block"><div class="figcaption">Attie Genetic Map</div>
 </figure><p>A physical marker map provides location in bases rather than
 centiMorgans.</p>
@@ -464,7 +466,8 @@ the phenotypes. For example, in the case of a phenotype measured over
 time, one column in the phenotype covariate data could be the time of
 measurement. For gene expression data, we would have columns
 representing chromosome and physical position of genes, as well as gene
-IDs.</p>
+IDs. The covariates shown below include sex and parental grandmother
+(pgm).</p>
 <figure><img src="fig/attie_covar_sample.png" alt="Table showing the top five rows of covariates table" class="figure mx-auto d-block"><div class="figcaption">Attie Covariates</div>
 </figure><p>In addition to the set of CSV files with the primary data, we need a
 separate control file with various control parameters (or metadata),
@@ -472,8 +475,8 @@ including the names of all of the other data files and the genotype
 codes used in the genotype data file. The control file is in a specific
 format using either <a href="https://www.yaml.org" class="external-link">YAML</a> or <a href="https://json.org" class="external-link">JSON</a>; these are human-readable text files
 for representing relatively complex data.</p>
-<p><img src="fig/attie_control_file_sample.png" alt="Attie Control File" class="figure">{alt=‘Figure showing the qtl2 control
-file’,width=75%}</p>
+<p><img src="fig/attie_control_file_sample.png" alt="Attie Control File" class="figure">{alt=‘Figure showing the qtl2 control file’,
+width=75%}</p>
 <p>A big advantage of this control file scheme is that it greatly
 simplifies the function for reading in the data. That function,
 <code>read_cross2()</code>, has a <em>single</em> argument: the name
@@ -508,19 +511,20 @@ on the input file format</a>.</p>
 </div>
 </div>
 <section><h2 class="section-heading" id="sample-data-sets">Sample data sets<a class="anchor" aria-label="anchor" href="#sample-data-sets"></a></h2>
-<hr class="half-width"><p>In this lesson, we’ll work with data sets included in the
-<code>qtl2</code> package. You can find out more about the <a href="https://kbroman.org/qtl2/pages/sampledata.html" class="external-link">sample data
+<hr class="half-width"><p>In this lesson, we will not work with data sets included in the
+<code>qtl2</code> package, though you may want to explore them to learn
+more. You can find out more about the <a href="https://kbroman.org/qtl2/pages/sampledata.html" class="external-link">sample data
 files</a> from the R/qtl2 web site. Zipped versions of these datasets
 are included with the <a href="https://github.com/rqtl/qtl2geno" class="external-link">qtl2geno</a> package and can be
 loaded into R using the <code>read_cross2()</code> function. Additional
 sample data sets, including data on Diversity Outbred (DO) mice, are
 available at <a href="https://github.com/rqtl/qtl2data" class="external-link uri">https://github.com/rqtl/qtl2data</a>.</p>
-<div id="challenge-2-can-you-do-it" class="callout challenge">
+<div id="challenge-2-additional-rqtl2-datasets" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge-2-can-you-do-it" class="callout-inner">
-<h3 class="callout-title">Challenge 2: Can you do it?</h3>
+<div id="challenge-2-additional-rqtl2-datasets" class="callout-inner">
+<h3 class="callout-title">Challenge 2: Additional R/qtl2 datasets</h3>
 <div class="callout-content">
 <p>Go to <a href="https://github.com/rqtl/qtl2data" class="external-link uri">https://github.com/rqtl/qtl2data</a> to view additional
 sample data.<br>
@@ -569,18 +573,18 @@ mouse data for R/qtl2</a>.</p>
 <div class="callout-inner">
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
-<ul><li>“QTL mapping data consists of a set of tables of data: marker
-genotypes, phenotypes, marker maps, etc.”</li>
-<li>“These different tables are in separate comma-delimited (CSV)
-files.”</li>
-<li>“In each file, the first column is a set of IDs for the rows, and
-the first row is a set of IDs for the columns.”</li>
-<li>“In addition to primary data, a separate file with control
-parameters (or metadata) in either <a href="https://www.yaml.org" class="external-link">YAML</a> or <a href="https://json.org" class="external-link">JSON</a> format is required.”</li>
-<li>“Published and public data already formatted for QTL mapping are
-available on the web.”</li>
-<li>“These data can be used as a model for formatting your own QTL
-data.”</li>
+<ul><li>QTL mapping data consists of a set of tables of data: marker
+genotypes, phenotypes, marker maps, etc.</li>
+<li>These different tables are in separate comma-delimited (CSV)
+files.</li>
+<li>In each file, the first column is a set of IDs for the rows, and the
+first row is a set of IDs for the columns.</li>
+<li>In addition to primary data, a separate file with control parameters
+(or metadata) in either <a href="https://www.yaml.org" class="external-link">YAML</a> or <a href="https://json.org" class="external-link">JSON</a> format is required.</li>
+<li>Published and public data already formatted for QTL mapping are
+available on the web.</li>
+<li>These data can be used as a model for formatting your own QTL
+data.</li>
 </ul></div>
 </div>
 </div>
@@ -646,8 +650,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/input-file-format.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/input-file-format.html",
   "dateCreated": "2024-09-06",
-  "dateModified": "2024-10-17",
-  "datePublished": "2024-10-17"
+  "dateModified": "2024-10-18",
+  "datePublished": "2024-10-18"
 }
 
   </script><script>
