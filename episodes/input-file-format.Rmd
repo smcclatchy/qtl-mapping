@@ -45,23 +45,24 @@ such will have one of only 8 genotypes (*e.g.* AA, BB, CC, ...). In contrast,
 DO *mice* (not lines) have high heterozygosity throughout their genomes. Each
 locus will have one of 36 possible genotypes (*e.g.* AA, AB, AC, ..., BB, BC, BD,...).
 
-![](fig/cc-do-genome-comparison.png){alt="Figure showing CC and DO genomes"}
-For the purposes of learning QTL mapping, this lesson begins with the simplest
-cases: backcrosses (2 possible genotypes) and intercrosses 
-(3 possible genotypes).
-Once we have learned how to use `qtl2` for these simpler cases, we will advance
-to the most complex case involving mapping in DO mice.
+![Example Collaborative Cross and Diversity Outbred genomes](fig/cc-do-genome-comparison.png){alt="Figure showing CC and DO genomes"}
 
-R/qtl2 accepts the following files:
-1. genotypes
-2. phenotypes
+
+For the purposes of learning QTL mapping, this lesson begins with an intercross 
+that has only 3 possible genotypes instead of 8 or 36. Once we have learned how 
+to use `qtl2` for the simpler case, we will advance to the most complex case 
+involving mapping in DO mice.
+
+R/qtl2 accepts the following files:  
+1. genotypes. 
+2. phenotypes. 
 3. phenotype covariates (*i.e.* tissue type, time points)  
 4. genetic map  
 5. physical map (optional)  
-6. control file (YAML or JSON format, not CSV)
+6. control file (YAML or JSON format, not CSV).
 
 We use both a genetic marker map and a physical map (if available). A sample 
-from a genetic map of MIT markers is shown here.
+from a genetic map of SNP markers is shown here.
 
 ![Attie Genetic Map](fig/attie_geno_map_sample.png){alt='Table showing the marker, chromosome, and centimorgan position for five markers'}
 
@@ -77,23 +78,23 @@ Phenotype covariates are [metadata](https://en.wikipedia.org/wiki/Metadata)
 describing the phenotypes. For example, in the case of a phenotype measured over
 time, one column in the phenotype covariate data could be the time of 
 measurement. For gene expression data, we would have columns representing 
-chromosome and physical position of genes, as well as gene IDs.
+chromosome and physical position of genes, as well as gene IDs. The covariates 
+shown below include sex and parental grandmother (pgm).
 
 ![Attie Covariates](fig/attie_covar_sample.png){alt='Table showing the top five rows of covariates table'}
 
-In addition to the set of CSV files with the primary data, we need a separate control file with various control parameters
-(or metadata), including the names of all of the other data files and the 
-genotype codes used in the genotype data file. The control file is in a specific format using either [YAML](https://www.yaml.org) or
-[JSON](https://json.org); these are human-readable text files for
-representing relatively complex data.
+In addition to the set of CSV files with the primary data, we need a separate 
+control file with various control parameters (or metadata), including the names 
+of all of the other data files and the genotype codes used in the genotype data 
+file. The control file is in a specific format using either 
+[YAML](https://www.yaml.org) or [JSON](https://json.org); these are 
+human-readable text files for representing relatively complex data.
 
-![Attie Control File](fig/attie_control_file_sample.png){alt='Figure showing the qtl2 control file',width=75%}
+![Attie Control File](fig/attie_control_file_sample.png){alt='Figure showing the qtl2 control file', width=75%}
 
-
-A big advantage of this control file scheme is that it greatly
-simplifies the function for reading in the data. That function,
-`read_cross2()`, has a _single_ argument: the name (with path) of the control 
-file.
+A big advantage of this control file scheme is that it greatly simplifies the 
+function for reading in the data. That function, `read_cross2()`, has a 
+_single_ argument: the name (with path) of the control file.
 
 For further details, see the separate 
 [vignette on the input file format](https://kbroman.org/qtl2/assets/vignettes/input_files.html).
@@ -118,18 +119,18 @@ For further details, see the separate
 
 ## Sample data sets
 
-In this lesson, we'll work with data sets included in the `qtl2` package. You 
-can find out more about the 
-[sample data files](https://kbroman.org/qtl2/pages/sampledata.html) from the 
+In this lesson, we will not work with data sets included in the `qtl2` package,
+though you may want to explore them to learn more. You can find out more about 
+the [sample data files](https://kbroman.org/qtl2/pages/sampledata.html) from the 
 R/qtl2 web site. Zipped versions of these datasets are included with the 
 [qtl2geno](https://github.com/rqtl/qtl2geno) package and can be loaded into R 
-using the `read_cross2()` function.
-Additional sample data sets, including data on Diversity Outbred (DO) mice, are 
-available at <https://github.com/rqtl/qtl2data>.
+using the `read_cross2()` function. Additional sample data sets, including data 
+on Diversity Outbred (DO) mice, are available at 
+<https://github.com/rqtl/qtl2data>.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 2: Can you do it?
+## Challenge 2: Additional R/qtl2 datasets
 
 Go to <https://github.com/rqtl/qtl2data> to view additional sample data.  
 1). Find the Recla data and locate the phenotype data file. Open the file by 
@@ -166,19 +167,16 @@ Karl Broman provides detailed instructions for
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- "QTL mapping data consists of a set of tables of data: marker genotypes, 
-phenotypes, marker maps, etc."
-- "These different tables are in separate comma-delimited (CSV) files."
-- "In each file, the first column is a set of IDs for the rows, and the first 
-row is a set of IDs for the columns."
-- "In addition to primary data, a separate file with control parameters (or 
+- QTL mapping data consists of a set of tables of data: marker genotypes, 
+phenotypes, marker maps, etc.
+- These different tables are in separate comma-delimited (CSV) files.
+- In each file, the first column is a set of IDs for the rows, and the first 
+row is a set of IDs for the columns.
+- In addition to primary data, a separate file with control parameters (or 
 metadata) in either [YAML](https://www.yaml.org) or [JSON](https://json.org) 
-format is required."
-- "Published and public data already formatted for QTL mapping are available on 
-the web."
-- "These data can be used as a model for formatting your own QTL data."
+format is required.
+- Published and public data already formatted for QTL mapping are available on 
+the web.
+- These data can be used as a model for formatting your own QTL data.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
-[r-markdown]: https://rmarkdown.rstudio.com/
-
