@@ -7,28 +7,25 @@ c2eff <- scan1coef(pr[,"2"], iron$pheno[,"liver"])
 
 png(filename = "nullvalt.png", width = 600, height = 600)
 par(mai = c(1, 1, 1, 1.5))
-plot_pxg(g, iron$pheno[,"liver"], ylab="Liver phenotype", 
+plot_pxg(g, iron$pheno[,"liver"], ylab="Phenotype", 
          main = "Null and Alternative\nHypotheses",
-         seg_col = c("#d7191c", "#2c7bb6"), 
+         seg_col = c("#ffa07a", "#2c7bb6"), 
          seg_lwd = 4)
-segments(3.4, c2eff["D2Mit17",4],
-         3.5, c2eff["D2Mit17",4],
+segments(3.4, 94.6, 3.5, 94.6,
          col = "#2c7bb6", lwd = 3)
-segments(3.4, (c2eff["D2Mit17",4] + c2eff["D2Mit17",3]),
-         3.5, (c2eff["D2Mit17",4] + c2eff["D2Mit17",3]),
-         col = "#d7191c", lwd = 3)
-segments(3.4, (c2eff["D2Mit17",4] + c2eff["D2Mit17",1]),
-         3.5, (c2eff["D2Mit17",4] + c2eff["D2Mit17",1]),
-         col = "#d7191c", lwd = 3)
+segments(3.4, 120, 3.5, 120,
+         col = "#ffa07a", lwd = 3)
+segments(3.4, 72, 3.5, 72,
+         col = "#ffa07a", lwd = 3)
 mtext(expression(+ beta), side = 4, line = 0.3, las = 1,
-      at=(c2eff["D2Mit17",4] + c2eff["D2Mit17",3]))
+      at=(120))
 mtext(expression(- beta), side = 4, line = 0.3, las = 1,
-      at=(c2eff["D2Mit17",4] + c2eff["D2Mit17",1]))
+      at=(72))
 mtext(expression(mu), side = 4, line = 0.3, las = 1,
       at=(c2eff["D2Mit17",4]))
 abline(a = (c2eff["D2Mit17",4] + (2 * c2eff["D2Mit17",3])), 
        b = c2eff["D2Mit17", 1],
-       col = "#d7191c")
+       col = "#ffa07a")
 abline(a = (c2eff["D2Mit17",4]), 
        b = c2eff["D2Mit17", 2],
        col = "#2c7bb6")
@@ -40,7 +37,7 @@ text(x = 2.5, y = 98,
      cex=0.8)
 text(x = 2.5, y = 78, 
      labels = paste0("ALTERNATIVE\n"),
-     cex=0.8, col = "#d7191c")
+     cex=0.8, col = "#ffa07a")
 text(x = 2.5, y = 72, 
      labels = paste0("y = 94.6 + ",
                      expression(beta),
