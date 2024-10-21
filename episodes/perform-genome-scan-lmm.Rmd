@@ -6,8 +6,8 @@ exercises: 10
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "How do I use a linear mixed model in a genome scan?"
-- "How do different mapping and kinship calculation methods differ?"
+- How do I use a linear mixed model in a genome scan?
+- How do different mapping and kinship calculation methods differ?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -110,13 +110,11 @@ effect of a single genotype while bringing all other genotypes into the model.
 
 ![](fig/all-geno-model.png)
 
-<i>&beta;<sub>k</sub></i> is the effect of the genotype <i>X<sub>k</sub></i>, 
-and &Sigma;<sub>i&#8800;k</sub><i>&beta;<sub>i</sub>X<sub>i</sub></i> sums the 
-effects of all other genotypes except genotype k. For the leave one chromosome 
-out (LOCO) method, <i>&beta;<sub>k</sub></i><i>X<sub>k</sub></i> is the effect 
-of genotypes on chromosome <i>k</i>, and 
-<i>&beta;<sub>i</sub></i><i>X<sub>i</sub></i> represents effect of genotypes on 
-all other chromosomes.
+$\beta_k$ is the effect of the genotype $X_k$, and $\Sigma_{i\neq k}\beta_iX_i$ 
+sums the effects of all other genotypes except genotype k. For the leave one 
+chromosome out (LOCO) method, $\beta_kX_k$ is the effect of genotypes on 
+chromosome $k$, and $\beta_iX_i$  represents effect of genotypes on all other 
+chromosomes.
 
 If the sample contains divergent subpopulations, SNPs on different chromosomes 
 will be correlated because of the  difference in allele frequencies between 
