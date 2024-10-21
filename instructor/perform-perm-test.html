@@ -425,7 +425,7 @@ results?”</li>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>We need the following block for the site to build on Github. The
 students do not need to see or run the next block.</p>
@@ -489,7 +489,7 @@ recommended.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor2" aria-expanded="false" aria-controls="collapseInstructor2">
   <h3 class="accordion-header" id="headingInstructor2">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor2" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor2" aria-labelledby="headingInstructor2">
+<div id="collapseInstructor2" class="accordion-collapse collapse" aria-labelledby="headingInstructor2" data-bs-parent="#accordionInstructor2">
 <div class="accordion-body">
 <p>Replace number of permutations (1000) with 100 for expediency. 1000
 permutations takes about 2 minutes.</p>
@@ -565,7 +565,7 @@ of estimating a significance threshold for QTL plots.</p>
 </h3>
 <pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.05               3.82</code></pre>
+0.05               3.86</code></pre>
 </div>
 <p>The default is to return the 5% significance thresholds. Thresholds
 for other (or for multiple) significance levels can be obtained via the
@@ -582,8 +582,8 @@ for other (or for multiple) significance levels can be obtained via the
 </h3>
 <pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.14
-0.05               3.82</code></pre>
+0.2                3.18
+0.05               3.86</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="estimating-an-x-chromosome-specific-threshold">Estimating an X Chromosome Specific Threshold<a class="anchor" aria-label="anchor" href="#estimating-an-x-chromosome-specific-threshold"></a></h2>
 <hr class="half-width"><p>To obtain autosome/X chromosome-specific significance thresholds,
@@ -619,13 +619,13 @@ Genetics 174:2151-2158</a>.</p>
 </h3>
 <pre class="output" tabindex="0"><code>Autosome LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                 3.2
-0.05                3.9
+0.2                3.21
+0.05               3.96
 
 X chromosome LOD thresholds (14369 permutations)
      log10_insulin_10wk
-0.2                3.11
-0.05               3.78</code></pre>
+0.2                3.12
+0.05               3.87</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="estimating-significance-thresholds-with-the-kinship-matrix">Estimating Significance Thresholds with the Kinship Matrix<a class="anchor" aria-label="anchor" href="#estimating-significance-thresholds-with-the-kinship-matrix"></a></h2>
 <hr class="half-width"><p>You may have noticed above that we did not include the kinship matrix
@@ -656,7 +656,7 @@ insulin previously.</p>
 <pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
      log10_insulin_10wk
 0.2                3.17
-0.05               3.88</code></pre>
+0.05               3.93</code></pre>
 </div>
 <p>There is not a large difference in the thresholds. Currently, we are
 on the fence about using the kinship matrices to estimate significance
@@ -706,13 +706,13 @@ can be applied.</p>
 </h3>
 <pre class="output" tabindex="0"><code>Autosome LOD thresholds (1000 permutations)
      agouti_tan
-0.2        3.23
-0.05       3.90
+0.2        3.17
+0.05       3.91
 
 X chromosome LOD thresholds (14369 permutations)
      agouti_tan
-0.2        3.14
-0.05       3.85</code></pre>
+0.2        3.04
+0.05       3.76</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="selecting-the-number-of-permutations">Selecting the Number of Permutations<a class="anchor" aria-label="anchor" href="#selecting-the-number-of-permutations"></a></h2>
 <hr class="half-width"><p>How do we know how many permutations to perform in order to obtain a
@@ -770,7 +770,7 @@ etherpad.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 
 </div>
@@ -796,7 +796,7 @@ scores?</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>
 <code>summary(operm, alpha=c(0.01, 0.10))</code><br></li>
