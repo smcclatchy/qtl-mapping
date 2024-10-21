@@ -6,9 +6,9 @@ exercises: 30
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "Why would I calculate kinship between individuals?"
-- "How do I calculate kinship between individuals?"
-- "What does a kinship matrix look like?"
+- Why would I calculate kinship between individuals?
+- How do I calculate kinship between individuals?
+- What does a kinship matrix look like?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
