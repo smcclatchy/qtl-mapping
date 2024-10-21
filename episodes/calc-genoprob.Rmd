@@ -198,7 +198,7 @@ plot_onegeno(ph, cross$pmap)
 :::::::::::::::::::::::::::::::::
 
 
-## Challenge 3
+## Challenge 2
 
 Calculate genotype probabilities for a different data set from the 
 [qtl2 data repository](https://github.com/rqtl/qtl2data), this one from a study 
