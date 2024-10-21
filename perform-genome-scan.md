@@ -49,11 +49,8 @@ determine whether the difference in phenotype means is zero.
 To find the line of best fit, the residuals or errors are calculated, then 
 squared for each data point.
 
-<!-- DMG: We need to change these next figures to use an F2. -->
-
-![](fig/residual.png)
-![](fig/squared-residual.png)
-![](fig/null.png)
+![Squared error for a single data point](fig/althypothesis.png)
+![The line of best fit minimizes the sum of squared errors](fig/nullhypothesis.png)
 
 The line of best fit will be the one that minimizes the sum of squared 
 residuals, which maximizes the likelihood of the data. 
