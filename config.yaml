@@ -69,7 +69,6 @@ episodes:
 - intro_data_set.Rmd
 - input-file-format.Rmd
 - calc-genoprob.Rmd
-#- special-x-covar.Rmd
 - perform-genome-scan.Rmd
 - calc-kinship.Rmd
 - perform-genome-scan-lmm.Rmd
