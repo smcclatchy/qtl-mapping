@@ -33,7 +33,7 @@ segments(3.4, minusbeta, 3.5, minusbeta,
 segments(0.95, minusbeta, 3.05, plusbeta,
          col = "#ffa07a", lwd = 3)
 
-# error squared
+# a single data point showing error squared
 points(3, 155, lwd = 3, col = "#ba55d3")
 segments(x0 = 3, y0 = plusbeta, y1 = 155,
          lwd=2, lty = 1)
