@@ -124,8 +124,7 @@ When we perform a genome scan with additive covariates, we are searching for loc
 that have the same effect in both covariate groups. In this case, we are 
 searching for loci that affect females and male in the same way.
 
-![Additive Sex Effect](fig/additive_qtl_effect_w_sex.png){alt="Figure showing sex and additive QTL effects."
-
+![Additive Sex Effect](fig/additive_qtl_effect_w_sex.png){alt="Figure showing sex and additive QTL effects.",width=50%}
 
 In the figure above, we plotted simulated phenotype values versus the 
 genotypes BB, BR and RR. Each point represents one mouse, with females shown in
@@ -137,7 +136,7 @@ sex and the homozygous group(s).
 When we add sex into the model as an additive covariate, we regress the sex 
 effect out of the phenotype data and then estimate the overall QTL effect. 
 
-![Additive Sex Effect](fig/additive_qtl_effect_wo_sex.png){alt="Figure showing sex and additive QTL effects."
+![Additive Sex Effect](fig/additive_qtl_effect_wo_sex.png){alt="Figure showing sex and additive QTL effects.",width=50%}
 
 In the figure above, we have plotted the same simulated phenotype with sex
 regressed out. Now the female and male means are the same, but the QTL effect
@@ -268,7 +267,7 @@ additive and an interactive covariate. Mapping with an interactive covariate
 allows each sex to have different effects. We do this by including sex as an
 interactive covariate in the genome scan.
 
-![Interactive Sex by QTL Effect](fig/interactive_qtl_effect_w_sex.png){alt="Figure showing interactive sex by  QTL effects"
+![Interactive Sex by QTL Effect](fig/interactive_qtl_effect_w_sex.png){alt="Figure showing interactive sex by  QTL effects",width=50%}
 
 In the figure above, female (red) and male (blue) phenotypes are plotted versus
 the three genotypes. In females, there is no QTL effect because the mean values
