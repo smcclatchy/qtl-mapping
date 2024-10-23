@@ -417,18 +417,17 @@ population structure is important. Laboratory mouse strains are
 descended from a small number of founders (fancy mice) and went through
 several population bottlenecks. Wild-derived strains are not descended
 from fancy mice and don’t share the same history as laboratory strains.
-Linear mixed models were developed to solve problems with population
-structure created by differing ancestries, and to handle relatedness
-between individuals. Linear mixed models (LMMs) consider genome-wide
-similarity between all pairs of individuals to account for population
-structure, known kinship and unknown relatedness. Linear mixed models in
-mapping studies can successfully correct for genetic relatedness between
-individuals in a population by incorporating kinship into the model.
-Earlier we <a href="https://smcclatchy.github.io/mapping/04-calc-kinship/" class="external-link">calculated
-a kinship matrix</a> for input to a linear mixed model to account for
+Issues of population structure and differing degrees of genetic
+relatedness between mice are addressed using linear mixed models (LMM).
+LMMs consider genome-wide similarity between all pairs of individuals to
+account for population structure, known kinship and unknown relatedness.
+LMMs in mapping studies can successfully adjust for genetic relatedness
+between individuals in a population by incorporating kinship into the
+model. Earlier we <a href="https://smcclatchy.github.io/mapping/calc-kinship/" class="external-link">calculated a
+kinship matrix</a> for input to a linear mixed model to account for
 relationships among individuals. For a current review of mixed models in
-genetics, see this <a href="https://www.biorxiv.org/content/early/2017/01/28/092106" class="external-link">preprint
-of Martin and Eskin, 2017</a>.</p>
+genetics, see <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6307707/" class="external-link">Sul et al,PLoS
+Genetics,2018</a>.</p>
 <p>Simple linear regression takes the form:</p>
 <p><span class="math inline">\(y = \mu + \beta G + \epsilon\)</span></p>
 <p>which describes a line with slope <span class="math inline">\(\beta\)</span> and y-intercept <span class="math inline">\(\mu\)</span>. The error (or residual) is
@@ -494,7 +493,7 @@ of kinship matrices).</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">lod_add_pg</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
+<code class="sourceCode R"><span><span class="va">lod_add_all</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
 <span>                    pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"log10_insulin_10wk"</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
 <span>                    kinship   <span class="op">=</span> <span class="va">kinship_all</span>, </span>
 <span>                    addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
@@ -506,7 +505,7 @@ of kinship matrices).</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lod_add_all</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
-<span>                     pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"log10_insulin_10wk"</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
+<span>                     pheno     <span class="op">=</span> <span class="va">insulin</span>, </span>
 <span>                     kinship   <span class="op">=</span> <span class="va">kinship_all</span>, </span>
 <span>                     addcovar  <span class="op">=</span> <span class="va">addcovar</span>, </span>
 <span>                     cores     <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre>
@@ -534,7 +533,7 @@ kinship matrices as obtained from <code>calc_kinship()</code> with
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lod_add_loco</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
-<span>                      pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"log10_insulin_10wk"</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
+<span>                      pheno     <span class="op">=</span> <span class="va">insulin</span>, </span>
 <span>                      kinship   <span class="op">=</span> <span class="va">kinship_loco</span>, </span>
 <span>                      addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
 </div>
@@ -553,20 +552,10 @@ method.</p>
 <span><span class="fu">plot_scan1</span><span class="op">(</span>x     <span class="op">=</span> <span class="va">lod_add_all</span>,  </span>
 <span>           map   <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>, </span>
 <span>           col   <span class="op">=</span> <span class="st">'blue'</span>,   </span>
-<span>           add   <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
-</div>
-<div class="codewrapper">
-<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'lod_add_all' not found</code></pre>
-</div>
-<div class="codewrapper sourceCode" id="cb8">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span>x     <span class="op">=</span> <span class="va">lod_add_loco</span>, </span>
+<span>           add   <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">plot_scan1</span><span class="op">(</span>x     <span class="op">=</span> <span class="va">lod_add_loco</span>, </span>
 <span>           map   <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>, </span>
-<span>           col   <span class="op">=</span> <span class="st">'orange'</span>, </span>
+<span>           col   <span class="op">=</span> <span class="st">'darkgreen'</span>, </span>
 <span>           add   <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -574,18 +563,40 @@ method.</p>
 </h3>
 <pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'lod_add_loco' not found</code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb10">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">legend</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1500</span>, y <span class="op">=</span> <span class="fl">7.5</span>, legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"No kinship"</span>, <span class="st">"All kinship"</span>, <span class="st">"LOCO kinship"</span><span class="op">)</span>,</span>
-<span>       lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">'black'</span>, <span class="st">'blue'</span>, <span class="st">'orange'</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<span>       lwd <span class="op">=</span> <span class="fl">2</span>, col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">'black'</span>, <span class="st">'blue'</span>, <span class="st">'darkgreen'</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<figure><img src="fig/perform-genome-scan-lmm-rendered-plot_lod_add_loco_all-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>For the circulating insulin, the three methods give quite different
-results. The linear mixed model with an overall kinship matrix gives
-much lower LOD scores than the other two methods. On chromosomes with
-some evidence of a QTL, the LOCO method gives higher LOD scores than
-Haley-Knott, except on chromosome 6 where it gives lower LOD scores.</p>
+<figure><img src="fig/perform-genome-scan-lmm-rendered-plot_lod_add_loco_all-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>For circulating insulin, the three methods give quite different
+results. The linear mixed model with an overall kinship matrix (blue)
+produces much lower LOD scores than the other two methods. On
+chromosomes with some evidence of a QTL, the LOCO method gives higher
+LOD scores than Haley-Knott, except on chromosome 6 where it gives lower
+LOD scores.</p>
+<p>Let’s plot the difference between the LOCO-kinship genome scan and
+the no-kinship genome scan.</p>
+<div class="codewrapper sourceCode" id="cb9">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot</span><span class="op">(</span>x    <span class="op">=</span> <span class="va">lod_add_loco</span> <span class="op">-</span> <span class="va">lod_add</span>, </span>
+<span>     map  <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>, </span>
+<span>     ylim <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="op">-</span><span class="fl">1.5</span>, <span class="fl">2</span><span class="op">)</span>,</span>
+<span>     main <span class="op">=</span> <span class="st">"LOCO - no kinship Genome Scan"</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in eval(expr, envir, enclos): object 'lod_add_loco' not found</code></pre>
+</div>
+<p>As you can see from the plot above, the LOCO-kinship scan generally
+produces higher LOD scores. While higher LOD scores don’t always mean
+that the model is better, in this case, we expect that accounting for
+the correlation in residual errors using kinship matrices will produce
+more correct results.</p>
 <div id="challenge-1" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -622,7 +633,7 @@ neighbor, and share your thoughts in the collaborative document.</p>
 <h3 class="callout-title">Challenge 2</h3>
 <div class="callout-content">
 <!-- DMG: Ha! we were using the BTBR data anyway. Let's not load a second copy
-of the data. Maybe we canb brainstorm about another challend. -->
+of the data. Maybe we can brainstorm about another challenge. -->
 <p>Pair programming exercise: with your partner, review and carry out
 all of the steps in QTL mapping that we have covered so far, using a new
 data set. One of you types the code, the other explains what needs to
@@ -672,10 +683,12 @@ colors.</li>
 <div class="callout-inner">
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
-<ul><li>“To perform a genome scan with a linear mixed model, supply a
-kinship matrix.”</li>
-<li>“Different mapping and kinship calculation methods give different
-results.”</li>
+<ul><li>To perform a genome scan with a linear mixed model, supply a kinship
+matrix.</li>
+<li>Different mapping and kinship calculation methods give different
+results.</li>
+<li>Using a set of Leave-One-Chromosome-Out kinship matrices generally
+produces higher LOD scores than other methods.</li>
 </ul></div>
 </div>
 </div>
