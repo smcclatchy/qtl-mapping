@@ -2,32 +2,48 @@ library(qtl2)
 iron <- read_cross2(file = system.file("extdata",
                                        "iron.zip",
                                        package = "qtl2"))
+iron$alleles <- c("B", "R")
+
 map <- insert_pseudomarkers(map=iron$gmap, step=1)
 pr <- calc_genoprob(cross=iron, map=map, error_prob=0.002)
 g <- maxmarg(pr, map, chr=2, pos=56.8, return_char=TRUE)
-c2eff <- scan1coef(pr[,"2"], iron$pheno[,"liver"])
 
-png(filename = "althypothesis.png", width = 600, height = 600)
+mu <- 94.6
+plusbeta <- 110
+minusbeta <- 79.3
+
+png(filename = "fig/althypothesis.png", width = 600, height = 600)
 par(mai = c(1, 1, 1, 1.5))
 plot_pxg(g, iron$pheno[,"liver"], ylab="Phenotype", 
-         main = "Alternative hypothesis",
-         seg_col = c("#2c7bb6"), 
+         main = "Alternative Hypothesis",
+         seg_col = "#ffa07a",
          seg_lwd = 4,
-         jitter = 0.05)
-segments(3.4, 94.6, 3.5, 94.6,
+         sort = FALSE,
+         jitter = 0.1)
+
+# mu and beta marks on right y axis
+segments(3.4, mu, 3.5, mu,
          col = "#2c7bb6", lwd = 3)
-segments(3.4, 120, 3.5, 120,
+segments(3.4, plusbeta, 3.5, plusbeta,
          col = "#ffa07a", lwd = 3)
-segments(3.4, 72, 3.5, 72,
+segments(3.4, minusbeta, 3.5, minusbeta,
          col = "#ffa07a", lwd = 3)
-abline(a = (c2eff["D2Mit17",4] + (2 * c2eff["D2Mit17",3])), 
-       b = c2eff["D2Mit17", 1],
-       col = "#ffa07a",
-       lwd=1.5)
-points(1, 155, lwd = 3)
-segments(x0 = 1, y0 = 110, y1 = 154,
+
+# fake regression line
+segments(0.95, minusbeta, 3.05, plusbeta,
+         col = "#ffa07a", lwd = 3)
+
+# error squared
+points(3, 155, lwd = 3, col = "#ba55d3")
+segments(x0 = 3, y0 = plusbeta, y1 = 155,
          lwd=2, lty = 1)
-text(x = 1.3, y = 165, labels = "error or\nresidual", cex=0.8)
-segments(x0 = 1.2, y0 = 164, x1 = 1.05, y1 = 157, 
+segments(x0 = 2.5, y0 = plusbeta, y1 = 155,
+         lwd=2, lty = 1)
+segments(x0 = 2.5, y0 = plusbeta, x1 = 3,
+         lwd=2, lty = 1)
+segments(x0 = 2.5, y0 = 155, x1 = 3,
+         lwd=2, lty = 1)
+text(x = 2.5, y = 170, labels = "error\nsquared")
+segments(x0 = 2.5, y0 = 160, x1 = 2.7, y1 = 140, 
          lwd=1, lty = 2)
 dev.off()

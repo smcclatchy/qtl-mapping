@@ -3,11 +3,10 @@ iron <- read_cross2(file = system.file("extdata",
                                        "iron.zip",
                                        package = "qtl2"))
 iron$alleles <- c("B", "R")
+
 map <- insert_pseudomarkers(map=iron$gmap, step=1)
 pr <- calc_genoprob(cross=iron, map=map, error_prob=0.002)
-
 g <- maxmarg(pr, map, chr=2, pos=56.8, return_char=TRUE)
-# don't need this? c2eff <- scan1coef(pr[,"2"], iron$pheno[,"liver"])
 
 mu <- 94.6
 plusbeta <- 110
