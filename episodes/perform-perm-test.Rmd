@@ -1,5 +1,5 @@
 ---
-title: "Performing a permutation test"
+title: "Finding Significant Peaks via Permutation"
 teaching: 10
 exercises: 20
 ---
