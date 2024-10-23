@@ -421,11 +421,7 @@
 <p>The freely available chapter on <a href="http://www.rqtl.org/book/rqtlbook_ch04.pdf" class="external-link">single-QTL
 analysis</a> from Broman and Sen’s <a href="http://www.rqtl.org/book/" class="external-link">A
 Guide to QTL Mapping with R/qtl</a> describes different methods for QTL
-analysis. Two of these methods are described here using data from an
-experiment on hypertension in the mouse <a href="https://s3.amazonaws.com/academia.edu.documents/45963759/geno.2000.640120160526-29022-36mpgg.pdf?AWSAccessKeyId=AKIAIWOWYYGZ2Y53UL3A&amp;Expires=1513786158&amp;Signature=rtodlYwe0LDmYZFOm1ejvZjZhQ0%3D&amp;response-content-disposition=inline%3B%20filename%3DConcordance_of_murine_quantitative_trait.pdf" class="external-link">Sugiyama
-et al., Genomics 71:70-77, 2001</a>. The study employed a backcross
-between two mouse strains resulting in two possible genotypes - AA for
-homozygotes, and AB for heterozygotes.</p>
+analysis. We discuss two of these methods here.</p>
 <p>Linear regression can be employed to identify presence of QTL in a
 cross. To identify QTL using regression, we compare the fit for two
 models: 1) the null hypothesis that there are no QTL anywhere in the
@@ -461,6 +457,13 @@ unknown genotype on these conditional genotype probabilities
 (conditional on known marker genotypes). In Haley-Knott regression,
 phenotype values can be plotted and a regression line drawn through the
 phenotype mean for the untyped individuals.</p>
+<p>The example illustrated below uses data from an experiment on
+hypertension in the mouse <a href="https://s3.amazonaws.com/academia.edu.documents/45963759/geno.2000.640120160526-29022-36mpgg.pdf?AWSAccessKeyId=AKIAIWOWYYGZ2Y53UL3A&amp;Expires=1513786158&amp;Signature=rtodlYwe0LDmYZFOm1ejvZjZhQ0%3D&amp;response-content-disposition=inline%3B%20filename%3DConcordance_of_murine_quantitative_trait.pdf" class="external-link">Sugiyama
+et al., Genomics 71:70-77, 2001</a>.</p>
+<p>The study employed a backcross between two mouse strains resulting in
+two possible genotypes - AA for homozygotes, and AB for heterozygotes.
+It is much simpler to illustrate Haley-Knott regression with a backcross
+than with an intercross.</p>
 <figure><img src="fig/hk-regress.png" class="figure mx-auto d-block"></figure><p>As shown by the green circle in the figure, an individual of unknown
 genotype is placed between known genotypes according to the probability
 of its genotype being AA or AB. In this case, the probability of this

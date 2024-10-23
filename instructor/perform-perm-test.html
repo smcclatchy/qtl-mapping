@@ -565,7 +565,7 @@ of estimating a significance threshold for QTL plots.</p>
 </h3>
 <pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.05               3.85</code></pre>
+0.05               3.76</code></pre>
 </div>
 <p>The default is to return the 5% significance thresholds. Thresholds
 for other (or for multiple) significance levels can be obtained via the
@@ -583,7 +583,7 @@ for other (or for multiple) significance levels can be obtained via the
 <pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
      log10_insulin_10wk
 0.2                3.13
-0.05               3.85</code></pre>
+0.05               3.76</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="estimating-an-x-chromosome-specific-threshold">Estimating an X Chromosome Specific Threshold<a class="anchor" aria-label="anchor" href="#estimating-an-x-chromosome-specific-threshold"></a></h2>
 <hr class="half-width"><p>To obtain autosome/X chromosome-specific significance thresholds,
@@ -619,13 +619,13 @@ Genetics 174:2151-2158</a>.</p>
 </h3>
 <pre class="output" tabindex="0"><code>Autosome LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                 3.2
-0.05                3.9
+0.2                3.14
+0.05               3.77
 
 X chromosome LOD thresholds (14369 permutations)
      log10_insulin_10wk
-0.2                3.08
-0.05               3.74</code></pre>
+0.2                3.11
+0.05               3.76</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="estimating-significance-thresholds-with-the-kinship-matrix">Estimating Significance Thresholds with the Kinship Matrix<a class="anchor" aria-label="anchor" href="#estimating-significance-thresholds-with-the-kinship-matrix"></a></h2>
 <hr class="half-width"><p>You may have noticed above that we did not include the kinship matrix
@@ -655,8 +655,8 @@ insulin previously.</p>
 </h3>
 <pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.18
-0.05               3.84</code></pre>
+0.2                3.14
+0.05               3.80</code></pre>
 </div>
 <p>There is not a large difference in the thresholds. Currently, we are
 on the fence about using the kinship matrices to estimate significance
@@ -706,13 +706,13 @@ can be applied.</p>
 </h3>
 <pre class="output" tabindex="0"><code>Autosome LOD thresholds (1000 permutations)
      agouti_tan
-0.2        3.17
-0.05       3.85
+0.2        3.14
+0.05       3.86
 
 X chromosome LOD thresholds (14369 permutations)
      agouti_tan
-0.2        3.06
-0.05       3.77</code></pre>
+0.2        3.13
+0.05       3.95</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="selecting-the-number-of-permutations">Selecting the Number of Permutations<a class="anchor" aria-label="anchor" href="#selecting-the-number-of-permutations"></a></h2>
 <hr class="half-width"><p>How do we know how many permutations to perform in order to obtain a
