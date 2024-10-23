@@ -53,7 +53,7 @@ the model. Earlier we
 [calculated a kinship matrix](https://smcclatchy.github.io/mapping/calc-kinship/) 
 for input to a linear mixed model to account for relationships among 
 individuals. For a current review of mixed models in genetics, see
-[Sul et al,PLoS Genetics,2018](https://pmc.ncbi.nlm.nih.gov/articles/PMC6307707/).
+[Sul et al, PLoS Genetics, 2018](https://pmc.ncbi.nlm.nih.gov/articles/PMC6307707/).
 
 Simple linear regression takes the form:
 
@@ -68,19 +68,20 @@ marker, we use:
 $y_j = \mu + \beta_k G_{jk} + \epsilon_j$
  
 
-where $y_{ij} is the phenotype of the $j$th individual, $\mu$; 
-is the mean phenotype value, $\beta_k$ is the effect of the 
-$k$th genotype, $G_{jk} is the genotype for individual $j$, and 
-$\epsilon_j$ is the error for the $j$th individual. In the figure 
-below, $\mu$; equals `r round(chr2_eff["rs13476803",4], 1)`, and $\beta$; equals 
+where $y_{ij}$ is the phenotype of the $j$th individual, $\mu$ is the mean 
+phenotype value, $\beta_k$ is the effect of the $k$th genotype, $G_{jk}$ is the 
+genotype for individual $j$, and $\epsilon_j$ is the error for the $j$th 
+individual. In the figure below, $\mu$ equals 
+`r round(chr2_eff["rs13476803",4], 1)`, and $\beta$ equals 
 `r round(abs(chr2_eff["rs13476803",1]), 1)` for the alternative hypothesis 
-(QTL exists). This linear model is $y$ = `r round(chr2_eff["rs13476803",4], 1)` + 
-`r round(abs(chr2_eff["rs13476803",1]), 1)`X + $\epsilon$. The model intersects the 
-genotype groups at their group means. In contrast, the null hypothesis would 
-state that there is no difference in group means (no QTL anywhere). The linear 
-model for the null hypothesis would be $y$ = 94.6 + 0$X$ + $\epsilon$. 
-This states that the phenotype is equal to the combined mean (94.6), plus 
-some error ($\epsilon$). In other words, genotype doesn't affect the phenotype.
+(QTL exists). This linear model is 
+$y$ = `r round(chr2_eff["rs13476803",4], 1)` + `r round(abs(chr2_eff["rs13476803",1]), 1)`X
++ $\epsilon$. The model intersects the genotype groups at their group means. In 
+contrast, the null hypothesis would state that there is no difference in group 
+means (no QTL anywhere). The linear model for the null hypothesis would be 
+$y$ = 94.6 + 0$X$ + $\epsilon$. This states that the phenotype is equal to the 
+combined mean (94.6), plus some error ($\epsilon$). In other words, genotype 
+doesn't affect the phenotype.
 
 <!-- DMG: Make this figure again using ggbeeswarm and the BTBR data on Chr 2 
 at marker rs13476803. -->
@@ -108,9 +109,9 @@ the number of genotypes is M.
 To model the effect of all genotypes and to account for relatedness, we test the 
 effect of a single genotype while bringing all other genotypes into the model.
 
-![](fig/all-geno-model.png)
+$y=\mu + \beta_kX_k +\sum_{i\neq k}\beta_iX_i + \epsilon$
 
-$\beta_k$ is the effect of the genotype $X_k$, and $\Sigma_{i\neq k}\beta_iX_i$ 
+$\beta_k$ is the effect of the genotype $X_k$, and $\sum_{i\neq k}\beta_iX_i$ 
 sums the effects of all other genotypes except genotype k. For the leave one 
 chromosome out (LOCO) method, $\beta_kX_k$ is the effect of genotypes on 
 chromosome $k$, and $\beta_iX_i$  represents effect of genotypes on all other 
@@ -291,13 +292,6 @@ Which methods identify these peaks? Which don't?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-<!-- DMG: Not sure what this is. -->
-
-```{r}
-file <- paste0("https://raw.githubusercontent.com/rqtl/",
-               "qtl2data/master/B6BTBR/b6btbr.zip")
-b6btbr <- read_cross2(file)
-```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
