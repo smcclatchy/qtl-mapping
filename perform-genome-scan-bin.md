@@ -1,12 +1,12 @@
 ---
-title: "Performing a genome scan with binary traits"
+title: "Performing a Genome Scan with Binary Traits"
 teaching: 20
 exercises: 30
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "How do I create a genome scan for binary traits?"
+- "How do I perform a genome scan for binary traits?"
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -20,14 +20,14 @@ exercises: 30
 
 
 
-The genome scans above were performed assuming that the residual variation 
-followed a normal distribution. This will often provide reasonable results even 
-if the residuals are not normal, but an important special case is that of a 
-binary trait, with values 0 and 1, which is best treated differently. The 
-`scan1` function can perform a genome scan with binary traits by logistic 
-regression, using the argument `model="binary"`. (The default value for the 
-`model` argument is `"normal"`.) At present, we _can not_ account for 
-relationships among individuals in this analysis.
+The genome scans in the previous episode were performed assuming that the 
+residual variation followed a normal distribution. This will often provide 
+reasonable results even if the residuals are not normal, but an important 
+special case is that of a binary trait, with values 0 and 1, which is best 
+treated differently. The `scan1` function can perform a genome scan with binary
+traits by logistic regression, using the argument `model="binary"`. (The default
+value for the `model` argument is `"normal"`) At present, we _can not_ account 
+for kinship relationships among individuals in this analysis.
 
 Let's look at the phenotypes in the cross again.
 
@@ -49,25 +49,21 @@ Mouse3145              1.783          1      0
 There are two binary traits called "agouti_tan", and "tufted" which are related
 to coat color and shape.
 
-We perform a binary genome scan in a similar manner to mapping continuous traits
+We perform a binary genome scan in a manner similar to mapping continuous traits
 by using `scan1`. When we mapped insulin, there was a hidden argument called 
 `model` which told `qtl2` which mapping model to use. There are two options:
-`normal`, the default, and `binary`. The `normal` argument tells `qtl2 to ues a
+`normal`, the default, and `binary`. The `normal` argument tells `qtl2` to use a
 "normal" (least squares) linear model. To map a binary trait, we will 
-include `model = "binary"` to indicate that the phenotype is a binary trait 
-with values 0 and 1.
+include the `model = "binary"` argument to indicate that the phenotype is a 
+binary trait with values 0 and 1.
 
 
 ``` r
 lod_agouti <- scan1(genoprobs = probs, 
-                    pheno     = cross$pheno[,'agouti_tan'], 
+                    pheno     = cross$pheno[,'agouti_tan', drop = FALSE], 
                     addcovar  = addcovar, 
                     model     = "binary")
 ```
-
-<!-- DMG: Explain why we don't use kinship. It's because we don't have 
-a model that can handle correlated residuals. It uses logistic regression
-and we don't know how to adjust for correlated residuals. -->
 
 Let's plot the result and see if there is a peak.
 
@@ -86,8 +82,8 @@ Yes! There is a big peak on chromosome 2. Let's zoom in on chromosome 2.
 ``` r
 plot_scan1(x    = lod_agouti, 
            map  = cross$pmap, 
-           chr  = 2,
-           main = 'Agouti')
+           chr  = "2",
+           main = "Agout")
 ```
 
 <img src="fig/perform-genome-scan-bin-rendered-plot_bin_scan_chr2-1.png" style="display: block; margin: auto;" />
@@ -143,22 +139,25 @@ tbl / sum(tbl)
 0.26 0.74 
 ```
 
-We can see that the black (0) mice occur about 25 % of the time. If the `A` allele
-causes mice to have black coats when it is recessive, and if `a` is the agouti
-allele, then, when breeding two heterozygous (`Aa`) mice together, we expect
-mean allele frequencies of:
+We can see that the black (0) mice occur about 25 % of the time. If the `B` 
+allele causes mice to have black coats when it is recessive, and if `R` is the 
+agouti allele, then, when breeding two heterozygous (`BR`) mice together, we
+expect the following genotypes in the progeny:
+
+     |  B   |  R
+-----+------+------
+  B  |  BB  |  BR
+  R  |  BB  |  RR
+
+Hence, we expect mean allele frequencies and coat colors as follows:
 
 Allele | Frequency | Coat Color
 -------+-----------+-----------
-  AA   |    0.25   |   black
-  Aa   |    0.5    |   agouti
-  aa   |    0.25   |   agouti
+  BB   |    0.25   |   black
+  BR   |    0.50   |   agouti
+  RR   |    0.25   |   agouti
 
 From this, we can see that about 25% of the mice should have black coats.
-
-<!-- DMG: Fill this in with a figure showing the expected frequency of 
-two allele from F1s. AA = 25%, Aa = 50% & aa = 25%. -->
-
 
 ::::::::::::::::::::::::::::::::::::::::::
 
@@ -174,7 +173,7 @@ First, map the trait.
 
 ``` r
 lod_tufted <- scan1(genoprobs = probs, 
-                    pheno     = cross$pheno[,"tufted"], 
+                    pheno     = cross$pheno[,"tufted", drop = FALSE], 
                     addcovar  = addcovar, 
                     model     = "binary")
 ```
@@ -188,7 +187,7 @@ plot_scan1(x    = lod_tufted,
            main = "Tufted")
 ```
 
-<img src="fig/perform-genome-scan-bin-rendered-unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+<img src="fig/perform-genome-scan-bin-rendered-challenge2b-1.png" style="display: block; margin: auto;" />
 
 There is a large peak on chromosome 17. This is a 
 [known locus](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3570182/) 
@@ -204,6 +203,6 @@ gene near 27.3 Mb on chromsome 17.
 
 - "A genome scan for binary traits (0 and 1) requires special handling; scans 
 for non-binary traits assume normal variation of the residuals."
-- "A genome scan for binary traits  is performed with logistic regression."
+- "A genome scan for binary traits is performed using logistic regression."
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

@@ -36,7 +36,7 @@ carrying a Leptin^ob/ob^ mutation.
 
 ![](fig/intercross.png){alt="Figure showing intercross breeding design."}
 
-The <ob> mutation causes the mice to not produce 
+The <ob> mutation prevents the production of 
 [leptin](https://en.wikipedia.org/wiki/Leptin), a hormone that 
 regulates hunger and satiety. When leptin levels are low (or missing), the body 
 does not receive satiety signals and continues to feel hunger. Leptin^ob/ob^ 
@@ -51,8 +51,9 @@ and liver, and measured transcript levels via gene expression microarray.
 
 In this study, we will analyze circulating insulin levels and pancreatic islet 
 gene expression. We will map circulating insulin levels to identify genomic
-loci which influence insulin levels. We will then use the pancreatic islet
-gene expression data to identify candidate genes.
+loci which influence insulin levels. We will then use SNP that differ between
+C57BL/6J and BTBR and pancreatic islet gene expression data to identify 
+candidate genes.
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
