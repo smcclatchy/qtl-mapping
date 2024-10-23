@@ -618,7 +618,7 @@ neighbor, and share your thoughts in the collaborative document.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 
 </div>
@@ -660,7 +660,7 @@ colors.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p><code>file &lt;- paste0("https://raw.githubusercontent.com/rqtl/", "qtl2data/master/B6BTBR/b6btbr.zip")</code><br><code>b6btbr &lt;- read_cross2(file)</code><br><code>summary(b6btbr)</code><br><code>head(b6btbr$pheno)</code><br><code>colnames(b6btbr$pheno)</code><br><code>b6bmap &lt;- insert_pseudomarkers(map=b6btbr$gmap, step=1)</code><br><code>prb6b &lt;- calc_genoprob(cross=b6btbr, map=b6bmap, error_prob=0.002)</code><br><code>b6baddcovar &lt;- get_x_covar(b6btbr)</code><br><code>b6bout &lt;- scan1(genoprobs = prb6b, pheno = b6btbr$pheno, addcovar=b6baddcovar)</code><br><code>plot(b6bout, map = b6bmap)</code><br><code>b6bkinship &lt;- calc_kinship(probs = prb6b)</code><br><code>out_pg_b6b &lt;- scan1(prb6b, b6btbr$pheno, kinship=b6bkinship, addcovar=b6baddcovar)</code><br><code>kinship_loco_b6b &lt;- calc_kinship(prb6b, "loco")</code><br><code>out_pg_loco_b6b &lt;- scan1(prb6b, b6btbr$pheno, kinship_loco_b6b, addcovar=b6baddcovar)</code><br><code>plot_scan1(out_pg_loco_b6b, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "black")</code><br><code>plot_scan1(out_pg_b6b, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "blue", add = TRUE)</code><br><code>plot_scan1(b6bout, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "green", add = TRUE)</code></p>
 </div>
