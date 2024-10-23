@@ -34,8 +34,9 @@ kinship_loco <- calc_kinship(probs = probs, type = "loco")
 cross$covar$Sex <- factor(cross$covar$Sex)
 addcovar <- model.matrix(~Sex, data = cross$covar)[,-1, drop = FALSE]
 # LOD scan for insulin.
+insulin <- cross$pheno[,"log10_insulin_10wk", drop = FALSE]
 lod_add_loco <- scan1(genoprobs = probs, 
-                      pheno = cross$pheno[,"log10_insulin_10wk"], 
+                      pheno = insulin, 
                       kinship = kinship_loco, addcovar = addcovar)
 perm_add_loco = readRDS(url("https://thejacksonlaboratory.box.com/shared/static/fatud2gsjogbfg4xntyix05j6dg3pdnj.rds"))
 ```
@@ -72,9 +73,6 @@ markers.
 You need to provide both the `scan1()` output, the marker map and a 
 threshold. We will use the 95% threshold from the permutations in the previous 
 lesson.
-
-
-
 
 ```{r find_peaks}
 find_peaks(scan1_output = lod_add_loco, 
@@ -114,19 +112,18 @@ many peaks meet the LOD threshold of 3 and lie within the interval defined by a
 
 :::::::::::::::::::::::: solution 
 
-```{r}
+```{r challenge1}
 find_peaks(scan1_output = lod_add_loco, 
            map          = cross$pmap, 
            threshold    = 3, 
            drop         = 2)
 ```
 
-This produces 7 peaks on 6 different 
-chromosomes that meet a LOD threshold of 3 and are within the interval defined 
-by a 2-LOD drop from the maximum peak on each chromosome.
+This produces 8 peaks on 8 different chromosomes that meet a LOD threshold of 3 
+and are within the interval defined by a 2-LOD drop from the maximum peak on 
+each chromosome.
 
 :::::::::::::::::::::::::::::::::
-
 
 ## Challenge 2
 
@@ -140,7 +137,7 @@ the interval change as you increase the probability? Why?
 
 1). This produces a range from 118.0 to 149.6 Mb. 
 
-```{r}
+```{r challenge2a}
 pks = find_peaks(scan1_output = lod_add_loco, 
                  map          = cross$pmap,
                  prob         = 0.90, 
@@ -152,7 +149,7 @@ subset(pks, chr == '2')
 the 90% interval. The interval widens because the probability that the interval
 contains the true QTL position has increased. 
 
-```{r}
+```{r challenge2b}
 pks = find_peaks(scan1_output = lod_add_loco, 
                  map          = cross$pmap,
                  prob         = 0.95, 
@@ -168,6 +165,8 @@ subset(pks, chr == '2')
 - LOD peaks and support intervals can be identified with find_peaks().
 - The Bayesian Credible Interval estimates the width of the support interval
 around a QTL peak.
+- Using a higher `prob` value for the Bayesian Credible Interval results in a
+wider support interval.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
