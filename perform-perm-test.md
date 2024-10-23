@@ -6,7 +6,7 @@ exercises: 20
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "How can I evaluate the statistical significance of genome scan results?"
+- How can I evaluate the statistical significance of genome scan results?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -84,7 +84,7 @@ Replace number of permutations (1000) with 100 for expediency.
 
 ``` r
 perm_add <- scan1perm(genoprobs = probs, 
-                      pheno     = cross$pheno[,'log10_insulin_10wk',drop = FALSE],
+                      pheno     = insulin,
                       addcovar  = addcovar,
                       Xcovar    = addcovar,
                       n_perm    = 1000) 
@@ -108,8 +108,8 @@ available memory.
 
 ``` r
 perm_add <- scan1perm(genoprobs = probs, 
-                      phenotype = cross$pheno[,'log10_insulin_10wk',drop = FALSE], 
-                      addcovar  = addcovar
+                      pheno     = insulin, 
+                      addcovar  = addcovar,
                       Xcovar    = Xcovar, 
                       n_perm    = 1000, 
                       cores     = 0)
@@ -148,7 +148,7 @@ summary(perm_add)
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.05               3.76
+0.05               3.87
 ```
 
 The default is to return the 5% significance thresholds. Thresholds for other 
@@ -163,8 +163,8 @@ summary(perm_add,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.13
-0.05               3.76
+0.2                3.18
+0.05               3.87
 ```
 
 ## Estimating an X Chromosome Specific Threshold
@@ -200,13 +200,13 @@ summary(perm_add2,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.14
-0.05               3.77
+0.2                3.16
+0.05               3.81
 
 X chromosome LOD thresholds (14369 permutations)
      log10_insulin_10wk
-0.2                3.11
-0.05               3.76
+0.2                3.12
+0.05               3.86
 ```
 
 ## Estimating Significance Thresholds with the Kinship Matrix
@@ -218,7 +218,7 @@ permutations, since this is how we mapped insulin previously.
 
 ``` r
 perm_add_loco <- scan1perm(genoprobs = probs, 
-                           pheno     = cross$pheno[,'log10_insulin_10wk',drop = FALSE],
+                           pheno     = insulin,
                            kinship   = kinship_loco,
                            addcovar  = addcovar,
                            n_perm    = 1000) 
@@ -235,8 +235,8 @@ summary(perm_add_loco,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.14
-0.05               3.80
+0.2                3.16
+0.05               3.94
 ```
 
 There is not a large difference in the thresholds. Currently, we are on the
@@ -286,13 +286,13 @@ summary(perm_bin,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      agouti_tan
-0.2        3.14
-0.05       3.86
+0.2        3.18
+0.05       3.92
 
 X chromosome LOD thresholds (14369 permutations)
      agouti_tan
-0.2        3.13
-0.05       3.95
+0.2        3.11
+0.05       3.75
 ```
 
 ## Selecting the Number of Permutations
@@ -323,6 +323,8 @@ Num. Perm. | Mean | Std. Dev.
     100    | 3.81 | 0.195 
    1000    | 3.86 | 0.064
 
+<!-- DMG: We need to review these challenges. -->
+
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge 1:
@@ -345,13 +347,27 @@ etherpad.
 ## Challenge 2
 
 1) Find the 1% and 10% significance thresholds for the first set of 
-permutations contained in the object `operm`.  
+permutations contained in the object `perm_add_loco`.  
 2) What do the 1% and 10% significance thresholds say about LOD scores?
  
 :::::::::::::::::::::::: solution 
 
-1) `summary(operm, alpha=c(0.01, 0.10))`  
-2) These LOD thresholds indicate maximum LOD scores that can be obtained by 
+1. Use the `alpha` argument to supply the desired significance thresholds.
+
+
+``` r
+summary(perm_add_loco, alpha = c(0.01, 0.10))
+```
+
+``` output
+LOD thresholds (1000 permutations)
+     log10_insulin_10wk
+0.01               4.57
+0.1                3.53
+```
+
+
+2. These LOD thresholds indicate maximum LOD scores that can be obtained by 
 random chance at the 1% and 10% significance levels. We expect to see LOD values 
 this high or higher 1% and 10% of the time respectively.
 
@@ -361,6 +377,8 @@ this high or higher 1% and 10% of the time respectively.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- "A permutation test establishes the statistical  significance of a genome 
-scan."
+- A permutation test establishes the statistical significance of a genome 
+scan.
+- 1,000 permutations provides a good estimate of the significance threshold. 
+
 ::::::::::::::::::::::::::::::::::::::::::::::::

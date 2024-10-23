@@ -27,17 +27,17 @@ Genetic mapping in mice presents a good example of why accounting for population
 structure is important. Laboratory mouse strains are descended from a small 
 number of founders (fancy mice) and went through several population bottlenecks. 
 Wild-derived strains are not descended from fancy mice and don't share the same 
-history as laboratory strains. Linear mixed models were developed to solve 
-problems with population structure created by differing ancestries, and to 
-handle relatedness between individuals.  Linear mixed models (LMMs) consider 
-genome-wide similarity between all pairs of individuals to account for 
-population structure, known kinship and unknown relatedness. Linear mixed models 
-in mapping studies can successfully correct for genetic relatedness between 
-individuals in a population by incorporating kinship into the model. Earlier we 
-[calculated a kinship matrix](https://smcclatchy.github.io/mapping/04-calc-kinship/) 
+history as laboratory strains. Issues of population structure and differing
+degrees of genetic relatedness between mice are addressed using linear mixed 
+models (LMM).  LMMs consider genome-wide similarity between all pairs of 
+individuals to account for population structure, known kinship and unknown 
+relatedness. LMMs in mapping studies can successfully adjust for genetic 
+relatedness between individuals in a population by incorporating kinship into 
+the model. Earlier we 
+[calculated a kinship matrix](https://smcclatchy.github.io/mapping/calc-kinship/) 
 for input to a linear mixed model to account for relationships among 
-individuals. For a current review of mixed models in genetics, see this 
-[preprint of Martin and Eskin, 2017](https://www.biorxiv.org/content/early/2017/01/28/092106).
+individuals. For a current review of mixed models in genetics, see
+[Sul et al,PLoS Genetics,2018](https://pmc.ncbi.nlm.nih.gov/articles/PMC6307707/).
 
 Simple linear regression takes the form:
 
@@ -122,7 +122,7 @@ To perform a genome scan using a linear mixed model you also use the function
 
 
 ``` r
-lod_add_pg <- scan1(genoprobs = probs, 
+lod_add_all <- scan1(genoprobs = probs, 
                     pheno     = cross$pheno[,"log10_insulin_10wk",drop = FALSE], 
                     kinship   = kinship_all, 
                     addcovar  = addcovar)
@@ -134,7 +134,7 @@ argument.
 
 ``` r
 lod_add_all <- scan1(genoprobs = probs, 
-                     pheno     = cross$pheno[,"log10_insulin_10wk",drop = FALSE], 
+                     pheno     = insulin, 
                      kinship   = kinship_all, 
                      addcovar  = addcovar, 
                      cores     = 4)
@@ -161,7 +161,7 @@ matrices as obtained from `calc_kinship()` with `method="loco"`.
 
 ``` r
 lod_add_loco <- scan1(genoprobs = probs, 
-                      pheno     = cross$pheno[,"log10_insulin_10wk",drop = FALSE], 
+                      pheno     = insulin, 
                       kinship   = kinship_loco, 
                       addcovar  = addcovar)
 ```
@@ -181,16 +181,9 @@ plot_scan1(x     = lod_add_all,
            map   = cross$pmap, 
            col   = 'blue',   
            add   = TRUE)
-```
-
-``` error
-Error in eval(expr, envir, enclos): object 'lod_add_all' not found
-```
-
-``` r
 plot_scan1(x     = lod_add_loco, 
            map   = cross$pmap, 
-           col   = 'orange', 
+           col   = 'darkgreen', 
            add   = TRUE)
 ```
 
@@ -200,17 +193,36 @@ Error in eval(expr, envir, enclos): object 'lod_add_loco' not found
 
 ``` r
 legend(x = 1500, y = 7.5, legend = c("No kinship", "All kinship", "LOCO kinship"),
-       lwd = 2, col = c('black', 'blue', 'orange'))
+       lwd = 2, col = c('black', 'blue', 'darkgreen'))
 ```
 
 <img src="fig/perform-genome-scan-lmm-rendered-plot_lod_add_loco_all-1.png" style="display: block; margin: auto;" />
 
+For circulating insulin, the three methods give quite different 
+results. The linear mixed model with an overall kinship matrix (blue) produces 
+much lower LOD scores than the other two methods. On chromosomes with some 
+evidence of a QTL, the LOCO method gives higher LOD scores than Haley-Knott, 
+except on chromosome 6 where it gives lower LOD scores.
 
-For the circulating insulin, the three methods give quite different 
-results. The linear mixed model with an overall kinship matrix gives much lower 
-LOD scores than the other two methods. On chromosomes with some evidence of a 
-QTL, the LOCO method gives higher LOD scores than Haley-Knott, except on 
-chromosome 6 where it gives lower LOD scores.
+Let's plot the difference between the LOCO-kinship genome scan and the 
+no-kinship genome scan.
+
+
+``` r
+plot(x    = lod_add_loco - lod_add, 
+     map  = cross$pmap, 
+     ylim = c(-1.5, 2),
+     main = "LOCO - no kinship Genome Scan")
+```
+
+``` error
+Error in eval(expr, envir, enclos): object 'lod_add_loco' not found
+```
+
+As you can see from the plot above, the LOCO-kinship scan generally produces
+higher LOD scores. While higher LOD scores don't always mean that the model is
+better, in this case, we expect that accounting for the correlation in residual
+errors using kinship matrices will produce more correct results.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -235,7 +247,7 @@ collaborative document.
 ## Challenge 2
 
 <!-- DMG: Ha! we were using the BTBR data anyway. Let's not load a second copy
-of the data. Maybe we canb brainstorm about another challend. -->
+of the data. Maybe we can brainstorm about another challenge. -->
 
 Pair programming exercise: with your partner, review and carry 
 out all of the steps in QTL mapping that we have covered so far,
@@ -294,7 +306,9 @@ b6btbr <- read_cross2(file)
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- "To perform a genome scan with a linear mixed model, supply a kinship matrix."
-- "Different mapping and kinship calculation methods give different results."
+- To perform a genome scan with a linear mixed model, supply a kinship matrix.
+- Different mapping and kinship calculation methods give different results.
+- Using a set of Leave-One-Chromosome-Out kinship matrices generally produces
+higher LOD scores than other methods.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
