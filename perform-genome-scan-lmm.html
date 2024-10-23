@@ -426,8 +426,8 @@ between individuals in a population by incorporating kinship into the
 model. Earlier we <a href="https://smcclatchy.github.io/mapping/calc-kinship/" class="external-link">calculated a
 kinship matrix</a> for input to a linear mixed model to account for
 relationships among individuals. For a current review of mixed models in
-genetics, see <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6307707/" class="external-link">Sul et al,PLoS
-Genetics,2018</a>.</p>
+genetics, see <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6307707/" class="external-link">Sul et al, PLoS
+Genetics, 2018</a>.</p>
 <p>Simple linear regression takes the form:</p>
 <p><span class="math inline">\(y = \mu + \beta G + \epsilon\)</span></p>
 <p>which describes a line with slope <span class="math inline">\(\beta\)</span> and y-intercept <span class="math inline">\(\mu\)</span>. The error (or residual) is
@@ -436,9 +436,10 @@ represented by <span class="math inline">\(\epsilon\)</span>.</p>
 use:</p>
 <p><span class="math inline">\(y_j = \mu + \beta_k G_{jk} +
 \epsilon_j\)</span></p>
-<p>where $y_{ij} is the phenotype of the <span class="math inline">\(j\)</span>th individual, <span class="math inline">\(\mu\)</span>; is the mean phenotype value, <span class="math inline">\(\beta_k\)</span> is the effect of the <span class="math inline">\(k\)</span>th genotype, $G_{jk} is the genotype for
-individual <span class="math inline">\(j\)</span>, and <span class="math inline">\(\epsilon_j\)</span> is the error for the <span class="math inline">\(j\)</span>th individual. In the figure below,
-<span class="math inline">\(\mu\)</span>; equals 1, and <span class="math inline">\(\beta\)</span>; equals 0.1 for the alternative
+<p>where <span class="math inline">\(y_{ij}\)</span> is the phenotype of
+the <span class="math inline">\(j\)</span>th individual, <span class="math inline">\(\mu\)</span> is the mean phenotype value, <span class="math inline">\(\beta_k\)</span> is the effect of the <span class="math inline">\(k\)</span>th genotype, <span class="math inline">\(G_{jk}\)</span> is the genotype for individual
+<span class="math inline">\(j\)</span>, and <span class="math inline">\(\epsilon_j\)</span> is the error for the <span class="math inline">\(j\)</span>th individual. In the figure below,
+<span class="math inline">\(\mu\)</span> equals 1, and <span class="math inline">\(\beta\)</span> equals 0.1 for the alternative
 hypothesis (QTL exists). This linear model is <span class="math inline">\(y\)</span> = 1 + 0.1X + <span class="math inline">\(\epsilon\)</span>. The model intersects the
 genotype groups at their group means. In contrast, the null hypothesis
 would state that there is no difference in group means (no QTL
@@ -465,11 +466,13 @@ is M.</p>
 <p>To model the effect of all genotypes and to account for relatedness,
 we test the effect of a single genotype while bringing all other
 genotypes into the model.</p>
-<figure><img src="fig/all-geno-model.png" class="figure mx-auto d-block"></figure><p><span class="math inline">\(\beta_k\)</span> is the effect of the
-genotype <span class="math inline">\(X_k\)</span>, and <span class="math inline">\(\Sigma_{i\neq k}\beta_iX_i\)</span> sums the
-effects of all other genotypes except genotype k. For the leave one
-chromosome out (LOCO) method, <span class="math inline">\(\beta_kX_k\)</span> is the effect of genotypes on
-chromosome <span class="math inline">\(k\)</span>, and <span class="math inline">\(\beta_iX_i\)</span> represents effect of genotypes
+<p><span class="math inline">\(y=\mu + \beta_kX_k +\sum_{i\neq
+k}\beta_iX_i + \epsilon\)</span></p>
+<p><span class="math inline">\(\beta_k\)</span> is the effect of the
+genotype <span class="math inline">\(X_k\)</span>, and <span class="math inline">\(\sum_{i\neq k}\beta_iX_i\)</span> sums the effects
+of all other genotypes except genotype k. For the leave one chromosome
+out (LOCO) method, <span class="math inline">\(\beta_kX_k\)</span> is
+the effect of genotypes on chromosome <span class="math inline">\(k\)</span>, and <span class="math inline">\(\beta_iX_i\)</span> represents effect of genotypes
 on all other chromosomes.</p>
 <p>If the sample contains divergent subpopulations, SNPs on different
 chromosomes will be correlated because of the difference in allele
@@ -666,15 +669,6 @@ colors.</li>
 </div>
 </div>
 </div>
-</div>
-<!-- DMG: Not sure what this is. -->
-<div class="codewrapper sourceCode" id="cb11">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu">paste0</span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/rqtl/"</span>,</span>
-<span>               <span class="st">"qtl2data/master/B6BTBR/b6btbr.zip"</span><span class="op">)</span></span>
-<span><span class="va">b6btbr</span> <span class="op">&lt;-</span> <span class="fu">read_cross2</span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span></code></pre>
 </div>
 <div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
