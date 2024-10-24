@@ -64,9 +64,6 @@ threshold. We will use the 95% threshold from the permutations in the previous
 lesson.
 
 
-
-
-
 ``` r
 find_peaks(scan1_output = lod_add_loco, 
            map          = cross$pmap, 
@@ -76,13 +73,13 @@ find_peaks(scan1_output = lod_add_loco,
 ```
 
 ``` output
-  lodindex lodcolumn chr       pos      lod      ci_lo     ci_hi
-1        1    pheno1   2 138.94475 7.127351  64.949395 149.57739
-2        1    pheno1   7 144.18230 5.724018 139.368290 144.18230
-3        1    pheno1  12  25.14494 4.310493  15.834815  29.05053
-4        1    pheno1  14  22.24292 3.974322   6.241951  45.93876
-5        1    pheno1  16  80.37433 4.114024  10.238134  80.37433
-6        1    pheno1  19  54.83012 5.476587  48.370980  55.15007
+  lodindex          lodcolumn chr       pos      lod      ci_lo     ci_hi
+1        1 log10_insulin_10wk   2 138.94475 7.127351  64.949395 149.57739
+2        1 log10_insulin_10wk   7 144.18230 5.724018 139.368290 144.18230
+3        1 log10_insulin_10wk  12  25.14494 4.310493  15.834815  29.05053
+4        1 log10_insulin_10wk  14  22.24292 3.974322   6.241951  45.93876
+5        1 log10_insulin_10wk  16  80.37433 4.114024  10.238134  80.37433
+6        1 log10_insulin_10wk  19  54.83012 5.476587  48.370980  55.15007
 ```
 
 In the table above, we have one peak per chromosome because that is the default
@@ -102,14 +99,14 @@ find_peaks(scan1_output = lod_add_loco,
 ```
 
 ``` output
-  lodindex lodcolumn chr       pos      lod      ci_lo     ci_hi
-1        1    pheno1   2 138.94475 7.127351  64.949395 149.57739
-2        1    pheno1   7 144.18230 5.724018 139.368290 144.18230
-3        1    pheno1  12  25.14494 4.310493  15.834815  29.05053
-4        1    pheno1  14  22.24292 3.974322   6.241951  45.93876
-5        1    pheno1  16  17.48123 3.995627   5.604167  37.99110
-6        1    pheno1  16  80.37433 4.114024  74.250773  80.37433
-7        1    pheno1  19  54.83012 5.476587  48.370980  55.15007
+  lodindex          lodcolumn chr       pos      lod      ci_lo     ci_hi
+1        1 log10_insulin_10wk   2 138.94475 7.127351  64.949395 149.57739
+2        1 log10_insulin_10wk   7 144.18230 5.724018 139.368290 144.18230
+3        1 log10_insulin_10wk  12  25.14494 4.310493  15.834815  29.05053
+4        1 log10_insulin_10wk  14  22.24292 3.974322   6.241951  45.93876
+5        1 log10_insulin_10wk  16  17.48123 3.995627   5.604167  37.99110
+6        1 log10_insulin_10wk  16  80.37433 4.114024  74.250773  80.37433
+7        1 log10_insulin_10wk  19  54.83012 5.476587  48.370980  55.15007
 ```
 
 Each row shows a different peak; the columns show the peak location, LOD score 
@@ -136,23 +133,22 @@ find_peaks(scan1_output = lod_add_loco,
 ```
 
 ``` output
-  lodindex lodcolumn chr       pos      lod      ci_lo     ci_hi
-1        1    pheno1   2 138.94475 7.127351  63.943187 156.83772
-2        1    pheno1   5 103.41486 3.130862  41.967549 132.28428
-3        1    pheno1   7 144.18230 5.724018 129.414016 144.18230
-4        1    pheno1   9  83.67606 3.865635  17.504307 111.02206
-5        1    pheno1  12  25.14494 4.310493   9.998200  34.23274
-6        1    pheno1  14  22.24292 3.974322   6.241951  68.04655
-7        1    pheno1  16  80.37433 4.114024   3.804882  96.52406
-8        1    pheno1  19  54.83012 5.476587  47.361847  56.37100
+  lodindex          lodcolumn chr       pos      lod      ci_lo     ci_hi
+1        1 log10_insulin_10wk   2 138.94475 7.127351  63.943187 156.83772
+2        1 log10_insulin_10wk   5 103.41486 3.130862  41.967549 132.28428
+3        1 log10_insulin_10wk   7 144.18230 5.724018 129.414016 144.18230
+4        1 log10_insulin_10wk   9  83.67606 3.865635  17.504307 111.02206
+5        1 log10_insulin_10wk  12  25.14494 4.310493   9.998200  34.23274
+6        1 log10_insulin_10wk  14  22.24292 3.974322   6.241951  68.04655
+7        1 log10_insulin_10wk  16  80.37433 4.114024   3.804882  96.52406
+8        1 log10_insulin_10wk  19  54.83012 5.476587  47.361847  56.37100
 ```
 
-This produces 7 peaks on 6 different 
-chromosomes that meet a LOD threshold of 3 and are within the interval defined 
-by a 2-LOD drop from the maximum peak on each chromosome.
+This produces 8 peaks on 8 different chromosomes that meet a LOD threshold of 3 
+and are within the interval defined by a 2-LOD drop from the maximum peak on 
+each chromosome.
 
 :::::::::::::::::::::::::::::::::
-
 
 ## Challenge 2
 
@@ -176,8 +172,8 @@ subset(pks, chr == '2')
 ```
 
 ``` output
-  lodindex lodcolumn chr      pos      lod    ci_lo    ci_hi
-1        1    pheno1   2 138.9448 7.127351 117.9557 149.5774
+  lodindex          lodcolumn chr      pos      lod    ci_lo    ci_hi
+1        1 log10_insulin_10wk   2 138.9448 7.127351 117.9557 149.5774
 ```
 
 2). This produces a range from 64.9 to 149.6 Mb, which is much broader than 
@@ -194,8 +190,8 @@ subset(pks, chr == '2')
 ```
 
 ``` output
-  lodindex lodcolumn chr      pos      lod    ci_lo    ci_hi
-1        1    pheno1   2 138.9448 7.127351 64.94939 149.5774
+  lodindex          lodcolumn chr      pos      lod    ci_lo    ci_hi
+1        1 log10_insulin_10wk   2 138.9448 7.127351 64.94939 149.5774
 ```
 
 :::::::::::::::::::::::::::::::::
@@ -206,6 +202,8 @@ subset(pks, chr == '2')
 - LOD peaks and support intervals can be identified with find_peaks().
 - The Bayesian Credible Interval estimates the width of the support interval
 around a QTL peak.
+- Using a higher `prob` value for the Bayesian Credible Interval results in a
+wider support interval.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

@@ -160,7 +160,7 @@ quite as many characters every time that we map insulin.
 
 
 ``` r
-insulin = cross$pheno[,'log10_insulin_10wk', drop = FALSE]
+insulin <- cross$pheno[,'log10_insulin_10wk', drop = FALSE]
 ```
 
 Next, we will use the qtl2 function `scan1` to map insulin values across the

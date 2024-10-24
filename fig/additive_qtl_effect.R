@@ -158,4 +158,59 @@ print(p)
 dev.off()
 
 
+####################################################################
+# Additive and Dominance Effects
+
+# Create a data frame with genotypes and Gaussian noise.
+n = 500
+data = data.frame(id    = paste0('M', 1:n),
+                  sex   = sample(c('Female', 'Male'), size = n, 
+                                 replace = TRUE),
+                  geno  = sample(gt, size = n, replace = TRUE, 
+                                 prob = c(0.25, 0.5, 0.25)),
+                  pheno = rnorm(n, mean = 0, sd = 0.5))
+
+# Add an additive effect.
+add_eff_size = 1
+add_eff      = as.numeric(factor(data$geno)) - 2
+add_eff      = add_eff * add_eff_size
+data$pheno   = data$pheno + add_eff
+
+# Add a dominance effect.
+dom_eff_size = -1
+dom_eff      = as.numeric(data$geno == 'BR')
+dom_eff      = dom_eff * dom_eff_size
+data$pheno   = data$pheno + dom_eff
+
+# Get group means.
+mod  = lm(pheno ~ geno, data = data)
+pred = unique(cbind(data$geno, predict(mod)))
+pred = data.frame(pred)
+colnames(pred) = c('geno', 'mean')
+pred$mean = as.numeric(pred$mean)
+
+# Get the homozygote and heterozygote means.
+m = data.frame(hom = mean(data$pheno[data$geno != 'BR']),
+               het = mean(data$pheno[data$geno == 'BR']))
+
+p = data |>
+  ggplot(aes(x = geno, y = pheno)) +
+    geom_beeswarm() +
+    geom_hline(mapping = aes(yintercept = hom), data = m,
+               color = 'grey', linetype = 'dashed', linewidth = 1.25) +
+    geom_hline(aes(yintercept = het), data = m,
+               color = 'blue', linetype = 'dashed', linewidth = 1.25) +
+    geom_hline(aes(yintercept = mean), 
+               data = filter(pred, geno != 'BR'),
+               color = 'red', linetype = 'dashed', linewidth = 1.25) +
+    labs(title = 'Additive & Dominance QTL Effects',
+         x     = 'Genotype',
+         y     = 'Phenotype') +
+    theme(text = element_text(size = 24))
+
+svg(file = file.path(base_dir, 'fig', 'add_dom_qtl_effect.svg'),
+    width = 9, height = 7)
+print(p)
+dev.off()
+
 
