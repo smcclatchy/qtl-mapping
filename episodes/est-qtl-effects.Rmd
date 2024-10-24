@@ -57,7 +57,7 @@ individual. In the figure below, $\mu$ equals `r round(c2eff[max_mkr, 4], 1)`,
 and $\beta$ equals `r round(abs(c2eff[max_mkr, 1]), 1)` for the alternative 
 hypothesis (QTL exists).
 
-![](../fig/nullvalt.png)
+![](fig/nullvalt.png){alt="Null and alternative hypothesis"}
 
 This linear model is <i>y</i> = `r round(c2eff[max_mkr,4], 1)` + 
 `r round(abs(c2eff[max_mkr,1]), 1)`X + &epsilon;. The model intersects the 
