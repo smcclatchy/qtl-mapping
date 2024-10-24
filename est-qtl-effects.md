@@ -35,7 +35,7 @@ individual. In the figure below, $\mu$ equals 1,
 and $\beta$ equals 0.1 for the alternative 
 hypothesis (QTL exists).
 
-![](../fig/nullvalt.png)
+![](fig/nullvalt.png){alt="Null and alternative hypothesis"}
 
 This linear model is <i>y</i> = 1 + 
 0.1X + &epsilon;. The model intersects the 

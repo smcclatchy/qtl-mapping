@@ -26,7 +26,7 @@ probabilities, given the observed marker data, at each putative QTL position.
 For example, the first step would be to determine the probabilities for 
 genotypes BR and RR at the locus indicated below.
 
-![Genotype probabilities must be calculated between typed markers; adapted from Broman & Sen, 2009](fig/unknown_genotype.png){'a chromosome with two typed markers labeled BR and RR with a locus of unknown genotype between them'}
+![Genotype probabilities must be calculated between typed markers; adapted from Broman & Sen, 2009](fig/unknown_genotype.png){alt="a chromosome with two typed markers labeled BR and RR with a locus of unknown genotype between them"}
 
 The `calc_genoprob()` function calculates QTL genotype probabilities conditional 
 on the available marker data. These are needed for most of the QTL mapping 
@@ -36,7 +36,7 @@ $\times$ genotypes $\times$ positions.
 
 ![Three-dimensional genotype probabilities array](fig/threeD_array.png){alt='Figure showing three-dimensional array of genotype probabilities (genoprobs)'}
 
-![See this page for a graphical review of data structures in R](http://venus.ifca.unican.es/Rintro/_images/dataStructuresNew.png){'a web page showing R data structures including one-dimensional vectors and lists, two dimensional dataframes and matrices, and n-dimensional arrays'}.  
+![See this page for a graphical review of data structures in R](http://venus.ifca.unican.es/Rintro/_images/dataStructuresNew.png){alt='a web page showing R data structures including one-dimensional vectors and lists, two dimensional dataframes and matrices, and n-dimensional arrays'}.  
 
 We'll use the
 [Attie BL6/BTBR dataset](https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip)
@@ -519,7 +519,7 @@ a probability of 0.5 for B and 0.5 for H. The third SNP is either BG or BH, and
 has a probability of 0.5 for each of these genotypes. The allele table shows a 
 probability of 0.5 for allele B, and 0.25 for both G and H.
 
-![Genotype and allele probabilities](fig/geno-to-allele-probs.png){'a table showing the probabilities for each of 36 genotypes in the Diversity Outbred followed by a second table showing probabilities for each of the 8 founder alleles'}
+![Genotype and allele probabilities](fig/geno-to-allele-probs.png){alt='a table showing the probabilities for each of 36 genotypes in the Diversity Outbred followed by a second table showing probabilities for each of the 8 founder alleles'}
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 

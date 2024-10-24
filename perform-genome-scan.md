@@ -24,9 +24,9 @@ exercises: 30
 
 
 The freely available chapter on 
-[single-QTL analysis](http://www.rqtl.org/book/rqtlbook_ch04.pdf) 
+[single-QTL analysis](https://www.rqtl.org/book/rqtlbook_ch04.pdf) 
 from Broman and Sen's 
-[A Guide to QTL Mapping with R/qtl](http://www.rqtl.org/book/) describes 
+[A Guide to QTL Mapping with R/qtl](https://www.rqtl.org/book/) describes 
 different methods for QTL analysis. 
 
 Linear regression can be employed to identify presence of QTL in a cross. To 
@@ -40,13 +40,13 @@ Regression aims to find the line of best fit to the data. In the case of a
 backcross with only two genotypes, a t-test is performed at the marker to 
 determine whether the difference in phenotype means is zero.
 
-![adapted from Broman & Sen, 2009](fig/nullvalt.png)
+![adapted from Broman & Sen, 2009](fig/nullvalt.png){alt="Null & alternative hypothesis"}
 
 To find the line of best fit, the residuals or errors are calculated, then 
 squared for each data point.
 
-![Squared error for a single data point](fig/althypothesis.png)
-![The line of best fit minimizes the sum of squared errors](fig/nullhypothesis.png)
+![Squared error for a single data point](fig/althypothesis.png){alt="Alternative hypothesis"}
+![The line of best fit minimizes the sum of squared errors](fig/nullhypothesis.png){alt="Null hypothesis"}
 
 The line of best fit will be the one that minimizes the sum of squared 
 residuals, which maximizes the likelihood of the data. 
@@ -70,7 +70,7 @@ conditional genotype probabilities (conditional on known marker genotypes). In
 Haley-Knott regression, phenotype values can be plotted and a regression line 
 drawn through the phenotype mean for the untyped individuals.
 
-![Haley-Knott regression for missing genotypes](fig/hk-regress.png)
+![Haley-Knott regression for missing genotypes](fig/hk-regress.png){alt="Haley Knott regression"}
 
 As shown by the green circle in the figure, an individual of unknown genotype is 
 placed between known genotypes according to the probability of its genotype 

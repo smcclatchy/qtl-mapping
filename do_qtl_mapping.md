@@ -43,7 +43,7 @@ similar to that of humans.
 
 The data comes from a toxicology study in which Diversity Outbred (DO) mice were
 exposed to benzene via inhalation for 6 hours a day, 5 days a week for 4 weeks
-[(French, J. E., et al. (2015) <i>Environ Health Perspect</i> 123(3): 237-245)](http://ehp.niehs.nih.gov/1408202/).
+[(French, J. E., et al. (2015) <i>Environ Health Perspect</i> 123(3): 237-245)](https://ehp.niehs.nih.gov/1408202/).
 The study was conducted in two equally sized cohort of 300 male mice each, for a
 total of 600 mice. They were then sacrificed and reticulocytes (red blood cell 
 precursors) were isolated from bone marrow. The number of micro-nucleated 
@@ -152,8 +152,6 @@ Look in the Environment tab or use the Console to figure out how many mice
 there are in the phenotype data.
 
 :::::::::::::::::::::::: solution 
-
-## Output
  
 You can look at the number of observations in the Environment tab or you can
 get the number of rows in `pheno` in the Console.
@@ -176,8 +174,6 @@ There are 598 mice in the phenotype data.
 Use an R command to determine how many mice there are from each sex.
 
 :::::::::::::::::::::::: solution 
-
-## Output
  
 You can look at the number of observations in the Environment tab or you can
 get the number of rows in `pheno` in the Console.
@@ -203,8 +199,6 @@ Make histogram of the "prop.bm.mn.ret" column and assess whether it is normally
 distributed.
 
 :::::::::::::::::::::::: solution 
-
-## Output
  
 You can look at the number of observations in the Environment tab or you can
 get the number of rows in `pheno` in the Console.
@@ -233,8 +227,6 @@ Take the log of the "prop.bm.mn.ret" column and make a histogram.Assess whether
 it is normally distributed.
 
 :::::::::::::::::::::::: solution 
-
-## Output
  
 You can look at the number of observations in the Environment tab or you can
 get the number of rows in `pheno` in the Console.
@@ -651,7 +643,7 @@ The code above copies the `rownames(pheno)` to `rownames(addcovar)` as a side-ef
 The sample IDs **must** be in the rownames of `pheno`, `addcovar`, `genoprobs` 
 and `K`. `qtl2` uses the sample IDs to align the samples between objects. For 
 more information about data file format, see
-[Karl Broman's vignette on input file format](http://kbroman.org/qtl2/assets/vignettes/input_files.html).
+[Karl Broman's vignette on input file format](https://kbroman.org/qtl2/assets/vignettes/input_files.html).
 
 :::::::::::::::::::::::::::::::::::::
 
@@ -796,7 +788,7 @@ could we see a LOD score over 25 by chance? And if so, what is the probability
 of seeing a LOD of 25 or higher? 
 
 These questions are most commonly answered via 
-[permutation](http://www.genetics.org/content/178/1/609.long) of the sample
+[permutation](https://www.genetics.org/content/178/1/609.long) of the sample
 labels and recording the maximum LOD score in each permutation. This procedure 
 breaks the connection between the phenotypes and the genotypes of the mice, so 
 the results represent the expected LOD by chance.
@@ -875,7 +867,7 @@ summary(perms)
 ``` output
 LOD thresholds (100 permutations)
      log_mnret
-0.05      7.03
+0.05      7.18
 ```
 
 Note that this summary function returns the 95th percentile value of the LOD
@@ -961,7 +953,7 @@ value of 3. See `help(find_peaks)` for more information about this function.
 :::::::::::::::::::::::::::::::::::::
 
 The support interval is determined using the  
-[Bayesian Credible Interval](http://www.ncbi.nlm.nih.gov/pubmed/11560912) and 
+[Bayesian Credible Interval](https://www.ncbi.nlm.nih.gov/pubmed/11560912) and 
 represents the region most likely to contain the causative polymorphism(s). We 
 can obtain this interval by adding a `prob` argument to 
 [find_peaks](https://github.com/rqtl/qtl2/blob/master/R/find_peaks.R). We pass 
@@ -1031,7 +1023,7 @@ the DO founder sequences onto the DO genomes. The
 [Mouse Genomes Project](https://www.mousegenomes.org/)
 has sequenced the eight DO founders and provides SNP, insertion-deletion 
 (indel), and structural variant files for the strains (see 
-[Baud et.al., Nat. Gen., 2013](http://www.nature.com/ng/journal/v45/n7/full/ng.2644.html)). 
+[Baud et.al., Nat. Gen., 2013](https://www.nature.com/ng/journal/v45/n7/full/ng.2644.html)). 
 We can impute these SNPs onto the DO genomes and then perform association 
 mapping. The process involves several steps and I have provided a function to 
 encapsulate the steps. To access the Sanger SNPs, we use a SQLlite database 
@@ -1220,7 +1212,7 @@ searched for genes in the QTL interval that had an eQTL in the same location.
 Then, we looked at the pattern of founder effects to see if CAST stood out. We 
 found two genes that met these criteria.
 
-![Sult3a1/Sult3a2 Liver eQTL](./fig/French.et.al.Figure3.png){Figure showing LOD plots of Sult3a1 & 2 and CAST-specific haplotype effects}
+![Sult3a1/Sult3a2 Liver eQTL](./fig/French.et.al.Figure3.png){alt="Figure showing LOD plots of Sult3a1 & 2 and CAST-specific haplotype effects",width=75%}
 
 The plot above shows the genome scane for two genes: *Sult3a1* and 
 *Gm4794*. *Gm4794* has been renamed to *Sult3a2*. As you can see, both *Sult3a1*
@@ -1232,14 +1224,12 @@ benzene.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 11: Look for Sult3a1 & Sult3a2 QTL in DO bone expression
+## Challenge 12: Look for Sult3a1 & Sult3a2 QTL in DO bone expression
 
 Go to the [DO Bone eQTL Viewer](https://churchilllab.jax.org/qtlviewer/DO/bone),
 type in *Sult3a1* and click on the search button. Then search on *Sult3a2*.
 
 :::::::::::::::::::::::: solution 
-
-## Output
  
 Neither *Sult3a1* or *Sult3a2* has an eQTL in the DO bone marrow data set.
 
@@ -1251,7 +1241,7 @@ Ensembl web page for
 [Sult3a2](https://useast.ensembl.org/Mus_musculus/Gene/Summary?db=core;g=ENSMUSG00000090298;r=10:33642420-33662700).
 In the menu on the left, click on the "Gene Tree (image)" link.
 
-![Ensembl gene tree of Sult3a1 & Sult3a2](./fig/Ensembl_Mouse_Sult3a1_Sult3a2.png){Figure showing that Sult3a1 & 2 are paralogs}
+![Ensembl gene tree of Sult3a1 & Sult3a2](./fig/Ensembl_Mouse_Sult3a1_Sult3a2.png){alt="Figure showing that Sult3a1 & 2 are paralogs",width=100%}
 
 As you can see, *Sult3a2* is a paralog of *Sult3a1* and hence both 
 genes are sulfotransferases. These genes encode enzymes that attach a sulfate 
@@ -1259,7 +1249,7 @@ group to other compounds.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 12: Look for structural variants near Sult3a1
+## Challenge 13: Look for structural variants near Sult3a1
 
 Go to the [Ensembl website](https://useast.ensembl.org/index.html) and select
 "Mouse" from the species dropdown. Then type "10:33300000-33800000" into the
@@ -1267,8 +1257,6 @@ search box and press "Go". Scroll down to the detailed view and look for
 structural variants in this region.
 
 :::::::::::::::::::::::: solution 
-
-## Output
 
 You should see a plot similar to the one below. 
 
@@ -1304,7 +1292,7 @@ and *Sult3a2* have differential expression of the CAST allele in the liver.
 
 Sulfation is a prominent detoxification mechanism for benzene as well. The 
 diagram below shows the metabolism pathway for benzene 
-[(Monks, T. J., et al. (2010). Chem Biol Interact 184(1-2): 201-206.)](http://europepmc.org/articles/PMC4414400) 
+[(Monks, T. J., et al. (2010). Chem Biol Interact 184(1-2): 201-206.)](https://europepmc.org/articles/PMC4414400) 
 Hydroquinone, phenol and catechol are all sulfated and excreted from the body.
 
 ![Benezene metabolism pathways](./fig/Monks_ChemBiolInter_2010_Fig1.jpg){alt="Figure showing benezene metabolism pathways",width=100%}
@@ -1312,7 +1300,7 @@ Hydroquinone, phenol and catechol are all sulfated and excreted from the body.
 This analysis has led us to the following hypothesis. Inhaled benzene is 
 absorbed by the lungs into the bloodstream and transported to the liver. There,
 it is metabolized, and some metabolites are transported to the bone marrow. One 
-class of genes that is involved in toxicant metabolism are sulfotransferases. [<i>Sult3a1</i>](http://www.informatics.jax.org/marker/MGI:1931469) is a phase 
+class of genes that is involved in toxicant metabolism are sulfotransferases. [<i>Sult3a1</i>](https://www.informatics.jax.org/marker/MGI:1931469) is a phase 
 II enzyme that conjugates compounds (such as phenol, which is a metabolite of 
 benzene) with a sulfate group before transport into the bile. It is possible 
 that a high level of *Sult3a1* expression could remove benzene by-products
@@ -1333,7 +1321,7 @@ and the founder sequence data to build a case for a pair of genes.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 13: Map another trait.
+## Challenge 14: Map another trait.
 
 1. Make a histogram of the column `pre.prop.mn.ret` in `pheno`. Does it look 
 like it should be log transformed? If so, add a column to `pheno` that contains 
@@ -1351,8 +1339,6 @@ values higher?
 plot the results and plot the genes beneath the association mapping plot.  
 
 :::::::::::::::::::::::: solution 
-
-## Output
 
 1. Plot the distribution of 
 
