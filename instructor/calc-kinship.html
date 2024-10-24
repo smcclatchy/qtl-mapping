@@ -242,12 +242,19 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         5. Calculating A Kinship Matrix
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#kinship-calculation">Kinship Calculation</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
 
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -457,6 +464,137 @@ this subpopulation has a disease probability of 0.9. However, this
 subpopulation also has a low probability of the AA genotype. So a false
 association between AA genotype and disease would occur because only
 overall population probabilities would be considered.</p>
+<section><h2 class="section-heading" id="kinship-calculation">Kinship Calculation<a class="anchor" aria-label="anchor" href="#kinship-calculation"></a></h2>
+<hr class="half-width"><p>In the B6/BTBR cross, we have three possible genotypes: BB, BR, and
+RR. Suppose that we look at the genotypes of two mice and estimate their
+kinship. To do this, we select the first allele from mouse 1 and get the
+probability of picking the same allele from mouse 2. Then we do the same
+procedure with the second allele and take the mean. This calculates the
+mean allele-sharing at that marker. We do this for all markers and take
+the overall mean.</p>
+<p>Let’s look at an exmaple. In the table below, we have listed four
+markers and their genotypes in mouse 1 (M1) and mouse 2 (M2). At each
+marker, we applied the procedure above and recorded the allele-sharing.
+Then we took the mean and found that these two mice have a kinship value
+of 0.5.</p>
+<table class="table"><thead><tr class="header"><th>marker</th>
+<th>M1</th>
+<th>M2</th>
+<th>allele-sharing</th>
+</tr></thead><tbody><tr class="odd"><td>1</td>
+<td>BB</td>
+<td>BB</td>
+<td>1.0</td>
+</tr><tr class="even"><td>2</td>
+<td>BB</td>
+<td>BR</td>
+<td>0.5</td>
+</tr><tr class="odd"><td>3</td>
+<td>BB</td>
+<td>RR</td>
+<td>0.0</td>
+</tr><tr class="even"><td>4</td>
+<td>BR</td>
+<td>BR</td>
+<td>0.5</td>
+</tr></tbody></table><p>——–+—-+—-+————— All | | | 0.5</p>
+<div id="challenge-1-calculate-the-kinship-of-the-following-two-set-of-mice." class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-1-calculate-the-kinship-of-the-following-two-set-of-mice." class="callout-inner">
+<h3 class="callout-title">Challenge 1: Calculate the kinship of the following two set of mice.</h3>
+<div class="callout-content">
+<ol style="list-style-type: decimal"><li>
+</li></ol><table class="table"><thead><tr class="header"><th>marker</th>
+<th>M1</th>
+<th>M2</th>
+</tr></thead><tbody><tr class="odd"><td>1</td>
+<td>BB</td>
+<td>RR</td>
+</tr><tr class="even"><td>2</td>
+<td>BB</td>
+<td>RR</td>
+</tr><tr class="odd"><td>3</td>
+<td>BB</td>
+<td>RR</td>
+</tr><tr class="even"><td>4</td>
+<td>BB</td>
+<td>BR</td>
+</tr></tbody></table><ol start="2" style="list-style-type: decimal"><li>
+</li></ol><table class="table"><thead><tr class="header"><th>marker</th>
+<th>M1</th>
+<th>M2</th>
+</tr></thead><tbody><tr class="odd"><td>1</td>
+<td>BB</td>
+<td>BR</td>
+</tr><tr class="even"><td>2</td>
+<td>BB</td>
+<td>BR</td>
+</tr><tr class="odd"><td>3</td>
+<td>RR</td>
+<td>RR</td>
+</tr><tr class="even"><td>4</td>
+<td>RR</td>
+<td>RR</td>
+</tr></tbody></table></div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
+<ol style="list-style-type: decimal"><li>
+</li></ol><table class="table"><thead><tr class="header"><th>marker</th>
+<th>M1</th>
+<th>M2</th>
+<th>allele-sharing</th>
+</tr></thead><tbody><tr class="odd"><td>1</td>
+<td>BB</td>
+<td>RR</td>
+<td>0.0</td>
+</tr><tr class="even"><td>2</td>
+<td>BB</td>
+<td>RR</td>
+<td>0.0</td>
+</tr><tr class="odd"><td>3</td>
+<td>BB</td>
+<td>RR</td>
+<td>0.0</td>
+</tr><tr class="even"><td>4</td>
+<td>BB</td>
+<td>BR</td>
+<td>0.5</td>
+</tr></tbody></table><p>——–+—-+—-+————— All | | | 0.1</p>
+<ol start="2" style="list-style-type: decimal"><li>
+</li></ol><table class="table"><thead><tr class="header"><th>marker</th>
+<th>M1</th>
+<th>M2</th>
+<th>allele-sharing</th>
+</tr></thead><tbody><tr class="odd"><td>1</td>
+<td>BB</td>
+<td>BR</td>
+<td>0.5</td>
+</tr><tr class="even"><td>2</td>
+<td>BB</td>
+<td>BR</td>
+<td>0.5</td>
+</tr><tr class="odd"><td>3</td>
+<td>RR</td>
+<td>RR</td>
+<td>1.0</td>
+</tr><tr class="even"><td>4</td>
+<td>RR</td>
+<td>RR</td>
+<td>1.0</td>
+</tr></tbody></table><p>——–+—-+—-+————— All | | | 0.75</p>
+</div>
+</div>
+</div>
+</div>
 <p>Linear mixed models (LMMs) consider genome-wide similarity between
 all pairs of individuals to account for population structure, known
 kinship and unknown relatedness. They model the covariance between
@@ -524,14 +662,12 @@ chromosome and only use the autosomes. To include the X chromosome, use
 <code class="sourceCode R"><span><span class="va">kinship</span> <span class="op">&lt;-</span> <span class="fu">calc_kinship</span><span class="op">(</span>probs <span class="op">=</span> <span class="va">probs</span>, </span>
 <span>                        cores <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre>
 </div>
-<!-- DMG: Maybe a challenge around finding siblings? Or looking at the mean relatedness? -->
-<!-- DMG: We could ask the students why the kinship of a mouse with itself isnt' 1. -->
-<div id="challenge-1" class="callout challenge">
+<div id="challenge-2-what-is-a-kinship-matrix" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
 </div>
-<div id="challenge-1" class="callout-inner">
-<h3 class="callout-title">Challenge 1</h3>
+<div id="challenge-2-what-is-a-kinship-matrix" class="callout-inner">
+<h3 class="callout-title">Challenge 2: What is a Kinship Matrix?</h3>
 <div class="callout-content">
 <p>Think about what a kinship matrix is and what it represents. Share
 your understanding with a neighbor. Write your explanation in the
@@ -539,15 +675,79 @@ collaborative document or in your own personal notes.</p>
 </div>
 </div>
 </div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div id="accordionSolution2" class="accordion challenge-accordion accordion-flush">
 <div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
+  <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 
 </div>
+</div>
+</div>
+</div>
+<div id="challenge-3-mean-value-in-kinship-marix" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-3-mean-value-in-kinship-marix" class="callout-inner">
+<h3 class="callout-title">Challenge 3: Mean Value in Kinship Marix</h3>
+<div class="callout-content">
+<p>What is the mean kinship value of all mice? Can you explain why the
+value is the number that you get? Think about the three possible
+genotypes in the cross and how they compare to each other.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div class="accordion-body">
+<div class="codewrapper sourceCode" id="cb6">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">mean</span><span class="op">(</span><span class="va">kinship</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] 0.501</code></pre>
+</div>
+<p>The mean kinship between the mice in the cross is 0.5. All of the
+mice were derived from F1 parents created from two inbred strains. The
+kinship calculation compares the number of identical alleles between
+mice at each marker. On average, each mouse carries 50% B alleles and
+50% R alleles. So the mean allele sharing is 0.5.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="challenge-4-kinship-of-a-mouse-with-itself" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-4-kinship-of-a-mouse-with-itself" class="callout-inner">
+<h3 class="callout-title">Challenge 4: Kinship of a Mouse with Itself</h3>
+<div class="callout-content">
+<p>Look at the values in the kinship matrix. What is the kinship values
+of each mouse with itself? Why isn’t this equal to 1?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution4" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
+  <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
+</button>
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div class="accordion-body">
+<figure><img src="../fig/homozyg_vs_kinship.png" alt="Figure showing positive correlation between homozygosity and kinship" class="figure mx-auto d-block"><div class="figcaption">Homozygosity versus self-Kinship</div>
+</figure></div>
 </div>
 </div>
 </div>
@@ -570,10 +770,7 @@ mixed model.</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="../instructor/perform-genome-scan.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="../instructor/perform-genome-scan-lmm.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>

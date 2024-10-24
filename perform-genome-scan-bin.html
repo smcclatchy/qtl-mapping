@@ -260,12 +260,20 @@
 <div class="accordion accordion-flush" id="accordionFlushcurrent">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-headingcurrent">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapsecurrent" aria-expanded="true" aria-controls="flush-collapsecurrent">
         <span class="visually-hidden">Current Chapter</span>
         <span class="current-chapter">
         7. Performing a Genome Scan with Binary Traits
         </span>
-      
+      </button>
     </div><!--/div.accordion-header-->
+
+    <div id="flush-collapsecurrent" class="accordion-collapse collapse show" aria-labelledby="flush-headingcurrent" data-bs-parent="#accordionFlushcurrent">
+      <div class="accordion-body">
+        <ul><li><a href="#binary-phenotypes">Binary Phenotypes</a></li>
+<li><a href="#performing-a-binary-genome-scan">Performing a Binary Genome Scan</a></li>
+        </ul></div><!--/div.accordion-body-->
+    </div><!--/div.accordion-collapse-->
 
   </div><!--/div.accordion-item-->
 </div><!--/div.accordion-flush-->
@@ -408,7 +416,8 @@
 </div>
 </div>
 </div>
-<p>The genome scans in the previous episode were performed assuming that
+<section><h2 class="section-heading" id="binary-phenotypes">Binary Phenotypes<a class="anchor" aria-label="anchor" href="#binary-phenotypes"></a></h2>
+<hr class="half-width"><p>The genome scans in the previous episode were performed assuming that
 the residual variation followed a normal distribution. This will often
 provide reasonable results even if the residuals are not normal, but an
 important special case is that of a binary trait, with values 0 and 1,
@@ -438,7 +447,25 @@ Mouse3145              1.783          1      0</code></pre>
 </div>
 <p>There are two binary traits called “agouti_tan”, and “tufted” which
 are related to coat color and shape.</p>
-<p>We perform a binary genome scan in a manner similar to mapping
+<p>The “agouti_tan” phenotype is “1” if a mouse has an agouti or tan
+coat and “0” if a mouse has a black coat. The founder strains have
+different coat colors. C57BL/6J has a black coat.</p>
+<figure><img src="https://www.jax.org/-/media/jaxweb/images/jax-mice-and-services/mouseimages/000664.png" alt="C57BL/6J mouse" class="figure mx-auto d-block"><div class="figcaption">C57BL/6J</div>
+</figure><p>BTBR appears to have a black coat, but this coat color is actually
+called “black and tan” because their bellies are tan.</p>
+<figure><img src="https://www.jax.org/-/media/jaxweb/images/jax-mice-and-services/mouseimages/002282.png" atl="BTBR mouse" alt="BTBR" class="figure mx-auto d-block"><div class="figcaption">BTBR</div>
+</figure><p>Agouti mice appear to be tan or brown, but their hair is a mix of
+brown and black coloring. As an example, <a href="">C3H/HeJ</a> mice
+have agouti coats.</p>
+<figure><img src="https://www.jax.org/-/media/jaxweb/images/jax-mice-and-services/mouseimages/000659.png" alt="C3H/HeJ mouse" class="figure mx-auto d-block"><div class="figcaption">C3H/HeJ</div>
+</figure><p>There is more information about mouse coat colors in the <a href="https://jackson.jax.org/rs/444-BUH-304/images/Poster_Mouse_Coat_Color.pdf" class="external-link">JAX
+Coat Color guide</a>.</p>
+<p>The tufted phenotype has to do with progressive hair loss in a
+“tufted” pattern. Mice with a value of “1” have the tufted phenotype and
+mice with a value of “0” do not.</p>
+<figure><img src="https://cdn.ncbi.nlm.nih.gov/pmc/blobs/c9e4/3570182/2345f9c6f3f8/jhered_ess089_f0001.jpg" alt="Image showing tufted hair loss in BTBR mouse" class="figure mx-auto d-block"><div class="figcaption">Tufted hair loss pattern</div>
+</figure></section><section><h2 class="section-heading" id="performing-a-binary-genome-scan">Performing a Binary Genome Scan<a class="anchor" aria-label="anchor" href="#performing-a-binary-genome-scan"></a></h2>
+<hr class="half-width"><p>We perform a binary genome scan in a manner similar to mapping
 continuous traits by using <code>scan1</code>. When we mapped insulin,
 there was a hidden argument called <code>model</code> which told
 <code>qtl2</code> which mapping model to use. There are two options:
@@ -545,13 +572,16 @@ the <code>B</code> allele causes mice to have black coats when it is
 recessive, and if <code>R</code> is the agouti allele, then, when
 breeding two heterozygous (<code>BR</code>) mice together, we expect the
 following genotypes in the progeny:</p>
-<div class="codewrapper sourceCode" id="cb11">
-<h3 class="code-label">SH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode sh" tabindex="0"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a> <span class="kw">|</span>  <span class="ex">B</span>   <span class="kw">|</span>  <span class="ex">R</span></span></code></pre>
-</div>
-<p>—–+——+—— B | BB | BR R | BB | RR</p>
-<p>Hence, we expect mean allele frequencies and coat colors as
+<table class="table"><thead><tr class="header"><th>/</th>
+<th>B</th>
+<th>R</th>
+</tr></thead><tbody><tr class="odd"><td>B</td>
+<td>BB</td>
+<td>BR</td>
+</tr><tr class="even"><td>R</td>
+<td>BR</td>
+<td>RR</td>
+</tr></tbody></table><p>Hence, we expect mean allele frequencies and coat colors as
 follows:</p>
 <table class="table"><thead><tr class="header"><th>Allele</th>
 <th>Frequency</th>
@@ -591,7 +621,7 @@ this trait.</p>
 <div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>First, map the trait.</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -601,7 +631,7 @@ this trait.</p>
 <span>                    model     <span class="op">=</span> <span class="st">"binary"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Then, plot the LOD score.</p>
-<div class="codewrapper sourceCode" id="cb13">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -611,7 +641,7 @@ this trait.</p>
 </div>
 <figure><img src="fig/perform-genome-scan-bin-rendered-challenge2b-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>There is a large peak on chromosome 17. This is a <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3570182/" class="external-link">known
 locus</a> associated with the <a href="https://www.informatics.jax.org/marker/MGI:96624" class="external-link">Itpr3</a> gene
-near 27.3 Mb on chromsome 17.</p>
+near 27.3 Mb on chromosome 17.</p>
 </div>
 </div>
 </div>
@@ -623,11 +653,11 @@ near 27.3 Mb on chromsome 17.</p>
 <div class="callout-inner">
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
-<ul><li>“A genome scan for binary traits (0 and 1) requires special
-handling; scans for non-binary traits assume normal variation of the
-residuals.”</li>
-<li>“A genome scan for binary traits is performed using logistic
-regression.”</li>
+<ul><li>A genome scan for binary traits (0 and 1) requires special handling;
+scans for non-binary traits assume normal variation of the
+residuals.</li>
+<li>A genome scan for binary traits is performed using logistic
+regression.</li>
 </ul></div>
 </div>
 </div>
@@ -635,10 +665,7 @@ regression.”</li>
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
  -->
-
-
-
-      </div> <!-- / div.lesson-content -->
+</section></div> <!-- / div.lesson-content -->
     </main><!-- / main#main-content.main-content --><nav class="bottom-pagination mx-md-4" aria-label="Previous and Next Chapter"><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link" href="perform-genome-scan-lmm.html"><i aria-hidden="true" class="small-arrow" data-feather="arrow-left"></i>Previous</a>
         <a class="chapter-link float-end" href="perform-perm-test.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>

@@ -446,9 +446,8 @@ would state that there is no difference in group means (no QTL
 anywhere). The linear model for the null hypothesis would be <span class="math inline">\(y\)</span> = 94.6 + 0<span class="math inline">\(X\)</span> + <span class="math inline">\(\epsilon\)</span>. This states that the phenotype
 is equal to the combined mean (94.6), plus some error (<span class="math inline">\(\epsilon\)</span>). In other words, genotype
 doesn’t affect the phenotype.</p>
-<!-- DMG: Make this figure again using ggbeeswarm and the BTBR data on Chr 2
-at marker rs13476803. -->
-<figure><img src="fig/nullvalt.png" class="figure mx-auto d-block"></figure><p>The linear models above describe the relationship between genotype
+<figure><img src="fig/nullvalt.png" alt="Null versus alternative hypothesis" class="figure mx-auto d-block"><div class="figcaption">Null and Alternative Hyypothesis</div>
+</figure><p>The linear models above describe the relationship between genotype
 and phenotype but are inadequate for describing the relationship between
 genotype and phenotype in large datasets. They don’t account for
 relatedness among individuals. In real populations, the effect of a
@@ -467,12 +466,12 @@ is M.</p>
 we test the effect of a single genotype while bringing all other
 genotypes into the model.</p>
 <p><span class="math inline">\(y=\mu + \beta_kX_k +\sum_{i\neq
-k}\beta_iX_i + \epsilon\)</span></p>
+k}^{M}\beta_iX_i + \epsilon\)</span></p>
 <p><span class="math inline">\(\beta_k\)</span> is the effect of the
-genotype <span class="math inline">\(X_k\)</span>, and <span class="math inline">\(\sum_{i\neq k}\beta_iX_i\)</span> sums the effects
-of all other genotypes except genotype k. For the leave one chromosome
-out (LOCO) method, <span class="math inline">\(\beta_kX_k\)</span> is
-the effect of genotypes on chromosome <span class="math inline">\(k\)</span>, and <span class="math inline">\(\beta_iX_i\)</span> represents effect of genotypes
+genotype <span class="math inline">\(X_k\)</span>, and <span class="math inline">\(\sum_{i\neq k}^{M}\beta_iX_i\)</span> sums the
+effects across all markers (M) of all other genotypes except genotype k.
+For the leave one chromosome out (LOCO) method, <span class="math inline">\(\beta_kX_k\)</span> is the effect of genotypes on
+chromosome <span class="math inline">\(k\)</span>, and <span class="math inline">\(\beta_iX_i\)</span> represents effect of genotypes
 on all other chromosomes.</p>
 <p>If the sample contains divergent subpopulations, SNPs on different
 chromosomes will be correlated because of the difference in allele
@@ -497,9 +496,9 @@ of kinship matrices).</p>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">lod_add_all</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span>, </span>
-<span>                    pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">"log10_insulin_10wk"</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>, </span>
-<span>                    kinship   <span class="op">=</span> <span class="va">kinship_all</span>, </span>
-<span>                    addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
+<span>                     pheno     <span class="op">=</span> <span class="va">insulin</span>, </span>
+<span>                     kinship   <span class="op">=</span> <span class="va">kinship_all</span>, </span>
+<span>                     addcovar  <span class="op">=</span> <span class="va">addcovar</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Again, on a multi-core machine, you can get some speed-up using the
 <code>cores</code> argument.</p>
@@ -513,15 +512,49 @@ of kinship matrices).</p>
 <span>                     addcovar  <span class="op">=</span> <span class="va">addcovar</span>, </span>
 <span>                     cores     <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre>
 </div>
-<p>If, for your linear mixed model genome scan, you wish to use the
-“leave one chromosome out” (LOCO) method (scan each chromosome using a
-kinship matrix that is calculated using data from all other
-chromosomes), use <code>type="loco"</code> in the call to
-<code>calc_kinship()</code>.</p>
-<!-- DMG: We need more explanation here. We need to show that using the all-
-chromosome kinship matrix puts the marker being tested in the mapping model
-twice, and this erases the peak. -->
+<p>Let’s plot the insulin genome scan using the overall kinship
+matrix.</p>
 <div class="codewrapper sourceCode" id="cb4">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span>x     <span class="op">=</span> <span class="va">lod_add</span>,  </span>
+<span>           map   <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
+<span>           col   <span class="op">=</span> <span class="st">'black'</span>,</span>
+<span>           main  <span class="op">=</span> <span class="st">"log10(insulin): Kinship Comparison"</span><span class="op">)</span></span>
+<span><span class="fu">plot_scan1</span><span class="op">(</span>x     <span class="op">=</span> <span class="va">lod_add_all</span>,  </span>
+<span>           map   <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
+<span>           col   <span class="op">=</span> <span class="st">'blue'</span>,</span>
+<span>           add   <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="fu">legend</span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1000</span>, y <span class="op">=</span> <span class="fu">max</span><span class="op">(</span><span class="va">lod_add</span><span class="op">)</span>, legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">'No kinship'</span>, <span class="st">'Overall kinship'</span><span class="op">)</span>, </span>
+<span>       col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">'black'</span>, <span class="st">'blue'</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
+</div>
+<figure><img src="fig/perform-genome-scan-lmm-rendered-plot_lod_all-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure><p>How did the LOD scores change? Did they increase or decrease? In
+general, the LOD scores decreased. In some cases, the LOD score
+decreased drastically. Why would this happen?</p>
+<p>To answer this, we have to think back to the mapping model that we
+are using.</p>
+<p><span class="math inline">\(y=\mu + \beta_kX_k +\sum_{i\neq
+k}^{M}\beta_iX_i + \epsilon\)</span></p>
+<p>In this model, we explicitly excluded the current marker from the
+kinship calculation. However, when we calculcated the kinship matrix
+above, we used <strong>ALL</strong> of the markers. This means that we
+have put the current marker <span class="math inline">\(k\)</span> into
+the model <em>twice</em>. This is causes a loss of power which has been
+reported in <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3989144/" class="external-link">Yang et al.,
+Nat.Gen., 2014</a>.</p>
+<p>In order to address this issue, we could remove the current marker
+from the calculation. But this would mean that we would have to
+calculate a different kinship matrix for every marker. As a compromise,
+researchers create a different kinship matrix for each chromosome which
+uses all of the markers except those on the current chromosome. For
+example, to create a kinship matrix to use on chromosome 1, we would use
+the markers on chromosomes 2 thorough X. This is called the “leave one
+chromosome out” (LOCO) method.</p>
+<p>In order to use the LOCO method (scan each chromosome using a kinship
+matrix that is calculated using data from all other chromosomes), use
+<code>type="loco"</code> in the call to <code>calc_kinship()</code>.</p>
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -531,7 +564,7 @@ twice, and this erases the peak. -->
 <p>For the LOCO (leave one chromosome out) method, provide the list of
 kinship matrices as obtained from <code>calc_kinship()</code> with
 <code>method="loco"</code>.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -544,7 +577,7 @@ kinship matrices as obtained from <code>calc_kinship()</code> with
 <p>Here is a plot of the LOD scores by Haley-Knott regression and the
 linear mixed model using either the standard kinship matrix or the LOCO
 method.</p>
-<div class="codewrapper sourceCode" id="cb6">
+<div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -571,7 +604,7 @@ LOD scores than Haley-Knott, except on chromosome 6 where it gives lower
 LOD scores.</p>
 <p>Let’s plot the difference between the LOCO-kinship genome scan and
 the no-kinship genome scan.</p>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -608,7 +641,15 @@ neighbor, and share your thoughts in the collaborative document.</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
-
+<p>Haley-Knott regression does not consider the kinship between mice.
+This may increase or decrease the LOD score and least to false or missed
+discoveries. Including a kinship matrix which uses all of the markers in
+the mapping model causes a loss of power because the marker is fit twice
+in the model. A compromise approach is to create a separate kinship
+matrix for each chromosome which uses all of the markers expect those on
+the current chromosome. This estimates kinship while preventing the
+current marker from being in the model twice. The LOCO method leads to
+better power to identify QTL.</p>
 </div>
 </div>
 </div>
