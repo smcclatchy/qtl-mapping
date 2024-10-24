@@ -186,13 +186,6 @@ plot_scan1(x     = lod_add_loco,
            map   = cross$pmap, 
            col   = 'darkgreen', 
            add   = TRUE)
-```
-
-``` error
-Error in eval(expr, envir, enclos): object 'lod_add_loco' not found
-```
-
-``` r
 legend(x = 1500, y = 7.5, legend = c("No kinship", "All kinship", "LOCO kinship"),
        lwd = 2, col = c('black', 'blue', 'darkgreen'))
 ```
@@ -216,9 +209,7 @@ plot(x    = lod_add_loco - lod_add,
      main = "LOCO - no kinship Genome Scan")
 ```
 
-``` error
-Error in eval(expr, envir, enclos): object 'lod_add_loco' not found
-```
+<img src="fig/perform-genome-scan-lmm-rendered-plot_loco_none-1.png" style="display: block; margin: auto;" />
 
 As you can see from the plot above, the LOCO-kinship scan generally produces
 higher LOD scores. While higher LOD scores don't always mean that the model is
