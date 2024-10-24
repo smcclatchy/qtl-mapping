@@ -122,7 +122,7 @@ found that these two mice have a kinship value of 0.5.
     3   | BB | RR |  0.0
     4   | BB | BR |  0.5
 --------+----+----+---------------
-   All  |    |    |  0.1
+   All  | -- | -- |  0.1
    
 2.  
 
@@ -133,7 +133,7 @@ found that these two mice have a kinship value of 0.5.
     3   | RR | RR | 1.0
     4   | RR | RR | 1.0
 --------+----+----+---------------
-   All  |    |    | 0.75 
+   All  | -- | -- | 0.75 
 
 :::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::
@@ -228,7 +228,17 @@ mouse with itself? Why isn't this equal to 1?
 
 :::::::::::::::::::::::: solution 
 
+The kinship of a mouse with itself will only be 1 if the mouse is homozygous
+at every marker. Since the mice in this study are F2s, they will have genomes
+that are around 50% heterozygous. The variation in heterozygosity affects
+the actual kinship values, but, on average, we expect self-kinship to be 0.75
+because half of the genome is homozygous and contributes values of 1, and half
+of the genome is heterozygous and contributes values of 0.5. So 
+$0.5 * 1 + 0.5 * 0.5 = 0.75$. 
 
+This is shown in the plot below of homozygosity versus kinship. There is a 
+clear linear relationship between the two values and at 0.5 homozygosity, the
+self-kinship values is 0.75.
 
 ![Homozygosity versus self-Kinship](fig/homozyg_vs_kinship.png){alt="Figure showing positive correlation between homozygosity and kinship"}
 
