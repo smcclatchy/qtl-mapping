@@ -163,7 +163,7 @@ call to `calc_kinship()`.
 chromosome kinship matrix puts the marker being tested in the mapping model
 twice, and this erases the peak. -->
 
-```{r calc_kinship_loco, eval=FALSE}
+```{r calc_kinship_loco}
 kinship_loco <- calc_kinship(probs = probs, 
                              type  = "loco")
 ```
@@ -171,7 +171,7 @@ kinship_loco <- calc_kinship(probs = probs,
 For the LOCO (leave one chromosome out) method, provide the list of kinship 
 matrices as obtained from `calc_kinship()` with `method="loco"`.
 
-```{r scan1_pg_loco, eval=FALSE}
+```{r scan1_pg_loco}
 lod_add_loco <- scan1(genoprobs = probs, 
                       pheno     = insulin, 
                       kinship   = kinship_loco, 
