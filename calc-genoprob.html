@@ -415,20 +415,16 @@ genotype probabilities.</li>
 probabilities, given the observed marker data, at each putative QTL
 position. For example, the first step would be to determine the
 probabilities for genotypes BR and RR at the locus indicated below.</p>
-<p><img src="fig/unknown_genotype.png" alt="Genotype probabilities must be calculated between typed markers; adapted from Broman &amp; Sen, 2009" class="figure">{‘a
-chromosome with two typed markers labeled BR and RR with a locus of
-unknown genotype between them’}</p>
-<p>The <code>calc_genoprob()</code> function calculates QTL genotype
+<figure><img src="fig/unknown_genotype.png" alt="a chromosome with two typed markers labeled BR and RR with a locus of unknown genotype between them" class="figure mx-auto d-block"><div class="figcaption">Genotype probabilities must be calculated
+between typed markers; adapted from Broman &amp; Sen, 2009</div>
+</figure><p>The <code>calc_genoprob()</code> function calculates QTL genotype
 probabilities conditional on the available marker data. These are needed
 for most of the QTL mapping functions. The result is returned as a list
 of three-dimensional arrays (one per chromosome). Each 3d array of
 probabilities is arranged as individuals <span class="math inline">\(\times\)</span> genotypes <span class="math inline">\(\times\)</span> positions.</p>
 <figure><img src="fig/threeD_array.png" alt="Figure showing three-dimensional array of genotype probabilities (genoprobs)" class="figure mx-auto d-block"><div class="figcaption">Three-dimensional genotype probabilities
 array</div>
-</figure><p><img src="http://venus.ifca.unican.es/Rintro/_images/dataStructuresNew.png" alt="See this page for a graphical review of data structures in R" class="figure">{‘a
-web page showing R data structures including one-dimensional vectors and
-lists, two dimensional dataframes and matrices, and n-dimensional
-arrays’}.</p>
+</figure><p><img src="http://venus.ifca.unican.es/Rintro/_images/dataStructuresNew.png" alt="a web page showing R data structures including one-dimensional vectors and lists, two dimensional dataframes and matrices, and n-dimensional arrays" class="figure">.</p>
 <p>We’ll use the <a href="https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip" class="external-link">Attie
 BL6/BTBR dataset</a> from <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4649649/" class="external-link">Tian et
 al</a> (an intercross) as an example. In this study, circulating insulin
@@ -936,11 +932,8 @@ BH, so the allele table shows a probability of 0.5 for B and 0.5 for H.
 The third SNP is either BG or BH, and has a probability of 0.5 for each
 of these genotypes. The allele table shows a probability of 0.5 for
 allele B, and 0.25 for both G and H.</p>
-<p><img src="fig/geno-to-allele-probs.png" alt="Genotype and allele probabilities" class="figure">{‘a table showing the
-probabilities for each of 36 genotypes in the Diversity Outbred followed
-by a second table showing probabilities for each of the 8 founder
-alleles’}</p>
-<div id="keypoints1" class="callout keypoints">
+<figure><img src="fig/geno-to-allele-probs.png" alt="a table showing the probabilities for each of 36 genotypes in the Diversity Outbred followed by a second table showing probabilities for each of the 8 founder alleles" class="figure mx-auto d-block"><div class="figcaption">Genotype and allele probabilities</div>
+</figure><div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>

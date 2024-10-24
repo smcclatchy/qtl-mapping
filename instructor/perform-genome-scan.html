@@ -420,10 +420,9 @@
 </div>
 </div>
 </div>
-<p>The freely available chapter on <a href="http://www.rqtl.org/book/rqtlbook_ch04.pdf" class="external-link">single-QTL
-analysis</a> from Broman and Sen’s <a href="http://www.rqtl.org/book/" class="external-link">A
-Guide to QTL Mapping with R/qtl</a> describes different methods for QTL
-analysis.</p>
+<p>The freely available chapter on <a href="https://www.rqtl.org/book/rqtlbook_ch04.pdf" class="external-link">single-QTL
+analysis</a> from Broman and Sen’s <a href="https://www.rqtl.org/book/" class="external-link">A Guide to QTL Mapping with R/qtl</a>
+describes different methods for QTL analysis.</p>
 <p>Linear regression can be employed to identify presence of QTL in a
 cross. To identify QTL using regression, we compare the fit for two
 models: 1) the null hypothesis that there are no QTL anywhere in the
@@ -435,10 +434,10 @@ mean phenotype between the two groups, and that no QTL exists.
 Regression aims to find the line of best fit to the data. In the case of
 a backcross with only two genotypes, a t-test is performed at the marker
 to determine whether the difference in phenotype means is zero.</p>
-<figure><img src="../fig/nullvalt.png" alt="adapted from Broman &amp; Sen, 2009" class="figure mx-auto d-block"><div class="figcaption">adapted from Broman &amp; Sen, 2009</div>
+<figure><img src="../fig/nullvalt.png" alt="Null &amp; alternative hypothesis" class="figure mx-auto d-block"><div class="figcaption">adapted from Broman &amp; Sen, 2009</div>
 </figure><p>To find the line of best fit, the residuals or errors are calculated,
 then squared for each data point.</p>
-<p><img src="../fig/althypothesis.png" alt="Squared error for a single data point" class="figure"><img src="../fig/nullhypothesis.png" alt="The line of best fit minimizes the sum of squared errors" class="figure"></p>
+<p><img src="../fig/althypothesis.png" alt="Alternative hypothesis" class="figure"><img src="../fig/nullhypothesis.png" alt="Null hypothesis" class="figure"></p>
 <p>The line of best fit will be the one that minimizes the sum of
 squared residuals, which maximizes the likelihood of the data.</p>
 <p>Marker regression produces a LOD (logarithm of odds) score comparing
@@ -459,7 +458,7 @@ unknown genotype on these conditional genotype probabilities
 (conditional on known marker genotypes). In Haley-Knott regression,
 phenotype values can be plotted and a regression line drawn through the
 phenotype mean for the untyped individuals.</p>
-<figure><img src="../fig/hk-regress.png" alt="Haley-Knott regression for missing genotypes" class="figure mx-auto d-block"><div class="figcaption">Haley-Knott regression for missing
+<figure><img src="../fig/hk-regress.png" alt="Haley Knott regression" class="figure mx-auto d-block"><div class="figcaption">Haley-Knott regression for missing
 genotypes</div>
 </figure><p>As shown by the green circle in the figure, an individual of unknown
 genotype is placed between known genotypes according to the probability
@@ -630,7 +629,7 @@ Significant Peaks via Permutation</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>You can find the maximum LOD score using the <code>max</code>
 function.</li>
@@ -680,7 +679,7 @@ maximum LOD.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -718,7 +717,7 @@ on chromosomes 2, 7, 12, and 19. Add a title to the plot using the
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
