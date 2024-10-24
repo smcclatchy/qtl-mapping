@@ -20,6 +20,8 @@ exercises: 30
 
 
 
+## Binary Phenotypes
+
 The genome scans in the previous episode were performed assuming that the 
 residual variation followed a normal distribution. This will often provide 
 reasonable results even if the residuals are not normal, but an important 
@@ -48,6 +50,33 @@ Mouse3145              1.783          1      0
 
 There are two binary traits called "agouti_tan", and "tufted" which are related
 to coat color and shape.
+
+The "agouti_tan" phenotype is "1" if a mouse has an agouti or tan coat and "0"
+if a mouse has a black coat. The founder strains have different coat colors.
+C57BL/6J has a black coat.
+
+![C57BL/6J](https://www.jax.org/-/media/jaxweb/images/jax-mice-and-services/mouseimages/000664.png){alt="C57BL/6J mouse"}
+
+BTBR appears to have a black coat, but this coat color is actually called "black
+and tan" because their bellies are tan.
+
+![BTBR](https://www.jax.org/-/media/jaxweb/images/jax-mice-and-services/mouseimages/002282.png){atl="BTBR mouse"}
+
+Agouti mice appear to be tan or brown, but their hair is a mix of brown and 
+black coloring. As an example, [C3H/HeJ]() mice have agouti coats.
+
+![C3H/HeJ](https://www.jax.org/-/media/jaxweb/images/jax-mice-and-services/mouseimages/000659.png){alt="C3H/HeJ mouse"}
+
+There is more information about mouse coat colors in the 
+[JAX Coat Color guide](https://jackson.jax.org/rs/444-BUH-304/images/Poster_Mouse_Coat_Color.pdf).
+
+The tufted phenotype has to do with progressive hair loss in a "tufted"
+pattern. Mice with a value of "1" have the tufted phenotype and mice with a 
+value of "0" do not.
+
+![Tufted hair loss pattern](https://cdn.ncbi.nlm.nih.gov/pmc/blobs/c9e4/3570182/2345f9c6f3f8/jhered_ess089_f0001.jpg){alt="Image showing tufted hair loss in BTBR mouse"}
+
+## Performing a Binary Genome Scan
 
 We perform a binary genome scan in a manner similar to mapping continuous traits
 by using `scan1`. When we mapped insulin, there was a hidden argument called 
@@ -144,10 +173,10 @@ allele causes mice to have black coats when it is recessive, and if `R` is the
 agouti allele, then, when breeding two heterozygous (`BR`) mice together, we
 expect the following genotypes in the progeny:
 
-     |  B   |  R
+  /  |  B   |  R
 -----+------+------
   B  |  BB  |  BR
-  R  |  BB  |  RR
+  R  |  BR  |  RR
 
 Hence, we expect mean allele frequencies and coat colors as follows:
 
@@ -192,7 +221,7 @@ plot_scan1(x    = lod_tufted,
 There is a large peak on chromosome 17. This is a 
 [known locus](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3570182/) 
 associated with the [Itpr3](https://www.informatics.jax.org/marker/MGI:96624)
-gene near 27.3 Mb on chromsome 17.
+gene near 27.3 Mb on chromosome 17.
 
 ::::::::::::::::::::::::::::::::::::::::::
 
@@ -201,8 +230,8 @@ gene near 27.3 Mb on chromsome 17.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- "A genome scan for binary traits (0 and 1) requires special handling; scans 
-for non-binary traits assume normal variation of the residuals."
-- "A genome scan for binary traits is performed using logistic regression."
+- A genome scan for binary traits (0 and 1) requires special handling; scans 
+for non-binary traits assume normal variation of the residuals.
+- A genome scan for binary traits is performed using logistic regression.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::

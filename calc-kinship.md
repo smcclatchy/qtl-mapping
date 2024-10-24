@@ -56,6 +56,80 @@ also has a low probability of the AA genotype. So a false association between AA
 genotype and disease would occur because only overall population probabilities 
 would be considered.
 
+## Kinship Calculation
+
+In the B6/BTBR cross, we have three possible genotypes: BB, BR, and RR. Suppose
+that we look at the genotypes of two mice and estimate their kinship. To do 
+this, we select the first allele from mouse 1 and get the probability of 
+picking the same allele from mouse 2. Then we do the same procedure with the 
+second allele and take the mean. This calculates the mean allele-sharing at
+that marker. We do this for all markers and take the overall mean.
+
+Let's look at an exmaple. In the table below, we have listed four markers and
+their genotypes in mouse 1 (M1) and mouse 2 (M2). At each marker, we applied
+the procedure above and recorded the allele-sharing. Then we took the mean and
+found that these two mice have a kinship value of 0.5.
+
+ marker | M1 | M2 | allele-sharing
+--------+----+----+---------------
+    1   | BB | BB |  1.0
+    2   | BB | BR |  0.5
+    3   | BB | RR |  0.0
+    4   | BR | BR |  0.5
+--------+----+----+---------------
+   All  |    |    |  0.5
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 1: Calculate the kinship of the following two set of mice.
+
+1.  
+
+ marker | M1 | M2 
+--------+----+----
+    1   | BB | RR 
+    2   | BB | RR 
+    3   | BB | RR 
+    4   | BB | BR 
+
+2.  
+
+ marker | M1 | M2 
+--------+----+----
+    1   | BB | BR 
+    2   | BB | BR 
+    3   | RR | RR 
+    4   | RR | RR 
+
+
+:::::::::::::::::::::::: solution 
+
+1.  
+
+ marker | M1 | M2 | allele-sharing
+--------+----+----+----------------
+    1   | BB | RR |  0.0
+    2   | BB | RR |  0.0
+    3   | BB | RR |  0.0
+    4   | BB | BR |  0.5
+--------+----+----+---------------
+   All  |    |    |  0.1
+   
+2.  
+
+ marker | M1 | M2 | allele-sharing
+--------+----+----+---------------
+    1   | BB | BR | 0.5
+    2   | BB | BR | 0.5
+    3   | RR | RR | 1.0
+    4   | RR | RR | 1.0
+--------+----+----+---------------
+   All  |    |    | 0.75 
+
+:::::::::::::::::::::::::::::::::
+:::::::::::::::::::::::::::::::::::::::::::::::
+
+
 Linear mixed models (LMMs) consider genome-wide similarity between all pairs of 
 individuals to account for population structure, known kinship and unknown 
 relatedness. They model the covariance between individuals. Linear mixed models 
@@ -121,20 +195,54 @@ kinship <- calc_kinship(probs = probs,
                         cores = 4)
 ```
 
-<!-- DMG: Maybe a challenge around finding siblings? Or looking at the mean relatedness? -->
-
-<!-- DMG: We could ask the students why the kinship of a mouse with itself isnt' 1. -->
-
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 1
-
+## Challenge 2: What is a Kinship Matrix?
 
 Think about what a kinship matrix is and what it represents. Share your 
 understanding with a neighbor. Write your explanation in the collaborative 
 document or in your own personal notes.
 
 :::::::::::::::::::::::: solution 
+
+:::::::::::::::::::::::::::::::::
+
+## Challenge 3: Mean Value in Kinship Marix
+
+What is the mean kinship value of all mice? Can you explain why the value is
+the number that you get? Think about the three possible genotypes in the cross
+and how they compare to each other.
+
+:::::::::::::::::::::::: solution 
+
+
+``` r
+mean(kinship)
+```
+
+``` output
+[1] 0.501
+```
+
+The mean kinship between the mice in the cross is 0.5. All of the mice were 
+derived from F1 parents created from two inbred strains. The kinship calculation
+compares the number of identical alleles between mice at each marker. On 
+average, each mouse carries 50% B alleles and 50% R alleles. So the mean allele
+sharing is 0.5.
+
+:::::::::::::::::::::::::::::::::
+
+## Challenge 4: Kinship of a Mouse with Itself
+
+Look at the values in the kinship matrix. What is the kinship values of each
+mouse with itself? Why isn't this equal to 1?
+
+:::::::::::::::::::::::: solution 
+
+
+
+![Homozygosity versus self-Kinship](fig/homozyg_vs_kinship.png){alt="Figure showing positive correlation between homozygosity and kinship"}
+
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
