@@ -21,6 +21,7 @@ exercises: 30
 
 ```{r load_dependencies, include=FALSE, warning=FALSE}
 options(scipen = 1, digits = 3)
+suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(qtl2))
 cross <- read_cross2(file = 'https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip')
 probs <- calc_genoprob(cross = cross, map = cross$gmap, error_prob = 0.002)
@@ -238,10 +239,31 @@ $0.5 * 1 + 0.5 * 0.5 = 0.75$.
 
 This is shown in the plot below of homozygosity versus kinship. There is a 
 clear linear relationship between the two values and at 0.5 homozygosity, the
-self-kinship values is 0.75.
+self-kinship values is 0.75. The slope of the line is 0.5.
 
-![Homozygosity versus self-Kinship](fig/homozyg_vs_kinship.png){alt="Figure showing positive correlation between homozygosity and kinship"}
+```{r challenge4,fig.width=6,fig.height=6}
+# 1 & 3 are the encoding for the two homozygous genotypes.
+homo <- sapply(cross$geno, 
+               function(z) {
+                 rowSums(z == 1 | z == 3)
+               })
 
+homo <- rowSums(homo) / sum(n_mar(cross))
+
+df   <- data.frame(id      = rownames(cross$geno[[1]]),
+                   homo    = homo,
+                   kinship = diag(kinship))
+
+df |>
+  ggplot(aes(homo, kinship)) +
+    geom_point(size = 2) +
+    labs(title = "Homozygosity veruss Self-Kinship",
+         x     = "Homozygosity",
+         y     = "Self-Kinship") +
+    theme(text = element_text(size = 20))
+
+rm(homo, df)
+```
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::
