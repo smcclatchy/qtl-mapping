@@ -18,6 +18,7 @@ exercises: 20
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r github_load_data,echo=FALSE,warning=FALSE,message=FALSE}
+options(scipen = 1, digits = 3)
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(ggbeeswarm))
 suppressPackageStartupMessages(library(qtl2))
@@ -91,13 +92,12 @@ eff_chr19 <- scan1coef(genoprobs = probs[,chr],
 ```
 
 
-The result is a matrix of `r nrow(eff_chr19)` positions $\times$  
-`r ncol(eff_chr19)-1` genotypes. An additional column contains the intercept 
-values ($\mu$).
+The result is a matrix of `r nrow(eff_chr19)` positions $\times$ 3 genotypes.
+Additional columns contain the sex and intercept values ($\mu$).
 
 
 ```{r effects_matrix_dim}
-dim(eff_chr19)
+head(eff_chr19)
 ```
 
 ## Plotting Founder Allele Effects Along a Chromosome
@@ -289,6 +289,14 @@ mod = fit1(genoprobs = pr,
 ```
 
 Then, we can plot the founder allele effects and their standard error.
+
+
+:::::::::::::::::::::::::::::::::::: instructor
+
+Don't have the students type all of this. Copy and paste or show this code 
+in a web browser.
+
+:::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r plot_fit1, fig.width=8,fig.height=6}
 mod_eff = data.frame(eff = mod$coef, 

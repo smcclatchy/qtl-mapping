@@ -20,6 +20,7 @@ phenotype.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r github_load_data,echo=FALSE,warning=FALSE,message=FALSE}
+options(scipen = 1, digits = 3)
 suppressPackageStartupMessages(library(VariantAnnotation))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(ggbeeswarm))
@@ -67,10 +68,6 @@ log-normalized ratio of these two sets.
 
 We have prepared two files containing normalized gene expression data and the 
 gene annotation.
-
-```{r test_chunk}
-Sys.getenv("VROOM_CONNECTION_SIZE")
-```
 
 ```{r load_data_box,include=FALSE}
 Sys.setenv("VROOM_CONNECTION_SIZE" = 1e6)
@@ -291,6 +288,22 @@ synonymous SNPs and SNPs in the untranslated region of genes may affect RNA
 folding, RNA stability, and translation. But it is more difficult to predict
 those effects.
 
+Let's plot the density of the SNPs to see where they fall. We would not expect
+genes which lie in regions without variation between B6 and BTBR to be involved
+in regulating insulin levels.
+
+```{r snp_density}
+# Get the SNP positions.
+pos = start(rowRanges(vcf_chr19)) / 1e6
+
+plot(density(pos), las = 1, lwd = 2, main = "Density of SNPs")
+rug(pos)
+```
+
+From the plot above, we can see that the density of SNPS between B6 and BTBR is
+not uniform. Most of the SNPs lie between 50 and 52 Mb, with less dense 
+regions extending past 54 Mb.
+
 The `vcf` object contains predicted SNP consequences in a field called `CSQ`.
 The format of this field is challenging to parse, so we will get it, search
 for missense and stop SNPs, and then do some data-wrangling to may the output
@@ -314,6 +327,12 @@ length(csq)
 There were only `r length(csq)` SNPs out of 19,000 SNPs with missense or stop 
 codon consequences. Next, let's do the data wrangling to reformat the
 consequences of these SNPs.
+
+::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+This may be a good code chunk to have the students copy and paste.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r}
 csq <- lapply(csq, strsplit, split = "\\|")
@@ -412,9 +431,9 @@ phenotypes into `scan1`.
 
 ```{r eqtl_chr19}
 eqtl_chr19 <- scan1(genoprobs = probs[,chr],
-                   pheno     = expr_chr19,
-                   kinship   = kinship_loco[[chr]],
-                   addcovar  = addcovar)
+                    pheno     = expr_chr19,
+                    kinship   = kinship_loco[[chr]],
+                    addcovar  = addcovar)
 ```
 
 Let's look at the top of the results.
@@ -428,11 +447,13 @@ Each column represents the LOD plot for one gene. Let's plot the genome scan
 for one gene.
 
 ```{r plot_1_eqtl}
-gene_id = '10002678668'
+gene_id <- '10002678668'
+symbol  <- annot_chr19$gene_name[annot_chr19$a_gene_id == gene_id]
+
 plot_scan1(x   = eqtl_chr19, 
            map = cross$pmap,
            lodcolumn = gene_id,
-           main      = gene_id)
+           main      = symbol)
 ```
 
 This gene seems to have a QTL on chromosome 19 near 52 Mb with a LOD of 34. 
@@ -465,21 +486,29 @@ Let's plot the insulin QTL again to remind ourselves what the peak on chromosome
 chromosome 19.
 
 ```{r plot_insulin_qtl}
+gene_id <- "10002936879"
+symbol  <- annot_chr19$gene_name[annot_chr19$a_gene_id == gene_id]
+
 plot_scan1(x    = eqtl_chr19,
            map  = cross$pmap,
-           lodcolumn = "10002936879",
+           lodcolumn = gene_id,
            main = "Insulin")
 plot_scan1(x    = lod_add_loco, 
            map  = cross$pmap,
            chr  = '19',
            col  = 'blue',
            add  = TRUE)
-legend("topleft", legend = c("insluin", "10002936879"), 
+legend("topleft", legend = c("insluin", symbol), 
        col = c('blue', 'black'), lwd = 2)
 ```
 
-<!-- DMG: Add more explanatory text about why we prioritize genes with eQTL in
-the same location as the insulin QTL -->
+Why would we prioritize genes with an eQTL in the same location as an insulin
+QTL? If a gene has an eQTL in the same location, there are genetic variants 
+which influence it's expression at that location. These variants may be 
+distinct from the ones which influence the phenotype or they may influence
+gene expression which then influences the phenotype. We call this causal
+relationship of a SNP changing expression, which then changes the phenotype,
+"mediation". 
 
 ## Mediation Analysis
 
@@ -524,7 +553,6 @@ chromosome. We only need the LOD drop at the location of the peak LOD. To do
 this, we can use the `fit1` function to get the LOD at the marker with the
 highest LOD in the insulin genome scan.
 
-<!-- DMG: Sorcs1 is implicated in Clee Nat Gen 2006 -->
 
 ```{r mediation}
 # Get the probs at the maximum insulin QTL on Chr 19.
@@ -579,17 +607,27 @@ lod_drop |>
 
 Do you see any good candidate genes which might regulate insulin?
 
+## Summary
 
+In this episode, we learned how to identify candidate genes under a QTL peak.
+In a perfect world, there would be exactly one gene implicated by these 
+analyses. In most cases, you will have a set of candidate genes and you will
+need to study each gene and prioritize some for laboratory follow-up. 
 
-
-
+There are two ways of searching for candidate genes: using SNPs in the QTL
+interval, and looking for genes with eQTL which are co-located with the 
+phenotype QTL. We learned how to query a VCF file and how to perform mediation
+analysis. After this step, you will have a set of genes which you can test
+for association with your phenotype. 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- There will be many genes under a QTL peak.
+- You can search for genes with SNPs that produce coding changes by querying
+a VCF file.
+- You can search for genes with expression changes that may influence your
+phenotype by performing mediation analysis with expression data from the same
+mice.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
