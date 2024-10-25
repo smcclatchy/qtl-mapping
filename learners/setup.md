@@ -9,7 +9,7 @@ visualization, and statistical analysis. To interact with R, we use RStudio.
 
 1. Install the latest version of R from [CRAN](https://cran.r-project.org/).
 
-2. Install the latest version of RStudio [here](https://www.rstudio.com/products/rstudio/download/). 
+2. Install the latest version of [RStudio](https://www.rstudio.com/products/rstudio/download/). 
 Choose the free RStudio Desktop version for Windows, Mac, or Linux. 
 
 3. Start RStudio. 

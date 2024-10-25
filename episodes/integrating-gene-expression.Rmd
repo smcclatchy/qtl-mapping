@@ -20,6 +20,7 @@ phenotype.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r github_load_data,echo=FALSE,warning=FALSE,message=FALSE}
+options(scipen = 1, digits = 3)
 suppressPackageStartupMessages(library(VariantAnnotation))
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(ggbeeswarm))
@@ -31,9 +32,9 @@ kinship_loco <- calc_kinship(probs = probs, type = "loco")
 cross$covar$Sex <- factor(cross$covar$Sex)
 addcovar <- model.matrix(~Sex, data = cross$covar)[,-1, drop = FALSE]
 # LOD scan for insulin.
-lod_add_loco <- scan1(genoprobs = probs, 
-                      pheno = cross$pheno[,"log10_insulin_10wk"], 
-                      kinship = kinship_loco, addcovar = addcovar)
+insulin <- cross$pheno[,'log10_insulin_10wk',drop = FALSE]
+lod_add_loco <- scan1(genoprobs = probs, pheno = insulin, 
+                      kinship   = kinship_loco, addcovar = addcovar)
 perm_add_loco <- readRDS(url("https://thejacksonlaboratory.box.com/shared/static/fatud2gsjogbfg4xntyix05j6dg3pdnj.rds"))
 thr           <- summary(perm_add_loco, alpha = 0.05)
 peaks         <- find_peaks(lod_add_loco, cross$pmap, threshold = thr, prob = 0.95)
@@ -67,10 +68,6 @@ log-normalized ratio of these two sets.
 
 We have prepared two files containing normalized gene expression data and the 
 gene annotation.
-
-```{r test_chunk}
-Sys.getenv("VROOM_CONNECTION_SIZE")
-```
 
 ```{r load_data_box,include=FALSE}
 Sys.setenv("VROOM_CONNECTION_SIZE" = 1e6)
@@ -291,6 +288,22 @@ synonymous SNPs and SNPs in the untranslated region of genes may affect RNA
 folding, RNA stability, and translation. But it is more difficult to predict
 those effects.
 
+Let's plot the density of the SNPs to see where they fall. We would not expect
+genes which lie in regions without variation between B6 and BTBR to be involved
+in regulating insulin levels.
+
+```{r snp_density,fig.width=8,fig.height=6}
+# Get the SNP positions.
+pos = start(rowRanges(vcf_chr19)) / 1e6
+
+plot(density(pos), las = 1, lwd = 2, main = "Density of SNPs")
+rug(pos)
+```
+
+From the plot above, we can see that the density of SNPS between B6 and BTBR is
+not uniform. Most of the SNPs lie between 50 and 52 Mb, with less dense 
+regions extending past 54 Mb.
+
 The `vcf` object contains predicted SNP consequences in a field called `CSQ`.
 The format of this field is challenging to parse, so we will get it, search
 for missense and stop SNPs, and then do some data-wrangling to may the output
@@ -314,6 +327,12 @@ length(csq)
 There were only `r length(csq)` SNPs out of 19,000 SNPs with missense or stop 
 codon consequences. Next, let's do the data wrangling to reformat the
 consequences of these SNPs.
+
+::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+This may be a good code chunk to have the students copy and paste.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r}
 csq <- lapply(csq, strsplit, split = "\\|")
@@ -412,9 +431,9 @@ phenotypes into `scan1`.
 
 ```{r eqtl_chr19}
 eqtl_chr19 <- scan1(genoprobs = probs[,chr],
-                   pheno     = expr_chr19,
-                   kinship   = kinship_loco[[chr]],
-                   addcovar  = addcovar)
+                    pheno     = expr_chr19,
+                    kinship   = kinship_loco[[chr]],
+                    addcovar  = addcovar)
 ```
 
 Let's look at the top of the results.
@@ -427,12 +446,14 @@ The eQTL results have one row for each marker and one column for each gene.
 Each column represents the LOD plot for one gene. Let's plot the genome scan
 for one gene.
 
-```{r plot_1_eqtl}
-gene_id = '10002678668'
+```{r plot_1_eqtl,fig.width=8,fig.height=6}
+gene_id <- '10002678668'
+symbol  <- annot_chr19$gene_name[annot_chr19$a_gene_id == gene_id]
+
 plot_scan1(x   = eqtl_chr19, 
            map = cross$pmap,
            lodcolumn = gene_id,
-           main      = gene_id)
+           main      = symbol)
 ```
 
 This gene seems to have a QTL on chromosome 19 near 52 Mb with a LOD of 34. 
@@ -442,8 +463,8 @@ We can harvest the significant QTL peaks on chromosome 19 using `find_peaks`.
 We will use the default threshold of LOD = 3.
 
 ```{r eqtl_chr19_filter_peaks}
-eqtl_chr19_peaks = find_peaks(eqtl_chr19, map = cross$pmap) |>
-                    arrange(pos)
+eqtl_chr19_peaks <- find_peaks(eqtl_chr19, map = cross$pmap) |>
+                      arrange(pos)
 eqtl_chr19_peaks
 ```
 
@@ -464,22 +485,30 @@ Let's plot the insulin QTL again to remind ourselves what the peak on chromosome
 19 look like. We will also plot the genome scan for one of the genes on
 chromosome 19.
 
-```{r plot_insulin_qtl}
+```{r plot_insulin_qtl,fig.width=8,fig.height=6}
+gene_id <- "10002936879"
+symbol  <- annot_chr19$gene_name[annot_chr19$a_gene_id == gene_id]
+
 plot_scan1(x    = eqtl_chr19,
            map  = cross$pmap,
-           lodcolumn = "10002936879",
+           lodcolumn = gene_id,
            main = "Insulin")
 plot_scan1(x    = lod_add_loco, 
            map  = cross$pmap,
            chr  = '19',
            col  = 'blue',
            add  = TRUE)
-legend("topleft", legend = c("insluin", "10002936879"), 
+legend("topleft", legend = c("insluin", symbol), 
        col = c('blue', 'black'), lwd = 2)
 ```
 
-<!-- DMG: Add more explanatory text about why we prioritize genes with eQTL in
-the same location as the insulin QTL -->
+Why would we prioritize genes with an eQTL in the same location as an insulin
+QTL? If a gene has an eQTL in the same location, there are genetic variants 
+which influence it's expression at that location. These variants may be 
+distinct from the ones which influence the phenotype or they may influence
+gene expression which then influences the phenotype. We call this causal
+relationship of a SNP changing expression, which then changes the phenotype,
+"mediation". 
 
 ## Mediation Analysis
 
@@ -491,25 +520,28 @@ it reduces the LOD on chromosome 19.
 stopifnot(rownames(addcovar) == rownames(expr_chr19))
 addcovar_chr19 <- cbind(addcovar, expr_chr19[,"10002936879"])
 
-lod_med = scan1(genoprobs = probs[,chr],
-                pheno     = cross$pheno[,'log10_insulin_10wk',drop = FALSE],
-                kinship   = kinship_loco[[chr]],
-                addcovar  = addcovar_chr19)
+lod_med <- scan1(genoprobs = probs[,chr],
+                 pheno     = insulin,
+                 kinship   = kinship_loco[[chr]],
+                 addcovar  = addcovar_chr19)
 ```
 
 Next, we will plot the original insulin genome scan and overlay the genome scan
 with gene `10002936879` in the model.
 
-```{r med_plot_10002936879}
+```{r med_plot_10002936879,fig.width=8,fig.height=6}
+gene_id <- "10002936879"
+symbol  <- annot_chr19$gene_name[annot_chr19$a_gene_id == gene_id]
+
 plot_scan1(x    = lod_add_loco,
            map  = cross$pmap,
            chr  = '19',
-           main = "Insulin with/without 10002936879")
-plot_scan1(x   = lod_med,
-           map = cross$pmap,
+           main = paste("Insulin with/without", symbol))
+plot_scan1(x    = lod_med,
+           map  = cross$pmap,
            chr  = '19',
-           col = "blue",
-           add = TRUE)
+           col  = "blue",
+           add  = TRUE)
 legend("topleft", legend = c("insluin", "mediation"), 
        col = c('black', 'blue'), lwd = 2)
 ```
@@ -524,7 +556,6 @@ chromosome. We only need the LOD drop at the location of the peak LOD. To do
 this, we can use the `fit1` function to get the LOD at the marker with the
 highest LOD in the insulin genome scan.
 
-<!-- DMG: Sorcs1 is implicated in Clee Nat Gen 2006 -->
 
 ```{r mediation}
 # Get the probs at the maximum insulin QTL on Chr 19.
@@ -543,7 +574,7 @@ for(i in 1:ncol(expr_chr19)) {
   curr_covar = cbind(addcovar, expr_chr19[,i])
   
   mod = fit1(genoprobs = pr_chr19,
-             pheno     = cross$pheno[,'log10_insulin_10wk',drop = FALSE],
+             pheno     = insulin,
              kinship   = kinship_loco[[chr]],
              addcovar  = curr_covar)
   
@@ -555,7 +586,7 @@ lod_drop$lod_drop = lod_drop$lod - peaks_chr19$lod
 ```
 
 
-```{r plot_mediation}
+```{r plot_mediation,fig.width=8,fig.height=6}
 lod_drop <- left_join(lod_drop, annot_chr19, by = 'a_gene_id')
 
 plot(lod_drop$start, lod_drop$lod_drop, col = NA, 
@@ -579,17 +610,27 @@ lod_drop |>
 
 Do you see any good candidate genes which might regulate insulin?
 
+## Summary
 
+In this episode, we learned how to identify candidate genes under a QTL peak.
+In a perfect world, there would be exactly one gene implicated by these 
+analyses. In most cases, you will have a set of candidate genes and you will
+need to study each gene and prioritize some for laboratory follow-up. 
 
-
-
+There are two ways of searching for candidate genes: using SNPs in the QTL
+interval, and looking for genes with eQTL which are co-located with the 
+phenotype QTL. We learned how to query a VCF file and how to perform mediation
+analysis. After this step, you will have a set of genes which you can test
+for association with your phenotype. 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- There will be many genes under a QTL peak.
+- You can search for genes with SNPs that produce coding changes by querying
+a VCF file.
+- You can search for genes with expression changes that may influence your
+phenotype by performing mediation analysis with expression data from the same
+mice.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

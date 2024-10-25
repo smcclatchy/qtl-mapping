@@ -18,6 +18,7 @@ exercises: 20
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r github_load_data,echo=FALSE,warning=FALSE,message=FALSE}
+options(scipen = 1, digits = 3)
 suppressPackageStartupMessages(library(tidyverse))
 suppressPackageStartupMessages(library(ggbeeswarm))
 suppressPackageStartupMessages(library(qtl2))
@@ -28,14 +29,15 @@ kinship_loco <- calc_kinship(probs = probs, type = "loco")
 cross$covar$Sex <- factor(cross$covar$Sex)
 addcovar <- model.matrix(~Sex, data = cross$covar)[,-1, drop = FALSE]
 # LOD scan for insulin.
+insulin <- cross$pheno[,'log10_insulin_10wk', drop = FALSE]
 lod_add_loco <- scan1(genoprobs = probs, 
-                      pheno = cross$pheno[,"log10_insulin_10wk"], 
+                      pheno = insulin, 
                       kinship = kinship_loco, addcovar = addcovar)
 perm_add_loco = readRDS(url("https://thejacksonlaboratory.box.com/shared/static/fatud2gsjogbfg4xntyix05j6dg3pdnj.rds"))
 thr   <- summary(perm_add_loco, alpha = 0.05)
 peaks <- find_peaks(lod_add_loco, cross$pmap, threshold = thr, prob = 0.95)
 c2eff <- scan1blup(genoprobs = probs[,'2'], 
-                   pheno = cross$pheno[,"log10_insulin_10wk"], 
+                   pheno = insulin, 
                    kinship = kinship_loco[['2']], addcovar = addcovar)
 max_mkr <- find_marker(cross$pmap, chr = '2', pos = peaks$pos[peaks$chr == '2']) 
 ```
@@ -56,7 +58,7 @@ individual. In the figure below, $\mu$ equals `r round(c2eff[max_mkr, 4], 1)`,
 and $\beta$ equals `r round(abs(c2eff[max_mkr, 1]), 1)` for the alternative 
 hypothesis (QTL exists).
 
-![](../fig/nullvalt.png)
+![](fig/nullvalt.png){alt="Null and alternative hypothesis"}
 
 This linear model is <i>y</i> = `r round(c2eff[max_mkr,4], 1)` + 
 `r round(abs(c2eff[max_mkr,1]), 1)`X + &epsilon;. The model intersects the 
@@ -77,26 +79,25 @@ use the function `scan1coef()`. This function takes a single phenotype and the
 genotype probabilities for a single chromosome and returns a matrix with the 
 estimated coefficients at each putative QTL location along the chromosome.
 
-For example, to get the estimated QTL effects on chromosome 2 for the insulin 
-phenotype, we would provide the chromosome 2 genotype probabilities and the 
+For example, to get the estimated QTL effects on chromosome 19 for the insulin 
+phenotype, we would provide the chromosome 19 genotype probabilities and the 
 insulin phenotype to the function `scan1coef()` as follows:
 
-```{r est_effects_chr7}
-chr      <- "7"
-eff_chr7 <- scan1coef(genoprobs = probs[,chr], 
-                      pheno     = cross$pheno[,"log10_insulin_10wk", drop = FALSE],
-                      kinship   = kinship_loco[[chr]],
-                      addcovar  = addcovar)
+```{r est_effects_chr19}
+chr       <- "19"
+eff_chr19 <- scan1coef(genoprobs = probs[,chr], 
+                       pheno     = insulin,
+                       kinship   = kinship_loco[[chr]],
+                       addcovar  = addcovar)
 ```
 
 
-The result is a matrix of `r nrow(eff_chr7)` positions $\times$  
-`r ncol(eff_chr7)-1` genotypes. An additional column contains the intercept 
-values ($\mu$).
+The result is a matrix of `r nrow(eff_chr19)` positions $\times$ 3 genotypes.
+Additional columns contain the sex and intercept values ($\mu$).
 
 
 ```{r effects_matrix_dim}
-dim(eff_chr7)
+head(eff_chr19)
 ```
 
 ## Plotting Founder Allele Effects Along a Chromosome
@@ -104,16 +105,16 @@ dim(eff_chr7)
 To plot the QTL effects, use the `plot_coef()` function. Add the LOD plot to 
 the `scan1_output` argument to include a LOD plot at the bottom.
 
-```{r plot_coef}
-plot_coef(x            = eff_chr7, 
+```{r plot_coef,fig.width=8,fig.height=6}
+plot_coef(x            = eff_chr19, 
           map          = cross$pmap,
           scan1_output = lod_add_loco, 
-          legend       = "topright")
+          legend       = "topleft")
 ```
 
 The plot shows effect values on the y-axis and cM values on the x-axis. The
-value of the intercept (&mu;) appears at the top. The effect of the 
-`r dimnames(eff_chr7)[[2]][[2]]` genotype is centered around zero, with the
+value of the intercept ($\mu$) appears at the top. The effect of the 
+`r dimnames(eff_chr19)[[2]][[2]]` genotype is centered around zero, with the
 effects of the other two genotypes above and below. We are usually not 
 directly interested in how the additive covariates change across the genome, 
 but rather, the the founder allele effects change.
@@ -123,23 +124,35 @@ which coefficients to plot. Let's look at the columns which contain the founder
 allele effects.
 
 ```{r}
-head(eff_chr7)
+head(eff_chr19)
 ```
 
 We would like to plot the columns "BB", "BR", and "RR", which are in columns
 1 through 3. This is what we pass into the `columns` argument.
 
-```{r plot_effects_chr 2}
-plot_coef(x       = eff_chr7, 
+```{r plot_effects_chr19,fig.width=8,fig.height=6}
+plot_coef(x       = eff_chr19, 
           map     = cross$pmap, 
           columns = 1:3, 
           scan1_output = lod_add_loco, 
-          main    = "Chromosome 2 QTL effects and LOD scores",
+          main    = paste("Chromosome", chr, "QTL effects and LOD scores"),
           legend  = "topleft")
 ```
 
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 1: Founder Allele Effects
+
 Looking at the plot above, which founder allele contributes to higher 
 insulin levels?
+
+:::::::::::::::::::::::: solution 
+
+The BTBR allele contributes to higher insulin levels because the "RR" 
+allele effect (green line) is higher than the other allele effect lines.
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Estimating Founder Allele Effects using BLUPs
 
@@ -154,17 +167,17 @@ estimates. To calculate BLUPs, use `scan1blup()`; it takes the same arguments
 as `scan1coef()`, including the option of a kinship matrix to account for a 
 residual polygenic effect.
 
-```{r est_blups_chr7}
-blup_chr7 <- scan1blup(genoprobs = probs[,chr], 
-                       pheno     = cross$pheno[,"log10_insulin_10wk", drop = FALSE],
-                       kinship   = kinship_loco[[chr]],
-                       addcovar  = addcovar)
+```{r est_blups_chr19}
+blup_chr19 <- scan1blup(genoprobs = probs[,chr], 
+                        pheno     = insulin,
+                        kinship   = kinship_loco[[chr]],
+                        addcovar  = addcovar)
 ```
 
 We can plot the BLUP effects using `plot_coef` as before.
 
-```{r plot_blup_chr7}
-plot_coef(x       = blup_chr7, 
+```{r plot_blup_chr19,fig.width=8,fig.height=6}
+plot_coef(x       = blup_chr19, 
           map     = cross$pmap, 
           columns = 1:3, 
           scan1_output = lod_add_loco, 
@@ -176,13 +189,13 @@ In the plot below, we plotted the founder allele effects (solid lines) and the
 BLUPs (dashed lines). In this case, the effects are not greatly different, but 
 the effects are "shrunken" toward zero. 
 
-```{r plot_blup_chr7_again}
-plot_coef(x       = eff_chr7, 
+```{r plot_blup_chr19_again,fig.width=8,fig.height=6}
+plot_coef(x       = eff_chr19, 
           map     = cross$pmap, 
           columns = 1:3, 
-          main    = paste("Chromosome", chr,"QTL BLUP effects and LOD scores"),
+          main    = paste("Chromosome", chr, "QTL BLUP effects and LOD scores"),
           legend  = "topleft")
-plot_coef(x       = blup_chr7, 
+plot_coef(x       = blup_chr19, 
           map     = cross$pmap, 
           columns = 1:3,
           lty     = 2,
@@ -190,7 +203,7 @@ plot_coef(x       = blup_chr7,
           add     = TRUE)
 ```
 
-## Plotting Allele Effects at one Marker
+## Plotting Allele Effects at One Marker
 
 You may also want plot the founder allele effects at the marker with the
 highest LOD. To do this, you first need to get the position of the marker from
@@ -203,12 +216,12 @@ peaks <- find_peaks(scan1_output = lod_add_loco,
 peaks
 ```
 
-The position of the maximum LOD on chromosome 7 is `r subset(peaks, chr == '7')$pos`
-Mb. We can pass this value into the `qtl2` function `pull_genoprobpos` to get
-the genoprobs at this marker.
+The position of the maximum LOD on chromosome 19 is 
+`r subset(peaks, chr == '19')$pos` Mb. We can pass this value into the `qtl2` 
+function `pull_genoprobpos` to get the genoprobs at this marker.
 
 ```{r pull_genoprobs}
-max_pos <- subset(peaks, chr == '7')$pos
+max_pos <- subset(peaks, chr == '19')$pos
 max_mkr <- find_marker(map = cross$pmap, 
                        chr = chr, 
                        pos = max_pos)
@@ -217,13 +230,50 @@ pr      <- pull_genoprobpos(genoprobs = probs,
                             marker    = max_mkr)
 ```
 
-<!-- DMG: Make this a challenge. -->
+::::::::::::::::::::::::::::::::::::: challenge 
 
-What does the structure of `pr` look like?
+## Challenge 2: Structure of Genoprobs at One Marker
 
-```{r str_pr}
+What does the structure of `pr` look like? 
+How many rows and columns does it have?
+
+:::::::::::::::::::::::: solution 
+
+The [str](https://www.rdocumentation.org/packages/utils/versions/3.6.2/topics/str)
+function provides the structure of an R object.
+
+```{r challenge2}
 str(pr)
 ```
+
+In this case, we can see that `pr` is a numeric matrix because the first line
+starts with "num". The next item on the first line provides the dimensions of
+the object. `pr` is a matrix because there are two dimensions, rows and columns.
+There are `r nrow(pr)` rows and `r ncol(pr)` columns in `pr`.
+
+:::::::::::::::::::::::::::::::::
+
+## Challenge 3: Genoprobs at One Marker
+
+Look at the top few rows of `pr`. You may want to round the values to make them
+easier to read. What is the genotype of "Mouse3051"? What about "Mouse3430"?
+
+:::::::::::::::::::::::: solution 
+
+We can use the [head]() function to see the top few rows of `pr`.
+
+```{r challenge3}
+head(round(pr))
+```
+
+From the listing above, the probability that Mouse3051 carries the "BR" genotype
+at this marker is close to 1, so this is the most likely genotype.
+
+the probability that Mouse3430 carries the "RR" genotype at this marker is close
+to 1.
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
 
 `pr` is a numeric matrix with `r nrow(pr)` rows and `r ncol(pr)` columns. The
 rownames contain the mouse IDs and the column names contain the genotypes.
@@ -233,12 +283,20 @@ the mapping model at a single marker.
 
 ```{r fit1}
 mod = fit1(genoprobs = pr,
-           pheno     = cross$pheno[,"log10_insulin_10wk", drop = FALSE],
+           pheno     = insulin,
            kinship   = kinship_loco[[chr]], 
            addcovar  = addcovar)
 ```
 
 Then, we can plot the founder allele effects and their standard error.
+
+
+:::::::::::::::::::::::::::::::::::: instructor
+
+Don't have the students type all of this. Copy and paste or show this code 
+in a web browser.
+
+:::::::::::::::::::::::::::::::::::::::::::::::
 
 ```{r plot_fit1, fig.width=8,fig.height=6}
 mod_eff = data.frame(eff = mod$coef, 
@@ -248,7 +306,6 @@ mod_eff = data.frame(eff = mod$coef,
 
 ggplot(data    = mod_eff, 
        mapping = aes(x = genotype, y = eff)) +
-  geom_beeswarm() +
   geom_pointrange(mapping = aes(ymin = eff - se, 
                                 ymax = eff + se),
                   size       = 1.5,
@@ -259,20 +316,149 @@ ggplot(data    = mod_eff,
 
 ```
 
-In the plot above, which founder allele contributes to higher insulin levels?
-Is that consistent with the plot created using `plot_coef` above?
+::::::::::::::::::::::::::::::::::::: challenge 
 
-If instead you want additive and dominance effects, you can provide a square 
-matrix of _contrasts_, as follows:
+## Challenge 4: Allele Effects
+
+1. In the plot above, which founder allele contributes to higher insulin levels?
+2. Is that consistent with the plot created using `plot_coef` above?
+
+:::::::::::::::::::::::: solution 
+
+1. The R (BTBR) allele contributes to higher insulin levels on chromosome 19.
+2. Yes, the BTBR allele also contributed to higher insulin level in the founder
+allele effects plot.
+
+:::::::::::::::::::::::::::::::::
+
+## Challenge 5: Allele Effects on Chromosome 7
+
+1. Use `scan1_blup` and `plot_coef` to look at the founder allele effects at the
+chromosome 7 QTL peak. Does the pattern of allele effects look different? Which
+founder allele contributes to higher insulin levels?
+2. Get the genoprobs at the marker with the highest LOD on chromosome 7 and use
+`fit1` and the plotting code for `fit1` above to examine the founder allele 
+effects at the peak marker. Again, how do these allele effects differ from the
+allele effects on chromosome 19? Which founder allele contributes to higher 
+insulin levels?
+
+Be careful to rename the ouput objects so that you don't overwrite the values
+from chromosome 19.
+
+:::::::::::::::::::::::: solution 
+
+1. We will use `scan1_blup` and `plot_coef` to estimate the founder allele 
+effects on chromosome 7.
+
+```{r challenge5a}
+blup_chr7 <- scan1blup(genoprobs = probs[,"7"],
+                       pheno     = insulin,
+                       kinship   = kinship_loco[["7"]],
+                       addcovar  = addcovar)
+plot_coef(x       = blup_chr7, 
+          map     = cross$pmap, 
+          columns = 1:3, 
+          scan1_output = lod_add_loco, 
+          main    = paste("Chromosome", "7", "QTL BLUP effects and LOD scores"),
+          legend  = "topleft")
+```
+
+On chromosome 19, the BB and BR genotypes seems to have the same effect. On chromosome 7,
+there is a clear split between the BB, BR, and RR genotypes. Each additional B allele
+raises insulin levels.
+The C57BL/6J (B) allele contributes to higher insulin levels.
+
+2. We will get the marker with the highest LOD on chromosome 7, then get the 
+genoprobs at that marker and use them in `fit1` to estimate the founder allele 
+effects.
+
+```{r challenge5b}
+max_pos <- subset(peaks, chr == "7")$pos
+max_mkr <- find_marker(map = cross$pmap, 
+                       chr = "7", 
+                       pos = max_pos)
+
+pr7     <- pull_genoprobpos(genoprobs = probs, 
+                            marker    = max_mkr)
+```
+
+```{r challenge5c}
+mod7 = fit1(genoprobs = pr7,
+            pheno     = insulin,
+            kinship   = kinship_loco[["7"]], 
+            addcovar  = addcovar)
+```
+
+```{r challenge5d,fig.widt=8,fig.height=6}
+mod_eff7 = data.frame(eff = mod7$coef, 
+                      se  = mod7$SE) |>
+            rownames_to_column("genotype") |>
+            filter(genotype %in% c("BB", "BR", "RR"))
+
+ggplot(data    = mod_eff7, 
+       mapping = aes(x = genotype, y = eff)) +
+  geom_pointrange(mapping = aes(ymin = eff - se, 
+                                ymax = eff + se),
+                  size       = 1.5,
+                  linewidth  = 1.25) +
+  labs(title = paste("Founder Allele Effects on Chr", "7"),
+       x     = "Genotype", y = "Founder Allele Effects") +
+  theme(text = element_text(size = 20))
+```
+
+On chromosome 19, mice carrying the BB and BR genotypes had almost the same 
+levels of insulin. On chromosome 7, the BB genotype has the highest insulin
+levels, the BR genotype has the next highest, and the RR genotype has the
+lowest insulin levels.
+
+:::::::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Estimating Additive and Dominant Allele Effects
+
+You may have noticed the difference in the pattern of allele effects between
+chromosome 7 and 19. On chromosome 7, adding each "B" allele increased insulin
+levels by the same amount. On chromosome 19, adding one "R" allele did not
+change insulin levels. We saw an increase in insulin only when we added two
+"R" alleles.
+
+What we are seeing between these two QTL are "additive" and "dominant" effects.
+At an additive QTL (which is different from additive covariates), adding (or
+subtracting) one allele produces the same effect between each genotype. At a
+dominant QTL, adding (or subtracting) two alleles is required to see the effect.
+You can also have QTL which are a mixture of additive and dominant effects.
+
+We can map the additive and dominance effects by providing a matrix of 
+_contrasts_ to indicate the different effects. Let's look at the additive and
+dominant effects on chromosome 7 first.
+
+![Additive & Dominance Effects](fig/add_dom_qtl_effect.png){alt="Figure showing additive & dominance QTL effects",width=50%}
+
+In the figure above, we have simulated a QTL with a dominant effect. Genotypes
+are shown on the X-axis and the phenotype on the Y-axis. Each point represents
+the phenotype value for one mouse. The grey line is the mean of the two 
+homozygote groups. The additive effect is defined as the difference between
+the homozygote mean (grey line) and the individual homozygote group means (red
+lines). The blue line shows the heterozygote mean. The dominance effect is the
+difference between the homozygote mean (grey line) and the heterozygote mean
+(blue line).
+
+First, we create a "contrasts" matrix to indicate the mean, additive, and 
+dominance effects that we want to estimate.
+
+```{r create_contrasts}
+add_dom_contr <- cbind(mu = c( 1, 1, 1), 
+                       a  = c(-1, 0, 1), 
+                       d  = c( 0, 1, 0))
+```
+
 
 ```{r est_effects_insulin_c7_contr}
-c7effB <- scan1coef(genoprobs = probs[,chr], 
-                    pheno     = cross$pheno[,"log10_insulin_10wk", drop = FALSE],
-                    kinship   = kinship_loco[[chr]],
+c7effB <- scan1coef(genoprobs = probs[,"7"], 
+                    pheno     = insulin,
+                    kinship   = kinship_loco[["7"]],
                     addcovar  = addcovar,
-                    contrasts = cbind(mu = c(   1, 1,    1), 
-                                      a  = c(  -1, 0,    1), 
-                                      d  = c(-0.5, 1, -0.5)))
+                    contrasts = add_dom_contr)
 ```
 
 The result will then contain the estimates of `mu`, `a` (the additive effect), 
@@ -288,13 +474,55 @@ For marker `r max_mkr`, `mu`, `a`, and `d` are `r c7effB[max_mkr,]`.
 Here's a plot of the chromosome 7 additive and dominance effects, which are in 
 the second and third columns.
 
-```{r add_dom_contrasts}
+```{r plot_add_dom_contrasts}
 plot_coef(x       = c7effB, 
-          map     = cross$pmap[chr], 
+          map     = cross$pmap["7"], 
           columns = 2:3, 
-          col     = 1:2)
-legend('bottomleft', lty = 1, col = 1:2, legend = c("additive", "dominant"))
+          col     = 1:2,
+          scan1_output = lod_add_loco,
+          main    = "log10(insulin): Chromosome 7")
+legend('bottomleft', lwd = 2, col = 1:2, legend = c("additive", "dominance"))
 ```
+
+In the plot above, the dominance effects remain near zero across the chromosome.
+The additive effects decrease as we move 
+
+:::::::::::::::::::::::::::::::::::::::::::::::: challenge
+
+## Challenge 6: Estimating Additive and Dominance Effects on Chromsome 19
+
+Use the code above to estimate and plot the additive and dominance effects along
+chromosome 19. You can use the same contrasts matrix as before. 
+How dow they differ from the effects on chromosome 7?
+
+::::::::::::::::::: solution
+
+First we estimate the effects using `scan1coef`.
+
+```{r challenge6a}
+c19effB <- scan1coef(genoprobs = probs[,"19"], 
+                     pheno     = insulin,
+                     kinship   = kinship_loco[["19"]],
+                     addcovar  = addcovar,
+                     contrasts = add_dom_contr)
+```
+
+```{r challenge6b}
+plot_coef(x       = c19effB, 
+          map     = cross$pmap["19"], 
+          columns = 2:3, 
+          col     = c("black", "red"),
+          scan1_output = lod_add_loco,
+          main    = "log10(insulin): Chromosome 19")
+legend('bottomleft', lwd = 2, col = c("black", "red"), 
+       legend = c("additive", "dominance"))
+```
+
+In this case, we see that the additive effect adds about `r max(c19effB[,'a'])`
+and the dominance effect adds about `r min(c19effB[,'d'])`.
+
+::::::::::::::::::::::::::::
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Plotting Phenotypes versus Genotypes
 
@@ -306,9 +534,7 @@ specified value (the argument `minprob`). Note that the “marg” in “maxmarg
 stands for “marginal”, as this function is selecting the genotype at each
 position that has maximum marginal probability.
 
-<!-- DMG: Change this to Chr 7 -->
-
-For example, we could get inferred genotypes at the chr 7 QTL for the insulin 
+For example, we could get inferred genotypes at the chr 19 QTL for the insulin 
 phenotype (at 28.6 cM) as follows:
 
 ```{r get_inferred_genotypes}
@@ -326,86 +552,11 @@ We then plot the insulin phenotype against these genotypes as follows:
 
 ```{r plot_pheno_geno_se}
 plot_pxg(geno   = g, 
-         pheno  = cross$pheno[,"log10_insulin_10wk"], 
+         pheno  = insulin, 
          SEmult = 2,
          main   = paste("Insulin vs Chr", chr ,"Genotype"))
 ```
 
-
-::::::::::::::::::::::::::::::::::::: challenge 
-
-## Challenge 1
-
-Calculate the insulin BLUP effects for chromosome 7.  
-1) Create an object called `blup_chr7` to contain the effects.  
-2) Plot the chromosome 7 BLUPs and add the LOD plot at bottom.
-3) Which founder allele increases insulin levels?
-
-:::::::::::::::::::::::: solution 
-
-```{r challenge1}
-chr <- '7'
-blup_chr7 <- scan1blup(genoprobs = probs[,chr], 
-                       pheno     = cross$pheno[,"log10_insulin_10wk"],
-                       addcovar  = addcovar,
-                       kinship   = kinship_loco[[chr]])  
-plot_coef(x       = blup_chr7, 
-          map     = cross$pmap,
-          columns = 1:3,
-          scan1_output = lod_add_loco,
-          legend  = "topleft",
-          main    = "Insulin")
-```
-
-The C57BL/6J allele on chromosome 7 increases insulin levels.
-
-:::::::::::::::::::::::::::::::::
-
-## Challenge 2
-
-Calculate the insulin BLUP effects for chromosome 19.  
-1.  Create an object called `blup_chr19` to contain the effects.  
-2. Plot the chromosome 19 BLUPs and add the LOD plot at bottom.
-3. Which founder allele increases insulin levels?
-4. Plot insulin versus the genotype at the marker with the higest LOD on 
-chromosome 19.
-
-:::::::::::::::::::::::: solution 
-
-```{r challenge2}
-chr <- '19'
-blup_chr19 <- scan1blup(genoprobs = probs[, chr], 
-                        pheno     = cross$pheno[, "log10_insulin_10wk"],
-                        addcovar  = addcovar,
-                        kinship   = kinship_loco[[chr]])  
-plot_coef(x       = blup_chr19, 
-          map     = cross$pmap,
-          columns = 1:3,
-          scan1_output = lod_add_loco,
-          legend  = "topleft",
-          main    = "Insulin")
-```
-
-The BTBR allele on chromosome 19 increases insulin levels.
-
-```{r challenge2_b}
-max_pos19 = peaks$pos[peaks$chr == chr]
-g <- maxmarg(probs = probs, 
-             map   = cross$pmap, 
-             chr   = chr, 
-             pos   = max_pos19, 
-             return_char = TRUE)
-
-plot_pxg(geno   = g, 
-         pheno  = cross$pheno[,"log10_insulin_10wk"], 
-         SEmult = 2, 
-         main   = "Insulin vs Chr 19 Genotype")
-```
-
-
-
-:::::::::::::::::::::::::::::::::
-::::::::::::::::::::::::::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

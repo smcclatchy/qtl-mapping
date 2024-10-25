@@ -54,12 +54,12 @@ to use `qtl2` for the simpler case, we will advance to the most complex case
 involving mapping in DO mice.
 
 R/qtl2 accepts the following files:  
-1. genotypes. 
-2. phenotypes. 
+1. genotypes  
+2. phenotypes  
 3. phenotype covariates (*i.e.* tissue type, time points)  
 4. genetic map  
 5. physical map (optional)  
-6. control file (YAML or JSON format, not CSV).
+6. control file (YAML or JSON format, not CSV).  
 
 We use both a genetic marker map and a physical map (if available). A sample 
 from a genetic map of SNP markers is shown here.
