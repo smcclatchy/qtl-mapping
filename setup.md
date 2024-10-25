@@ -35,7 +35,7 @@ library(qtl2)
 library(qtl2convert)
 ```
 
-If the libraries don't load and you recieved errors during the installation,
+If the libraries don't load and you received errors during the installation,
 please contact the workshop instructors before the workshop to help you.
 
 ## Project organization
@@ -61,7 +61,7 @@ dir.create("./results")
 ## Data Sets
 
 For this course, we will have several data files which you will need to 
-download to the "data" directory in the project folder on your Desktop.
+download to the `data` directory in the project folder on your Desktop.
 Copy, paste, and run the following code in the RStudio console.
 
 The first file contains the data that we will use for QTL mapping in an F2
