@@ -476,7 +476,7 @@ and the gene annotation.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>Dimensions of <code>annot</code>.</p>
 <div class="codewrapper sourceCode" id="cb2">
@@ -526,7 +526,7 @@ and the gene annotation.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>Dimensions of <code>expr</code>.</li>
 </ol><div class="codewrapper sourceCode" id="cb6">
@@ -643,13 +643,13 @@ sample IDs are aligned between the data sets.</p>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>  lodindex lodcolumn chr   pos  lod  ci_lo ci_hi
-1        1    pheno1   2 138.9 7.13  64.95 149.6
-2        1    pheno1   7 144.2 5.72 139.37 144.2
-3        1    pheno1  12  25.1 4.31  15.83  29.1
-4        1    pheno1  14  22.2 3.97   6.24  45.9
-5        1    pheno1  16  80.4 4.11  10.24  80.4
-6        1    pheno1  19  54.8 5.48  48.37  55.2</code></pre>
+<pre class="output" tabindex="0"><code>  lodindex          lodcolumn chr   pos  lod  ci_lo ci_hi
+1        1 log10_insulin_10wk   2 138.9 7.13  64.95 149.6
+2        1 log10_insulin_10wk   7 144.2 5.72 139.37 144.2
+3        1 log10_insulin_10wk  12  25.1 4.31  15.83  29.1
+4        1 log10_insulin_10wk  14  22.2 3.97   6.24  45.9
+5        1 log10_insulin_10wk  16  80.4 4.11  10.24  80.4
+6        1 log10_insulin_10wk  19  54.8 5.48  48.37  55.2</code></pre>
 </div>
 <p>We looked at the QTL peak on chromosome 19 in a previous lesson. The
 QTL interval is 6.779 Mb wide. This is quite wide. Let’s get the genes
@@ -685,7 +685,7 @@ levels.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <!-- DMG: Correlation, eQTL, annotation? -->
 </div>
@@ -831,7 +831,7 @@ consequences of these SNPs.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>This may be a good code chunk to have the students copy and
 paste.</p>
@@ -973,7 +973,7 @@ insulin or diabetes.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>Both genes return published papers relating to insulin:</p>
 <p><a href="https://pubmed.ncbi.nlm.nih.gov/?term=Sorcs1+insulin" class="external-link">Sorcs1</a></p>
@@ -1054,8 +1054,8 @@ candidate gene.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">eqtl_chr19_peaks</span> <span class="op">=</span> <span class="fu">find_peaks</span><span class="op">(</span><span class="va">eqtl_chr19</span>, map <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>                    <span class="fu">arrange</span><span class="op">(</span><span class="va">pos</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">eqtl_chr19_peaks</span> <span class="op">&lt;-</span> <span class="fu">find_peaks</span><span class="op">(</span><span class="va">eqtl_chr19</span>, map <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>                      <span class="fu">arrange</span><span class="op">(</span><span class="va">pos</span><span class="op">)</span></span>
 <span><span class="va">eqtl_chr19_peaks</span></span></code></pre>
 </div>
 <div class="codewrapper">
@@ -1149,10 +1149,10 @@ model and see if it reduces the LOD on chromosome 19.</p>
 <code class="sourceCode R"><span><span class="fu">stopifnot</span><span class="op">(</span><span class="fu">rownames</span><span class="op">(</span><span class="va">addcovar</span><span class="op">)</span> <span class="op">==</span> <span class="fu">rownames</span><span class="op">(</span><span class="va">expr_chr19</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">addcovar_chr19</span> <span class="op">&lt;-</span> <span class="fu">cbind</span><span class="op">(</span><span class="va">addcovar</span>, <span class="va">expr_chr19</span><span class="op">[</span>,<span class="st">"10002936879"</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">lod_med</span> <span class="op">=</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>,</span>
-<span>                pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">'log10_insulin_10wk'</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
-<span>                kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
-<span>                addcovar  <span class="op">=</span> <span class="va">addcovar_chr19</span><span class="op">)</span></span></code></pre>
+<span><span class="va">lod_med</span> <span class="op">&lt;-</span> <span class="fu">scan1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">probs</span><span class="op">[</span>,<span class="va">chr</span><span class="op">]</span>,</span>
+<span>                 pheno     <span class="op">=</span> <span class="va">insulin</span>,</span>
+<span>                 kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>                 addcovar  <span class="op">=</span> <span class="va">addcovar_chr19</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Next, we will plot the original insulin genome scan and overlay the
 genome scan with gene <code>10002936879</code> in the model.</p>
@@ -1160,15 +1160,18 @@ genome scan with gene <code>10002936879</code> in the model.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">plot_scan1</span><span class="op">(</span>x    <span class="op">=</span> <span class="va">lod_add_loco</span>,</span>
+<code class="sourceCode R"><span><span class="va">gene_id</span> <span class="op">&lt;-</span> <span class="st">"10002936879"</span></span>
+<span><span class="va">symbol</span>  <span class="op">&lt;-</span> <span class="va">annot_chr19</span><span class="op">$</span><span class="va">gene_name</span><span class="op">[</span><span class="va">annot_chr19</span><span class="op">$</span><span class="va">a_gene_id</span> <span class="op">==</span> <span class="va">gene_id</span><span class="op">]</span></span>
+<span></span>
+<span><span class="fu">plot_scan1</span><span class="op">(</span>x    <span class="op">=</span> <span class="va">lod_add_loco</span>,</span>
 <span>           map  <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
 <span>           chr  <span class="op">=</span> <span class="st">'19'</span>,</span>
-<span>           main <span class="op">=</span> <span class="st">"Insulin with/without 10002936879"</span><span class="op">)</span></span>
-<span><span class="fu">plot_scan1</span><span class="op">(</span>x   <span class="op">=</span> <span class="va">lod_med</span>,</span>
-<span>           map <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
+<span>           main <span class="op">=</span> <span class="fu">paste</span><span class="op">(</span><span class="st">"Insulin with/without"</span>, <span class="va">symbol</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">plot_scan1</span><span class="op">(</span>x    <span class="op">=</span> <span class="va">lod_med</span>,</span>
+<span>           map  <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span>,</span>
 <span>           chr  <span class="op">=</span> <span class="st">'19'</span>,</span>
-<span>           col <span class="op">=</span> <span class="st">"blue"</span>,</span>
-<span>           add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>           col  <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>           add  <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu">legend</span><span class="op">(</span><span class="st">"topleft"</span>, legend <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">"insluin"</span>, <span class="st">"mediation"</span><span class="op">)</span>, </span>
 <span>       col <span class="op">=</span> <span class="fu">c</span><span class="op">(</span><span class="st">'black'</span>, <span class="st">'blue'</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre>
 </div>
@@ -1200,7 +1203,7 @@ scan.</p>
 <span>  <span class="va">curr_covar</span> <span class="op">=</span> <span class="fu">cbind</span><span class="op">(</span><span class="va">addcovar</span>, <span class="va">expr_chr19</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
 <span>  </span>
 <span>  <span class="va">mod</span> <span class="op">=</span> <span class="fu">fit1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">pr_chr19</span>,</span>
-<span>             pheno     <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pheno</span><span class="op">[</span>,<span class="st">'log10_insulin_10wk'</span>,drop <span class="op">=</span> <span class="cn">FALSE</span><span class="op">]</span>,</span>
+<span>             pheno     <span class="op">=</span> <span class="va">insulin</span>,</span>
 <span>             kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>             addcovar  <span class="op">=</span> <span class="va">curr_covar</span><span class="op">)</span></span>
 <span>  </span>
