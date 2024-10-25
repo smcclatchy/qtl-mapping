@@ -426,7 +426,7 @@ of three-dimensional arrays (one per chromosome). Each 3d array of
 probabilities is arranged as individuals <span class="math inline">\(\times\)</span> genotypes <span class="math inline">\(\times\)</span> positions.</p>
 <figure><img src="../fig/threeD_array.png" alt="Figure showing three-dimensional array of genotype probabilities (genoprobs)" class="figure mx-auto d-block"><div class="figcaption">Three-dimensional genotype probabilities
 array</div>
-</figure><p><img src="http://venus.ifca.unican.es/Rintro/_images/dataStructuresNew.png" alt="a web page showing R data structures including one-dimensional vectors and lists, two dimensional dataframes and matrices, and n-dimensional arrays" class="figure">.</p>
+</figure><p><img src="https://devopedia.org/images/article/46/9213.1526125966.png" alt="a web page showing R data structures including one-dimensional vectors and lists, two dimensional dataframes and matrices, and n-dimensional arrays" class="figure">.</p>
 <p>We’ll use the <a href="https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip" class="external-link">Attie
 BL6/BTBR dataset</a> from <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4649649/" class="external-link">Tian et
 al</a> (an intercross) as an example. In this study, circulating insulin
@@ -438,9 +438,15 @@ functions that we will use for QTL analysis.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">suppressPackageStartupMessages</span><span class="op">(</span><span class="kw">library</span><span class="op">(</span><span class="va">qtl2</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="op">(</span><span class="kw">library</span><span class="op">(</span><span class="va">qtl2</span><span class="op">)</span><span class="op">)</span></span></code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb2">
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[1] "qtl2"      "stats"     "graphics"  "grDevices" "utils"     "datasets"
+[7] "methods"   "base"     </code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -451,7 +457,7 @@ functions that we will use for QTL analysis.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>We need the following block for the site to build on Github. The
 students do not need to see or run the next block.</p>
@@ -463,7 +469,7 @@ students do not need to see or run the next block.</p>
 to your data files. For example, if the file path to your data files is
 <code>/Users/myUserName/qtlProject/data</code>, the command to load your
 data would look like this:</p>
-<div class="codewrapper sourceCode" id="cb3">
+<div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -473,7 +479,7 @@ data would look like this:</p>
 including names of data files, cross type, column specifications for sex
 and cross information, and more. This can also be in YAML format.
 Alternatively, all data files can be zipped together for loading.</p>
-<div class="codewrapper sourceCode" id="cb4">
+<div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -481,7 +487,7 @@ Alternatively, all data files can be zipped together for loading.</p>
 </div>
 <p>Back to the BTBR data. Now look at a summary of the cross data and
 the names of each variable within the data.</p>
-<div class="codewrapper sourceCode" id="cb5">
+<div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -508,7 +514,7 @@ No. markers by chr:
   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19   X
 156 135 157 126 125 102 109  91  93 123 124 116 116  91 102  66  60  95  50  20 </code></pre>
 </div>
-<div class="codewrapper sourceCode" id="cb7">
+<div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -523,11 +529,11 @@ No. markers by chr:
 <p>Have a look at the markers listed in the genetic map,
 <code>gmap</code>. Markers are listed by chromosome and described by cM
 position. View only the markers on the first two chromosomes.</p>
-<div class="codewrapper sourceCode" id="cb9">
+<div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">cross</span><span class="op">$</span><span class="va">gmap</span>, n<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">head</span><span class="op">(</span><span class="va">cross</span><span class="op">$</span><span class="va">gmap</span>, n<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -578,53 +584,11 @@ rs13476201  rs3685700  rs3022846 rs13476210 rs13476214 rs13459163  rs4222816
 rs13476279  rs6348421 rs13476290 rs13476300 rs13476302 rs13476304  rs3669814
 86.7653503 88.2128991 89.0565541 94.6215368 94.8227821 94.8269227 95.5413280
 rs13501301 rs13476316
-96.0784002 96.9960494
-
-$`2`
-rs13476325 rs13476327 rs13476328 rs13476330  rs3695983 rs13476334 rs13476337
-  1.329379   1.760872   1.839732   1.950151   1.954566   2.265170   3.619681
-rs13476342  rs3696091 rs13476348  rs3681847 rs13476358 rs13476424 rs13476427
-  4.113919   5.308337   6.708720   7.382269  10.053730  21.102901  21.547272
-rs13476432 rs13476433 rs13476438 rs13476440 rs13476445 rs13476446 rs13476448
- 22.457323  22.458829  22.472305  22.502827  22.703755  22.706606  22.809631
-rs13476449 rs13476451 rs13476452 rs13476456  rs6333344 rs13476459  rs6288325
- 22.811905  22.816989  22.917366  23.496527  23.499872  23.505774  23.764498
-rs13476470 rs13476482  rs6203572 rs13476485 rs13476501 rs13476502 rs13476503
- 25.671278  26.670288  26.702994  27.001404  29.014864  29.017621  29.019099
-rs13476525 rs13476526 rs13476530  rs3660779 rs13476533 rs13476534  rs4223189
- 31.635258  31.882499  32.606343  33.182340  33.622217  33.881289  33.886227
- rs6205317 rs13476536  rs3709716 rs13476538 rs13476540  rs6314726 rs13476543
- 34.125908  34.182229  34.777129  35.011099  35.196852  35.859566  36.045536
-rs13476544  rs6222797 rs13476546 rs13476553 rs13476554  rs8263229 rs13476565
- 36.199822  36.656504  36.783097  37.624894  37.628034  38.509801  39.813261
-rs13476566  rs3670631 rs13476583 rs13476586 rs13476592 rs13476595 rs13476645
- 40.314536  41.215814  43.089828  43.274068  45.681933  46.026997  50.383519
-rs13476655 rs13476660  rs6378047 rs13476661 rs13476666 rs13476667 rs13476669
- 50.804234  51.471634  51.474692  51.557954  52.083779  52.257580  52.543537
-rs13476672  rs3724460  rs3143279 rs13476687  rs6278009 rs13476693  rs3022892
- 52.594599  53.100014  54.071835  54.256293  54.721524  55.005598  55.109510
-rs13476700 rs13476702 rs13476703 rs13476705  rs4223406  rs3090608 rs13476739
- 55.226885  55.233738  55.400903  55.678374  55.949739  57.841429  58.879499
-rs13476747 rs13476754  rs6257970 rs13476758  rs3022901 rs13476769  rs4223486
- 59.218037  59.231937  59.742629  60.304581  61.226450  61.739777  61.741096
-rs13476774  rs4223511 rs13476778 rs13476783  rs6234650 rs13476784 rs13476786
- 61.912021  62.703328  63.294674  63.904805  64.118754  64.219897  64.224107
-rs13476788  rs3682725 rs13476801 rs13476803 rs13476816  rs6170159  rs3022909
- 64.987248  65.971246  66.931607  67.071161  69.496928  69.584633  69.689891
-rs13476819 rs13476822 rs13476823  rs3716380  rs6332517 rs13476826 rs13476827
- 69.754708  71.191302  71.405084  71.816078  71.959179  72.019045  72.087910
-rs13476830 rs13476831 rs13476832  rs4223605  rs3022932 rs13476872  rs3692409
- 72.364799  72.368511  72.371502  76.460822  76.621947  78.531760  79.528125
- rs3726342 rs13476882  rs3673613  rs8260429  rs8275858 rs13476892 rs13476894
- 80.337464  81.259831  82.295892  82.969957  83.669130  84.046818  84.787594
- rs3024096 rs13476907 rs13476910 rs13476918  rs3673248 rs13476928 rs13476934
- 87.473424  87.498263  87.955210  92.672743  94.072805  96.238835  98.601444
-rs13476935 rs13476936
- 99.057281  99.455950 </code></pre>
+96.0784002 96.9960494 </code></pre>
 </div>
 <p>Next we use <code>calc_genoprob()</code> to calculate the QTL
 genotype probabilities.</p>
-<div class="codewrapper sourceCode" id="cb11">
+<div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -638,7 +602,7 @@ not supplied, the default probability is 0.0001.</p>
 <p>Recall that the result of <code>calc_genoprob</code>,
 <code>probs</code>, is a list of three-dimensional arrays (one per
 chromosome).</p>
-<div class="codewrapper sourceCode" id="cb12">
+<div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -653,7 +617,7 @@ chromosome).</p>
 <p>Each three-dimensional array of probabilities is arranged as
 individuals <span class="math inline">\(\times\)</span> genotypes <span class="math inline">\(\times\)</span> positions. Have a look at the
 names of each of the three dimensions for chromosome 19.</p>
-<div class="codewrapper sourceCode" id="cb14">
+<div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -763,7 +727,7 @@ names of each of the three dimensions for chromosome 19.</p>
 </div>
 <p>View the first three rows of genotype probabilities for the first
 genotyped marker on chromosome 19.</p>
-<div class="codewrapper sourceCode" id="cb16">
+<div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -789,7 +753,7 @@ The arguments to this function specify:</p>
 <code>ind</code>: the index of the individual to plot,</li>
 <li>
 <code>chr</code>: the index of the chromosome to plot.</li>
-</ol><div class="codewrapper sourceCode" id="cb18">
+</ol><div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -833,7 +797,7 @@ individuals.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>1).
 <code>grav &lt;- read_cross2(file = system.file('extdata', 'grav2.zip', package = 'qtl2'))</code><br>
@@ -846,7 +810,7 @@ followed by <code>head(gravmap, n=1)</code><br>
 followed by<br><code>(gravpr$``1``)[1:5,,"PVV4"]</code>,
 <code>(gravpr$</code>1<code>)[1:5,,"c1.loc1"]</code>, and<br><code>(gravpr$</code>1<code>)[1:5,,"c1.loc2"]</code></p>
 <!-- DMG: What about this? -->
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -890,7 +854,7 @@ on chromosome 18.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>1). Create a new script in RStudio with File -&gt; New File -&gt; R
 Script.<br>
@@ -919,7 +883,7 @@ the argument <code>cores</code>. With <code>cores=0</code>, the number
 of available cores will be detected via
 <code>parallel::detectCores()</code>. Otherwise, specify the number of
 cores as a positive integer.</p>
-<div class="codewrapper sourceCode" id="cb20">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -930,7 +894,7 @@ functions use genotype probabilities as well as a matrix of phenotypes.
 If you wished to perform a genome scan via an additive allele model, you
 would first convert the genotype probabilities to allele probabilities,
 using the function <code>genoprob_to_alleleprob()</code>.</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
