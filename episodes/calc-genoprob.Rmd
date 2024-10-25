@@ -36,7 +36,7 @@ $\times$ genotypes $\times$ positions.
 
 ![Three-dimensional genotype probabilities array](fig/threeD_array.png){alt='Figure showing three-dimensional array of genotype probabilities (genoprobs)'}
 
-![See this page for a graphical review of data structures in R](http://venus.ifca.unican.es/Rintro/_images/dataStructuresNew.png){alt='a web page showing R data structures including one-dimensional vectors and lists, two dimensional dataframes and matrices, and n-dimensional arrays'}.  
+![See this page for a graphical review of data structures in R](https://devopedia.org/images/article/46/9213.1526125966.png){alt='a web page showing R data structures including one-dimensional vectors and lists, two dimensional dataframes and matrices, and n-dimensional arrays'}.  
 
 We'll use the
 [Attie BL6/BTBR dataset](https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip)
@@ -49,7 +49,7 @@ First, we will load in the [qtl2](https://kbroman.org/qtl2/) library, which
 provides the functions that we will use for QTL analysis.
 
 ```{r load_libraries}
-suppressPackageStartupMessages(library(qtl2))
+(library(qtl2))
 ```
 
 
@@ -99,7 +99,7 @@ by chromosome and described by cM position. View only the markers on the first
 two chromosomes.
 
 ```{r map_data}
-head(cross$gmap, n=2)
+head(cross$gmap, n=1)
 ```
 
 Next we use `calc_genoprob()` to calculate the QTL genotype probabilities.

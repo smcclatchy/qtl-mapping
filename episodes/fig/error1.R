@@ -7,7 +7,7 @@ pr <- calc_genoprob(cross=iron, map=map, error_prob=0.002)
 g <- maxmarg(pr, map, chr=2, pos=56.8, return_char=TRUE)
 c2eff <- scan1coef(pr[,"2"], iron$pheno[,"liver"])
 
-png(filename = "nullvalt.png", width = 600, height = 600)
+png(filename = "fig/error1.png", width = 600, height = 600)
 par(mai = c(1, 1, 1, 1.5))
 plot_pxg(g, iron$pheno[,"liver"], ylab="Phenotype", 
          main = "Line of best fit",
