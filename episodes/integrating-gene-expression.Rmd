@@ -32,9 +32,9 @@ kinship_loco <- calc_kinship(probs = probs, type = "loco")
 cross$covar$Sex <- factor(cross$covar$Sex)
 addcovar <- model.matrix(~Sex, data = cross$covar)[,-1, drop = FALSE]
 # LOD scan for insulin.
-lod_add_loco <- scan1(genoprobs = probs, 
-                      pheno = cross$pheno[,"log10_insulin_10wk"], 
-                      kinship = kinship_loco, addcovar = addcovar)
+insulin <- cross$pheno[,'log10_insulin_10wk',drop = FALSE]
+lod_add_loco <- scan1(genoprobs = probs, pheno = insulin, 
+                      kinship   = kinship_loco, addcovar = addcovar)
 perm_add_loco <- readRDS(url("https://thejacksonlaboratory.box.com/shared/static/fatud2gsjogbfg4xntyix05j6dg3pdnj.rds"))
 thr           <- summary(perm_add_loco, alpha = 0.05)
 peaks         <- find_peaks(lod_add_loco, cross$pmap, threshold = thr, prob = 0.95)
@@ -463,8 +463,8 @@ We can harvest the significant QTL peaks on chromosome 19 using `find_peaks`.
 We will use the default threshold of LOD = 3.
 
 ```{r eqtl_chr19_filter_peaks}
-eqtl_chr19_peaks = find_peaks(eqtl_chr19, map = cross$pmap) |>
-                    arrange(pos)
+eqtl_chr19_peaks <- find_peaks(eqtl_chr19, map = cross$pmap) |>
+                      arrange(pos)
 eqtl_chr19_peaks
 ```
 
@@ -520,25 +520,28 @@ it reduces the LOD on chromosome 19.
 stopifnot(rownames(addcovar) == rownames(expr_chr19))
 addcovar_chr19 <- cbind(addcovar, expr_chr19[,"10002936879"])
 
-lod_med = scan1(genoprobs = probs[,chr],
-                pheno     = cross$pheno[,'log10_insulin_10wk',drop = FALSE],
-                kinship   = kinship_loco[[chr]],
-                addcovar  = addcovar_chr19)
+lod_med <- scan1(genoprobs = probs[,chr],
+                 pheno     = insulin,
+                 kinship   = kinship_loco[[chr]],
+                 addcovar  = addcovar_chr19)
 ```
 
 Next, we will plot the original insulin genome scan and overlay the genome scan
 with gene `10002936879` in the model.
 
 ```{r med_plot_10002936879,fig.width=8,fig.height=6}
+gene_id <- "10002936879"
+symbol  <- annot_chr19$gene_name[annot_chr19$a_gene_id == gene_id]
+
 plot_scan1(x    = lod_add_loco,
            map  = cross$pmap,
            chr  = '19',
-           main = "Insulin with/without 10002936879")
-plot_scan1(x   = lod_med,
-           map = cross$pmap,
+           main = paste("Insulin with/without", symbol))
+plot_scan1(x    = lod_med,
+           map  = cross$pmap,
            chr  = '19',
-           col = "blue",
-           add = TRUE)
+           col  = "blue",
+           add  = TRUE)
 legend("topleft", legend = c("insluin", "mediation"), 
        col = c('black', 'blue'), lwd = 2)
 ```
@@ -571,7 +574,7 @@ for(i in 1:ncol(expr_chr19)) {
   curr_covar = cbind(addcovar, expr_chr19[,i])
   
   mod = fit1(genoprobs = pr_chr19,
-             pheno     = cross$pheno[,'log10_insulin_10wk',drop = FALSE],
+             pheno     = insulin,
              kinship   = kinship_loco[[chr]],
              addcovar  = curr_covar)
   
