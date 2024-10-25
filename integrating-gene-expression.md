@@ -51,15 +51,6 @@ We have prepared two files containing normalized gene expression data and the
 gene annotation.
 
 
-``` r
-Sys.getenv("VROOM_CONNECTION_SIZE")
-```
-
-``` output
-[1] ""
-```
-
-
 
 
 
@@ -179,12 +170,12 @@ head(cross$pheno)
 
 ``` output
           log10_insulin_10wk agouti_tan tufted
-Mouse3051          1.3985133          1      0
-Mouse3551          0.3693926          1      1
-Mouse3430          0.8599836          0      1
-Mouse3476          0.7997233          1      0
-Mouse3414          1.3702541          0      0
-Mouse3145          1.7827215          1      0
+Mouse3051              1.399          1      0
+Mouse3551              0.369          1      1
+Mouse3430              0.860          0      1
+Mouse3476              0.800          1      0
+Mouse3414              1.370          0      0
+Mouse3145              1.783          1      0
 ```
 
 `cross$pheno` is a matrix which contains the mouse IDs in the rownames. Let's convert
@@ -221,17 +212,17 @@ peaks
 ```
 
 ``` output
-  lodindex lodcolumn chr       pos      lod      ci_lo     ci_hi
-1        1    pheno1   2 138.94475 7.127351  64.949395 149.57739
-2        1    pheno1   7 144.18230 5.724018 139.368290 144.18230
-3        1    pheno1  12  25.14494 4.310493  15.834815  29.05053
-4        1    pheno1  14  22.24292 3.974322   6.241951  45.93876
-5        1    pheno1  16  80.37433 4.114024  10.238134  80.37433
-6        1    pheno1  19  54.83012 5.476587  48.370980  55.15007
+  lodindex lodcolumn chr   pos  lod  ci_lo ci_hi
+1        1    pheno1   2 138.9 7.13  64.95 149.6
+2        1    pheno1   7 144.2 5.72 139.37 144.2
+3        1    pheno1  12  25.1 4.31  15.83  29.1
+4        1    pheno1  14  22.2 3.97   6.24  45.9
+5        1    pheno1  16  80.4 4.11  10.24  80.4
+6        1    pheno1  19  54.8 5.48  48.37  55.2
 ```
 
 We looked at the QTL peak on chromosome 19 in a previous lesson. The QTL interval
-is 6.779094 Mb wide.
+is 6.779 Mb wide.
 This is quite wide. Let's get the genes expressed in the pancreas within this
 region. 
 
@@ -354,6 +345,25 @@ synonymous SNPs and SNPs in the untranslated region of genes may affect RNA
 folding, RNA stability, and translation. But it is more difficult to predict
 those effects.
 
+Let's plot the density of the SNPs to see where they fall. We would not expect
+genes which lie in regions without variation between B6 and BTBR to be involved
+in regulating insulin levels.
+
+
+``` r
+# Get the SNP positions.
+pos = start(rowRanges(vcf_chr19)) / 1e6
+
+plot(density(pos), las = 1, lwd = 2, main = "Density of SNPs")
+rug(pos)
+```
+
+<img src="fig/integrating-gene-expression-rendered-snp_density-1.png" style="display: block; margin: auto;" />
+
+From the plot above, we can see that the density of SNPS between B6 and BTBR is
+not uniform. Most of the SNPs lie between 50 and 52 Mb, with less dense 
+regions extending past 54 Mb.
+
 The `vcf` object contains predicted SNP consequences in a field called `CSQ`.
 The format of this field is challenging to parse, so we will get it, search
 for missense and stop SNPs, and then do some data-wrangling to may the output
@@ -383,6 +393,12 @@ length(csq)
 There were only 8 SNPs out of 19,000 SNPs with missense or stop 
 codon consequences. Next, let's do the data wrangling to reformat the
 consequences of these SNPs.
+
+::::::::::::::::::::::::::::::::::::::::::::: instructor
+
+This may be a good code chunk to have the students copy and paste.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ``` r
@@ -542,9 +558,9 @@ phenotypes into `scan1`.
 
 ``` r
 eqtl_chr19 <- scan1(genoprobs = probs[,chr],
-                   pheno     = expr_chr19,
-                   kinship   = kinship_loco[[chr]],
-                   addcovar  = addcovar)
+                    pheno     = expr_chr19,
+                    kinship   = kinship_loco[[chr]],
+                    addcovar  = addcovar)
 ```
 
 Let's look at the top of the results.
@@ -555,13 +571,13 @@ head(eqtl_chr19[,1:6])
 ```
 
 ``` output
-             498370   500695    501344    504488    505754     506116
-rs4232073  2.382757 2.017080 0.7656653 0.2790253 0.9177116 0.15670328
-rs13483548 2.340860 2.005920 0.7778981 0.2792932 0.9191257 0.15667150
-rs13483549 2.334980 1.995714 0.7841222 0.2779127 0.9132370 0.14886307
-rs13483550 2.227526 1.720540 0.8645001 0.2454031 0.7653925 0.06175031
-rs13483554 1.939305 1.690000 0.8860579 0.2489432 0.8189368 0.11267374
-rs13483555 2.083754 1.623693 0.8624511 0.2550340 0.8669779 0.12892654
+           498370 500695 501344 504488 505754 506116
+rs4232073    2.38   2.02  0.766  0.279  0.918 0.1567
+rs13483548   2.34   2.01  0.778  0.279  0.919 0.1567
+rs13483549   2.33   2.00  0.784  0.278  0.913 0.1489
+rs13483550   2.23   1.72  0.865  0.245  0.765 0.0618
+rs13483554   1.94   1.69  0.886  0.249  0.819 0.1127
+rs13483555   2.08   1.62  0.862  0.255  0.867 0.1289
 ```
 
 The eQTL results have one row for each marker and one column for each gene.
@@ -570,11 +586,13 @@ for one gene.
 
 
 ``` r
-gene_id = '10002678668'
+gene_id <- '10002678668'
+symbol  <- annot_chr19$gene_name[annot_chr19$a_gene_id == gene_id]
+
 plot_scan1(x   = eqtl_chr19, 
            map = cross$pmap,
            lodcolumn = gene_id,
-           main      = gene_id)
+           main      = symbol)
 ```
 
 <img src="fig/integrating-gene-expression-rendered-plot_1_eqtl-1.png" style="display: block; margin: auto;" />
@@ -593,13 +611,13 @@ eqtl_chr19_peaks
 ```
 
 ``` output
-  lodindex   lodcolumn chr      pos       lod
-1       21 10004035475  19 47.36185  4.655021
-2       17 10002936879  19 51.36235  7.657043
-3       16 10002928587  19 51.82752  7.117759
-4       11 10002678668  19 52.42857 34.668074
-5        1      498370  19 52.99433 12.391144
-6       14 10002910800  19 54.83012  4.233249
+  lodindex   lodcolumn chr  pos   lod
+1       21 10004035475  19 47.4  4.66
+2       17 10002936879  19 51.4  7.66
+3       16 10002928587  19 51.8  7.12
+4       11 10002678668  19 52.4 34.67
+5        1      498370  19 53.0 12.39
+6       14 10002910800  19 54.8  4.23
 ```
 
 We can see that there are 6 significant QTL on 
@@ -617,18 +635,18 @@ eqtl_chr19_peaks
 ```
 
 ``` output
-  lodindex   lodcolumn chr.x      pos       lod chr.y    start      end  width
-1       17 10002936879    19 51.36235  7.657043    19 53.66574 53.85551 189775
-2       16 10002928587    19 51.82752  7.117759    19 50.13174 50.66708 535348
-3       11 10002678668    19 52.42857 34.668074    19 52.92036 53.02864 108289
-4        1      498370    19 52.99433 12.391144    19 53.36782 53.37901  11189
-5       14 10002910800    19 54.83012  4.233249    19 52.25273 52.25391   1180
-  strand            gene_id gene_name   gene_biotype
-1      + ENSMUSG00000043639     Rbm20 protein_coding
-2      - ENSMUSG00000043531    Sorcs1 protein_coding
-3      - ENSMUSG00000025027   Xpnpep1 protein_coding
-4      - ENSMUSG00000025024    Smndc1 protein_coding
-5      + ENSMUSG00000035804      Ins1 protein_coding
+  lodindex   lodcolumn chr.x  pos   lod chr.y start  end  width strand
+1       17 10002936879    19 51.4  7.66    19  53.7 53.9 189775      +
+2       16 10002928587    19 51.8  7.12    19  50.1 50.7 535348      -
+3       11 10002678668    19 52.4 34.67    19  52.9 53.0 108289      -
+4        1      498370    19 53.0 12.39    19  53.4 53.4  11189      -
+5       14 10002910800    19 54.8  4.23    19  52.3 52.3   1180      +
+             gene_id gene_name   gene_biotype
+1 ENSMUSG00000043639     Rbm20 protein_coding
+2 ENSMUSG00000043531    Sorcs1 protein_coding
+3 ENSMUSG00000025027   Xpnpep1 protein_coding
+4 ENSMUSG00000025024    Smndc1 protein_coding
+5 ENSMUSG00000035804      Ins1 protein_coding
                                                                                 description
 1                          RNA binding motif protein 20 [Source:MGI Symbol;Acc:MGI:1920963]
 2   sortilin-related VPS10 domain containing receptor 1 [Source:MGI Symbol;Acc:MGI:1929666]
@@ -649,23 +667,31 @@ chromosome 19.
 
 
 ``` r
+gene_id <- "10002936879"
+symbol  <- annot_chr19$gene_name[annot_chr19$a_gene_id == gene_id]
+
 plot_scan1(x    = eqtl_chr19,
            map  = cross$pmap,
-           lodcolumn = "10002936879",
+           lodcolumn = gene_id,
            main = "Insulin")
 plot_scan1(x    = lod_add_loco, 
            map  = cross$pmap,
            chr  = '19',
            col  = 'blue',
            add  = TRUE)
-legend("topleft", legend = c("insluin", "10002936879"), 
+legend("topleft", legend = c("insluin", symbol), 
        col = c('blue', 'black'), lwd = 2)
 ```
 
 <img src="fig/integrating-gene-expression-rendered-plot_insulin_qtl-1.png" style="display: block; margin: auto;" />
 
-<!-- DMG: Add more explanatory text about why we prioritize genes with eQTL in
-the same location as the insulin QTL -->
+Why would we prioritize genes with an eQTL in the same location as an insulin
+QTL? If a gene has an eQTL in the same location, there are genetic variants 
+which influence it's expression at that location. These variants may be 
+distinct from the ones which influence the phenotype or they may influence
+gene expression which then influences the phenotype. We call this causal
+relationship of a SNP changing expression, which then changes the phenotype,
+"mediation". 
 
 ## Mediation Analysis
 
@@ -704,9 +730,9 @@ legend("topleft", legend = c("insluin", "mediation"),
 
 <img src="fig/integrating-gene-expression-rendered-med_plot_10002936879-1.png" style="display: block; margin: auto;" />
 
-The LOD dropped from 5.4765866 to 
-2.0202412. This is a difference
-of 3.4563455.
+The LOD dropped from 5.477 to 
+2.02. This is a difference
+of 3.456.
 
 It would be slow to run a genome scan for each gene on chromosome 19 and look
 at the LOD drop. Also, we don't really need the LOD drop across the entire 
@@ -714,7 +740,6 @@ chromosome. We only need the LOD drop at the location of the peak LOD. To do
 this, we can use the `fit1` function to get the LOD at the marker with the
 highest LOD in the insulin genome scan.
 
-<!-- DMG: Sorcs1 is implicated in Clee Nat Gen 2006 -->
 
 
 ``` r
@@ -773,10 +798,10 @@ lod_drop |>
 ```
 
 ``` output
-             gene_id  symbol chr    start      end      lod  lod_drop
-1 ENSMUSG00000025027 Xpnpep1  19 52.92036 53.02864 2.850368 -2.626219
-2 ENSMUSG00000035804    Ins1  19 52.25273 52.25391 2.598842 -2.877745
-3 ENSMUSG00000043639   Rbm20  19 53.66574 53.85551 2.020241 -3.456345
+             gene_id  symbol chr start  end  lod lod_drop
+1 ENSMUSG00000025027 Xpnpep1  19  52.9 53.0 2.85    -2.63
+2 ENSMUSG00000035804    Ins1  19  52.3 52.3 2.60    -2.88
+3 ENSMUSG00000043639   Rbm20  19  53.7 53.9 2.02    -3.46
                                                                                 description
 1 X-prolyl aminopeptidase (aminopeptidase P) 1, soluble [Source:MGI Symbol;Acc:MGI:2180003]
 2                                               insulin I [Source:MGI Symbol;Acc:MGI:96572]
@@ -785,17 +810,27 @@ lod_drop |>
 
 Do you see any good candidate genes which might regulate insulin?
 
+## Summary
 
+In this episode, we learned how to identify candidate genes under a QTL peak.
+In a perfect world, there would be exactly one gene implicated by these 
+analyses. In most cases, you will have a set of candidate genes and you will
+need to study each gene and prioritize some for laboratory follow-up. 
 
-
-
+There are two ways of searching for candidate genes: using SNPs in the QTL
+interval, and looking for genes with eQTL which are co-located with the 
+phenotype QTL. We learned how to query a VCF file and how to perform mediation
+analysis. After this step, you will have a set of genes which you can test
+for association with your phenotype. 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- Use `.md` files for episodes when you want static content
-- Use `.Rmd` files for episodes when you need to generate output
-- Run `sandpaper::check_lesson()` to identify any issues with your lesson
-- Run `sandpaper::build_lesson()` to preview your lesson locally
+- There will be many genes under a QTL peak.
+- You can search for genes with SNPs that produce coding changes by querying
+a VCF file.
+- You can search for genes with expression changes that may influence your
+phenotype by performing mediation analysis with expression data from the same
+mice.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

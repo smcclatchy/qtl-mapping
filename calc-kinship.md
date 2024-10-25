@@ -113,7 +113,7 @@ found that these two mice have a kinship value of 0.5.
     3   | BB | RR |  0.0
     4   | BB | BR |  0.5
 --------+----+----+---------------
-   All  |    |    |  0.1
+   All  | -- | -- |  0.1
    
 2.  
 
@@ -124,7 +124,7 @@ found that these two mice have a kinship value of 0.5.
     3   | RR | RR | 1.0
     4   | RR | RR | 1.0
 --------+----+----+---------------
-   All  |    |    | 0.75 
+   All  | -- | -- | 0.75 
 
 :::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::
@@ -239,10 +239,46 @@ mouse with itself? Why isn't this equal to 1?
 
 :::::::::::::::::::::::: solution 
 
+The kinship of a mouse with itself will only be 1 if the mouse is homozygous
+at every marker. Since the mice in this study are F2s, they will have genomes
+that are around 50% heterozygous. The variation in heterozygosity affects
+the actual kinship values, but, on average, we expect self-kinship to be 0.75
+because half of the genome is homozygous and contributes values of 1, and half
+of the genome is heterozygous and contributes values of 0.5. So 
+$0.5 * 1 + 0.5 * 0.5 = 0.75$. 
+
+This is shown in the plot below of homozygosity versus kinship. There is a 
+clear linear relationship between the two values and at 0.5 homozygosity, the
+self-kinship values is 0.75. The slope of the line is 0.5.
 
 
-![Homozygosity versus self-Kinship](fig/homozyg_vs_kinship.png){alt="Figure showing positive correlation between homozygosity and kinship"}
+``` r
+# 1 & 3 are the encoding for the two homozygous genotypes.
+homo <- sapply(cross$geno, 
+               function(z) {
+                 rowSums(z == 1 | z == 3)
+               })
 
+homo <- rowSums(homo) / sum(n_mar(cross))
+
+df   <- data.frame(id      = rownames(cross$geno[[1]]),
+                   homo    = homo,
+                   kinship = diag(kinship))
+
+df |>
+  ggplot(aes(homo, kinship)) +
+    geom_point(size = 2) +
+    labs(title = "Homozygosity veruss Self-Kinship",
+         x     = "Homozygosity",
+         y     = "Self-Kinship") +
+    theme(text = element_text(size = 20))
+```
+
+<img src="fig/calc-kinship-rendered-challenge4-1.png" style="display: block; margin: auto;" />
+
+``` r
+rm(homo, df)
+```
 
 :::::::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::

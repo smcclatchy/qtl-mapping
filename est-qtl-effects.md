@@ -41,7 +41,7 @@ This linear model is <i>y</i> = 1 +
 0.1X + &epsilon;. The model intersects the 
 genotype groups at their group means, and is based on &mu; and 
 <i>&beta;<sub>k</sub></i> for chromosome 2 marker rs13476803 located at 
-138.944754 Mb.  
+138.945 Mb.  
 
 The effect of genotype RR (the &beta; for the 
 RR genotype) at marker rs13476803 is 
@@ -70,18 +70,23 @@ eff_chr19 <- scan1coef(genoprobs = probs[,chr],
 ```
 
 
-The result is a matrix of 50 positions $\times$  
-4 genotypes. An additional column contains the intercept 
-values ($\mu$).
+The result is a matrix of 50 positions $\times$ 3 genotypes.
+Additional columns contain the sex and intercept values ($\mu$).
 
 
 
 ``` r
-dim(eff_chr19)
+head(eff_chr19)
 ```
 
 ``` output
-[1] 50  5
+                BB      BR     RR SexMale intercept
+rs4232073  -0.0387 -0.0275 0.0661  -0.169      1.01
+rs13483548 -0.0386 -0.0272 0.0658  -0.168      1.01
+rs13483549 -0.0388 -0.0272 0.0660  -0.169      1.01
+rs13483550 -0.0413 -0.0275 0.0688  -0.169      1.01
+rs13483554 -0.0374 -0.0325 0.0698  -0.170      1.01
+rs13483555 -0.0367 -0.0288 0.0655  -0.170      1.01
 ```
 
 ## Plotting Founder Allele Effects Along a Chromosome
@@ -116,13 +121,13 @@ head(eff_chr19)
 ```
 
 ``` output
-                    BB          BR         RR    SexMale intercept
-rs4232073  -0.03865873 -0.02746894 0.06612767 -0.1685199  1.006903
-rs13483548 -0.03863171 -0.02717176 0.06580347 -0.1684573  1.006809
-rs13483549 -0.03880300 -0.02724439 0.06604739 -0.1685014  1.006821
-rs13483550 -0.04126745 -0.02753315 0.06880060 -0.1694105  1.006967
-rs13483554 -0.03735706 -0.03246580 0.06982286 -0.1696926  1.008581
-rs13483555 -0.03670433 -0.02876410 0.06546844 -0.1696034  1.007850
+                BB      BR     RR SexMale intercept
+rs4232073  -0.0387 -0.0275 0.0661  -0.169      1.01
+rs13483548 -0.0386 -0.0272 0.0658  -0.168      1.01
+rs13483549 -0.0388 -0.0272 0.0660  -0.169      1.01
+rs13483550 -0.0413 -0.0275 0.0688  -0.169      1.01
+rs13483554 -0.0374 -0.0325 0.0698  -0.170      1.01
+rs13483555 -0.0367 -0.0288 0.0655  -0.170      1.01
 ```
 
 We would like to plot the columns "BB", "BR", and "RR", which are in columns
@@ -226,17 +231,17 @@ peaks
 ```
 
 ``` output
-  lodindex          lodcolumn chr       pos      lod
-1        1 log10_insulin_10wk   2 138.94475 7.127351
-2        1 log10_insulin_10wk   7 144.18230 5.724018
-3        1 log10_insulin_10wk  12  25.14494 4.310493
-4        1 log10_insulin_10wk  14  22.24292 3.974322
-5        1 log10_insulin_10wk  16  80.37433 4.114024
-6        1 log10_insulin_10wk  19  54.83012 5.476587
+  lodindex          lodcolumn chr   pos  lod
+1        1 log10_insulin_10wk   2 138.9 7.13
+2        1 log10_insulin_10wk   7 144.2 5.72
+3        1 log10_insulin_10wk  12  25.1 4.31
+4        1 log10_insulin_10wk  14  22.2 3.97
+5        1 log10_insulin_10wk  16  80.4 4.11
+6        1 log10_insulin_10wk  19  54.8 5.48
 ```
 
 The position of the maximum LOD on chromosome 19 is 
-54.830124 Mb. We can pass this value into the `qtl2` 
+54.83 Mb. We can pass this value into the `qtl2` 
 function `pull_genoprobpos` to get the genoprobs at this marker.
 
 
@@ -329,6 +334,14 @@ mod = fit1(genoprobs = pr,
 ```
 
 Then, we can plot the founder allele effects and their standard error.
+
+
+:::::::::::::::::::::::::::::::::::: instructor
+
+Don't have the students type all of this. Copy and paste or show this code 
+in a web browser.
+
+:::::::::::::::::::::::::::::::::::::::::::::::
 
 
 ``` r
@@ -522,16 +535,16 @@ head(c7effB)
 ```
 
 ``` output
-                 mu           a            d    SexMale
-rs8252589  1.012384 -0.02666592 -0.003775407 -0.1753913
-rs13479104 1.008340 -0.02277092  0.004093468 -0.1751367
-rs13479112 1.005443 -0.02340984  0.009913932 -0.1750756
-rs13479114 1.004699 -0.02263568  0.011484248 -0.1750906
-rs13479120 1.005951 -0.02383153  0.008986770 -0.1752293
-rs13479124 1.008613 -0.02186058  0.003748497 -0.1751596
+             mu       a        d SexMale
+rs8252589  1.01 -0.0267 -0.00378  -0.175
+rs13479104 1.01 -0.0228  0.00409  -0.175
+rs13479112 1.01 -0.0234  0.00991  -0.175
+rs13479114 1.00 -0.0226  0.01148  -0.175
+rs13479120 1.01 -0.0238  0.00899  -0.175
+rs13479124 1.01 -0.0219  0.00375  -0.175
 ```
 
-For marker rs13479570, `mu`, `a`, and `d` are 1.0159265, -0.1114157, -0.0301737, -0.164111.
+For marker rs13479570, `mu`, `a`, and `d` are 1.016, -0.111, -0.03, -0.164.
 
 Here's a plot of the chromosome 7 additive and dominance effects, which are in 
 the second and third columns.
@@ -587,8 +600,8 @@ legend('bottomleft', lwd = 2, col = c("black", "red"),
 
 <img src="fig/est-qtl-effects-rendered-challenge6b-1.png" style="display: block; margin: auto;" />
 
-In this case, we see that the additive effect adds about 0.094389
-and the dominance effect adds about -0.1125019.
+In this case, we see that the additive effect adds about 0.094
+and the dominance effect adds about -0.113.
 
 ::::::::::::::::::::::::::::
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
