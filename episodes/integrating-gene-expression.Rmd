@@ -292,7 +292,7 @@ Let's plot the density of the SNPs to see where they fall. We would not expect
 genes which lie in regions without variation between B6 and BTBR to be involved
 in regulating insulin levels.
 
-```{r snp_density}
+```{r snp_density,fig.width=8,fig.height=6}
 # Get the SNP positions.
 pos = start(rowRanges(vcf_chr19)) / 1e6
 
@@ -446,7 +446,7 @@ The eQTL results have one row for each marker and one column for each gene.
 Each column represents the LOD plot for one gene. Let's plot the genome scan
 for one gene.
 
-```{r plot_1_eqtl}
+```{r plot_1_eqtl,fig.width=8,fig.height=6}
 gene_id <- '10002678668'
 symbol  <- annot_chr19$gene_name[annot_chr19$a_gene_id == gene_id]
 
@@ -485,7 +485,7 @@ Let's plot the insulin QTL again to remind ourselves what the peak on chromosome
 19 look like. We will also plot the genome scan for one of the genes on
 chromosome 19.
 
-```{r plot_insulin_qtl}
+```{r plot_insulin_qtl,fig.width=8,fig.height=6}
 gene_id <- "10002936879"
 symbol  <- annot_chr19$gene_name[annot_chr19$a_gene_id == gene_id]
 
@@ -529,7 +529,7 @@ lod_med = scan1(genoprobs = probs[,chr],
 Next, we will plot the original insulin genome scan and overlay the genome scan
 with gene `10002936879` in the model.
 
-```{r med_plot_10002936879}
+```{r med_plot_10002936879,fig.width=8,fig.height=6}
 plot_scan1(x    = lod_add_loco,
            map  = cross$pmap,
            chr  = '19',
@@ -583,7 +583,7 @@ lod_drop$lod_drop = lod_drop$lod - peaks_chr19$lod
 ```
 
 
-```{r plot_mediation}
+```{r plot_mediation,fig.width=8,fig.height=6}
 lod_drop <- left_join(lod_drop, annot_chr19, by = 'a_gene_id')
 
 plot(lod_drop$start, lod_drop$lod_drop, col = NA, 
