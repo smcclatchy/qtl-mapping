@@ -36,7 +36,7 @@ $\times$ genotypes $\times$ positions.
 
 ![Three-dimensional genotype probabilities array](fig/threeD_array.png){alt='Figure showing three-dimensional array of genotype probabilities (genoprobs)'}
 
-![See this page for a graphical review of data structures in R](https://devopedia.org/images/article/46/9213.1526125966.png){alt='a web page showing R data structures including one-dimensional vectors and lists, two dimensional dataframes and matrices, and n-dimensional arrays'}.  
+![A graphical review of data structures in R](https://devopedia.org/images/article/46/9213.1526125966.png){alt='a web page showing R data structures including one-dimensional vectors and lists, two dimensional dataframes and matrices, and n-dimensional arrays'}.  
 
 We'll use the
 [Attie BL6/BTBR dataset](https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip)
@@ -58,6 +58,9 @@ provides the functions that we will use for QTL analysis.
 [7] "methods"   "base"     
 ```
 
+The function `read_cross2()` has a single argument: the name (with path) of the 
+control file, or alternatively a zip file containing all the required data. We 
+read in the data with a JSON control file like this:
 
 
 ``` r
@@ -129,6 +132,29 @@ names(cross)
  [1] "crosstype"  "geno"       "gmap"       "pmap"       "pheno"     
  [6] "covar"      "is_x_chr"   "is_female"  "cross_info" "alleles"   
 ```
+
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 1
+
+1). How many mice are in this study? 
+2). How many phenotypes are there?
+3). How many markers?
+4). How many markers are on chr 11?     
+
+:::::::::::::::::::::::: solution 
+
+The output of `summary(cross)` provides this information.  
+1). There are 490 individuals in the cross.  
+2). 3 phenotypes
+3). 2,057 markers   
+4). 124 markers on chromosome 11
+
+:::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::
+
 
 Have a look at the markers listed in the genetic map, `gmap`. Markers are listed 
 by chromosome and described by cM position. View only the markers on the first 
@@ -221,98 +247,30 @@ three dimensions for chromosome 19.
 
 
 ``` r
-dimnames(probs$`19`)
+dimnames(probs$`19`)[1] %>% head()
+```
+
+``` error
+Error in dimnames(probs$`19`)[1] %>% head(): could not find function "%>%"
+```
+
+
+``` r
+dimnames(probs$`19`)[2]
 ```
 
 ``` output
 [[1]]
-  [1] "Mouse3051" "Mouse3551" "Mouse3430" "Mouse3476" "Mouse3414" "Mouse3145"
-  [7] "Mouse3656" "Mouse3242" "Mouse3427" "Mouse3527" "Mouse3281" "Mouse3405"
- [13] "Mouse3530" "Mouse3477" "Mouse3498" "Mouse3526" "Mouse3284" "Mouse3160"
- [19] "Mouse3655" "Mouse3615" "Mouse3491" "Mouse3603" "Mouse3191" "Mouse3130"
- [25] "Mouse3330" "Mouse3199" "Mouse3614" "Mouse3577" "Mouse3081" "Mouse3204"
- [31] "Mouse3513" "Mouse3219" "Mouse3331" "Mouse3301" "Mouse3503" "Mouse3083"
- [37] "Mouse3568" "Mouse3189" "Mouse3287" "Mouse3131" "Mouse3311" "Mouse3357"
- [43] "Mouse3149" "Mouse3256" "Mouse3644" "Mouse3217" "Mouse3212" "Mouse3082"
- [49] "Mouse3156" "Mouse3535" "Mouse3481" "Mouse3123" "Mouse3359" "Mouse3555"
- [55] "Mouse3597" "Mouse3624" "Mouse3314" "Mouse3128" "Mouse3531" "Mouse3295"
- [61] "Mouse3231" "Mouse3496" "Mouse3438" "Mouse3183" "Mouse3052" "Mouse3237"
- [67] "Mouse3462" "Mouse3293" "Mouse3543" "Mouse3276" "Mouse3200" "Mouse3502"
- [73] "Mouse3171" "Mouse3364" "Mouse3524" "Mouse3334" "Mouse3355" "Mouse3254"
- [79] "Mouse3358" "Mouse3468" "Mouse3192" "Mouse3214" "Mouse3536" "Mouse3606"
- [85] "Mouse3226" "Mouse3393" "Mouse3415" "Mouse3266" "Mouse3648" "Mouse3224"
- [91] "Mouse3474" "Mouse3381" "Mouse3138" "Mouse3660" "Mouse3616" "Mouse3425"
- [97] "Mouse3554" "Mouse3196" "Mouse3528" "Mouse3312" "Mouse3045" "Mouse3585"
-[103] "Mouse3471" "Mouse3308" "Mouse3628" "Mouse3429" "Mouse3324" "Mouse3124"
-[109] "Mouse3291" "Mouse3452" "Mouse3373" "Mouse3367" "Mouse3579" "Mouse3647"
-[115] "Mouse3169" "Mouse3335" "Mouse3122" "Mouse3635" "Mouse3154" "Mouse3484"
-[121] "Mouse3652" "Mouse3612" "Mouse3668" "Mouse3233" "Mouse3175" "Mouse3306"
-[127] "Mouse3046" "Mouse3663" "Mouse3165" "Mouse3519" "Mouse3592" "Mouse3127"
-[133] "Mouse3184" "Mouse3650" "Mouse3599" "Mouse3494" "Mouse3605" "Mouse3505"
-[139] "Mouse3573" "Mouse3561" "Mouse3489" "Mouse3480" "Mouse3186" "Mouse3421"
-[145] "Mouse3607" "Mouse3346" "Mouse3375" "Mouse3633" "Mouse3589" "Mouse3094"
-[151] "Mouse3611" "Mouse3307" "Mouse3133" "Mouse3152" "Mouse3518" "Mouse3209"
-[157] "Mouse3056" "Mouse3320" "Mouse3365" "Mouse3313" "Mouse3441" "Mouse3339"
-[163] "Mouse3352" "Mouse3159" "Mouse3619" "Mouse3238" "Mouse3203" "Mouse3137"
-[169] "Mouse3509" "Mouse3289" "Mouse3054" "Mouse3432" "Mouse3487" "Mouse3179"
-[175] "Mouse3572" "Mouse3285" "Mouse3466" "Mouse3252" "Mouse3517" "Mouse3546"
-[181] "Mouse3185" "Mouse3665" "Mouse3537" "Mouse3096" "Mouse3600" "Mouse3349"
-[187] "Mouse3098" "Mouse3275" "Mouse3667" "Mouse3342" "Mouse3333" "Mouse3300"
-[193] "Mouse3244" "Mouse3478" "Mouse3560" "Mouse3501" "Mouse3315" "Mouse3440"
-[199] "Mouse3669" "Mouse3486" "Mouse3632" "Mouse3319" "Mouse3453" "Mouse3172"
-[205] "Mouse3121" "Mouse3590" "Mouse3215" "Mouse3447" "Mouse3618" "Mouse3340"
-[211] "Mouse3047" "Mouse3666" "Mouse3516" "Mouse3225" "Mouse3167" "Mouse3207"
-[217] "Mouse3631" "Mouse3444" "Mouse3168" "Mouse3298" "Mouse3602" "Mouse3309"
-[223] "Mouse3416" "Mouse3260" "Mouse3146" "Mouse3374" "Mouse3144" "Mouse3485"
-[229] "Mouse3610" "Mouse3348" "Mouse3500" "Mouse3613" "Mouse3253" "Mouse3384"
-[235] "Mouse3664" "Mouse3206" "Mouse3426" "Mouse3332" "Mouse3210" "Mouse3283"
-[241] "Mouse3670" "Mouse3120" "Mouse3274" "Mouse3461" "Mouse3202" "Mouse3472"
-[247] "Mouse3437" "Mouse3434" "Mouse3593" "Mouse3055" "Mouse3234" "Mouse3422"
-[253] "Mouse3571" "Mouse3236" "Mouse3049" "Mouse3350" "Mouse3249" "Mouse3326"
-[259] "Mouse3134" "Mouse3143" "Mouse3493" "Mouse3361" "Mouse3636" "Mouse3436"
-[265] "Mouse3510" "Mouse3117" "Mouse3601" "Mouse3303" "Mouse3497" "Mouse3544"
-[271] "Mouse3463" "Mouse3118" "Mouse3354" "Mouse3162" "Mouse3464" "Mouse3181"
-[277] "Mouse3188" "Mouse3356" "Mouse3521" "Mouse3591" "Mouse3241" "Mouse3467"
-[283] "Mouse3469" "Mouse3262" "Mouse3643" "Mouse3548" "Mouse3372" "Mouse3542"
-[289] "Mouse3563" "Mouse3583" "Mouse3584" "Mouse3208" "Mouse3661" "Mouse3659"
-[295] "Mouse3195" "Mouse3459" "Mouse3653" "Mouse3649" "Mouse3382" "Mouse3180"
-[301] "Mouse3386" "Mouse3084" "Mouse3205" "Mouse3299" "Mouse3515" "Mouse3540"
-[307] "Mouse3255" "Mouse3177" "Mouse3523" "Mouse3366" "Mouse3567" "Mouse3557"
-[313] "Mouse3114" "Mouse3623" "Mouse3419" "Mouse3580" "Mouse3271" "Mouse3385"
-[319] "Mouse3492" "Mouse3119" "Mouse3232" "Mouse3598" "Mouse3150" "Mouse3310"
-[325] "Mouse3164" "Mouse3587" "Mouse3050" "Mouse3627" "Mouse3506" "Mouse3413"
-[331] "Mouse3435" "Mouse3151" "Mouse3112" "Mouse3630" "Mouse3646" "Mouse3223"
-[337] "Mouse3187" "Mouse3263" "Mouse3637" "Mouse3662" "Mouse3508" "Mouse3550"
-[343] "Mouse3125" "Mouse3545" "Mouse3570" "Mouse3641" "Mouse3136" "Mouse3626"
-[349] "Mouse3166" "Mouse3269" "Mouse3529" "Mouse3218" "Mouse3625" "Mouse3448"
-[355] "Mouse3378" "Mouse3227" "Mouse3651" "Mouse3182" "Mouse3304" "Mouse3617"
-[361] "Mouse3141" "Mouse3552" "Mouse3479" "Mouse3658" "Mouse3539" "Mouse3190"
-[367] "Mouse3093" "Mouse3097" "Mouse3126" "Mouse3170" "Mouse3229" "Mouse3520"
-[373] "Mouse3582" "Mouse3351" "Mouse3129" "Mouse3153" "Mouse3450" "Mouse3113"
-[379] "Mouse3586" "Mouse3549" "Mouse3538" "Mouse3201" "Mouse3556" "Mouse3247"
-[385] "Mouse3455" "Mouse3176" "Mouse3344" "Mouse3343" "Mouse3439" "Mouse3629"
-[391] "Mouse3286" "Mouse3216" "Mouse3588" "Mouse3488" "Mouse3221" "Mouse3142"
-[397] "Mouse3428" "Mouse3111" "Mouse3353" "Mouse3211" "Mouse3569" "Mouse3280"
-[403] "Mouse3325" "Mouse3368" "Mouse3553" "Mouse3245" "Mouse3228" "Mouse3135"
-[409] "Mouse3622" "Mouse3095" "Mouse3369" "Mouse3609" "Mouse3410" "Mouse3302"
-[415] "Mouse3594" "Mouse3483" "Mouse3197" "Mouse3336" "Mouse3507" "Mouse3305"
-[421] "Mouse3532" "Mouse3250" "Mouse3194" "Mouse3449" "Mouse3178" "Mouse3198"
-[427] "Mouse3620" "Mouse3596" "Mouse3638" "Mouse3222" "Mouse3147" "Mouse3163"
-[433] "Mouse3273" "Mouse3473" "Mouse3578" "Mouse3465" "Mouse3279" "Mouse3558"
-[439] "Mouse3443" "Mouse3490" "Mouse3460" "Mouse3248" "Mouse3243" "Mouse3431"
-[445] "Mouse3564" "Mouse3347" "Mouse3565" "Mouse3525" "Mouse3574" "Mouse3329"
-[451] "Mouse3140" "Mouse3257" "Mouse3328" "Mouse3193" "Mouse3132" "Mouse3220"
-[457] "Mouse3235" "Mouse3499" "Mouse3246" "Mouse3270" "Mouse3608" "Mouse3442"
-[463] "Mouse3157" "Mouse3642" "Mouse3566" "Mouse3139" "Mouse3282" "Mouse3053"
-[469] "Mouse3454" "Mouse3363" "Mouse3213" "Mouse3654" "Mouse3514" "Mouse3341"
-[475] "Mouse3401" "Mouse3388" "Mouse3604" "Mouse3161" "Mouse3451" "Mouse3634"
-[481] "Mouse3482" "Mouse3559" "Mouse3645" "Mouse3264" "Mouse3155" "Mouse3251"
-[487] "Mouse3297" "Mouse3541" "Mouse3158" "Mouse3294"
-
-[[2]]
 [1] "BB" "BR" "RR"
+```
 
-[[3]]
+
+``` r
+dimnames(probs$`19`)[3]
+```
+
+``` output
+[[1]]
  [1] "rs4232073"  "rs13483548" "rs13483549" "rs13483550" "rs13483554"
  [6] "rs13483555" "rs3090321"  "rs3090137"  "rs6309315"  "rs13483577"
 [11] "rs3090325"  "rs13483579" "rs13483584" "rs13483586" "rs13483587"
@@ -330,7 +288,7 @@ marker on chromosome 19.
 
 
 ``` r
-(probs$`19`)[1:5,,"rs4232073"]
+(probs$`19`)[1:5, , "rs4232073"]
 ```
 
 ``` output
@@ -369,80 +327,46 @@ of the chromosome and transitions to BR.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 1
+## Challenge 2
 
-<!-- DMG: Not sure about this. I'd rather plot more samples or chromosomes. -->
+1). Load a second dataset from the 
+[qtl2data repository](https://github.com/rqtl/qtl2data). Locate the
+[BXD directory](https://github.com/rqtl/qtl2data/tree/main/BXD) and load the
+data directly from the web using this code given at the bottom of the 
+`ReadMe.md` file.  
 
-1). Load a second dataset from Arabidopsis recombinant inbred lines 
-([Moore et al, Genetics, 2013](https://www.genetics.org/content/195/3/1077)) 
-in a study of plant root response to gravity (gravitropism).  
+`file <- paste0("https://raw.githubusercontent.com/rqtl/", "qtl2data/main/BXD/bxd.zip")`. 
+`bxd <- read_cross2(file)`  
 
-`grav <- read_cross2(file = system.file('extdata', 'grav2.zip', package = 'qtl2'))`  
 2). How many individuals were in the study? How many phenotypes? 
-How many chromosomes?  
-3). Insert pseudomarkers at 1cM intervals and save the results 
+How many markers?  
 to an object called `gravmap`. Have a look at the first chromosome.  
-4). Calculate genotype probabilities and save the results to an object 
-called `gravpr`. View the genotypes for the first three markers and 
-pseudomarkers on chromosome 1 for the first five individuals.   
+3). Calculate genotype probabilities and save the results to an object 
+called `bxdpr`. View the genotypes for the first three markers on chromosome 1 
+for the first five individuals.   
 
 :::::::::::::::::::::::: solution 
 
-1). `grav <- read_cross2(file = system.file('extdata', 'grav2.zip', package = 'qtl2'))`  
-2). `summary(grav)`   
-3). `gravmap <- insert_pseudomarkers(map = grav$gmap, step = 1)`  
-followed by `head(gravmap, n=1)`   
-4). `gravpr  <- calc_genoprob(cross = grav, map = gravmap)` followed by  
-`(gravpr$``1``)[1:5,,"PVV4"]`, `(gravpr$`1`)[1:5,,"c1.loc1"]`, and  
-`(gravpr$`1`)[1:5,,"c1.loc2"]`
-
-<!-- DMG: What about this? -->
-
-
-``` r
-m  = maxmarg(probs)
-ph = guess_phase(cross, m)
-plot_onegeno(ph, cross$pmap)
-```
-
-<img src="fig/calc-genoprob-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" />
+1). `file <- paste0("https://raw.githubusercontent.com/rqtl/", "qtl2data/main/BXD/bxd.zip")`. 
+`bxd <- read_cross2(file)`    
+2). `summary(bxd)` gives 198 individuals, 5,806 phenotypes and 7,320 markers.     
+3). `bxdpr  <- calc_genoprob(cross = bxd, map = bxd$gmap)` followed by  
+`(bxdpr$`1`)[1:5, , 1:3]`
 
 :::::::::::::::::::::::::::::::::
 
 
-## Challenge 2
+## Challenge 3
 
-Calculate genotype probabilities for a different data set from the 
-[qtl2 data repository](https://github.com/rqtl/qtl2data), this one from a study 
-of obesity and diabetes in a C57BL/6 (B6) × BTBR intercross.   
-1). Create a new script in RStudio with File -> New File -> R Script.  
-2)  Download the B6 x BTBR zip file from the 
-[qtl2 data repository](https://github.com/rqtl/qtl2data) into an object 
-called `b6btbr` by running this code:  
-`b6btbr <- read_cross2(file = "https://raw.githubusercontent.com/rqtl/qtl2data/master/B6BTBR/b6btbr.zip")`  
-3). View a summary of the `b6btbr` data. How many individuals? phenotypes? 
-chromosomes? markers?  
-4). View the genetic map for the `b6btbr` data.  
-5). Insert pseudomarkers at 2 cM intervals. Assign the results to an object 
-called `b6btbrmap`.    
-6). Calculate genotype probabilities assuming a genotyping error probability 
-of 0.001. Assign the results to an object called `b6btbrpr`.    
-7). View the first several rows of genotype probabilities for any marker on 
-chromosome 18.  
+Plot the genotype probabilities for individual number 3 for chromosome 1.
 
 :::::::::::::::::::::::: solution 
 
-1). Create a new script in RStudio with File -> New File -> R Script.  
-2). `b6btbr <- read_cross2(file = "https://raw.githubusercontent.com/rqtl/qtl2data/master/B6BTBR/b6btbr.zip`  
-3). `summary(b6btbr)` shows 544 individuals, 3 phenotypes, 20 chromosomes, 
-2057 markers.  
-4). `b6btbr$gmap`  
-5). `b6btbrmap <- insert_pseudomarkers(map=b6btbr$gmap, step=2)`  
-6). `b6btbrpr <- calc_genoprob(cross=b6btbr, map=b6btbrmap, error_prob=0.001)`  
-7). `dimnames((b6btbrpr$`18`))` shows all marker names for chromosome 18. 
-`head((b6btbrpr$`18`)[,,"c18.loc48"])` gives genotype probabilities for an 
-example pseudomarker, while `head((b6btbrpr$`18`)[,,"rs6338896"])`  gives 
-genotype probabilities for a genotyped marker.
+`plot_genoprob(probs = bxdpr,  
+               map   = bxd$pmap,   
+               ind   = 3,  
+               chr   = 1,  
+               main  = rownames(bxdpr[['1']])[3])`
 
 :::::::::::::::::::::::::::::::::
 
@@ -471,19 +395,6 @@ probabilities to allele probabilities, using the function
 ``` r
 apr <- genoprob_to_alleleprob(probs = probs)
 ```
-
-The figure below shows genotype and allele probabilities for 3 samples. In the 
-Diversity Outbred, there are 36 possible genotype states 
-(AA, AB, AC, ..., BB, BC, BD, ..., CC, CD, CE, ..., DD, DE, DF, ..., EE,...) or 
-8 + 7 + 6 + 5 + 4 + 3 + 2 + 1. The first SNP below has genotype BB. In the table 
-describing alleles (8 state founder probabilities), the probability that this 
-SNP has a B allele is 1. The 2nd SNP has genotype BH, so the allele table shows 
-a probability of 0.5 for B and 0.5 for H. The third SNP is either BG or BH, and 
-has a probability of 0.5 for each of these genotypes. The allele table shows a 
-probability of 0.5 for allele B, and 0.25 for both G and H.
-
-![Genotype and allele probabilities](fig/geno-to-allele-probs.png){alt='a table showing the probabilities for each of 36 genotypes in the Diversity Outbred followed by a second table showing probabilities for each of the 8 founder alleles'}
-
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 

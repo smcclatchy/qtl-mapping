@@ -53,6 +53,18 @@ marrow.
 
 ![Benzene Study Dosing](fig/benzene_study_design.png){alt='Benzene study dosing showing 6 hours per day, 5 days per week of inhalation.',width='100%'}
 
+The figure below shows genotype and allele probabilities for 3 samples. In the 
+Diversity Outbred, there are 36 possible genotype states 
+(AA, AB, AC, ..., BB, BC, BD, ..., CC, CD, CE, ..., DD, DE, DF, ..., EE,...) or 
+8 + 7 + 6 + 5 + 4 + 3 + 2 + 1. The first SNP below has genotype BB. In the table 
+describing alleles (8 state founder probabilities), the probability that this 
+SNP has a B allele is 1. The 2nd SNP has genotype BH, so the allele table shows 
+a probability of 0.5 for B and 0.5 for H. The third SNP is either BG or BH, and 
+has a probability of 0.5 for each of these genotypes. The allele table shows a 
+probability of 0.5 for allele B, and 0.25 for both G and H.
+
+![Genotype and allele probabilities](fig/geno-to-allele-probs.png){alt='a table showing the probabilities for each of 36 genotypes in the Diversity Outbred followed by a second table showing probabilities for each of the 8 founder alleles'}
+
 ## DO Reference Data
 
 As you work with DO data, you may need different reference files. These are
@@ -867,7 +879,7 @@ summary(perms)
 ``` output
 LOD thresholds (100 permutations)
      log_mnret
-0.05      7.45
+0.05      7.32
 ```
 
 Note that this summary function returns the 95th percentile value of the LOD
