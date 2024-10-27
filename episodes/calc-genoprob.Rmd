@@ -102,18 +102,18 @@ names(cross)
 
 ## Challenge 1
 
-1). How many mice are in this study? 
-2). How many phenotypes are there?
-3). How many markers?
+1). How many mice are in this study?  
+2). How many phenotypes are there?    
+3). How many markers?   
 4). How many markers are on chr 11?     
 
 :::::::::::::::::::::::: solution 
 
 The output of `summary(cross)` provides this information.  
 1). There are 490 individuals in the cross.  
-2). 3 phenotypes
-3). 2,057 markers   
-4). 124 markers on chromosome 11
+2). 3 phenotypes. 
+3). 2,057 markers     
+4). 124 markers on chromosome 11. 
 
 :::::::::::::::::::::::::::::::::
 
@@ -152,7 +152,7 @@ $\times$ genotypes $\times$ positions. Have a look at the names of each of the
 three dimensions for chromosome 19.
 
 ```{r view_array1}
-dimnames(probs$`19`)[1] %>% head()
+head(dimnames(probs$`19`)[1])
 ```
 
 ```{r view_array2}
@@ -203,18 +203,19 @@ data directly from the web using this code given at the bottom of the
 `ReadMe.md` file.  
 
 `file <- paste0("https://raw.githubusercontent.com/rqtl/", "qtl2data/main/BXD/bxd.zip")`. 
+
 `bxd <- read_cross2(file)`  
 
 2). How many individuals were in the study? How many phenotypes? 
 How many markers?  
-to an object called `gravmap`. Have a look at the first chromosome.  
+  
 3). Calculate genotype probabilities and save the results to an object 
 called `bxdpr`. View the genotypes for the first three markers on chromosome 1 
 for the first five individuals.   
 
 :::::::::::::::::::::::: solution 
 
-1). `file <- paste0("https://raw.githubusercontent.com/rqtl/", "qtl2data/main/BXD/bxd.zip")`. 
+1). `file <- paste0("https://raw.githubusercontent.com/rqtl/", "qtl2data/main/BXD/bxd.zip")`.      
 `bxd <- read_cross2(file)`    
 2). `summary(bxd)` gives 198 individuals, 5,806 phenotypes and 7,320 markers.     
 3). `bxdpr  <- calc_genoprob(cross = bxd, map = bxd$gmap)` followed by  
@@ -248,7 +249,10 @@ datasets on a multi-core machine, you can use the argument `cores`. With
 integer.
 
 ```{r calc_genoprob_multicore, eval=FALSE}
-probs <- calc_genoprob(cross = iron, map = map, error_prob = 0.002, cores = 4)
+probs <- calc_genoprob(cross = iron, 
+                         map = map, 
+                  error_prob = 0.002, 
+                       cores = 4)
 ```
 
 **Allele probabilities (optional)** The genome scan functions use genotype 
