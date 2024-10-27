@@ -442,7 +442,7 @@
         
 <section id="aio-intro_data_set"><p>Content from <a href="intro_data_set.html">Introduction to the Data Set</a></p>
 <hr>
-<p>Last updated on 2024-10-25 |
+<p>Last updated on 2024-10-27 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/intro_data_set.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 35 minutes</p>
@@ -532,7 +532,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-input-file-format"><p>Content from <a href="input-file-format.html">Input File Format</a></p>
 <hr>
-<p>Last updated on 2024-10-25 |
+<p>Last updated on 2024-10-27 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/input-file-format.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 45 minutes</p>
@@ -656,7 +656,7 @@ on the input file format</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>marker genotypes, phenotypes, genetic map</li>
@@ -704,7 +704,7 @@ of information does this file contain?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 <p>1). What is in the first column of the phenotype file? Animal ID. The
 first row? Phenotype variable names - OF_distance_first4, OF_distance,
@@ -757,7 +757,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-calc-genoprob"><p>Content from <a href="calc-genoprob.html">Calculating Genotype Probabilities</a></p>
 <hr>
-<p>Last updated on 2024-10-25 |
+<p>Last updated on 2024-10-27 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/calc-genoprob.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 60 minutes</p>
@@ -827,6 +827,10 @@ functions that we will use for QTL analysis.</p>
 <pre class="output" tabindex="0"><code>[1] "qtl2"      "stats"     "graphics"  "grDevices" "utils"     "datasets"
 [7] "methods"   "base"     </code></pre>
 </div>
+<p>The function <code>read_cross2()</code> has a single argument: the
+name (with path) of the control file, or alternatively a zip file
+containing all the required data. We read in the data with a JSON
+control file like this:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -906,6 +910,34 @@ No. markers by chr:
 </h3>
 <pre class="output" tabindex="0"><code> [1] "crosstype"  "geno"       "gmap"       "pmap"       "pheno"
  [6] "covar"      "is_x_chr"   "is_female"  "cross_info" "alleles"   </code></pre>
+</div>
+<div id="challenge-1" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-1" class="callout-inner">
+<h3 class="callout-title">Challenge 1</h3>
+<div class="callout-content">
+<p>1). How many mice are in this study? 2). How many phenotypes are
+there? 3). How many markers? 4). How many markers are on chr 11?</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
+  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
+</button>
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div class="accordion-body">
+<p>The output of <code>summary(cross)</code> provides this
+information.<br>
+1). There are 490 individuals in the cross.<br>
+2). 3 phenotypes 3). 2,057 markers<br>
+4). 124 markers on chromosome 11</p>
+</div>
+</div>
+</div>
 </div>
 <p>Have a look at the markers listed in the genetic map,
 <code>gmap</code>. Markers are listed by chromosome and described by cM
@@ -1002,99 +1034,35 @@ names of each of the three dimensions for chromosome 19.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">dimnames</span><span class="op">(</span><span class="va">probs</span><span class="op">$</span><span class="va">`19`</span><span class="op">)</span></span></code></pre>
+<code class="sourceCode R"><span><span class="fu">dimnames</span><span class="op">(</span><span class="va">probs</span><span class="op">$</span><span class="va">`19`</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">%&gt;%</span> <span class="fu">head</span><span class="op">(</span><span class="op">)</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">ERROR<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="error" tabindex="0"><code>Error in dimnames(probs$`19`)[1] %&gt;% head(): could not find function "%&gt;%"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb17">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">dimnames</span><span class="op">(</span><span class="va">probs</span><span class="op">$</span><span class="va">`19`</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="output" tabindex="0"><code>[[1]]
-  [1] "Mouse3051" "Mouse3551" "Mouse3430" "Mouse3476" "Mouse3414" "Mouse3145"
-  [7] "Mouse3656" "Mouse3242" "Mouse3427" "Mouse3527" "Mouse3281" "Mouse3405"
- [13] "Mouse3530" "Mouse3477" "Mouse3498" "Mouse3526" "Mouse3284" "Mouse3160"
- [19] "Mouse3655" "Mouse3615" "Mouse3491" "Mouse3603" "Mouse3191" "Mouse3130"
- [25] "Mouse3330" "Mouse3199" "Mouse3614" "Mouse3577" "Mouse3081" "Mouse3204"
- [31] "Mouse3513" "Mouse3219" "Mouse3331" "Mouse3301" "Mouse3503" "Mouse3083"
- [37] "Mouse3568" "Mouse3189" "Mouse3287" "Mouse3131" "Mouse3311" "Mouse3357"
- [43] "Mouse3149" "Mouse3256" "Mouse3644" "Mouse3217" "Mouse3212" "Mouse3082"
- [49] "Mouse3156" "Mouse3535" "Mouse3481" "Mouse3123" "Mouse3359" "Mouse3555"
- [55] "Mouse3597" "Mouse3624" "Mouse3314" "Mouse3128" "Mouse3531" "Mouse3295"
- [61] "Mouse3231" "Mouse3496" "Mouse3438" "Mouse3183" "Mouse3052" "Mouse3237"
- [67] "Mouse3462" "Mouse3293" "Mouse3543" "Mouse3276" "Mouse3200" "Mouse3502"
- [73] "Mouse3171" "Mouse3364" "Mouse3524" "Mouse3334" "Mouse3355" "Mouse3254"
- [79] "Mouse3358" "Mouse3468" "Mouse3192" "Mouse3214" "Mouse3536" "Mouse3606"
- [85] "Mouse3226" "Mouse3393" "Mouse3415" "Mouse3266" "Mouse3648" "Mouse3224"
- [91] "Mouse3474" "Mouse3381" "Mouse3138" "Mouse3660" "Mouse3616" "Mouse3425"
- [97] "Mouse3554" "Mouse3196" "Mouse3528" "Mouse3312" "Mouse3045" "Mouse3585"
-[103] "Mouse3471" "Mouse3308" "Mouse3628" "Mouse3429" "Mouse3324" "Mouse3124"
-[109] "Mouse3291" "Mouse3452" "Mouse3373" "Mouse3367" "Mouse3579" "Mouse3647"
-[115] "Mouse3169" "Mouse3335" "Mouse3122" "Mouse3635" "Mouse3154" "Mouse3484"
-[121] "Mouse3652" "Mouse3612" "Mouse3668" "Mouse3233" "Mouse3175" "Mouse3306"
-[127] "Mouse3046" "Mouse3663" "Mouse3165" "Mouse3519" "Mouse3592" "Mouse3127"
-[133] "Mouse3184" "Mouse3650" "Mouse3599" "Mouse3494" "Mouse3605" "Mouse3505"
-[139] "Mouse3573" "Mouse3561" "Mouse3489" "Mouse3480" "Mouse3186" "Mouse3421"
-[145] "Mouse3607" "Mouse3346" "Mouse3375" "Mouse3633" "Mouse3589" "Mouse3094"
-[151] "Mouse3611" "Mouse3307" "Mouse3133" "Mouse3152" "Mouse3518" "Mouse3209"
-[157] "Mouse3056" "Mouse3320" "Mouse3365" "Mouse3313" "Mouse3441" "Mouse3339"
-[163] "Mouse3352" "Mouse3159" "Mouse3619" "Mouse3238" "Mouse3203" "Mouse3137"
-[169] "Mouse3509" "Mouse3289" "Mouse3054" "Mouse3432" "Mouse3487" "Mouse3179"
-[175] "Mouse3572" "Mouse3285" "Mouse3466" "Mouse3252" "Mouse3517" "Mouse3546"
-[181] "Mouse3185" "Mouse3665" "Mouse3537" "Mouse3096" "Mouse3600" "Mouse3349"
-[187] "Mouse3098" "Mouse3275" "Mouse3667" "Mouse3342" "Mouse3333" "Mouse3300"
-[193] "Mouse3244" "Mouse3478" "Mouse3560" "Mouse3501" "Mouse3315" "Mouse3440"
-[199] "Mouse3669" "Mouse3486" "Mouse3632" "Mouse3319" "Mouse3453" "Mouse3172"
-[205] "Mouse3121" "Mouse3590" "Mouse3215" "Mouse3447" "Mouse3618" "Mouse3340"
-[211] "Mouse3047" "Mouse3666" "Mouse3516" "Mouse3225" "Mouse3167" "Mouse3207"
-[217] "Mouse3631" "Mouse3444" "Mouse3168" "Mouse3298" "Mouse3602" "Mouse3309"
-[223] "Mouse3416" "Mouse3260" "Mouse3146" "Mouse3374" "Mouse3144" "Mouse3485"
-[229] "Mouse3610" "Mouse3348" "Mouse3500" "Mouse3613" "Mouse3253" "Mouse3384"
-[235] "Mouse3664" "Mouse3206" "Mouse3426" "Mouse3332" "Mouse3210" "Mouse3283"
-[241] "Mouse3670" "Mouse3120" "Mouse3274" "Mouse3461" "Mouse3202" "Mouse3472"
-[247] "Mouse3437" "Mouse3434" "Mouse3593" "Mouse3055" "Mouse3234" "Mouse3422"
-[253] "Mouse3571" "Mouse3236" "Mouse3049" "Mouse3350" "Mouse3249" "Mouse3326"
-[259] "Mouse3134" "Mouse3143" "Mouse3493" "Mouse3361" "Mouse3636" "Mouse3436"
-[265] "Mouse3510" "Mouse3117" "Mouse3601" "Mouse3303" "Mouse3497" "Mouse3544"
-[271] "Mouse3463" "Mouse3118" "Mouse3354" "Mouse3162" "Mouse3464" "Mouse3181"
-[277] "Mouse3188" "Mouse3356" "Mouse3521" "Mouse3591" "Mouse3241" "Mouse3467"
-[283] "Mouse3469" "Mouse3262" "Mouse3643" "Mouse3548" "Mouse3372" "Mouse3542"
-[289] "Mouse3563" "Mouse3583" "Mouse3584" "Mouse3208" "Mouse3661" "Mouse3659"
-[295] "Mouse3195" "Mouse3459" "Mouse3653" "Mouse3649" "Mouse3382" "Mouse3180"
-[301] "Mouse3386" "Mouse3084" "Mouse3205" "Mouse3299" "Mouse3515" "Mouse3540"
-[307] "Mouse3255" "Mouse3177" "Mouse3523" "Mouse3366" "Mouse3567" "Mouse3557"
-[313] "Mouse3114" "Mouse3623" "Mouse3419" "Mouse3580" "Mouse3271" "Mouse3385"
-[319] "Mouse3492" "Mouse3119" "Mouse3232" "Mouse3598" "Mouse3150" "Mouse3310"
-[325] "Mouse3164" "Mouse3587" "Mouse3050" "Mouse3627" "Mouse3506" "Mouse3413"
-[331] "Mouse3435" "Mouse3151" "Mouse3112" "Mouse3630" "Mouse3646" "Mouse3223"
-[337] "Mouse3187" "Mouse3263" "Mouse3637" "Mouse3662" "Mouse3508" "Mouse3550"
-[343] "Mouse3125" "Mouse3545" "Mouse3570" "Mouse3641" "Mouse3136" "Mouse3626"
-[349] "Mouse3166" "Mouse3269" "Mouse3529" "Mouse3218" "Mouse3625" "Mouse3448"
-[355] "Mouse3378" "Mouse3227" "Mouse3651" "Mouse3182" "Mouse3304" "Mouse3617"
-[361] "Mouse3141" "Mouse3552" "Mouse3479" "Mouse3658" "Mouse3539" "Mouse3190"
-[367] "Mouse3093" "Mouse3097" "Mouse3126" "Mouse3170" "Mouse3229" "Mouse3520"
-[373] "Mouse3582" "Mouse3351" "Mouse3129" "Mouse3153" "Mouse3450" "Mouse3113"
-[379] "Mouse3586" "Mouse3549" "Mouse3538" "Mouse3201" "Mouse3556" "Mouse3247"
-[385] "Mouse3455" "Mouse3176" "Mouse3344" "Mouse3343" "Mouse3439" "Mouse3629"
-[391] "Mouse3286" "Mouse3216" "Mouse3588" "Mouse3488" "Mouse3221" "Mouse3142"
-[397] "Mouse3428" "Mouse3111" "Mouse3353" "Mouse3211" "Mouse3569" "Mouse3280"
-[403] "Mouse3325" "Mouse3368" "Mouse3553" "Mouse3245" "Mouse3228" "Mouse3135"
-[409] "Mouse3622" "Mouse3095" "Mouse3369" "Mouse3609" "Mouse3410" "Mouse3302"
-[415] "Mouse3594" "Mouse3483" "Mouse3197" "Mouse3336" "Mouse3507" "Mouse3305"
-[421] "Mouse3532" "Mouse3250" "Mouse3194" "Mouse3449" "Mouse3178" "Mouse3198"
-[427] "Mouse3620" "Mouse3596" "Mouse3638" "Mouse3222" "Mouse3147" "Mouse3163"
-[433] "Mouse3273" "Mouse3473" "Mouse3578" "Mouse3465" "Mouse3279" "Mouse3558"
-[439] "Mouse3443" "Mouse3490" "Mouse3460" "Mouse3248" "Mouse3243" "Mouse3431"
-[445] "Mouse3564" "Mouse3347" "Mouse3565" "Mouse3525" "Mouse3574" "Mouse3329"
-[451] "Mouse3140" "Mouse3257" "Mouse3328" "Mouse3193" "Mouse3132" "Mouse3220"
-[457] "Mouse3235" "Mouse3499" "Mouse3246" "Mouse3270" "Mouse3608" "Mouse3442"
-[463] "Mouse3157" "Mouse3642" "Mouse3566" "Mouse3139" "Mouse3282" "Mouse3053"
-[469] "Mouse3454" "Mouse3363" "Mouse3213" "Mouse3654" "Mouse3514" "Mouse3341"
-[475] "Mouse3401" "Mouse3388" "Mouse3604" "Mouse3161" "Mouse3451" "Mouse3634"
-[481] "Mouse3482" "Mouse3559" "Mouse3645" "Mouse3264" "Mouse3155" "Mouse3251"
-[487] "Mouse3297" "Mouse3541" "Mouse3158" "Mouse3294"
-
-[[2]]
-[1] "BB" "BR" "RR"
-
-[[3]]
+[1] "BB" "BR" "RR"</code></pre>
+</div>
+<div class="codewrapper sourceCode" id="cb19">
+<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">dimnames</span><span class="op">(</span><span class="va">probs</span><span class="op">$</span><span class="va">`19`</span><span class="op">)</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span></span></code></pre>
+</div>
+<div class="codewrapper">
+<h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
+</h3>
+<pre class="output" tabindex="0"><code>[[1]]
  [1] "rs4232073"  "rs13483548" "rs13483549" "rs13483550" "rs13483554"
  [6] "rs13483555" "rs3090321"  "rs3090137"  "rs6309315"  "rs13483577"
 [11] "rs3090325"  "rs13483579" "rs13483584" "rs13483586" "rs13483587"
@@ -1108,11 +1076,11 @@ names of each of the three dimensions for chromosome 19.</p>
 </div>
 <p>View the first three rows of genotype probabilities for the first
 genotyped marker on chromosome 19.</p>
-<div class="codewrapper sourceCode" id="cb17">
+<div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="op">(</span><span class="va">probs</span><span class="op">$</span><span class="va">`19`</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,,<span class="st">"rs4232073"</span><span class="op">]</span></span></code></pre>
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">probs</span><span class="op">$</span><span class="va">`19`</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, , <span class="st">"rs4232073"</span><span class="op">]</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1136,7 +1104,7 @@ The arguments to this function specify:</p>
 <li>
 <code>chr</code>: the index of the chromosome to plot.</li>
 </ol>
-<div class="codewrapper sourceCode" id="cb19">
+<div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1150,62 +1118,6 @@ The arguments to this function specify:</p>
 and the three genotypes are shown on the vertical axis. Higher genotype
 probabilities are plotted in darker shades. This mouse has a RR genotype
 on the proximal end of the chromosome and transitions to BR.</p>
-<div id="challenge-1" class="callout challenge">
-<div class="callout-square">
-<i class="callout-icon" data-feather="zap"></i>
-</div>
-<div id="challenge-1" class="callout-inner">
-<h3 class="callout-title">Challenge 1</h3>
-<div class="callout-content">
-<!-- DMG: Not sure about this. I'd rather plot more samples or chromosomes. -->
-<p>1). Load a second dataset from Arabidopsis recombinant inbred lines
-(<a href="https://www.genetics.org/content/195/3/1077" class="external-link">Moore et al,
-Genetics, 2013</a>) in a study of plant root response to gravity
-(gravitropism).</p>
-<p><code>grav &lt;- read_cross2(file = system.file('extdata', 'grav2.zip', package = 'qtl2'))</code><br>
-2). How many individuals were in the study? How many phenotypes? How
-many chromosomes?<br>
-3). Insert pseudomarkers at 1cM intervals and save the results to an
-object called <code>gravmap</code>. Have a look at the first
-chromosome.<br>
-4). Calculate genotype probabilities and save the results to an object
-called <code>gravpr</code>. View the genotypes for the first three
-markers and pseudomarkers on chromosome 1 for the first five
-individuals.</p>
-</div>
-</div>
-</div>
-<div id="accordionSolution1" class="accordion challenge-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
-  <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
-</button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
-<div class="accordion-body">
-<p>1).
-<code>grav &lt;- read_cross2(file = system.file('extdata', 'grav2.zip', package = 'qtl2'))</code><br>
-2). <code>summary(grav)</code><br>
-3).
-<code>gravmap &lt;- insert_pseudomarkers(map = grav$gmap, step = 1)</code><br>
-followed by <code>head(gravmap, n=1)</code><br>
-4).
-<code>gravpr  &lt;- calc_genoprob(cross = grav, map = gravmap)</code>
-followed by<br><code>(gravpr$``1``)[1:5,,"PVV4"]</code>,
-<code>(gravpr$</code>1<code>)[1:5,,"c1.loc1"]</code>, and<br><code>(gravpr$</code>1<code>)[1:5,,"c1.loc2"]</code></p>
-<!-- DMG: What about this? -->
-<div class="codewrapper sourceCode" id="cb20">
-<h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">m</span>  <span class="op">=</span> <span class="fu">maxmarg</span><span class="op">(</span><span class="va">probs</span><span class="op">)</span></span>
-<span><span class="va">ph</span> <span class="op">=</span> <span class="fu">guess_phase</span><span class="op">(</span><span class="va">cross</span>, <span class="va">m</span><span class="op">)</span></span>
-<span><span class="fu">plot_onegeno</span><span class="op">(</span><span class="va">ph</span>, <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span><span class="op">)</span></span></code></pre>
-</div>
-<figure><img src="../fig/calc-genoprob-rendered-unnamed-chunk-1-1.png" style="display: block; margin: auto;" class="figure mx-auto d-block"></figure>
-</div>
-</div>
-</div>
-</div>
 <div id="challenge-2" class="callout challenge">
 <div class="callout-square">
 <i class="callout-icon" data-feather="zap"></i>
@@ -1213,23 +1125,19 @@ followed by<br><code>(gravpr$``1``)[1:5,,"PVV4"]</code>,
 <div id="challenge-2" class="callout-inner">
 <h3 class="callout-title">Challenge 2</h3>
 <div class="callout-content">
-<p>Calculate genotype probabilities for a different data set from the <a href="https://github.com/rqtl/qtl2data" class="external-link">qtl2 data repository</a>, this
-one from a study of obesity and diabetes in a C57BL/6 (B6) × BTBR
-intercross.<br>
-1). Create a new script in RStudio with File -&gt; New File -&gt; R
-Script.<br>
-2) Download the B6 x BTBR zip file from the <a href="https://github.com/rqtl/qtl2data" class="external-link">qtl2 data repository</a> into an
-object called <code>b6btbr</code> by running this code:<br><code>b6btbr &lt;- read_cross2(file = "https://raw.githubusercontent.com/rqtl/qtl2data/master/B6BTBR/b6btbr.zip")</code><br>
-3). View a summary of the <code>b6btbr</code> data. How many
-individuals? phenotypes? chromosomes? markers?<br>
-4). View the genetic map for the <code>b6btbr</code> data.<br>
-5). Insert pseudomarkers at 2 cM intervals. Assign the results to an
-object called <code>b6btbrmap</code>.<br>
-6). Calculate genotype probabilities assuming a genotyping error
-probability of 0.001. Assign the results to an object called
-<code>b6btbrpr</code>.<br>
-7). View the first several rows of genotype probabilities for any marker
-on chromosome 18.</p>
+<p>1). Load a second dataset from the <a href="https://github.com/rqtl/qtl2data" class="external-link">qtl2data repository</a>. Locate
+the <a href="https://github.com/rqtl/qtl2data/tree/main/BXD" class="external-link">BXD
+directory</a> and load the data directly from the web using this code
+given at the bottom of the <code>ReadMe.md</code> file.</p>
+<p><code>file &lt;- paste0("https://raw.githubusercontent.com/rqtl/", "qtl2data/main/BXD/bxd.zip")</code>.
+<code>bxd &lt;- read_cross2(file)</code></p>
+<p>2). How many individuals were in the study? How many phenotypes? How
+many markers?<br>
+to an object called <code>gravmap</code>. Have a look at the first
+chromosome.<br>
+3). Calculate genotype probabilities and save the results to an object
+called <code>bxdpr</code>. View the genotypes for the first three
+markers on chromosome 1 for the first five individuals.</p>
 </div>
 </div>
 </div>
@@ -1240,23 +1148,37 @@ on chromosome 18.</p>
 </button>
 <div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
-<p>1). Create a new script in RStudio with File -&gt; New File -&gt; R
-Script.<br>
-2).
-<code>b6btbr &lt;- read_cross2(file = "https://raw.githubusercontent.com/rqtl/qtl2data/master/B6BTBR/b6btbr.zip</code><br>
-3). <code>summary(b6btbr)</code> shows 544 individuals, 3 phenotypes, 20
-chromosomes, 2057 markers.<br>
-4). <code>b6btbr$gmap</code><br>
-5).
-<code>b6btbrmap &lt;- insert_pseudomarkers(map=b6btbr$gmap, step=2)</code><br>
-6).
-<code>b6btbrpr &lt;- calc_genoprob(cross=b6btbr, map=b6btbrmap, error_prob=0.001)</code><br>
-7). <code>dimnames((b6btbrpr$</code>18<code>))</code> shows all marker
-names for chromosome 18.
-<code>head((b6btbrpr$</code>18<code>)[,,"c18.loc48"])</code> gives
-genotype probabilities for an example pseudomarker, while
-<code>head((b6btbrpr$</code>18<code>)[,,"rs6338896"])</code> gives
-genotype probabilities for a genotyped marker.</p>
+<p>1).
+<code>file &lt;- paste0("https://raw.githubusercontent.com/rqtl/", "qtl2data/main/BXD/bxd.zip")</code>.
+<code>bxd &lt;- read_cross2(file)</code><br>
+2). <code>summary(bxd)</code> gives 198 individuals, 5,806 phenotypes
+and 7,320 markers.<br>
+3). <code>bxdpr  &lt;- calc_genoprob(cross = bxd, map = bxd$gmap)</code>
+followed by<br><code>(bxdpr$</code>1<code>)[1:5, , 1:3]</code></p>
+</div>
+</div>
+</div>
+</div>
+<div id="challenge-3" class="callout challenge">
+<div class="callout-square">
+<i class="callout-icon" data-feather="zap"></i>
+</div>
+<div id="challenge-3" class="callout-inner">
+<h3 class="callout-title">Challenge 3</h3>
+<div class="callout-content">
+<p>Plot the genotype probabilities for individual number 3 for
+chromosome 1.</p>
+</div>
+</div>
+</div>
+<div id="accordionSolution3" class="accordion challenge-accordion accordion-flush">
+<div class="accordion-item">
+<button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
+  <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
+</button>
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div class="accordion-body">
+<p><code>plot_genoprob(probs = bxdpr,                  map   = bxd$pmap,                   ind   = 3,                  chr   = 1,                  main  = rownames(bxdpr[['1']])[3])</code></p>
 </div>
 </div>
 </div>
@@ -1267,7 +1189,7 @@ the argument <code>cores</code>. With <code>cores=0</code>, the number
 of available cores will be detected via
 <code>parallel::detectCores()</code>. Otherwise, specify the number of
 cores as a positive integer.</p>
-<div class="codewrapper sourceCode" id="cb21">
+<div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
@@ -1278,24 +1200,13 @@ functions use genotype probabilities as well as a matrix of phenotypes.
 If you wished to perform a genome scan via an additive allele model, you
 would first convert the genotype probabilities to allele probabilities,
 using the function <code>genoprob_to_alleleprob()</code>.</p>
-<div class="codewrapper sourceCode" id="cb22">
+<div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">apr</span> <span class="op">&lt;-</span> <span class="fu">genoprob_to_alleleprob</span><span class="op">(</span>probs <span class="op">=</span> <span class="va">probs</span><span class="op">)</span></span></code></pre>
 </div>
-<p>The figure below shows genotype and allele probabilities for 3
-samples. In the Diversity Outbred, there are 36 possible genotype states
-(AA, AB, AC, …, BB, BC, BD, …, CC, CD, CE, …, DD, DE, DF, …, EE,…) or 8
-+ 7 + 6 + 5 + 4 + 3 + 2 + 1. The first SNP below has genotype BB. In the
-table describing alleles (8 state founder probabilities), the
-probability that this SNP has a B allele is 1. The 2nd SNP has genotype
-BH, so the allele table shows a probability of 0.5 for B and 0.5 for H.
-The third SNP is either BG or BH, and has a probability of 0.5 for each
-of these genotypes. The allele table shows a probability of 0.5 for
-allele B, and 0.25 for both G and H.</p>
-<figure><img src="../fig/geno-to-allele-probs.png" alt="a table showing the probabilities for each of 36 genotypes in the Diversity Outbred followed by a second table showing probabilities for each of the 8 founder alleles" class="figure mx-auto d-block"><div class="figcaption">Genotype and allele probabilities</div>
-</figure><div id="keypoints1" class="callout keypoints">
+<div id="keypoints1" class="callout keypoints">
 <div class="callout-square">
 <i class="callout-icon" data-feather="key"></i>
 </div>
@@ -1312,7 +1223,7 @@ probabilities.</li>
 </div>
 </div></section><section id="aio-perform-genome-scan"><p>Content from <a href="perform-genome-scan.html">Performing a Genome Scan</a></p>
 <hr>
-<p>Last updated on 2024-10-25 |
+<p>Last updated on 2024-10-27 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/perform-genome-scan.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 60 minutes</p>
@@ -1561,7 +1472,7 @@ Significant Peaks via Permutation</a>.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>You can find the maximum LOD score using the <code>max</code>
@@ -1615,7 +1526,7 @@ maximum LOD.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1653,7 +1564,7 @@ on chromosomes 2, 7, 12, and 19. Add a title to the plot using the
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1777,7 +1688,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-calc-kinship"><p>Content from <a href="calc-kinship.html">Calculating A Kinship Matrix</a></p>
 <hr>
-<p>Last updated on 2024-10-25 |
+<p>Last updated on 2024-10-27 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/calc-kinship.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 60 minutes</p>
@@ -1999,7 +1910,7 @@ of 0.5.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>
 </li></ol>
@@ -2164,7 +2075,7 @@ collaborative document or in your own personal notes.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
 <div class="accordion-body">
 
 </div>
@@ -2189,7 +2100,7 @@ genotypes in the cross and how they compare to each other.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -2228,7 +2139,7 @@ of each mouse with itself? Why isn’t this equal to 1?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
 <div class="accordion-body">
 <p>The kinship of a mouse with itself will only be 1 if the mouse is
 homozygous at every marker. Since the mice in this study are F2s, they
@@ -2299,7 +2210,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-perform-genome-scan-lmm"><p>Content from <a href="perform-genome-scan-lmm.html">Performing a genome scan with a linear mixed model</a></p>
 <hr>
-<p>Last updated on 2024-10-25 |
+<p>Last updated on 2024-10-27 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/perform-genome-scan-lmm.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 30 minutes</p>
@@ -2642,7 +2553,7 @@ produces higher LOD scores than other methods.</li>
 </div>
 </div></section><section id="aio-perform-genome-scan-bin"><p>Content from <a href="perform-genome-scan-bin.html">Performing a Genome Scan with Binary Traits</a></p>
 <hr>
-<p>Last updated on 2024-10-25 |
+<p>Last updated on 2024-10-27 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/perform-genome-scan-bin.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 50 minutes</p>
@@ -2799,7 +2710,7 @@ explain the frequency of black mice?</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>First, get the number of black and agouti mice.</p>
 <div class="codewrapper sourceCode" id="cb7">
@@ -2904,7 +2815,7 @@ this trait.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p>First, map the trait.</p>
 <div class="codewrapper sourceCode" id="cb11">
@@ -2955,7 +2866,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-perform-perm-test"><p>Content from <a href="perform-perm-test.html">Finding Significant Peaks via Permutation</a></p>
 <hr>
-<p>Last updated on 2024-10-25 |
+<p>Last updated on 2024-10-27 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/perform-perm-test.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 30 minutes</p>
@@ -3138,7 +3049,7 @@ of estimating a significance threshold for QTL plots.</p>
 </h3>
 <pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.05                3.8</code></pre>
+0.05               3.93</code></pre>
 </div>
 <p>The default is to return the 5% significance thresholds. Thresholds
 for other (or for multiple) significance levels can be obtained via the
@@ -3155,8 +3066,8 @@ for other (or for multiple) significance levels can be obtained via the
 </h3>
 <pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.09
-0.05               3.80</code></pre>
+0.2                3.22
+0.05               3.93</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="estimating-an-x-chromosome-specific-threshold">Estimating an X Chromosome Specific Threshold<a class="anchor" aria-label="anchor" href="#estimating-an-x-chromosome-specific-threshold"></a>
 </h2>
@@ -3194,13 +3105,13 @@ Genetics 174:2151-2158</a>.</p>
 </h3>
 <pre class="output" tabindex="0"><code>Autosome LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.18
-0.05               3.81
+0.2                3.20
+0.05               3.91
 
 X chromosome LOD thresholds (14369 permutations)
      log10_insulin_10wk
-0.2                 3.1
-0.05                3.9</code></pre>
+0.2                3.13
+0.05               3.91</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="estimating-significance-thresholds-with-the-kinship-matrix">Estimating Significance Thresholds with the Kinship Matrix<a class="anchor" aria-label="anchor" href="#estimating-significance-thresholds-with-the-kinship-matrix"></a>
 </h2>
@@ -3233,7 +3144,7 @@ insulin previously.</p>
 <pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
      log10_insulin_10wk
 0.2                3.16
-0.05               3.86</code></pre>
+0.05               3.88</code></pre>
 </div>
 <p>There is not a large difference in the thresholds. Currently, we are
 on the fence about using the kinship matrices to estimate significance
@@ -3285,13 +3196,13 @@ can be applied.</p>
 </h3>
 <pre class="output" tabindex="0"><code>Autosome LOD thresholds (1000 permutations)
      agouti_tan
-0.2        3.24
-0.05       3.91
+0.2        3.15
+0.05       3.81
 
 X chromosome LOD thresholds (14369 permutations)
      agouti_tan
-0.2        3.08
-0.05       3.83</code></pre>
+0.2        3.11
+0.05       3.77</code></pre>
 </div>
 </section><section><h2 class="section-heading" id="selecting-the-number-of-permutations">Selecting the Number of Permutations<a class="anchor" aria-label="anchor" href="#selecting-the-number-of-permutations"></a>
 </h2>
@@ -3409,8 +3320,8 @@ significance thresholds.</li>
 </h3>
 <pre class="output" tabindex="0"><code>LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.01               4.53
-0.1                3.51</code></pre>
+0.01               4.71
+0.1                3.54</code></pre>
 </div>
 <ol start="2" style="list-style-type: decimal">
 <li>These LOD thresholds indicate maximum LOD scores that can be
@@ -3444,7 +3355,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-find-lod-peaks"><p>Content from <a href="find-lod-peaks.html">Finding QTL peaks</a></p>
 <hr>
-<p>Last updated on 2024-10-25 |
+<p>Last updated on 2024-10-27 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/find-lod-peaks.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 60 minutes</p>
@@ -3712,7 +3623,7 @@ Interval results in a wider support interval.</li>
 </div>
 </div></section><section id="aio-est-qtl-effects"><p>Content from <a href="est-qtl-effects.html">Estimating QTL effects</a></p>
 <hr>
-<p>Last updated on 2024-10-25 |
+<p>Last updated on 2024-10-27 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/est-qtl-effects.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 30 minutes</p>
@@ -4462,7 +4373,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-integrating-gene-expression"><p>Content from <a href="integrating-gene-expression.html">Integrating Gene Expression Data</a></p>
 <hr>
-<p>Last updated on 2024-10-25 |
+<p>Last updated on 2024-10-27 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/integrating-gene-expression.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 80 minutes</p>
@@ -4555,7 +4466,7 @@ and the gene annotation.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Dimensions of <code>annot</code>.</p>
 <div class="codewrapper sourceCode" id="cb2">
@@ -4607,7 +4518,7 @@ and the gene annotation.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <ol style="list-style-type: decimal">
 <li>Dimensions of <code>expr</code>.</li>
@@ -4774,7 +4685,7 @@ levels.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution3" aria-expanded="false" aria-controls="collapseSolution3">
   <h4 class="accordion-header" id="headingSolution3"> Show me the solution </h4>
 </button>
-<div id="collapseSolution3" class="accordion-collapse collapse" aria-labelledby="headingSolution3" data-bs-parent="#accordionSolution3">
+<div id="collapseSolution3" class="accordion-collapse collapse" data-bs-parent="#accordionSolution3" aria-labelledby="headingSolution3">
 <div class="accordion-body">
 <!-- DMG: Correlation, eQTL, annotation? -->
 </div>
@@ -4922,7 +4833,7 @@ consequences of these SNPs.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
 <div class="accordion-body">
 <p>This may be a good code chunk to have the students copy and
 paste.</p>
@@ -5066,7 +4977,7 @@ insulin or diabetes.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution4" aria-expanded="false" aria-controls="collapseSolution4">
   <h4 class="accordion-header" id="headingSolution4"> Show me the solution </h4>
 </button>
-<div id="collapseSolution4" class="accordion-collapse collapse" aria-labelledby="headingSolution4" data-bs-parent="#accordionSolution4">
+<div id="collapseSolution4" class="accordion-collapse collapse" data-bs-parent="#accordionSolution4" aria-labelledby="headingSolution4">
 <div class="accordion-body">
 <p>Both genes return published papers relating to insulin:</p>
 <p><a href="https://pubmed.ncbi.nlm.nih.gov/?term=Sorcs1+insulin" class="external-link">Sorcs1</a></p>
@@ -5385,7 +5296,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-do_qtl_mapping"><p>Content from <a href="do_qtl_mapping.html">QTL Mapping in Diversity Outbred Mice</a></p>
 <hr>
-<p>Last updated on 2024-10-25 |
+<p>Last updated on 2024-10-27 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/do_qtl_mapping.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 150 minutes</p>
@@ -5458,7 +5369,18 @@ measured in each mouse. The goal is to map gene(s) that influence the
 level of DNA damage in the bone marrow.</p>
 <p><img src="../fig/benzene_study_design.png" alt="Benzene Study Dosing" class="figure">{alt=‘Benzene study dosing showing 6 hours
 per day, 5 days per week of inhalation.’,width=‘100%’}</p>
-</section><section><h2 class="section-heading" id="do-reference-data">DO Reference Data<a class="anchor" aria-label="anchor" href="#do-reference-data"></a>
+<p>The figure below shows genotype and allele probabilities for 3
+samples. In the Diversity Outbred, there are 36 possible genotype states
+(AA, AB, AC, …, BB, BC, BD, …, CC, CD, CE, …, DD, DE, DF, …, EE,…) or 8
++ 7 + 6 + 5 + 4 + 3 + 2 + 1. The first SNP below has genotype BB. In the
+table describing alleles (8 state founder probabilities), the
+probability that this SNP has a B allele is 1. The 2nd SNP has genotype
+BH, so the allele table shows a probability of 0.5 for B and 0.5 for H.
+The third SNP is either BG or BH, and has a probability of 0.5 for each
+of these genotypes. The allele table shows a probability of 0.5 for
+allele B, and 0.25 for both G and H.</p>
+<figure><img src="../fig/geno-to-allele-probs.png" alt="a table showing the probabilities for each of 36 genotypes in the Diversity Outbred followed by a second table showing probabilities for each of the 8 founder alleles" class="figure mx-auto d-block"><div class="figcaption">Genotype and allele probabilities</div>
+</figure></section><section><h2 class="section-heading" id="do-reference-data">DO Reference Data<a class="anchor" aria-label="anchor" href="#do-reference-data"></a>
 </h2>
 <hr class="half-width">
 <p>As you work with DO data, you may need different reference files.
@@ -6467,7 +6389,7 @@ the <code>summary()</code> function.</li>
 </h3>
 <pre class="output" tabindex="0"><code>LOD thresholds (100 permutations)
      log_mnret
-0.05      7.45</code></pre>
+0.05      7.32</code></pre>
 </div>
 <p>Note that this summary function returns the 95th percentile value of
 the LOD distribution.</p>
@@ -7265,8 +7187,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/instructor/aio.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/instructor/aio.html",
   "dateCreated": "2024-09-06",
-  "dateModified": "2024-10-25",
-  "datePublished": "2024-10-25"
+  "dateModified": "2024-10-27",
+  "datePublished": "2024-10-27"
 }
 
   </script><script>
