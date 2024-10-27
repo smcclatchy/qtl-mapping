@@ -49,7 +49,7 @@ First, we will load in the [qtl2](https://kbroman.org/qtl2/) library, which
 provides the functions that we will use for QTL analysis.
 
 ```{r load_libraries}
-(library(qtl2))
+library(qtl2)
 ```
 
 The function `read_cross2()` has a single argument: the name (with path) of the 
@@ -111,9 +111,9 @@ names(cross)
 
 The output of `summary(cross)` provides this information.  
 1). There are 490 individuals in the cross.  
-2). 3 phenotypes. 
+2). 3 phenotypes    
 3). 2,057 markers     
-4). 124 markers on chromosome 11. 
+4). 124 markers on chromosome 11 
 
 :::::::::::::::::::::::::::::::::
 
@@ -152,7 +152,7 @@ $\times$ genotypes $\times$ positions. Have a look at the names of each of the
 three dimensions for chromosome 19.
 
 ```{r view_array1}
-head(dimnames(probs$`19`)[1])
+head(dimnames(probs$`19`)[[1]])
 ```
 
 ```{r view_array2}
