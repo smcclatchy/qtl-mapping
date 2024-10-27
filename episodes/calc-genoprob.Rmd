@@ -117,6 +117,9 @@ The output of `summary(cross)` provides this information.
 
 :::::::::::::::::::::::::::::::::
 
+:::::::::::::::::::::::::::::::::::::
+
+
 Have a look at the markers listed in the genetic map, `gmap`. Markers are listed 
 by chromosome and described by cM position. View only the markers on the first 
 two chromosomes.
