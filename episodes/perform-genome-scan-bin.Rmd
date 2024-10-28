@@ -71,7 +71,8 @@ The tufted phenotype has to do with progressive hair loss in a "tufted"
 pattern. Mice with a value of "1" have the tufted phenotype and mice with a 
 value of "0" do not.
 
-![Tufted hair loss pattern](fig/Ellis_JHered_2013.jpg){alt="Image showing tufted hair loss in BTBR mouse"}
+![Tufted hair loss pattern](fig/Ellis_JHered_2013.jpg){alt='Image showing tufted hair loss in BTBR mouse'}
+  
 Photo Credit: [Ellis et al., J Hered, 2013](https://pubmed.ncbi.nlm.nih.gov/23100490/)
 
 ## Performing a Binary Genome Scan
