@@ -52,17 +52,17 @@ The "agouti_tan" phenotype is "1" if a mouse has an agouti or tan coat and "0"
 if a mouse has a black coat. The founder strains have different coat colors.
 C57BL/6J has a black coat.
 
-![C57BL/6J](https://www.jax.org/-/media/jaxweb/images/jax-mice-and-services/mouseimages/000664.png){alt="C57BL/6J mouse"}
+![C57BL/6J](fig/C57BL_6J_000664.png){alt="C57BL/6J mouse"}
 
 BTBR appears to have a black coat, but this coat color is actually called "black
 and tan" because their bellies are tan.
 
-![BTBR](https://www.jax.org/-/media/jaxweb/images/jax-mice-and-services/mouseimages/002282.png){atl="BTBR mouse"}
+![BTBR](fig/BTBR_002282.png){atl="BTBR mouse"}
 
 Agouti mice appear to be tan or brown, but their hair is a mix of brown and 
 black coloring. As an example, [C3H/HeJ]() mice have agouti coats.
 
-![C3H/HeJ](https://www.jax.org/-/media/jaxweb/images/jax-mice-and-services/mouseimages/000659.png){alt="C3H/HeJ mouse"}
+![C3H/HeJ](fig/C3H_HeJ_000659.png){alt="C3H/HeJ mouse"}
 
 There is more information about mouse coat colors in the 
 [JAX Coat Color guide](https://jackson.jax.org/rs/444-BUH-304/images/Poster_Mouse_Coat_Color.pdf).
@@ -71,7 +71,8 @@ The tufted phenotype has to do with progressive hair loss in a "tufted"
 pattern. Mice with a value of "1" have the tufted phenotype and mice with a 
 value of "0" do not.
 
-![Tufted hair loss pattern](https://cdn.ncbi.nlm.nih.gov/pmc/blobs/c9e4/3570182/2345f9c6f3f8/jhered_ess089_f0001.jpg){alt="Image showing tufted hair loss in BTBR mouse"}
+![Tufted hair loss pattern](fig/Ellis_JHered_2013.jpg){alt="Image showing tufted hair loss in BTBR mouse"}
+Photo Credit: [Ellis et al., J Hered, 2013](https://pubmed.ncbi.nlm.nih.gov/23100490/)
 
 ## Performing a Binary Genome Scan
 
