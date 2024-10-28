@@ -96,12 +96,15 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#808080;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect81957"
        width="426.73941"
        height="179.04947"
        x="-33.882118"
-       y="19.277756" />
+       y="19.277756"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
     <path
        style="fill:none;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 16.913788,27.882477 340.188432,0"
@@ -152,7 +155,7 @@
        inkscape:export-ydpi="300"><tspan
          x="43.714844"
          y="228.79771"
-         id="tspan82278">probs</tspan></text>
+         id="tspan82519">probs</tspan></text>
     <g
        id="g16109"
        transform="matrix(1.5206932,0,0,1.0713714,-78.974872,5.7587553)"
@@ -278,21 +281,21 @@
          id="text34095"><tspan
            x="-5.2666898"
            y="178.96419"
-           id="tspan82294">A<tspan
+           id="tspan82535">A<tspan
    style="font-size:4.23333px"
-   id="tspan82280"> </tspan>B<tspan
+   id="tspan82521"> </tspan>B<tspan
    style="font-size:4.23333px"
-   id="tspan82282"> </tspan>C<tspan
+   id="tspan82523"> </tspan>C<tspan
    style="font-size:4.23333px"
-   id="tspan82284"> </tspan>D<tspan
+   id="tspan82525"> </tspan>D<tspan
    style="font-size:4.23333px"
-   id="tspan82286"> </tspan>E<tspan
+   id="tspan82527"> </tspan>E<tspan
    style="font-size:4.23333px"
-   id="tspan82288"> </tspan>F<tspan
+   id="tspan82529"> </tspan>F<tspan
    style="font-size:6.35px"
-   id="tspan82290"> </tspan>G<tspan
+   id="tspan82531"> </tspan>G<tspan
    style="font-size:4.23333px"
-   id="tspan82292"> </tspan>H</tspan></text>
+   id="tspan82533"> </tspan>H</tspan></text>
     </g>
     <g
        id="g72720-3"
@@ -412,21 +415,21 @@
          id="text34095-4"><tspan
            x="-5.2666898"
            y="178.96419"
-           id="tspan82310">A<tspan
+           id="tspan82551">A<tspan
    style="font-size:4.23333px"
-   id="tspan82296"> </tspan>B<tspan
+   id="tspan82537"> </tspan>B<tspan
    style="font-size:4.23333px"
-   id="tspan82298"> </tspan>C<tspan
+   id="tspan82539"> </tspan>C<tspan
    style="font-size:4.23333px"
-   id="tspan82300"> </tspan>D<tspan
+   id="tspan82541"> </tspan>D<tspan
    style="font-size:4.23333px"
-   id="tspan82302"> </tspan>E<tspan
+   id="tspan82543"> </tspan>E<tspan
    style="font-size:4.23333px"
-   id="tspan82304"> </tspan>F<tspan
+   id="tspan82545"> </tspan>F<tspan
    style="font-size:6.35px"
-   id="tspan82306"> </tspan>G<tspan
+   id="tspan82547"> </tspan>G<tspan
    style="font-size:4.23333px"
-   id="tspan82308"> </tspan>H</tspan></text>
+   id="tspan82549"> </tspan>H</tspan></text>
     </g>
     <g
        id="g24426-5"
@@ -568,21 +571,21 @@
        inkscape:export-ydpi="300"><tspan
          x="-5.2666898"
          y="178.96419"
-         id="tspan82326">A<tspan
+         id="tspan82567">A<tspan
    style="font-size:4.23333px"
-   id="tspan82312"> </tspan>B<tspan
+   id="tspan82553"> </tspan>B<tspan
    style="font-size:4.23333px"
-   id="tspan82314"> </tspan>C<tspan
+   id="tspan82555"> </tspan>C<tspan
    style="font-size:4.23333px"
-   id="tspan82316"> </tspan>D<tspan
+   id="tspan82557"> </tspan>D<tspan
    style="font-size:4.23333px"
-   id="tspan82318"> </tspan>E<tspan
+   id="tspan82559"> </tspan>E<tspan
    style="font-size:4.23333px"
-   id="tspan82320"> </tspan>F<tspan
+   id="tspan82561"> </tspan>F<tspan
    style="font-size:6.35px"
-   id="tspan82322"> </tspan>G<tspan
+   id="tspan82563"> </tspan>G<tspan
    style="font-size:4.23333px"
-   id="tspan82324"> </tspan>H</tspan></text>
+   id="tspan82565"> </tspan>H</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:14.1111px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
