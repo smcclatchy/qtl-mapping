@@ -36,11 +36,9 @@ hypothesis that there is a QTL near a specific position. A sloped line indicates
 that there is a difference in mean phenotype between the two genotype groups, 
 and that a QTL is present. A line with no slope indicates that there is no 
 difference in mean phenotype between the two groups, and that no QTL exists. 
-Regression aims to find the line of best fit to the data. In the case of a 
-backcross with only two genotypes, a t-test is performed at the marker to 
-determine whether the difference in phenotype means is zero.
+Regression aims to find the line of best fit to the data. 
 
-![adapted from Broman & Sen, 2009](fig/nullvalt.png){alt="Null & alternative hypothesis"}
+![Linear regression can identify QTL; adapted from Broman & Sen, 2009](fig/nullvalt.png){alt="Null and alternative hypotheses"}
 
 To find the line of best fit, the residuals or errors are calculated, then 
 squared for each data point.

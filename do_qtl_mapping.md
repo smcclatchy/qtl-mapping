@@ -73,6 +73,11 @@ complied on a JAX website at:
 There are links to the markers and founder genotypes as well as the standard
 colors that we use for the eight founder strains.
 
+## Preparing your Diversity Outbred (DO) data for qtl2
+
+Karl Broman provides detailed instructions for 
+[preparing DO mouse data for R/qtl2](https://kbroman.org/qtl2/pages/prep_do_data.html).
+
 ## Open the qtl_mapping Project.
 
 If you have not opened the qtl_mapping project, do this now so that your
@@ -879,7 +884,7 @@ summary(perms)
 ``` output
 LOD thresholds (100 permutations)
      log_mnret
-0.05      7.49
+0.05       7.5
 ```
 
 Note that this summary function returns the 95th percentile value of the LOD

@@ -160,11 +160,6 @@ allele codes, cross type, description, and other metadata.
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
-## Preparing your Diversity Outbred (DO) data for qtl2
-
-Karl Broman provides detailed instructions for 
-[preparing DO mouse data for R/qtl2](https://kbroman.org/qtl2/pages/prep_do_data.html).
-
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
 - QTL mapping data consists of a set of tables of data: marker genotypes, 
