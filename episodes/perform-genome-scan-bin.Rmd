@@ -6,7 +6,7 @@ exercises: 30
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "How do I perform a genome scan for binary traits?"
+- How do I perform a genome scan for binary traits?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -36,7 +36,7 @@ reasonable results even if the residuals are not normal, but an important
 special case is that of a binary trait, with values 0 and 1, which is best 
 treated differently. The `scan1` function can perform a genome scan with binary
 traits by logistic regression, using the argument `model="binary"`. (The default
-value for the `model` argument is `"normal"`) At present, we _can not_ account 
+value for the `model` argument is `"normal"`). At present, we _cannot_ account 
 for kinship relationships among individuals in this analysis.
 
 Let's look at the phenotypes in the cross again.
@@ -48,7 +48,7 @@ head(cross$pheno)
 There are two binary traits called "agouti_tan", and "tufted" which are related
 to coat color and shape.
 
-The "agouti_tan" phenotype is "1" if a mouse has an agouti or tan coat and "0"
+The "agouti_tan" phenotype is `1` if a mouse has an agouti or tan coat and  `0`
 if a mouse has a black coat. The founder strains have different coat colors.
 C57BL/6J has a black coat.
 
@@ -81,7 +81,7 @@ We perform a binary genome scan in a manner similar to mapping continuous traits
 by using `scan1`. When we mapped insulin, there was a hidden argument called 
 `model` which told `qtl2` which mapping model to use. There are two options:
 `normal`, the default, and `binary`. The `normal` argument tells `qtl2` to use a
-"normal" (least squares) linear model. To map a binary trait, we will 
+*normal* (least squares) linear model. To map a binary trait, we will 
 include the `model = "binary"` argument to indicate that the phenotype is a 
 binary trait with values 0 and 1.
 
@@ -106,7 +106,7 @@ Yes! There is a big peak on chromosome 2. Let's zoom in on chromosome 2.
 plot_scan1(x    = lod_agouti, 
            map  = cross$pmap, 
            chr  = "2",
-           main = "Agout")
+           main = "Agouti")
 ```
 
 We can use `find_peaks` to find the position of the highest LOD score.
