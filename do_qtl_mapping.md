@@ -53,18 +53,6 @@ marrow.
 
 ![Benzene Study Dosing](fig/benzene_study_design.png){alt='Benzene study dosing showing 6 hours per day, 5 days per week of inhalation.',width='100%'}
 
-The figure below shows genotype and allele probabilities for 3 samples. In the 
-Diversity Outbred, there are 36 possible genotype states 
-(AA, AB, AC, ..., BB, BC, BD, ..., CC, CD, CE, ..., DD, DE, DF, ..., EE,...) or 
-8 + 7 + 6 + 5 + 4 + 3 + 2 + 1. The first SNP below has genotype BB. In the table 
-describing alleles (8 state founder probabilities), the probability that this 
-SNP has a B allele is 1. The 2nd SNP has genotype BH, so the allele table shows 
-a probability of 0.5 for B and 0.5 for H. The third SNP is either BG or BH, and 
-has a probability of 0.5 for each of these genotypes. The allele table shows a 
-probability of 0.5 for allele B, and 0.25 for both G and H.
-
-![Genotype and allele probabilities](fig/geno-to-allele-probs.png){alt='a table showing the probabilities for each of 36 genotypes in the Diversity Outbred followed by a second table showing probabilities for each of the 8 founder alleles'}
-
 ## DO Reference Data
 
 As you work with DO data, you may need different reference files. These are
@@ -490,10 +478,6 @@ three-dimensional array containing the founder allele dosages for each sample at
 each marker on one chromosome. These probabilities have been pre-calculated for 
 you, so you can skip the step for calculating allele probabilities.
 
-
-<!-- DMG: We need a figure showing the structure of the genoprobs. It should 
-show a list of boxes. We can show the first three chromosomes and then ... -->
-
 Let's look at the dimensions of `probs` for chromosome 1:
 
 
@@ -509,6 +493,12 @@ dim(probs[[1]])
 founder haplotype at each marker for each DO sample.  The 590
 samples are in the first dimension, the 8 founders in the second and the 
 479 markers along chromosome 1 are in the third dimension.
+
+The figure below illustrates the structure of the `probs` object. `prob` is a
+list with one element per chromosome. Each element is a three-dimensional array
+which contains the founder allele probabilities for eahch sample at each marker.
+
+![Genoprobs Object](fig/genoprobs_3D.png){alt='Three-dimensional figure of genoprobs list.',width='100%}
 
 Let's return to the `probs` object. Look at the contents of one sample on 
 chromosome 1.
@@ -596,6 +586,17 @@ because the row for B is black, indicating values of 1.0. Moving along the
 genome to the right, the genotype becomes CE where rows C and E are gray, 
 followed by CD, FH, AG, GH, etc. The values at each marker sum to 1.0.  
 
+The figure below shows genotype and allele probabilities for 3 samples. In the 
+Diversity Outbred, there are 36 possible genotype states 
+(AA, AB, AC, ..., BB, BC, BD, ..., CC, CD, CE, ..., DD, DE, DF, ..., EE,...) or 
+8 + 7 + 6 + 5 + 4 + 3 + 2 + 1. The first SNP below has genotype BB. In the table 
+describing alleles (8 state founder probabilities), the probability that this 
+SNP has a B allele is 1. The 2nd SNP has genotype BH, so the allele table shows 
+a probability of 0.5 for B and 0.5 for H. The third SNP is either BG or BH, and 
+has a probability of 0.5 for each of these genotypes. The allele table shows a 
+probability of 0.5 for allele B, and 0.25 for both G and H.
+
+![Genotype and allele probabilities](fig/geno-to-allele-probs.png){alt='a table showing the probabilities for each of 36 genotypes in the Diversity Outbred followed by a second table showing probabilities for each of the 8 founder alleles'}
 
 ### Calculating A Kinship Matrix
 
@@ -884,7 +885,7 @@ summary(perms)
 ``` output
 LOD thresholds (100 permutations)
      log_mnret
-0.05       7.5
+0.05      7.01
 ```
 
 Note that this summary function returns the 95th percentile value of the LOD
