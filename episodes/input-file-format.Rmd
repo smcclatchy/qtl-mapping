@@ -90,7 +90,7 @@ file. The control file is in a specific format using either
 [YAML](https://www.yaml.org) or [JSON](https://json.org); these are 
 human-readable text files for representing relatively complex data.
 
-![Attie Control File](fig/attie_control_file_sample.png){alt='Figure showing the qtl2 control file', width=75%}
+![Attie Control File](fig/attie_control_file_sample.png){alt='Figure showing the qtl2 control file'}
 
 A big advantage of this control file scheme is that it greatly simplifies the 
 function for reading in the data. That function, `read_cross2()`, has a 
@@ -109,7 +109,7 @@ For further details, see the separate
 
 :::::::::::::::::::::::: solution 
 
-1. marker genotypes, phenotypes, genetic map
+1. genotypes, phenotypes, genetic map
 1. physical map
 1. csv; JSON or YAML for control file
 
@@ -162,7 +162,7 @@ allele codes, cross type, description, and other metadata.
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- QTL mapping data consists of a set of tables of data: marker genotypes, 
+- QTL mapping data consists of a set of tables of data: genotypes, 
 phenotypes, marker maps, etc.
 - These different tables are in separate comma-delimited (CSV) files.
 - In each file, the first column is a set of IDs for the rows, and the first 
