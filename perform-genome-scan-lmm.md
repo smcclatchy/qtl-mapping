@@ -29,7 +29,7 @@ number of founders (fancy mice) and went through several population bottlenecks.
 Wild-derived strains are not descended from fancy mice and don't share the same 
 history as laboratory strains. 
 
-![Geographical ranges of subspecies in the Mus musculus group. From Mouse Genetics: Concepts and Applications by Lee M. Silver, Oxford University Press, 1995.](https://www.informatics.jax.org/silver/images/figure2-3.gif){alt="A world map showing the origins and ranges of five Mus musculus subspecies: domesticus, musculus, castaneus, bactrianus and molossinus}
+![Geographical ranges of subspecies in the Mus musculus group. From Mouse Genetics: Concepts and Applications by Lee M. Silver, Oxford University Press, 1995.](https://www.informatics.jax.org/silver/images/figure2-3.gif){alt="A world map showing the origins and ranges of five Mus musculus subspecies: domesticus, musculus, castaneus, bactrianus and molossinus"}
 
 Issues of population structure and differing degrees of genetic relatedness 
 between mice are addressed using linear mixed models (LMM).  LMMs consider 
@@ -60,10 +60,10 @@ phenotype value, $\beta_k$ is the effect of the $k$th genotype, $G_{jk}$ is the
 genotype for individual $j$, and $\epsilon_j$ is the error for the $j$th 
 individual. In the figure below, $\mu$ equals 94.6, and $\beta$ equals 
 15 for the alternative hypothesis (QTL exists). This linear model is 
-$y$ = 94.6 + 15$X$ + $\epsilon$. The model intersects the genotype groups at their 
+$y$ = 94.6 + 15$G$ + $\epsilon$. The model intersects the genotype groups at their 
 group means. In contrast, the null hypothesis would state that there is no 
 difference in group means (no QTL anywhere). The linear model for the null 
-hypothesis would be $y$ = 94.6 + 0$X$ + $\epsilon$. This states that the 
+hypothesis would be $y$ = 94.6 + 0$G$ + $\epsilon$. This states that the 
 phenotype is equal to the combined mean (94.6), plus some error ($\epsilon$). In 
 other words, genotype doesn't affect the phenotype.
 

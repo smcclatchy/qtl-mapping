@@ -21,9 +21,6 @@ exercises: 20
 
 ## Estimating Founder Allele Effects
 
-<!-- DMG: Sue, can you make the equations Latex and remake the figures
-with the BTBR data? -->
-
 Recall that to model data from a cross, we use
 
 $y_j = \mu + \beta_k G_{jk} + \epsilon_j$
@@ -31,25 +28,19 @@ $y_j = \mu + \beta_k G_{jk} + \epsilon_j$
 where $y_{ij}$ is the phenotype of the $j$th individual, $\mu$ is the mean 
 phenotype value, $\beta_k$ is the effect of the $k$th genotype, $G_{jk}$ is the 
 genotype for individual $j$, and $\epsilon_j$ is the error for the $j$th 
-individual. In the figure below, $\mu$ equals 1, 
-and $\beta$ equals 0.1 for the alternative 
-hypothesis (QTL exists).
+individual. In the figure below, $\mu$ equals 94.6 and $\beta$ equals 15 for the 
+alternative hypothesis (QTL exists).
 
-![](fig/nullvalt.png){alt="Null and alternative hypothesis"}
+![](fig/nullvalt.png){alt="Null and alternative hypotheses"}
 
-This linear model is <i>y</i> = 1 + 
-0.1X + &epsilon;. The model intersects the 
-genotype groups at their group means, and is based on &mu; and 
-<i>&beta;<sub>k</sub></i> for chromosome 2 marker rs13476803 located at 
-138.945 Mb.  
+This linear model is $y$ = 94.6 + 15$G$ + $\epsilon$. The model intersects the 
+genotype groups at their group means, and is based $\mu$ and $\beta_k$.  
 
-The effect of genotype RR (the &beta; for the 
-RR genotype) at marker rs13476803 is 
-0.1, while the effect of the 
-BB genotype is -0.1 on 
-the insulin phenotype. The effect of the BR genotype 
-is 0 relative to $\mu$ equals 
-1.
+The effect of genotype RR (the $\beta$ for the 
+RR genotype) at the marker is 15, while the 
+effect of the BB genotype is -15 on the phenotype. 
+The effect of the BR genotype is 0 relative to $\mu$ 
+equals 94.6.
 
 The `scan1()` function returns only LOD scores. To obtain estimated QTL effects,
 use the function `scan1coef()`. This function takes a single phenotype and the 
@@ -109,7 +100,7 @@ value of the intercept ($\mu$) appears at the top. The effect of the
 BR genotype is centered around zero, with the
 effects of the other two genotypes above and below. We are usually not 
 directly interested in how the additive covariates change across the genome, 
-but rather, the the founder allele effects change.
+but rather, how the founder allele effects change.
 
 To plot only the founder allele effects, use the argument `columns` to indicate
 which coefficients to plot. Let's look at the columns which contain the founder 
@@ -289,7 +280,7 @@ There are 490 rows and 3 columns in `pr`.
 ## Challenge 3: Genoprobs at One Marker
 
 Look at the top few rows of `pr`. You may want to round the values to make them
-easier to read. What is the genotype of "Mouse3051"? What about "Mouse3430"?
+easier to read. What is the genotype of `Mouse3051`? What about `Mouse3430`?
 
 :::::::::::::::::::::::: solution 
 
@@ -487,7 +478,7 @@ We can map the additive and dominance effects by providing a matrix of
 _contrasts_ to indicate the different effects. Let's look at the additive and
 dominant effects on chromosome 7 first.
 
-![Additive & Dominance Effects](fig/add_dom_qtl_effect.png){alt="Figure showing additive & dominance QTL effects",width=50%}
+![Additive & Dominance Effects](fig/add_dom_qtl_effect.png){alt="Figure showing additive & dominance QTL effects"}
 
 In the figure above, we have simulated a QTL with a dominant effect. Genotypes
 are shown on the X-axis and the phenotype on the Y-axis. Each point represents
@@ -498,7 +489,7 @@ lines). The blue line shows the heterozygote mean. The dominance effect is the
 difference between the homozygote mean (grey line) and the heterozygote mean
 (blue line).
 
-First, we create a "contrasts" matrix to indicate the mean, additive, and 
+First, we create a *contrasts* matrix to indicate the mean, additive, and 
 dominance effects that we want to estimate.
 
 
@@ -612,7 +603,7 @@ Finally, to plot the raw phenotypes against the genotypes at a single putative
 QTL position, you can use the function `plot_pxg()`. This takes a vector of 
 genotypes as produced by the `maxmarg()` function, which picks the most likely
 genotype from a set of genotype probabilities, provided it is greater than some
-specified value (the argument `minprob`). Note that the “marg” in “maxmarg” 
+specified value (the argument `minprob`). Note that the `marg` in `maxmarg` 
 stands for “marginal”, as this function is selecting the genotype at each
 position that has maximum marginal probability.
 
@@ -646,7 +637,7 @@ plot_pxg(geno   = g,
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- "Estimated founder allele effects can be plotted from the mapping model coefficients."
-- "Additive and dominance effects can be plotted using contrasts." 
+- Estimated founder allele effects can be plotted from the mapping model coefficients.
+- Additive and dominance effects can be plotted using contrasts. 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
