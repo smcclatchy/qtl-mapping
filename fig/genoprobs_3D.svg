@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="297mm"
+   height="210mm"
+   viewBox="0 0 297 210"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="genoprobs_3D.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.90583672"
+     inkscape:cx="657.40324"
+     inkscape:cy="464.76367"
+     inkscape:window-width="2560"
+     inkscape:window-height="1506"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     showguides="false" />
+  <defs
+     id="defs2">
+    <marker
+       style="overflow:visible;"
+       id="Arrow1Mend"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="scale(0.4) rotate(180) translate(10,0)"
+         style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt;"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path72971" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="-235.24548 : 85.172468 : 1"
+       inkscape:vp_y="3.4906518 : 999.99397 : 0"
+       inkscape:vp_z="402.95341 : 86.824755 : 1"
+       inkscape:persp3d-origin="235.65856 : 78.054938 : 1"
+       id="perspective8632" />
+    <rect
+       x="43.714258"
+       y="185.00498"
+       width="276.33656"
+       height="82.74484"
+       id="rect2567" />
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-4"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path72971-7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Mend-4-7"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Mend"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path72971-7-3" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#808080;stroke-width:0.499999;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect81957"
+       width="426.73941"
+       height="179.04947"
+       x="-33.882118"
+       y="19.277756" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 16.913788,27.882477 340.188432,0"
+       id="path42"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:4, 4;stroke-dashoffset:0;stroke-opacity:1"
+       d="m 360.27724,27.882477 29.32824,0"
+       id="path42-69"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
+       d="M 61.307659,27.882476 61.101122,53.699578"
+       id="path42-6"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-4)"
+       d="m 194.76426,27.840048 0,25.610565"
+       id="path42-6-2"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-4-7)"
+       d="M 328.39361,28.136359 V 53.746924"
+       id="path42-6-2-6"
+       sodipodi:nodetypes="cc"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.26458333,0,0,0.26458333,-33.95847,-29.328233)"
+       id="text2565"
+       style="font-size:48px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect2567)"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         x="43.714844"
+         y="228.79771"
+         id="tspan82278">probs</tspan></text>
+    <g
+       id="g16109"
+       transform="matrix(1.5206932,0,0,1.0713714,-78.974872,5.7587553)"
+       style="stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <g
+       id="g72720"
+       transform="translate(-2.6458334)"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <g
+         id="g24426"
+         transform="translate(-33.45897,15.490264)">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#808080;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect10058"
+           width="37.307766"
+           height="83.365479"
+           x="69.84716"
+           y="56.835339"
+           transform="matrix(1.5206932,0,0,1.0713714,-78.974873,5.7587552)" />
+        <path
+           style="fill:none;stroke:#808080;stroke-width:1.27641;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 26.712062,66.650511 75.989219,39.831207"
+           id="path13528"
+           sodipodi:nodetypes="cc" />
+        <path
+           style="fill:none;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 107.15492,56.835338 138.04761,31.681532"
+           id="path13530"
+           sodipodi:nodetypes="cc"
+           transform="matrix(1.5206932,0,0,1.0713714,-78.974873,5.7587552)" />
+        <path
+           style="fill:none;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 107.15492,140.20082 30.89269,-25.15379"
+           id="path13532"
+           sodipodi:nodetypes="cc"
+           transform="matrix(1.5206932,0,0,1.0713714,-78.974873,5.7587552)" />
+        <path
+           style="fill:#808080;fill-opacity:1;stroke:#808080;stroke-width:1.2233;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 75.989219,39.831207 130.95186,39.701269"
+           id="path15839"
+           sodipodi:nodetypes="cc" />
+        <path
+           style="fill:#808080;fill-opacity:1;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 138.04761,115.04703 V 31.681532"
+           id="path15841"
+           transform="matrix(1.5206932,0,0,1.0713714,-78.974873,5.7587552)" />
+        <text
+           xml:space="preserve"
+           style="font-size:12.7px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+           x="-135.39099"
+           y="21.86762"
+           id="text18007"
+           transform="rotate(-90)"><tspan
+             sodipodi:role="line"
+             id="tspan18005"
+             style="stroke-width:0.264583"
+             x="-135.39099"
+             y="21.86762">samples</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:12.7px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+           x="27.155514"
+           y="175.24722"
+           id="text19817"><tspan
+             sodipodi:role="line"
+             id="tspan19815"
+             style="stroke-width:0.264583"
+             x="27.155514"
+             y="175.24722">founders</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:12.7px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+           x="-8.0325642"
+           y="188.7482"
+           id="text22167"
+           transform="rotate(-30.74691)"
+           inkscape:transform-center-x="-7.0293974"
+           inkscape:transform-center-y="10.204885"><tspan
+             sodipodi:role="line"
+             id="tspan22165"
+             style="stroke-width:0.264583"
+             x="-8.0325642"
+             y="188.7482">markers</tspan></text>
+      </g>
+      <path
+         style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 21.079584,82.0984 v 89.43046"
+         id="path31171" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 7.4609764,82.408205 V 171.83867"
+         id="path31171-8" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 35.537164,82.382556 V 171.81301"
+         id="path31171-0" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 43.179028,82.498649 V 171.92911"
+         id="path31171-7" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 28.411643,82.395381 V 171.82584"
+         id="path31171-2" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 1.1487777,82.176019 V 171.60647"
+         id="path31171-28" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 14.45758,82.382556 V 171.81301"
+         id="path31171-9" />
+      <text
+         xml:space="preserve"
+         style="font-size:7.76111px;line-height:1.25;font-family:sans-serif;white-space:pre;inline-size:56.123;stroke-width:0.264583"
+         x="-5.2666898"
+         y="178.96419"
+         id="text34095"><tspan
+           x="-5.2666898"
+           y="178.96419"
+           id="tspan82294">A<tspan
+   style="font-size:4.23333px"
+   id="tspan82280"> </tspan>B<tspan
+   style="font-size:4.23333px"
+   id="tspan82282"> </tspan>C<tspan
+   style="font-size:4.23333px"
+   id="tspan82284"> </tspan>D<tspan
+   style="font-size:4.23333px"
+   id="tspan82286"> </tspan>E<tspan
+   style="font-size:4.23333px"
+   id="tspan82288"> </tspan>F<tspan
+   style="font-size:6.35px"
+   id="tspan82290"> </tspan>G<tspan
+   style="font-size:4.23333px"
+   id="tspan82292"> </tspan>H</tspan></text>
+    </g>
+    <g
+       id="g72720-3"
+       transform="translate(258.64092,0.21157311)"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <g
+         id="g24426-1"
+         transform="translate(-33.45897,15.490264)">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#808080;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect10058-0"
+           width="37.307766"
+           height="83.365479"
+           x="69.84716"
+           y="56.835339"
+           transform="matrix(1.5206932,0,0,1.0713714,-78.974873,5.7587552)" />
+        <path
+           style="fill:none;stroke:#808080;stroke-width:1.27641;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 26.712062,66.650511 75.989219,39.831207"
+           id="path13528-3"
+           sodipodi:nodetypes="cc" />
+        <path
+           style="fill:none;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 107.15492,56.835338 138.04761,31.681532"
+           id="path13530-6"
+           sodipodi:nodetypes="cc"
+           transform="matrix(1.5206932,0,0,1.0713714,-78.974873,5.7587552)" />
+        <path
+           style="fill:none;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m 107.15492,140.20082 30.89269,-25.15379"
+           id="path13532-7"
+           sodipodi:nodetypes="cc"
+           transform="matrix(1.5206932,0,0,1.0713714,-78.974873,5.7587552)" />
+        <path
+           style="fill:#808080;fill-opacity:1;stroke:#808080;stroke-width:1.2233;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 75.989219,39.831207 130.95186,39.701269"
+           id="path15839-4"
+           sodipodi:nodetypes="cc" />
+        <path
+           style="fill:#808080;fill-opacity:1;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="M 138.04761,115.04703 V 31.681532"
+           id="path15841-1"
+           transform="matrix(1.5206932,0,0,1.0713714,-78.974873,5.7587552)" />
+        <text
+           xml:space="preserve"
+           style="font-size:12.7px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+           x="-135.39099"
+           y="21.86762"
+           id="text18007-4"
+           transform="rotate(-90)"><tspan
+             sodipodi:role="line"
+             id="tspan18005-8"
+             style="stroke-width:0.264583"
+             x="-135.39099"
+             y="21.86762">samples</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:12.7px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+           x="27.155514"
+           y="175.24722"
+           id="text19817-1"><tspan
+             sodipodi:role="line"
+             id="tspan19815-5"
+             style="stroke-width:0.264583"
+             x="27.155514"
+             y="175.24722">founders</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:12.7px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+           x="-8.0325642"
+           y="188.7482"
+           id="text22167-1"
+           transform="rotate(-30.74691)"
+           inkscape:transform-center-x="-7.0293974"
+           inkscape:transform-center-y="10.204885"><tspan
+             sodipodi:role="line"
+             id="tspan22165-5"
+             style="stroke-width:0.264583"
+             x="-8.0325642"
+             y="188.7482">markers</tspan></text>
+      </g>
+      <path
+         style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 21.079584,82.0984 v 89.43046"
+         id="path31171-5" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 7.4609764,82.408205 V 171.83867"
+         id="path31171-8-86" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 35.537164,82.382556 V 171.81301"
+         id="path31171-0-9" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 43.179028,82.498649 V 171.92911"
+         id="path31171-7-1" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 28.411643,82.395381 V 171.82584"
+         id="path31171-2-6" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 1.1487777,82.176019 V 171.60647"
+         id="path31171-28-5" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 14.45758,82.382556 V 171.81301"
+         id="path31171-9-1" />
+      <text
+         xml:space="preserve"
+         style="font-size:7.76111px;line-height:1.25;font-family:sans-serif;white-space:pre;inline-size:56.123;stroke-width:0.264583"
+         x="-5.2666898"
+         y="178.96419"
+         id="text34095-4"><tspan
+           x="-5.2666898"
+           y="178.96419"
+           id="tspan82310">A<tspan
+   style="font-size:4.23333px"
+   id="tspan82296"> </tspan>B<tspan
+   style="font-size:4.23333px"
+   id="tspan82298"> </tspan>C<tspan
+   style="font-size:4.23333px"
+   id="tspan82300"> </tspan>D<tspan
+   style="font-size:4.23333px"
+   id="tspan82302"> </tspan>E<tspan
+   style="font-size:4.23333px"
+   id="tspan82304"> </tspan>F<tspan
+   style="font-size:6.35px"
+   id="tspan82306"> </tspan>G<tspan
+   style="font-size:4.23333px"
+   id="tspan82308"> </tspan>H</tspan></text>
+    </g>
+    <g
+       id="g24426-5"
+       transform="translate(91.258261,14.642162)"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <rect
+         style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#808080;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect10058-2"
+         width="37.307766"
+         height="83.365479"
+         x="69.84716"
+         y="56.835339"
+         transform="matrix(1.5206932,0,0,1.0713714,-78.974873,5.7587552)" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:1.27641;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 26.712062,66.650511 75.989219,39.831207"
+         id="path13528-5"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 107.15492,56.835338 138.04761,31.681532"
+         id="path13530-9"
+         sodipodi:nodetypes="cc"
+         transform="matrix(1.5206932,0,0,1.0713714,-78.974873,5.7587552)" />
+      <path
+         style="fill:none;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="m 107.15492,140.20082 30.89269,-25.15379"
+         id="path13532-0"
+         sodipodi:nodetypes="cc"
+         transform="matrix(1.5206932,0,0,1.0713714,-78.974873,5.7587552)" />
+      <path
+         style="fill:#808080;fill-opacity:1;stroke:#808080;stroke-width:1.2233;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 75.989219,39.831207 130.95186,39.701269"
+         id="path15839-7"
+         sodipodi:nodetypes="cc" />
+      <path
+         style="fill:#808080;fill-opacity:1;stroke:#808080;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 138.04761,115.04703 V 31.681532"
+         id="path15841-6"
+         transform="matrix(1.5206932,0,0,1.0713714,-78.974873,5.7587552)" />
+      <text
+         xml:space="preserve"
+         style="font-size:12.7px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="-135.39099"
+         y="21.86762"
+         id="text18007-8"
+         transform="rotate(-90)"><tspan
+           sodipodi:role="line"
+           id="tspan18005-4"
+           style="stroke-width:0.264583"
+           x="-135.39099"
+           y="21.86762">samples</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.7px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="27.155514"
+         y="175.24722"
+         id="text19817-8"><tspan
+           sodipodi:role="line"
+           id="tspan19815-0"
+           style="stroke-width:0.264583"
+           x="27.155514"
+           y="175.24722">founders</tspan></text>
+      <text
+         xml:space="preserve"
+         style="font-size:12.7px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+         x="-8.0325642"
+         y="188.7482"
+         id="text22167-6"
+         transform="rotate(-30.74691)"
+         inkscape:transform-center-x="-7.0293974"
+         inkscape:transform-center-y="10.204885"><tspan
+           sodipodi:role="line"
+           id="tspan22165-6"
+           style="stroke-width:0.264583"
+           x="-8.0325642"
+           y="188.7482">markers</tspan></text>
+    </g>
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 145.79676,81.250302 V 170.68082"
+       id="path31171-98"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 132.17816,81.560107 V 170.99063"
+       id="path31171-8-8"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 160.25434,81.534458 V 170.96497"
+       id="path31171-0-0"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 167.89621,81.650551 V 171.08107"
+       id="path31171-7-9"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 153.12882,81.547283 V 170.9778"
+       id="path31171-2-5"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 125.86596,81.327921 V 170.75843"
+       id="path31171-28-7"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       style="fill:none;stroke:#808080;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 139.17476,81.534458 V 170.96497"
+       id="path31171-9-7"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <text
+       xml:space="preserve"
+       style="font-size:7.76111px;line-height:1.25;font-family:sans-serif;white-space:pre;inline-size:56.123;stroke-width:0.264583"
+       x="-5.2666898"
+       y="178.96419"
+       id="text34095-2"
+       transform="translate(124.71718,-0.84810343)"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         x="-5.2666898"
+         y="178.96419"
+         id="tspan82326">A<tspan
+   style="font-size:4.23333px"
+   id="tspan82312"> </tspan>B<tspan
+   style="font-size:4.23333px"
+   id="tspan82314"> </tspan>C<tspan
+   style="font-size:4.23333px"
+   id="tspan82316"> </tspan>D<tspan
+   style="font-size:4.23333px"
+   id="tspan82318"> </tspan>E<tspan
+   style="font-size:4.23333px"
+   id="tspan82320"> </tspan>F<tspan
+   style="font-size:6.35px"
+   id="tspan82322"> </tspan>G<tspan
+   style="font-size:4.23333px"
+   id="tspan82324"> </tspan>H</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14.1111px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+       x="49.026184"
+       y="44.883289"
+       id="text76964"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan76962"
+         style="font-size:14.1111px;stroke-width:0.264583"
+         x="49.026184"
+         y="44.883289">1</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14.1111px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+       x="182.01711"
+       y="44.182434"
+       id="text76964-5"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan76962-4"
+         style="font-size:14.1111px;stroke-width:0.264583"
+         x="182.01711"
+         y="44.182434">2</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14.1111px;line-height:1.25;font-family:sans-serif;stroke-width:0.264583"
+       x="316.26605"
+       y="44.182434"
+       id="text76964-9"
+       inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\genoprobs_3D.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300"><tspan
+         sodipodi:role="line"
+         id="tspan76962-2"
+         style="font-size:14.1111px;stroke-width:0.264583"
+         x="316.26605"
+         y="44.182434">3</tspan></text>
+  </g>
+</svg>
