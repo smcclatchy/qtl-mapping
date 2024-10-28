@@ -45,15 +45,34 @@ T2D and this experiment sought to use genetic variation between B6 and BTBR
 strains to identify genes which influence T2D. 
 
 This study measured insulin and glucose levels in mice at 10 weeks, at which
-time the mice were euthanized. After euthanasia, the author's harvested six
+time the mice were euthanized. After euthanasia, the authors harvested six
 tissues, adipose, gastrocnemius muscle, hypothalamus, pancreatic islets, kidney,
 and liver, and measured transcript levels via gene expression microarray.
 
 In this study, we will analyze circulating insulin levels and pancreatic islet 
 gene expression. We will map circulating insulin levels to identify genomic
-loci which influence insulin levels. We will then use SNP that differ between
+loci which influence insulin levels. We will then use SNPs that differ between
 C57BL/6J and BTBR and pancreatic islet gene expression data to identify 
 candidate genes.
+
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 1: Research question and study design
+
+Turn to a partner and describe:   
+1. the research question that the study addresses, and    
+2. how the study is designed to address this question.    
+
+Share your description with your partner, and then listen to them describe
+their understanding of the study. When you are finished, write your responses
+into the collaborative document.
+
+:::::::::::::::::::::::: solution 
+ 
+
+:::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::
 
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
@@ -67,4 +86,3 @@ influence susceptibility to T2D.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
-[r-markdown]: https://rmarkdown.rstudio.com/
