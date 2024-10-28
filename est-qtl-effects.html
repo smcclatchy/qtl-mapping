@@ -420,22 +420,20 @@
 </div>
 </div>
 <section><h2 class="section-heading" id="estimating-founder-allele-effects">Estimating Founder Allele Effects<a class="anchor" aria-label="anchor" href="#estimating-founder-allele-effects"></a></h2>
-<hr class="half-width"><!-- DMG: Sue, can you make the equations Latex and remake the figures
-with the BTBR data? --><p>Recall that to model data from a cross, we use</p>
+<hr class="half-width"><p>Recall that to model data from a cross, we use</p>
 <p><span class="math inline">\(y_j = \mu + \beta_k G_{jk} +
 \epsilon_j\)</span></p>
 <p>where <span class="math inline">\(y_{ij}\)</span> is the phenotype of
 the <span class="math inline">\(j\)</span>th individual, <span class="math inline">\(\mu\)</span> is the mean phenotype value, <span class="math inline">\(\beta_k\)</span> is the effect of the <span class="math inline">\(k\)</span>th genotype, <span class="math inline">\(G_{jk}\)</span> is the genotype for individual
 <span class="math inline">\(j\)</span>, and <span class="math inline">\(\epsilon_j\)</span> is the error for the <span class="math inline">\(j\)</span>th individual. In the figure below,
-<span class="math inline">\(\mu\)</span> equals 1, and <span class="math inline">\(\beta\)</span> equals 0.1 for the alternative
+<span class="math inline">\(\mu\)</span> equals 94.6 and <span class="math inline">\(\beta\)</span> equals 15 for the alternative
 hypothesis (QTL exists).</p>
-<figure><img src="fig/nullvalt.png" alt="Null and alternative hypothesis" class="figure mx-auto d-block"></figure><p>This linear model is <i>y</i> = 1 + 0.1X + ε. The model intersects
-the genotype groups at their group means, and is based on μ and
-<i>β<sub>k</sub></i> for chromosome 2 marker rs13476803 located at
-138.945 Mb.</p>
-<p>The effect of genotype RR (the β for the RR genotype) at marker
-rs13476803 is 0.1, while the effect of the BB genotype is -0.1 on the
-insulin phenotype. The effect of the BR genotype is 0 relative to <span class="math inline">\(\mu\)</span> equals 1.</p>
+<figure><img src="fig/nullvalt.png" alt="Null and alternative hypotheses" class="figure mx-auto d-block"></figure><p>This linear model is <span class="math inline">\(y\)</span> = 94.6 +
+15<span class="math inline">\(G\)</span> + <span class="math inline">\(\epsilon\)</span>. The model intersects the
+genotype groups at their group means, and is based <span class="math inline">\(\mu\)</span> and <span class="math inline">\(\beta_k\)</span>.</p>
+<p>The effect of genotype RR (the <span class="math inline">\(\beta\)</span> for the RR genotype) at the marker
+is 15, while the effect of the BB genotype is -15 on the phenotype. The
+effect of the BR genotype is 0 relative to <span class="math inline">\(\mu\)</span> equals 94.6.</p>
 <p>The <code>scan1()</code> function returns only LOD scores. To obtain
 estimated QTL effects, use the function <code>scan1coef()</code>. This
 function takes a single phenotype and the genotype probabilities for a
@@ -491,7 +489,7 @@ LOD plot at the bottom.</p>
 x-axis. The value of the intercept (<span class="math inline">\(\mu\)</span>) appears at the top. The effect of
 the BR genotype is centered around zero, with the effects of the other
 two genotypes above and below. We are usually not directly interested in
-how the additive covariates change across the genome, but rather, the
+how the additive covariates change across the genome, but rather, how
 the founder allele effects change.</p>
 <p>To plot only the founder allele effects, use the argument
 <code>columns</code> to indicate which coefficients to plot. Let’s look
@@ -697,7 +695,7 @@ and 3 columns in <code>pr</code>.</p>
 <div class="callout-content">
 <p>Look at the top few rows of <code>pr</code>. You may want to round
 the values to make them easier to read. What is the genotype of
-“Mouse3051”? What about “Mouse3430”?</p>
+<code>Mouse3051</code>? What about <code>Mouse3430</code>?</p>
 </div>
 </div>
 </div>
@@ -917,9 +915,8 @@ mixture of additive and dominant effects.</p>
 <p>We can map the additive and dominance effects by providing a matrix
 of <em>contrasts</em> to indicate the different effects. Let’s look at
 the additive and dominant effects on chromosome 7 first.</p>
-<p><img src="fig/add_dom_qtl_effect.png" alt="Additive &amp; Dominance Effects" class="figure">{alt=“Figure showing additive
-&amp; dominance QTL effects”,width=50%}</p>
-<p>In the figure above, we have simulated a QTL with a dominant effect.
+<figure><img src="fig/add_dom_qtl_effect.png" alt="Figure showing additive &amp; dominance QTL effects" class="figure mx-auto d-block"><div class="figcaption">Additive &amp; Dominance Effects</div>
+</figure><p>In the figure above, we have simulated a QTL with a dominant effect.
 Genotypes are shown on the X-axis and the phenotype on the Y-axis. Each
 point represents the phenotype value for one mouse. The grey line is the
 mean of the two homozygote groups. The additive effect is defined as the
@@ -927,8 +924,8 @@ difference between the homozygote mean (grey line) and the individual
 homozygote group means (red lines). The blue line shows the heterozygote
 mean. The dominance effect is the difference between the homozygote mean
 (grey line) and the heterozygote mean (blue line).</p>
-<p>First, we create a “contrasts” matrix to indicate the mean, additive,
-and dominance effects that we want to estimate.</p>
+<p>First, we create a <em>contrasts</em> matrix to indicate the mean,
+additive, and dominance effects that we want to estimate.</p>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1053,8 +1050,9 @@ This takes a vector of genotypes as produced by the
 <code>maxmarg()</code> function, which picks the most likely genotype
 from a set of genotype probabilities, provided it is greater than some
 specified value (the argument <code>minprob</code>). Note that the
-“marg” in “maxmarg” stands for “marginal”, as this function is selecting
-the genotype at each position that has maximum marginal probability.</p>
+<code>marg</code> in <code>maxmarg</code> stands for “marginal”, as this
+function is selecting the genotype at each position that has maximum
+marginal probability.</p>
 <p>For example, we could get inferred genotypes at the chr 19 QTL for
 the insulin phenotype (at 28.6 cM) as follows:</p>
 <div class="codewrapper sourceCode" id="cb33">
@@ -1087,10 +1085,9 @@ follows:</p>
 <div class="callout-inner">
 <h3 class="callout-title">Key Points</h3>
 <div class="callout-content">
-<ul><li>“Estimated founder allele effects can be plotted from the mapping
-model coefficients.”</li>
-<li>“Additive and dominance effects can be plotted using
-contrasts.”</li>
+<ul><li>Estimated founder allele effects can be plotted from the mapping
+model coefficients.</li>
+<li>Additive and dominance effects can be plotted using contrasts.</li>
 </ul></div>
 </div>
 </div>
