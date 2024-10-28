@@ -322,6 +322,7 @@ experiment, there do not appear to be any sex-specific peaks. Without performing
 a formal test, we usually look for peaks with a LOD greater than 3 and there do
 not appear to be any in this scan.
 
+::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge 4: Why didn't we map and plot males and females separately?
 
@@ -332,6 +333,7 @@ things this way.
 
 
 :::::::::::::::::::::::::::::::::
+
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
 
