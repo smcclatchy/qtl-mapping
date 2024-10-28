@@ -420,11 +420,10 @@ descended from a small number of founders (fancy mice) and went through
 several population bottlenecks. Wild-derived strains are not descended
 from fancy mice and don’t share the same history as laboratory
 strains.</p>
-<p><img src="https://www.informatics.jax.org/silver/images/figure2-3.gif" alt="Geographical ranges of subspecies in the Mus musculus group. From Mouse Genetics: Concepts and Applications by Lee M. Silver, Oxford University Press, 1995." class="figure">{alt=“A
-world map showing the origins and ranges of five Mus musculus
-subspecies: domesticus, musculus, castaneus, bactrianus and
-molossinus}</p>
-<p>Issues of population structure and differing degrees of genetic
+<figure><img src="https://www.informatics.jax.org/silver/images/figure2-3.gif" alt="A world map showing the origins and ranges of five Mus musculus subspecies: domesticus, musculus, castaneus, bactrianus and molossinus" class="figure mx-auto d-block"><div class="figcaption">Geographical ranges of subspecies in the Mus
+musculus group. From Mouse Genetics: Concepts and Applications by Lee M.
+Silver, Oxford University Press, 1995.</div>
+</figure><p>Issues of population structure and differing degrees of genetic
 relatedness between mice are addressed using linear mixed models (LMM).
 LMMs consider genome-wide similarity between all pairs of individuals to
 account for population structure, known kinship and unknown relatedness.
@@ -447,10 +446,10 @@ use:</p>
 the <span class="math inline">\(j\)</span>th individual, <span class="math inline">\(\mu\)</span> is the mean phenotype value, <span class="math inline">\(\beta_k\)</span> is the effect of the <span class="math inline">\(k\)</span>th genotype, <span class="math inline">\(G_{jk}\)</span> is the genotype for individual
 <span class="math inline">\(j\)</span>, and <span class="math inline">\(\epsilon_j\)</span> is the error for the <span class="math inline">\(j\)</span>th individual. In the figure below,
 <span class="math inline">\(\mu\)</span> equals 94.6, and <span class="math inline">\(\beta\)</span> equals 15 for the alternative
-hypothesis (QTL exists). This linear model is <span class="math inline">\(y\)</span> = 94.6 + 15<span class="math inline">\(X\)</span> + <span class="math inline">\(\epsilon\)</span>. The model intersects the
+hypothesis (QTL exists). This linear model is <span class="math inline">\(y\)</span> = 94.6 + 15<span class="math inline">\(G\)</span> + <span class="math inline">\(\epsilon\)</span>. The model intersects the
 genotype groups at their group means. In contrast, the null hypothesis
 would state that there is no difference in group means (no QTL
-anywhere). The linear model for the null hypothesis would be <span class="math inline">\(y\)</span> = 94.6 + 0<span class="math inline">\(X\)</span> + <span class="math inline">\(\epsilon\)</span>. This states that the phenotype
+anywhere). The linear model for the null hypothesis would be <span class="math inline">\(y\)</span> = 94.6 + 0<span class="math inline">\(G\)</span> + <span class="math inline">\(\epsilon\)</span>. This states that the phenotype
 is equal to the combined mean (94.6), plus some error (<span class="math inline">\(\epsilon\)</span>). In other words, genotype
 doesn’t affect the phenotype.</p>
 <figure><img src="../fig/nullvalt.png" alt="Null versus alternative hypotheses" class="figure mx-auto d-block"><div class="figcaption">Null and Alternative Hypotheses</div>
