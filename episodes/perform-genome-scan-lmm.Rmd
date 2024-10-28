@@ -43,14 +43,17 @@ Genetic mapping in mice presents a good example of why accounting for population
 structure is important. Laboratory mouse strains are descended from a small 
 number of founders (fancy mice) and went through several population bottlenecks. 
 Wild-derived strains are not descended from fancy mice and don't share the same 
-history as laboratory strains. Issues of population structure and differing
-degrees of genetic relatedness between mice are addressed using linear mixed 
-models (LMM).  LMMs consider genome-wide similarity between all pairs of 
-individuals to account for population structure, known kinship and unknown 
-relatedness. LMMs in mapping studies can successfully adjust for genetic 
-relatedness between individuals in a population by incorporating kinship into 
-the model. Earlier we 
-[calculated a kinship matrix](https://smcclatchy.github.io/mapping/calc-kinship/) 
+history as laboratory strains. 
+
+![Geographical ranges of subspecies in the Mus musculus group. From Mouse Genetics: Concepts and Applications by Lee M. Silver, Oxford University Press, 1995.](https://www.informatics.jax.org/silver/images/figure2-3.gif){alt="A world map showing the origins and ranges of five Mus musculus subspecies: domesticus, musculus, castaneus, bactrianus and molossinus}
+
+Issues of population structure and differing degrees of genetic relatedness 
+between mice are addressed using linear mixed models (LMM).  LMMs consider 
+genome-wide similarity between all pairs of individuals to account for 
+population structure, known kinship and unknown relatedness. LMMs in mapping 
+studies can successfully adjust for genetic relatedness between individuals in a 
+population by incorporating kinship into the model. Earlier we 
+[calculated a kinship matrix](https://smcclatchy.github.io/qtl-mapping/instructor/calc-kinship.html) 
 for input to a linear mixed model to account for relationships among 
 individuals. For a current review of mixed models in genetics, see
 [Sul et al, PLoS Genetics, 2018](https://pmc.ncbi.nlm.nih.gov/articles/PMC6307707/).
@@ -68,22 +71,19 @@ marker, we use:
 $y_j = \mu + \beta_k G_{jk} + \epsilon_j$
  
 
-where $y_{ij}$ is the phenotype of the $j$th individual, $\mu$ is the mean 
+where $y_j$ is the phenotype of the $j$th individual, $\mu$ is the mean 
 phenotype value, $\beta_k$ is the effect of the $k$th genotype, $G_{jk}$ is the 
 genotype for individual $j$, and $\epsilon_j$ is the error for the $j$th 
-individual. In the figure below, $\mu$ equals 
-`r round(chr2_eff["rs13476803",4], 1)`, and $\beta$ equals 
-`r round(abs(chr2_eff["rs13476803",1]), 1)` for the alternative hypothesis 
-(QTL exists). This linear model is 
-$y$ = `r round(chr2_eff["rs13476803",4], 1)` + `r round(abs(chr2_eff["rs13476803",1]), 1)`X
-+ $\epsilon$. The model intersects the genotype groups at their group means. In 
-contrast, the null hypothesis would state that there is no difference in group 
-means (no QTL anywhere). The linear model for the null hypothesis would be 
-$y$ = 94.6 + 0$X$ + $\epsilon$. This states that the phenotype is equal to the 
-combined mean (94.6), plus some error ($\epsilon$). In other words, genotype 
-doesn't affect the phenotype.
+individual. In the figure below, $\mu$ equals 94.6, and $\beta$ equals 
+15 for the alternative hypothesis (QTL exists). This linear model is 
+$y$ = 94.6 + 15$X$ + $\epsilon$. The model intersects the genotype groups at their 
+group means. In contrast, the null hypothesis would state that there is no 
+difference in group means (no QTL anywhere). The linear model for the null 
+hypothesis would be $y$ = 94.6 + 0$X$ + $\epsilon$. This states that the 
+phenotype is equal to the combined mean (94.6), plus some error ($\epsilon$). In 
+other words, genotype doesn't affect the phenotype.
 
-![Null and Alternative Hyypothesis](fig/nullvalt.png){alt="Null versus alternative hypothesis"}
+![Null and Alternative Hypotheses](fig/nullvalt.png){alt="Null versus alternative hypotheses"}
 
 The linear models above describe the relationship between genotype and phenotype 
 but are inadequate for describing the relationship between genotype and 
@@ -96,23 +96,22 @@ To model the phenotypes of all individuals in the data, we can adapt the simple
 linear model to include all individuals and their variants so that we capture 
 the effect of all variants shared by individuals on their phenotypes.
 
-$y=\mu+\sum_{i=1}^M{\beta_iX_i}+\epsilon$
+$y=\mu+\sum_{i=1}^M{\beta_iG_i}+\epsilon$
 
 Now, $y$ represents the phenotypes of all individuals. The effect of the 
 $i$th genotype on the phenotype is $\beta_i$, the mean is $\mu$ and the error 
-is $\epsilon$. Here, 
-the number of genotypes is M.
+is $\epsilon$. Here, the number of genotypes is M.
 
 To model the effect of all genotypes and to account for relatedness, we test the 
 effect of a single genotype while bringing all other genotypes into the model.
 
-$y=\mu + \beta_kX_k +\sum_{i\neq k}^{M}\beta_iX_i + \epsilon$
+$y=\mu + \beta_kG_k +\sum_{i\neq k}^{M}\beta_iG_i + \epsilon$
 
-$\beta_k$ is the effect of the genotype $X_k$, and $\sum_{i\neq k}^{M}\beta_iX_i$ 
+$\beta_k$ is the effect of the genotype $G_k$, and $\sum_{i\neq k}^{M}\beta_iG_i$ 
 sums the effects across all markers (M) of all other genotypes except genotype 
-k. For the leave one chromosome out (LOCO) method, $\beta_kX_k$ is the effect of
-genotypes on chromosome $k$, and $\beta_iX_i$  represents effect of genotypes on
-all other chromosomes.
+$k$. For the leave one chromosome out (LOCO) method, $\beta_kG_k$ is the effect 
+of genotypes on chromosome $k$, and $\beta_iG_i$ represents the effects of 
+genotypes on all other chromosomes.
 
 If the sample contains divergent subpopulations, SNPs on different chromosomes 
 will be correlated because of the  difference in allele frequencies between 
@@ -120,8 +119,8 @@ subpopulations caused by relatedness. To correct for correlations between
 chromosomes, we model all genotypes on the other chromosomes when testing for 
 the association of a SNP. 
 
-First, we will create a single kinship matrix using all of the genoprobs on all
-chromosomes.
+First, we will create a single kinship matrix using all of the genotype 
+probabilities on all chromosomes.
 
 ```{r calc_kinship_all}
 kinship_all <- calc_kinship(probs = probs, 
@@ -171,12 +170,12 @@ would this happen?
 
 To answer this, we have to think back to the mapping model that we are using.
 
-$y=\mu + \beta_kX_k +\sum_{i\neq k}^{M}\beta_iX_i + \epsilon$
+$y=\mu + \beta_kG_k +\sum_{i\neq k}^{M}\beta_iG_i + \epsilon$
 
 In this model, we explicitly excluded the current marker from the kinship
-calculation. However, when we calculcated the kinship matrix above, we used
+calculation. However, when we calculated the kinship matrix above, we used
 **ALL** of the markers. This means that we have put the current marker $k$ into
-the model *twice*. This is causes a loss of power which has been reported in
+the model *twice*. This causes a loss of power which has been reported in
 [Yang et al., Nat.Gen., 2014](https://pmc.ncbi.nlm.nih.gov/articles/PMC3989144/).
 
 In order to address this issue, we could remove the current marker from the 
@@ -184,12 +183,12 @@ calculation. But this would mean that we would have to calculate a different
 kinship matrix for every marker. As a compromise, researchers create a different
 kinship matrix for each chromosome which uses all of the markers except those
 on the current chromosome. For example, to create a kinship matrix to use on 
-chromosome 1, we would use the markers on chromosomes 2 thorough X. This is
-called the "leave one chromosome out" (LOCO) method.
+chromosome 1, we would use the markers on chromosomes 2 through X. This is
+called the *Leave One Chromosome Out* (LOCO) method.
 
-In order to use the LOCO method (scan each chromosome using a kinship matrix that 
-is calculated using data from all other chromosomes), use `type="loco"` in the 
-call to `calc_kinship()`.
+In order to use the LOCO method (scan each chromosome using a kinship matrix 
+that is calculated using data from all other chromosomes), use `type="loco"` in 
+the call to `calc_kinship()`.
 
 ```{r calc_kinship_loco}
 kinship_loco <- calc_kinship(probs = probs, 
@@ -228,11 +227,11 @@ legend(x = 1500, y = 7.5, legend = c("No kinship", "All kinship", "LOCO kinship"
        lwd = 2, col = c('black', 'blue', 'darkgreen'))
 ```
 
-For circulating insulin, the three methods give quite different 
-results. The linear mixed model with an overall kinship matrix (blue) produces 
-much lower LOD scores than the other two methods. On chromosomes with some 
-evidence of a QTL, the LOCO method gives higher LOD scores than Haley-Knott, 
-except on chromosome 6 where it gives lower LOD scores.
+For circulating insulin, the three methods give quite different results. The 
+linear mixed model with an overall kinship matrix (blue) produces much lower LOD 
+scores than the other two methods. On chromosomes with some evidence of a QTL, 
+the LOCO method gives higher LOD scores than Haley-Knott, except on chromosome 6 
+where it gives lower LOD scores.
 
 Let's plot the difference between the LOCO-kinship genome scan and the 
 no-kinship genome scan.
@@ -275,51 +274,51 @@ twice. The LOCO method leads to better power to identify QTL.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 2
+## Challenge 2: Pair programming
 
-<!-- DMG: Ha! we were using the BTBR data anyway. Let's not load a second copy
-of the data. Maybe we can brainstorm about another challenge. -->
+With a partner, review and carry out all of the steps in QTL mapping that we 
+have covered so far, using a new data set. One of you types the code, the other
+explains what needs to happen next, finds the relevant code in the lesson, 
+suggests new names for objects (i.e. NOT the ones you've already used, such as 
+`map`, `pr`, `out`, `prob`, etc.).
 
-Pair programming exercise: with your partner, review and carry 
-out all of the steps in QTL mapping that we have covered so far,
-using a new data set. One of you types the code, the other
-explains what needs to happen next, finds the relevant code in
-the lesson, suggests new names for objects (i.e. NOT the ones
-you've already used, such as "map", "pr", "out", etc.).
-
-1. Run the code above to load the 
-[B6 x BTBR intercross data](https://github.com/rqtl/qtl2data/tree/master/B6BTBR) 
-into an object called b6btbr.
-2. Insert pseudomarkers and calculate genotype probabilities.
-3. Run a genome scan for the log10_insulin_10wk phenotype.
+1. Load the [Gough data](https://github.com/rqtl/qtl2data/tree/main/Gough) 
+into an object called `gough`. You can find code to load the data at the bottom
+of the page.
+2. Calculate genotype probabilities.
+3. Run a genome scan for the first 16 phenotypes using 
+`pheno = gough$pheno[, 1:16]`. These represent 16 weeks of body weight 
+measurements. The remaining phenotypes are derivations of these measurements.
 4. Calculate a kinship matrix.
 5. Calculate a list of kinship matrices with the LOCO method.
-6. Run genome scans with the regular kinship matrix and with the
-list of LOCO matrices.
-7. Plot the 3 different genome scans in a single plot in 
-different colors.
-8. Which chromosomes appear to have peaks with a LOD score greater than 4? 
+6. Run genome scans with the regular kinship matrix and with the list of LOCO 
+matrices.
+7. Plot the 3 different genome scans in a single plot in different colors. By
+default, the `plot()` function will give you the first lod column which is for
+week 1. You can add the `lodcolumn =  ` argument to the call to plot and insert
+additional lod column numbers up to 16.
+8. Which chromosomes appear to have peaks with a LOD score greater than 7? 
 Which methods identify these peaks? Which don't?
 
 :::::::::::::::::::::::: solution 
 
-`file <- paste0("https://raw.githubusercontent.com/rqtl/", "qtl2data/master/B6BTBR/b6btbr.zip")`  
-`b6btbr <- read_cross2(file)`  
-`summary(b6btbr)`  
-`head(b6btbr$pheno)`  
-`colnames(b6btbr$pheno)`  
-`b6bmap <- insert_pseudomarkers(map=b6btbr$gmap, step=1)`  
-`prb6b <- calc_genoprob(cross=b6btbr, map=b6bmap, error_prob=0.002)`  
-`b6baddcovar <- get_x_covar(b6btbr)`  
-`b6bout <- scan1(genoprobs = prb6b, pheno = b6btbr$pheno, addcovar=b6baddcovar)`  
-`plot(b6bout, map = b6bmap)`  
-`b6bkinship <- calc_kinship(probs = prb6b)`  
-`out_pg_b6b <- scan1(prb6b, b6btbr$pheno, kinship=b6bkinship, addcovar=b6baddcovar)`  
-`kinship_loco_b6b <- calc_kinship(prb6b, "loco")`  
-`out_pg_loco_b6b <- scan1(prb6b, b6btbr$pheno, kinship_loco_b6b, addcovar=b6baddcovar)`  
-`plot_scan1(out_pg_loco_b6b, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "black")`  
-`plot_scan1(out_pg_b6b, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "blue", add = TRUE)`  
-`plot_scan1(b6bout, map = b6bmap, lodcolumn = "log10_insulin_10wk", col = "green", add = TRUE)`  
+`file <- paste0("https://raw.githubusercontent.com/rqtl/", "qtl2data/main/Gough/gough.zip")`   
+`gough <- read_cross2(file)`    
+`summary(gough)`  
+`head(goughpheno)`  
+`colnames(gough$pheno)`  
+`goughmap <- gough$pmap`   
+`prgough <- calc_genoprob(cross=gough, map=goughmap, error_prob=0.002)`  
+`goughaddcovar <- get_x_covar(gough)`  
+`goughscan <- scan1(genoprobs = prgough, pheno = gough$pheno[, 1:16], addcovar=goughaddcovar)`  
+`plot(goughscan, map = goughmap)`  
+`goughkinship <- calc_kinship(probs = prgough)`  
+`out_pg_gough <- scan1(prgough, bgough$pheno, kinship=goughkinship, addcovar=goughaddcovar)`  
+`kinship_loco_gough <- calc_kinship(prgough, "loco")`  
+`out_pg_loco_gough <- scan1(prgough, gough$pheno, kinship_loco_gough, addcovar=goughaddcovar)`  
+`plot_scan1(out_pg_loco_gough, map = goughmap, lodcolumn = 2, col = "black")`  
+`plot_scan1(out_pg_gough, map = goughmap, lodcolumn = 2, col = "blue", add = TRUE)`  
+`plot_scan1(goughscan, map = goughmap, lodcolumn = 2, col = "green", add = TRUE)`  
 
 
 :::::::::::::::::::::::::::::::::
