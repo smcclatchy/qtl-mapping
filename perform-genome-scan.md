@@ -79,8 +79,7 @@ To perform a genome scan by Haley-Knott regression
 ([Haley and Knott 1992](https://www.ncbi.nlm.nih.gov/pubmed/16718932)),
 use the function `scan1()`.  `scan1()` takes as input the genotype 
 probabilities, a matrix of phenotypes, and then optional additive and 
-interactive covariates. Another option 
-is to provide a vector of weights.
+interactive covariates. Another option is to provide a vector of weights.
 
 ## Additive Genome Scan
 
@@ -109,17 +108,16 @@ Mouse3414   07/15/2008  12/05/2007
 Mouse3145   07/15/2008  12/10/2007
 ```
 
-`Sex` is potential covariate. It is a good idea to always include
-sex in any analysis. Even if you perform an ANOVA and think that sex is not 
-important, it doesn't hurt to add in one extra degree of freedom to your model.
-Examples of other covariates might be age, diet, treatment, or experimental 
-batch. It is worth taking time to identify covariates that may affect your 
-results.
+`Sex` is potential covariate. It is a good idea to always include sex in any 
+analysis. Even if you perform an ANOVA and think that sex is not important, it 
+doesn't hurt to add in one extra degree of freedom to your model. Examples of 
+other covariates might be age, diet, treatment, or experimental batch. It is 
+worth taking time to identify covariates that may affect your results.
 
-First, we will make sex a "factor", which is the term that R uses for 
-categorical variables. This is required for the next function to 
-work correctly. Then we will use `model.matrix` to create a matrix of "dummy"
-variables which encode the sex of each mouse.
+First, we will make sex a `factor`, which is the term that R uses for 
+categorical variables. This is required for the next function to work correctly. 
+Then we will use `model.matrix` to create a matrix of "dummy" variables which 
+encode the sex of each mouse.
 
 
 ``` r
@@ -129,11 +127,11 @@ addcovar <- model.matrix(~Sex, data = cross$covar)[,-1, drop = FALSE]
 ```
 
 
-When we perform a genome scan with additive covariates, we are searching for loci
-that have the same effect in both covariate groups. In this case, we are 
+When we perform a genome scan with additive covariates, we are searching for 
+loci that have the same effect in both covariate groups. In this case, we are 
 searching for loci that affect females and male in the same way.
 
-![Additive Sex Effect](fig/additive_qtl_effect_w_sex.png){alt="Figure showing sex and additive QTL effects.",width=50%}
+![Additive Sex Effect](fig/additive_qtl_effect_w_sex.png){alt="Figure showing sex and additive QTL effects."}
 
 In the figure above, we plotted simulated phenotype values versus the 
 genotypes BB, BR and RR. Each point represents one mouse, with females shown in
@@ -145,16 +143,16 @@ sex and the homozygous group(s).
 When we add sex into the model as an additive covariate, we regress the sex 
 effect out of the phenotype data and then estimate the overall QTL effect. 
 
-![Additive Sex Effect](fig/additive_qtl_effect_wo_sex.png){alt="Figure showing sex and additive QTL effects.",width=50%}
+![Additive Sex Effect](fig/additive_qtl_effect_wo_sex.png){alt="Figure showing sex and additive QTL effects."}
 
 In the figure above, we have plotted the same simulated phenotype with sex
 regressed out. Now the female and male means are the same, but the QTL effect
 remains.
 
-With that introdution to additive covariates, let's map the insulin phenotype.
+With that introduction to additive covariates, let's map the insulin phenotype.
 
-First, we will make a data.frame called "insulin" so that we don't have to type
-quite as many characters every time that we map insulin.
+First, we will make a `data.frame` called *insulin* so that we don't have to 
+type quite as many characters every time that we map insulin.
 
 
 ``` r
@@ -287,9 +285,9 @@ rs13476803   2 67.07116 138.9448
 
 ## Challenge 3: Plot the LOD on specific chromosomes.
 
-The `plot_scan1` function has a "chr" argument that allows you to only plot
+The `plot_scan1` function has a `chr` argument that allows you to only plot
 specific chromosomes. Use this to plot the insulin LOD on chromosomes 2, 7, 12,
-and 19. Add a title to the plot using the "main" argument, which is part of 
+and 19. Add a title to the plot using the `main` argument, which is part of 
 the basic plotting function.
 
 :::::::::::::::::::::::: solution 
@@ -316,7 +314,7 @@ additive and an interactive covariate. Mapping with an interactive covariate
 allows each sex to have different effects. We do this by including sex as an
 interactive covariate in the genome scan.
 
-![Interactive Sex by QTL Effect](fig/interactive_qtl_effect_w_sex.png){alt="Figure showing interactive sex by  QTL effects",width=50%}
+![Interactive Sex by QTL Effect](fig/interactive_qtl_effect_w_sex.png){alt="Figure showing interactive sex by  QTL effects"}
 
 In the figure above, female (red) and male (blue) phenotypes are plotted versus
 the three genotypes. In females, there is no QTL effect because the mean values
@@ -354,7 +352,7 @@ plot_scan1(x    = lod_int,
 
 It is difficult to tell if there is a difference in LOD scores between the 
 additive and interactive scans. To resolve this, we can plot both genome scans
-in the same plot using the "add = TRUE" argument. We will also color the 
+in the same plot using the `add = TRUE` argument. We will also color the 
 additive scan in blue.
 
 
@@ -390,8 +388,20 @@ experiment, there do not appear to be any sex-specific peaks. Without performing
 a formal test, we usually look for peaks with a LOD greater than 3 and there do
 not appear to be any in this scan.
 
-<!-- DMG: Add challenge asking students why we didn't map and plot females and
-males separately. Maybe they can even try it. -->
+::::::::::::::::::::::::::::::::::::: challenge 
+
+## Challenge 4: Why didn't we map and plot males and females separately?
+
+Map and plot the males and females separately. Now explain why we didn't do
+things this way.
+
+:::::::::::::::::::::::: solution 
+
+
+:::::::::::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::
+
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
@@ -403,7 +413,6 @@ phenotypes.
 both sexes.
 - A genome scan using sex as an interactive covariate searches for QTL which 
 affect each sex differently.
-
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 
