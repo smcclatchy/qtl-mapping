@@ -127,6 +127,11 @@ find_peaks(scan1_output = lod_agouti,
            map          = cross$pmap)
 ```
 
+``` output
+  lodindex  lodcolumn chr pos  lod
+1        1 agouti_tan   2 157 61.9
+```
+
 This turns out to be a well-known coat color locus for agouti coat color which
 contains the [nonagouti](https://www.informatics.jax.org/marker/MGI:87853) gene.
 Mice carrying two black alleles will have a black coat, and mice carrying
@@ -219,6 +224,19 @@ plot_scan1(x    = lod_tufted,
 ```
 
 <img src="fig/perform-genome-scan-bin-rendered-challenge2b-1.png" style="display: block; margin: auto;" />
+
+Finally, use `find_peaks` to get the peak LOD location.
+
+
+``` r
+find_peaks(scan1_output = lod_agouti, 
+           map          = cross$pmap)
+```
+
+``` output
+  lodindex  lodcolumn chr pos  lod
+1        1 agouti_tan   2 157 61.9
+```
 
 There is a large peak on chromosome 17. This is a 
 [known locus](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3570182/) 
