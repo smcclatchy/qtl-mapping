@@ -12,10 +12,17 @@ message: >-
 type: workshop
 authors:
   - given-names: Daniel
+    name-particle: M
     family-names: Gatti
     email: daniel.gatti@jax.org
     affiliation: The Jackson Laboratory
     orcid: 'https://orcid.org/0000-0003-0667-9926'
+  - given-names: Karl
+    name-particle: W
+    family-names: Broman
+    email: kbroman@wisc.edu
+    affiliation: University of Wisconsin Madison
+    orcid: '0000-0002-4914-6671'
   - given-names: Susan
     family-names: McClatchy
     email: susan.mcclatchy@jax.org
@@ -54,7 +61,9 @@ nearby QTL. They serve as signposts indicating the neighborhood of a QTL that
 influences a phenotype. Covariates such as sex or diet can also influence the
 phenotype.
 keywords:
+  - quantitative trait locus
   - qtl
+  - genetic mapping
   - statistical genetics
   - diversity outbred
 license: CC-BY-4.0

@@ -45,7 +45,9 @@ number of founders (fancy mice) and went through several population bottlenecks.
 Wild-derived strains are not descended from fancy mice and don't share the same 
 history as laboratory strains. 
 
-![Geographical ranges of subspecies in the Mus musculus group. From Mouse Genetics: Concepts and Applications by Lee M. Silver, Oxford University Press, 1995.](https://www.informatics.jax.org/silver/images/figure2-3.gif){alt="A world map showing the origins and ranges of five Mus musculus subspecies: domesticus, musculus, castaneus, bactrianus and molossinus"}
+![Geographical ranges of subspecies in the Mus musculus group. From *Mouse Genetics: Concepts and Applications* by Lee M. Silver, Oxford University Press, 1995.](https://www.informatics.jax.org/silver/images/figure2-3.gif){alt="A world map showing the origins and ranges of five Mus musculus subspecies: domesticus, musculus, castaneus, bactrianus and molossinus"}
+
+![Genealogy of the more commonly used inbred mice (H-2 haplotypes in parentheses.) From *Origins of Inbred Mice* edited by Herbert C. Morse III, Academic Press, 1978](https://www.informatics.jax.org/morsebook/figures/figure1-10a.shtml)
 
 Issues of population structure and differing degrees of genetic relatedness 
 between mice are addressed using linear mixed models (LMM).  LMMs consider 
