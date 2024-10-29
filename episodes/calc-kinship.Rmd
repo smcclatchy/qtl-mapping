@@ -256,7 +256,7 @@ df   <- data.frame(id      = rownames(cross$geno[[1]]),
 df |>
   ggplot(aes(homo, kinship)) +
     geom_point(size = 2) +
-    labs(title = "Homozygosity veruss Self-Kinship",
+    labs(title = "Homozygosity versus Self-Kinship",
          x     = "Homozygosity",
          y     = "Self-Kinship") +
     theme(text = element_text(size = 20))
