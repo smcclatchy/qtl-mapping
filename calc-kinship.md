@@ -76,8 +76,8 @@ found that these two mice have a kinship value of 0.5.
     2   | BB | BR |  0.5
     3   | BB | RR |  0.0
     4   | BR | BR |  0.5
---------+----+----+---------------
-   All  |    |    |  0.5
+   ---  | -- | -- |  ---
+   All  | -- | -- |  0.5
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -112,7 +112,7 @@ found that these two mice have a kinship value of 0.5.
     2   | BB | RR |  0.0
     3   | BB | RR |  0.0
     4   | BB | BR |  0.5
---------+----+----+---------------
+   ---  | -- | -- |  ---
    All  | -- | -- |  0.1
    
 2.  
@@ -123,12 +123,11 @@ found that these two mice have a kinship value of 0.5.
     2   | BB | BR | 0.5
     3   | RR | RR | 1.0
     4   | RR | RR | 1.0
---------+----+----+---------------
+   ---  | -- | -- | ---
    All  | -- | -- | 0.75 
 
 :::::::::::::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::::::::::::
-
 
 Linear mixed models (LMMs) consider genome-wide similarity between all pairs of 
 individuals to account for population structure, known kinship and unknown 
@@ -207,7 +206,7 @@ document or in your own personal notes.
 
 :::::::::::::::::::::::::::::::::
 
-## Challenge 3: Mean Value in Kinship Marix
+## Challenge 3: Mean Value in Kinship Matrix
 
 What is the mean kinship value of all mice? Can you explain why the value is
 the number that you get? Think about the three possible genotypes in the cross
