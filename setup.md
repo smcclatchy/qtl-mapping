@@ -97,3 +97,5 @@ download.file(url      = "https://figshare.com/ndownloader/files/40157572",
               destfile = "data/fv.2021.snps.db3",
               mode     = "wb")
 ```
+
+Development of this lesson was funded by NIH award GM070683 to Dr. Gary Churchill at The Jackson Laboratory.
