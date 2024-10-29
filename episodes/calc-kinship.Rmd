@@ -86,8 +86,8 @@ found that these two mice have a kinship value of 0.5.
     2   | BB | BR |  0.5
     3   | BB | RR |  0.0
     4   | BR | BR |  0.5
---------+----+----+---------------
-   All  |    |    |  0.5
+   ---  | -- | -- |  ---
+   All  | -- | -- |  0.5
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
