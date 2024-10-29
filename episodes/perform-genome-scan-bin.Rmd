@@ -111,7 +111,7 @@ plot_scan1(x    = lod_agouti,
 
 We can use `find_peaks` to find the position of the highest LOD score.
 
-```{r find_peaks_bin_scan, eval=FALSE}
+```{r find_peaks_bin_scan}
 find_peaks(scan1_output = lod_agouti, 
            map          = cross$pmap)
 ```
@@ -189,6 +189,13 @@ Then, plot the LOD score.
 plot_scan1(x    = lod_tufted, 
            map  = cross$pmap, 
            main = "Tufted")
+```
+
+Finally, use `find_peaks` to get the peak LOD location.
+
+```{r find_peaks_tufted}
+find_peaks(scan1_output = lod_agouti, 
+           map          = cross$pmap)
 ```
 
 There is a large peak on chromosome 17. This is a 
