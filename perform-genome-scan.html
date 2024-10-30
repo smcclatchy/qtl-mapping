@@ -420,20 +420,24 @@
 </div>
 <p>The freely available chapter on <a href="https://www.rqtl.org/book/rqtlbook_ch04.pdf" class="external-link">single-QTL
 analysis</a> from Broman and Sen’s <a href="https://www.rqtl.org/book/" class="external-link">A Guide to QTL Mapping with R/qtl</a>
-describes different methods for QTL analysis.</p>
+describes different methods for QTL analysis. We will present two of
+these methods here - marker regression and Haley-Knott regression. The
+chapter provides the statistical background behind these and other QTL
+mapping methods.</p>
 <p>Linear regression can be employed to identify presence of QTL in a
 cross. To identify QTL using regression, we compare the fit for two
 models: 1) the null hypothesis that there are no QTL anywhere in the
 genome; and 2) the alternative hypothesis that there is a QTL near a
 specific position. A sloped line indicates that there is a difference in
-mean phenotype between the two genotype groups, and that a QTL is
-present. A line with no slope indicates that there is no difference in
-mean phenotype between the two groups, and that no QTL exists.
-Regression aims to find the line of best fit to the data.</p>
+mean phenotype between genotype groups, and that a QTL is present. A
+line with no slope indicates that there is no difference in mean
+phenotype between genotype groups, and that no QTL exists. Regression
+aims to find the line of best fit to the data.</p>
 <figure><img src="fig/nullvalt.png" alt="Null and alternative hypotheses" class="figure mx-auto d-block"><div class="figcaption">Linear regression can identify QTL; adapted from
 Broman &amp; Sen, 2009</div>
 </figure><p>To find the line of best fit, the residuals or errors are calculated,
-then squared for each data point.</p>
+then squared for each data point. A residual, also known as an error, is
+the distance from the line to a data point.</p>
 <p><img src="fig/althypothesis.png" alt="Alternative hypothesis" class="figure"><img src="fig/nullhypothesis.png" alt="Null hypothesis" class="figure"></p>
 <p>The line of best fit will be the one that minimizes the sum of
 squared residuals, which maximizes the likelihood of the data.</p>
@@ -494,12 +498,12 @@ Mouse3476   07/16/2008  12/05/2007
 Mouse3414   07/15/2008  12/05/2007
 Mouse3145   07/15/2008  12/10/2007</code></pre>
 </div>
-<p><code>Sex</code> is potential covariate. It is a good idea to always
-include sex in any analysis. Even if you perform an ANOVA and think that
-sex is not important, it doesn’t hurt to add in one extra degree of
-freedom to your model. Examples of other covariates might be age, diet,
-treatment, or experimental batch. It is worth taking time to identify
-covariates that may affect your results.</p>
+<p><code>Sex</code> is a potential covariate. It is a good idea to
+always include sex in any analysis. Even if you perform an ANOVA and
+think that sex is not important, it doesn’t hurt to add in one extra
+degree of freedom to your model. Examples of other covariates might be
+age, diet, treatment, or experimental batch. It is worth taking time to
+identify covariates that may affect your results.</p>
 <p>First, we will make sex a <code>factor</code>, which is the term that
 R uses for categorical variables. This is required for the next function
 to work correctly. Then we will use <code>model.matrix</code> to create
@@ -514,7 +518,7 @@ a matrix of “dummy” variables which encode the sex of each mouse.</p>
 </div>
 <p>When we perform a genome scan with additive covariates, we are
 searching for loci that have the same effect in both covariate groups.
-In this case, we are searching for loci that affect females and male in
+In this case, we are searching for loci that affect females and males in
 the same way.</p>
 <figure><img src="fig/additive_qtl_effect_w_sex.png" alt="Figure showing sex and additive QTL effects." class="figure mx-auto d-block"><div class="figcaption">Additive Sex Effect</div>
 </figure><p>In the figure above, we plotted simulated phenotype values versus the
