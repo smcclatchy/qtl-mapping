@@ -1,7 +1,7 @@
 ---
 title: "Calculating A Kinship Matrix"
-teaching: 30
-exercises: 30
+teaching: 10
+exercises: 20
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 

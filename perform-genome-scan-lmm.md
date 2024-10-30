@@ -1,7 +1,7 @@
 ---
 title: "Performing a genome scan with a linear mixed model"
-teaching: 20
-exercises: 10
+teaching: 30
+exercises: 15
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
