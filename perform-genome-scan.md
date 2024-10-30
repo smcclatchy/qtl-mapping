@@ -27,21 +27,24 @@ The freely available chapter on
 [single-QTL analysis](https://www.rqtl.org/book/rqtlbook_ch04.pdf) 
 from Broman and Sen's 
 [A Guide to QTL Mapping with R/qtl](https://www.rqtl.org/book/) describes 
-different methods for QTL analysis. 
+different methods for QTL analysis. We will present two of these methods here - 
+marker regression and Haley-Knott regression. The chapter provides the 
+statistical background behind these and other QTL mapping methods.  
 
 Linear regression can be employed to identify presence of QTL in a cross. To 
 identify QTL using regression, we compare the fit for two models: 1) the null 
 hypothesis that there are no QTL anywhere in the genome; and 2) the alternative 
 hypothesis that there is a QTL near a specific position. A sloped line indicates 
-that there is a difference in mean phenotype between the two genotype groups, 
-and that a QTL is present. A line with no slope indicates that there is no 
-difference in mean phenotype between the two groups, and that no QTL exists. 
-Regression aims to find the line of best fit to the data. 
+that there is a difference in mean phenotype between genotype groups, and that a 
+QTL is present. A line with no slope indicates that there is no difference in 
+mean phenotype between genotype groups, and that no QTL exists. Regression aims 
+to find the line of best fit to the data. 
 
 ![Linear regression can identify QTL; adapted from Broman & Sen, 2009](fig/nullvalt.png){alt="Null and alternative hypotheses"}
 
 To find the line of best fit, the residuals or errors are calculated, then 
-squared for each data point.
+squared for each data point. A residual, also known as an error, is the distance
+from the line to a data point.
 
 ![Squared error for a single data point](fig/althypothesis.png){alt="Alternative hypothesis"}
 ![The line of best fit minimizes the sum of squared errors](fig/nullhypothesis.png){alt="Null hypothesis"}
@@ -108,7 +111,7 @@ Mouse3414   07/15/2008  12/05/2007
 Mouse3145   07/15/2008  12/10/2007
 ```
 
-`Sex` is potential covariate. It is a good idea to always include sex in any 
+`Sex` is a potential covariate. It is a good idea to always include sex in any 
 analysis. Even if you perform an ANOVA and think that sex is not important, it 
 doesn't hurt to add in one extra degree of freedom to your model. Examples of 
 other covariates might be age, diet, treatment, or experimental batch. It is 
@@ -129,7 +132,7 @@ addcovar <- model.matrix(~Sex, data = cross$covar)[,-1, drop = FALSE]
 
 When we perform a genome scan with additive covariates, we are searching for 
 loci that have the same effect in both covariate groups. In this case, we are 
-searching for loci that affect females and male in the same way.
+searching for loci that affect females and males in the same way.
 
 ![Additive Sex Effect](fig/additive_qtl_effect_w_sex.png){alt="Figure showing sex and additive QTL effects."}
 
