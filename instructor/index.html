@@ -619,14 +619,15 @@ to download to the <code>data</code> directory in the project folder on
 your Desktop. Copy, paste, and run the following code in the RStudio
 console.</p>
 <p>The first file contains the data that we will use for QTL mapping in
-an F2 population</p>
+an F2 population. Download and upzip it using the code below.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span>url      <span class="op">=</span> <span class="st">"https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip"</span>,</span>
-<span>              destfile <span class="op">=</span> <span class="st">"data/attie_b6btbr_grcm39.Rdata"</span>,</span>
-<span>              mode     <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
+<span>              destfile <span class="op">=</span> <span class="st">"data/attie_b6btbr_grcm39.zip"</span>,</span>
+<span>              mode     <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span>
+<span><span class="fu">unzip</span><span class="op">(</span><span class="st">"data/attie_b6btbr_grcm39.zip"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>The second file contains the Diversity Outbred mapping data.</p>
 <div class="codewrapper sourceCode" id="cb5">
@@ -658,10 +659,11 @@ This file is 10 GB, so it will take a while to download.</p>
 <span>              mode     <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>Development of this lesson was funded by NIH award GM070683 to
-Dr. Gary Churchill at The Jackson Laboratory. <!--
+Dr. Gary Churchill at The Jackson Laboratory.</p>
+<!--
 Place links that you need to refer to multiple times across pages here. Delete
 any links that you are not going to use.
- --></p>
+ -->
 </section></section></main><nav class="bottom-pagination mx-md-4" aria-label="Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link float-end" href="../instructor/intro_data_set.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
@@ -711,8 +713,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/instructor/index.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/instructor/index.html",
   "dateCreated": "2024-09-06",
-  "dateModified": "2024-10-30",
-  "datePublished": "2024-10-30"
+  "dateModified": "2024-10-31",
+  "datePublished": "2024-10-31"
 }
 
   </script><script>
