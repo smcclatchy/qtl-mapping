@@ -91,7 +91,7 @@ found that these two mice have a kinship value of 0.5.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 1: Calculate the kinship of the following two set of mice.
+## Challenge 1: Calculate the kinship of the following two sets of mice.
 
 1.  
 
@@ -123,7 +123,7 @@ found that these two mice have a kinship value of 0.5.
     3   | BB | RR |  0.0
     4   | BB | BR |  0.5
    ---  | -- | -- |  ---
-   All  | -- | -- |  0.1
+   All  | -- | -- |  0.125
    
 2.  
 
@@ -234,7 +234,7 @@ that are around 50% heterozygous. The variation in heterozygosity affects
 the actual kinship values, but, on average, we expect self-kinship to be 0.75
 because half of the genome is homozygous and contributes values of 1, and half
 of the genome is heterozygous and contributes values of 0.5. So 
-$0.5 * 1 + 0.5 * 0.5 = 0.75$. 
+$(0.5 \times 1) + (0.5 \times 0.5) = 0.75$. 
 
 This is shown in the plot below of homozygosity versus kinship. There is a 
 clear linear relationship between the two values and at 0.5 homozygosity, the
