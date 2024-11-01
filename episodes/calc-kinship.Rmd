@@ -91,7 +91,7 @@ found that these two mice have a kinship value of 0.5.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
-## Challenge 1: Calculate the kinship of the following two set of mice.
+## Challenge 1: Calculate the kinship of the following two sets of mice.
 
 1.  
 
