@@ -75,7 +75,7 @@ picking the same allele from mouse 2. Then we do the same procedure with the
 second allele and take the mean. This calculates the mean allele-sharing at
 that marker. We do this for all markers and take the overall mean.
 
-Let's look at an exmaple. In the table below, we have listed four markers and
+Let's look at an example. In the table below, we have listed four markers and
 their genotypes in mouse 1 (M1) and mouse 2 (M2). At each marker, we applied
 the procedure above and recorded the allele-sharing. Then we took the mean and
 found that these two mice have a kinship value of 0.5.
@@ -123,7 +123,7 @@ found that these two mice have a kinship value of 0.5.
     3   | BB | RR |  0.0
     4   | BB | BR |  0.5
    ---  | -- | -- |  ---
-   All  | -- | -- |  0.1
+   All  | -- | -- |  0.125
    
 2.  
 
@@ -176,10 +176,9 @@ darker than the other cells. You can see some evidence of related mice, possibly
 siblings, in the orange-shaded blocks along the diagonal.
 
 By default, the genotype probabilities are converted to allele probabilities, 
-and the kinship matrix is calculated as the proportion of shared alleles. To use 
-genotype probabilities instead, use `use_allele_probs=FALSE` in the call to 
-`calc_kinship()`. Further, by default we omit the X chromosome and only use the 
-autosomes. To include the X chromosome, use `omit_x=FALSE`.
+and the kinship matrix is calculated as the proportion of shared alleles. Also
+by default we omit the X chromosome and only use the  autosomes. To include the 
+X chromosome, use `omit_x=FALSE`.
 
 On a multi-core machine, you can get some speed-up via the `cores` argument, as 
 with `calc_genoprob()`.
@@ -223,7 +222,7 @@ sharing is 0.5.
 
 ## Challenge 4: Kinship of a Mouse with Itself
 
-Look at the values in the kinship matrix. What is the kinship values of each
+Look at the values in the kinship matrix. What is the kinship value of each
 mouse with itself? Why isn't this equal to 1?
 
 :::::::::::::::::::::::: solution 
@@ -234,14 +233,14 @@ that are around 50% heterozygous. The variation in heterozygosity affects
 the actual kinship values, but, on average, we expect self-kinship to be 0.75
 because half of the genome is homozygous and contributes values of 1, and half
 of the genome is heterozygous and contributes values of 0.5. So 
-$0.5 * 1 + 0.5 * 0.5 = 0.75$. 
+$(0.5 \times 1) + (0.5 \times 0.5) = 0.75$. 
 
 This is shown in the plot below of homozygosity versus kinship. There is a 
 clear linear relationship between the two values and at 0.5 homozygosity, the
 self-kinship values is 0.75. The slope of the line is 0.5.
 
-```{r challenge4,fig.width=6,fig.height=6}
-# 1 & 3 are the encoding for the two homozygous genotypes.
+```{r challenge4, fig.width=6, fig.height=6}
+# 1 & 3 are the encodings for the two homozygous genotypes
 homo <- sapply(cross$geno, 
                function(z) {
                  rowSums(z == 1 | z == 3)

@@ -269,7 +269,7 @@ the three genotypes. In females, there is no QTL effect because the mean values
 in each genotype group are not different. In males, there is a QTL effect
 because the mean in each genotype group changes.
 
-You should always include an interactive covariate as an additive covariates as
+You should always include an interactive covariate as an additive covariate as
 well. In this case, we only have sex as a covariate, so we can use the additive
 covariate matrix for the interactive covariate. For clarity, we will make a copy
 and name it for the interactive covariates.
