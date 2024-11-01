@@ -380,7 +380,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Calculating A Kinship Matrix</h1>
-        <p>Last updated on 2024-10-31 |
+        <p>Last updated on 2024-11-01 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/calc-kinship.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -472,7 +472,7 @@ probability of picking the same allele from mouse 2. Then we do the same
 procedure with the second allele and take the mean. This calculates the
 mean allele-sharing at that marker. We do this for all markers and take
 the overall mean.</p>
-<p>Let’s look at an exmaple. In the table below, we have listed four
+<p>Let’s look at an example. In the table below, we have listed four
 markers and their genotypes in mouse 1 (M1) and mouse 2 (M2). At each
 marker, we applied the procedure above and recorded the allele-sharing.
 Then we took the mean and found that these two mice have a kinship value
@@ -669,10 +669,8 @@ cells. You can see some evidence of related mice, possibly siblings, in
 the orange-shaded blocks along the diagonal.</p>
 <p>By default, the genotype probabilities are converted to allele
 probabilities, and the kinship matrix is calculated as the proportion of
-shared alleles. To use genotype probabilities instead, use
-<code>use_allele_probs=FALSE</code> in the call to
-<code>calc_kinship()</code>. Further, by default we omit the X
-chromosome and only use the autosomes. To include the X chromosome, use
+shared alleles. Also by default we omit the X chromosome and only use
+the autosomes. To include the X chromosome, use
 <code>omit_x=FALSE</code>.</p>
 <p>On a multi-core machine, you can get some speed-up via the
 <code>cores</code> argument, as with <code>calc_genoprob()</code>.</p>
@@ -755,7 +753,7 @@ mice at each marker. On average, each mouse carries 50% B alleles and
 <div id="challenge-4-kinship-of-a-mouse-with-itself" class="callout-inner">
 <h3 class="callout-title">Challenge 4: Kinship of a Mouse with Itself</h3>
 <div class="callout-content">
-<p>Look at the values in the kinship matrix. What is the kinship values
+<p>Look at the values in the kinship matrix. What is the kinship value
 of each mouse with itself? Why isn’t this equal to 1?</p>
 </div>
 </div>
@@ -783,7 +781,7 @@ homozygosity, the self-kinship values is 0.75. The slope of the line is
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># 1 &amp; 3 are the encoding for the two homozygous genotypes.</span></span>
+<code class="sourceCode R"><span><span class="co"># 1 &amp; 3 are the encodings for the two homozygous genotypes</span></span>
 <span><span class="va">homo</span> <span class="op">&lt;-</span> <span class="fu">sapply</span><span class="op">(</span><span class="va">cross</span><span class="op">$</span><span class="va">geno</span>, </span>
 <span>               <span class="kw">function</span><span class="op">(</span><span class="va">z</span><span class="op">)</span> <span class="op">{</span></span>
 <span>                 <span class="fu">rowSums</span><span class="op">(</span><span class="va">z</span> <span class="op">==</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">z</span> <span class="op">==</span> <span class="fl">3</span><span class="op">)</span></span>
@@ -890,8 +888,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/instructor/calc-kinship.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/instructor/calc-kinship.html",
   "dateCreated": "2024-09-06",
-  "dateModified": "2024-10-31",
-  "datePublished": "2024-10-31"
+  "dateModified": "2024-11-01",
+  "datePublished": "2024-11-01"
 }
 
   </script><script>
