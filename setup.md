@@ -65,13 +65,15 @@ download to the `data` directory in the project folder on your Desktop.
 Copy, paste, and run the following code in the RStudio console.
 
 The first file contains the data that we will use for QTL mapping in an F2
-population. Download and upzip it using the code below.
+population. Download it using the code below.
 
 ```r
 download.file(url      = "https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip",
               destfile = "data/attie_b6btbr_grcm39.zip",
               mode     = "wb")
-unzip("data/attie_b6btbr_grcm39.zip")
+              
+unzip(zipfile = "data/attie_b6btbr_grcm39.zip",
+      exdir   = "./data/")
 ```
 
 The second file contains the Diversity Outbred mapping data.
@@ -99,4 +101,11 @@ download.file(url      = "https://figshare.com/ndownloader/files/40157572",
               mode     = "wb")
 ```
 
-Development of this lesson was funded by NIH award GM070683 to Dr. Gary Churchill at The Jackson Laboratory.
+If you get an error message downloading this file from figshare, use a web browser to 
+download from the URL. Go to `https://figshare.com/ndownloader/files/40157572` to start 
+the download. Then move the file from wherever your downloads go (*e.g.* `Downloads`) to 
+the `data` directory in the `qtl_mapping` project. You can use a graphical user interface
+(*e.g.* Windows File Explorer, Mac Finder) to move the file.
+
+Development of this lesson was funded by NIH award GM070683 to Dr. Gary Churchill at The 
+Jackson Laboratory.
