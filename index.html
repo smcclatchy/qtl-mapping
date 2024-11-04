@@ -487,7 +487,7 @@ to download to the <code>data</code> directory in the project folder on
 your Desktop. Copy, paste, and run the following code in the RStudio
 console.</p>
 <p>The first file contains the data that we will use for QTL mapping in
-an F2 population. Download and upzip it using the code below.</p>
+an F2 population. Download it using the code below.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -495,7 +495,9 @@ an F2 population. Download and upzip it using the code below.</p>
 <code class="sourceCode R"><span><span class="fu">download.file</span><span class="op">(</span>url      <span class="op">=</span> <span class="st">"https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip"</span>,</span>
 <span>              destfile <span class="op">=</span> <span class="st">"data/attie_b6btbr_grcm39.zip"</span>,</span>
 <span>              mode     <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span>
-<span><span class="fu">unzip</span><span class="op">(</span><span class="st">"data/attie_b6btbr_grcm39.zip"</span><span class="op">)</span></span></code></pre>
+<span>              </span>
+<span><span class="fu">unzip</span><span class="op">(</span>zipfile <span class="op">=</span> <span class="st">"data/attie_b6btbr_grcm39.zip"</span>,</span>
+<span>      exdir   <span class="op">=</span> <span class="st">"./data/"</span><span class="op">)</span></span></code></pre>
 </div>
 <p>The second file contains the Diversity Outbred mapping data.</p>
 <div class="codewrapper sourceCode" id="cb5">
@@ -526,6 +528,14 @@ This file is 10 GB, so it will take a while to download.</p>
 <span>              destfile <span class="op">=</span> <span class="st">"data/fv.2021.snps.db3"</span>,</span>
 <span>              mode     <span class="op">=</span> <span class="st">"wb"</span><span class="op">)</span></span></code></pre>
 </div>
+<p>If you get an error message downloading this file from figshare, use
+a web browser to download from the URL. Go to
+<code>https://figshare.com/ndownloader/files/40157572</code> to start
+the download. Then move the file from wherever your downloads go
+(<em>e.g.</em> <code>Downloads</code>) to the <code>data</code>
+directory in the <code>qtl_mapping</code> project. You can use a
+graphical user interface (<em>e.g.</em> Windows File Explorer, Mac
+Finder) to move the file.</p>
 <p>Development of this lesson was funded by NIH award GM070683 to
 Dr. Gary Churchill at The Jackson Laboratory.</p>
 <!--
@@ -581,8 +591,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/index.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/index.html",
   "dateCreated": "2024-09-06",
-  "dateModified": "2024-11-01",
-  "datePublished": "2024-11-01"
+  "dateModified": "2024-11-04",
+  "datePublished": "2024-11-04"
 }
 
   </script><script>
