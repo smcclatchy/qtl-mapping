@@ -101,11 +101,13 @@ download.file(url      = "https://figshare.com/ndownloader/files/40157572",
               mode     = "wb")
 ```
 
-If you get an error message downloading this file from figshare, use a web browser to 
-download from the URL. Go to `https://figshare.com/ndownloader/files/40157572` to start 
-the download. Then move the file from wherever your downloads go (*e.g.* `Downloads`) to 
-the `data` directory in the `qtl_mapping` project. You can use a graphical user interface
-(*e.g.* Windows File Explorer, Mac Finder) to move the file.
+If you get an error message downloading this file from figshare, use a web 
+browser to download from the URL. Go to 
+[https://figshare.com/ndownloader/files/40157572](https://figshare.com/ndownloader/files/40157572)
+to start the download. Then move the file from wherever your downloads go 
+(*e.g.* `Downloads`) to the `data` directory in the `qtl_mapping` project. You 
+can use a graphical user interface (*e.g.* Windows File Explorer, Mac Finder) to 
+move the file.
 
 Development of this lesson was funded by NIH award GM070683 to Dr. Gary Churchill at The 
 Jackson Laboratory.
