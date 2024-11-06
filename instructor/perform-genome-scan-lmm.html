@@ -373,7 +373,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Performing a genome scan with a linear mixed model</h1>
-        <p>Last updated on 2024-11-05 |
+        <p>Last updated on 2024-11-06 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/perform-genome-scan-lmm.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -415,19 +415,20 @@ leave-one-chromosome-out (LOCO) method.</li>
 </div>
 </div>
 <p>Genetic mapping in mice presents a good example of why accounting for
-population structure is important. Laboratory mouse strains are
-descended from a small number of founders (fancy mice) and went through
-several population bottlenecks. Wild-derived strains are not descended
-from fancy mice and don’t share the same history as laboratory
-strains.</p>
+population structure is important.</p>
 <figure><img src="https://www.informatics.jax.org/silver/images/figure2-3.gif" alt="A world map showing the origins and ranges of five Mus musculus subspecies: domesticus, musculus, castaneus, bactrianus and molossinus" class="figure mx-auto d-block"><div class="figcaption">Geographical ranges of subspecies in the Mus
 musculus group. From <a href="https://www.informatics.jax.org/silverbook/" class="external-link"><em>Mouse Genetics:
 Concepts and Applications</em></a> by Lee M. Silver, Oxford University
 Press, 1995.</div>
-</figure><figure><img src="https://www.informatics.jax.org/morsebook/images/1-10as.jpg" alt="A genealogy chart showing the origin of commonly used inbred strains as Chinese, Japanese and English mouse fanciers. Abby Lathrop of Granby Mouse Farm supplied fancy mice to researchers including Marsh, C.C. Little, MacDowell, Castle and Strong in the early 1900s. These mice were developed into common inbred strains such as C57BL, 129, DBA and C3H strains." class="figure mx-auto d-block"><div class="figcaption">The genealogy of inbred mice. From <a href="https://www.informatics.jax.org/morsebook/" class="external-link"><em>Origins of Inbred
+</figure><p>Laboratory mouse strains are descended from a small number of
+founders (fancy mice) and went through several population
+bottlenecks.</p>
+<figure><img src="https://www.informatics.jax.org/morsebook/images/1-10as.jpg" alt="A genealogy chart showing the origin of commonly used inbred strains as Chinese, Japanese and English mouse fanciers. Abby Lathrop of Granby Mouse Farm supplied fancy mice to researchers including Marsh, C.C. Little, MacDowell, Castle and Strong in the early 1900s. These mice were developed into common inbred strains such as C57BL, 129, DBA and C3H strains." class="figure mx-auto d-block"><div class="figcaption">The genealogy of inbred mice. From <a href="https://www.informatics.jax.org/morsebook/" class="external-link"><em>Origins of Inbred
 Mice</em></a> edited by Herbert C. Morse III, Academic Press, 1978.
 Permission from Elsevier.</div>
-</figure><p>Issues of population structure and differing degrees of genetic
+</figure><p>Wild-derived strains are not descended from fancy mice and don’t
+share the same history as laboratory strains.</p>
+<p>Issues of population structure and differing degrees of genetic
 relatedness between mice are addressed using linear mixed models (LMM).
 LMMs consider genome-wide similarity between all pairs of individuals to
 account for population structure, known kinship and unknown relatedness.
@@ -449,7 +450,7 @@ use:</p>
 <p>where <span class="math inline">\(y_j\)</span> is the phenotype of
 the <span class="math inline">\(j\)</span>th individual, <span class="math inline">\(\mu\)</span> is the mean phenotype value, <span class="math inline">\(\beta_k\)</span> is the effect of the <span class="math inline">\(k\)</span>th genotype, <span class="math inline">\(G_{jk}\)</span> is the genotype for individual
 <span class="math inline">\(j\)</span>, and <span class="math inline">\(\epsilon_j\)</span> is the error for the <span class="math inline">\(j\)</span>th individual. In the figure below,
-<span class="math inline">\(\mu\)</span> equals 94.6, and <span class="math inline">\(\beta\)</span> equals 15 for the alternative
+<span class="math inline">\(\mu\)</span> equals 94.6 and <span class="math inline">\(\beta\)</span> equals 15 for the alternative
 hypothesis (QTL exists). This linear model is <span class="math inline">\(y\)</span> = 94.6 + 15<span class="math inline">\(G\)</span> + <span class="math inline">\(\epsilon\)</span>. The model intersects the
 genotype groups at their group means. In contrast, the null hypothesis
 would state that there is no difference in group means (no QTL
@@ -553,7 +554,7 @@ above, we used <strong>ALL</strong> of the markers. This means that we
 have put the current marker <span class="math inline">\(k\)</span> into
 the model <em>twice</em>. This causes a loss of power which has been
 reported in <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3989144/" class="external-link">Yang et al.,
-Nat.Gen., 2014</a>.</p>
+Nat. Gen., 2014</a>.</p>
 <p>In order to address this issue, we could remove the current marker
 from the calculation. But this would mean that we would have to
 calculate a different kinship matrix for every marker. As a compromise,
@@ -574,7 +575,7 @@ matrix that is calculated using data from all other chromosomes), use
 </div>
 <p>For the LOCO (leave one chromosome out) method, provide the list of
 kinship matrices as obtained from <code>calc_kinship()</code> with
-<code>method="loco"</code>.</p>
+<code>type="loco"</code>.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -793,8 +794,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/instructor/perform-genome-scan-lmm.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/instructor/perform-genome-scan-lmm.html",
   "dateCreated": "2024-09-06",
-  "dateModified": "2024-11-05",
-  "datePublished": "2024-11-05"
+  "dateModified": "2024-11-06",
+  "datePublished": "2024-11-06"
 }
 
   </script><script>

@@ -381,7 +381,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Performing a Genome Scan with Binary Traits</h1>
-        <p>Last updated on 2024-11-05 |
+        <p>Last updated on 2024-11-06 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/perform-genome-scan-bin.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -447,11 +447,12 @@ Mouse3476              0.800          1      0
 Mouse3414              1.370          0      0
 Mouse3145              1.783          1      0</code></pre>
 </div>
-<p>There are two binary traits called “agouti_tan”, and “tufted” which
-are related to coat color and shape.</p>
-<p>The “agouti_tan” phenotype is <code>1</code> if a mouse has an agouti
-or tan coat and <code>0</code> if a mouse has a black coat. The founder
-strains have different coat colors. C57BL/6J has a black coat.</p>
+<p>There are two binary traits called <code>agouti_tan</code> and
+<code>tufted</code> which are related to coat color and shape.</p>
+<p>The <code>agouti_tan</code> phenotype is <code>1</code> if a mouse
+has an agouti or tan coat and <code>0</code> if a mouse has a black
+coat. The founder strains have different coat colors. C57BL/6J has a
+black coat.</p>
 <figure><img src="../fig/C57BL_6J_000664.png" alt="C57BL/6J mouse" class="figure mx-auto d-block"><div class="figcaption">C57BL/6J</div>
 </figure><p>BTBR appears to have a black coat, but this coat color is actually
 called “black and tan” because their bellies are tan.</p>
@@ -463,8 +464,8 @@ have agouti coats.</p>
 </figure><p>There is more information about mouse coat colors in the <a href="https://jackson.jax.org/rs/444-BUH-304/images/Poster_Mouse_Coat_Color.pdf" class="external-link">JAX
 Coat Color guide</a>.</p>
 <p>The tufted phenotype has to do with progressive hair loss in a
-“tufted” pattern. Mice with a value of “1” have the tufted phenotype and
-mice with a value of “0” do not.</p>
+“tufted” pattern. Mice with a value of <code>1</code> have the tufted
+phenotype and mice with a value of <code>0</code> do not.</p>
 <figure><img src="../fig/Ellis_JHered_2013.jpg" alt="Image showing tufted hair loss in BTBR mouse" class="figure mx-auto d-block"><div class="figcaption">Tufted hair loss pattern</div>
 </figure><p>Photo Credit: <a href="https://pubmed.ncbi.nlm.nih.gov/23100490/" class="external-link">Ellis et al., J Hered,
 2013</a></p>
@@ -655,14 +656,14 @@ location.</p>
 <h3 class="code-label">R<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">find_peaks</span><span class="op">(</span>scan1_output <span class="op">=</span> <span class="va">lod_agouti</span>, </span>
+<code class="sourceCode R"><span><span class="fu">find_peaks</span><span class="op">(</span>scan1_output <span class="op">=</span> <span class="va">lod_tufted</span>, </span>
 <span>           map          <span class="op">=</span> <span class="va">cross</span><span class="op">$</span><span class="va">pmap</span><span class="op">)</span></span></code></pre>
 </div>
 <div class="codewrapper">
 <h3 class="code-label">OUTPUT<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="output" tabindex="0"><code>  lodindex  lodcolumn chr pos  lod
-1        1 agouti_tan   2 157 61.9</code></pre>
+<pre class="output" tabindex="0"><code>  lodindex lodcolumn chr  pos  lod
+1        1    tufted  17 27.3 62.2</code></pre>
 </div>
 <p>There is a large peak on chromosome 17. This is a <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3570182/" class="external-link">known
 locus</a> associated with the <a href="https://www.informatics.jax.org/marker/MGI:96624" class="external-link">Itpr3</a> gene
@@ -748,8 +749,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/instructor/perform-genome-scan-bin.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/instructor/perform-genome-scan-bin.html",
   "dateCreated": "2024-09-06",
-  "dateModified": "2024-11-05",
-  "datePublished": "2024-11-05"
+  "dateModified": "2024-11-06",
+  "datePublished": "2024-11-06"
 }
 
   </script><script>
