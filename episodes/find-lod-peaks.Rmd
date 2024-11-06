@@ -6,7 +6,7 @@ exercises: 30
 
 :::::::::::::::::::::::::::::::::::::: questions 
 
-- "How do I locate QTL peaks above a certain LOD threshold value?"
+- How do I locate QTL peaks above a certain LOD threshold value?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
 

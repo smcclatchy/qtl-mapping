@@ -36,7 +36,12 @@ $\times$ genotypes $\times$ positions.
 
 ![Three-dimensional genotype probabilities array](fig/threeD_array.png){alt='Figure showing three-dimensional array of genotype probabilities (genoprobs)'}
 
-![A graphical review of data structures in R](https://devopedia.org/images/article/46/9213.1526125966.png){alt='a web page showing R data structures including one-dimensional vectors and lists, two dimensional dataframes and matrices, and n-dimensional arrays'}.  
+![A graphical review of data structures in R](https://devopedia.org/images/article/46/9213.1526125966.png){alt='a web page showing R data structures including one-dimensional vectors and lists, two dimensional dataframes and matrices, and n-dimensional arrays'}
+Notice that arrays in R require data to be all of the same type - all numeric,
+all character, all Boolean, etc. If you are familiar with data frames in R you
+know that you can mix different kinds of data in that structure. The first 
+column might contain numeric data, the second column character data, the third
+Boolean (True / False), and so on. Arrays won't accept mixed data types though.
 
 We'll use the
 [Attie BL6/BTBR dataset](https://thejacksonlaboratory.box.com/shared/static/svw7ivp5hhmd7vb8fy26tc53h7r85wez.zip)
@@ -57,7 +62,7 @@ control file, or alternatively a zip file containing all the required data. We
 read in the data with a JSON control file like this:
 
 ```{r load_data, eval=FALSE}
-cross <- read_cross2(file = 'data/attie_b6btbr_grcm39/attie_control.json')
+cross <- read_cross2(file = 'data/attie_control.json')
 ```
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor

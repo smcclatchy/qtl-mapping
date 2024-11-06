@@ -84,9 +84,8 @@ perm_add <- scan1perm(genoprobs = probs,
 Note the need to specify special covariates for the X chromosome (via `Xcovar`), 
 to be included under the null hypothesis of no QTL. And note that when these are 
 provided, the default is to perform a stratified permutation test, using strata 
-defined by the rows in
-`Xcovar`. In general, when the X chromosome is considered, one will wish to 
-stratify at least by sex.
+defined by the rows in `Xcovar`. In general, when the X chromosome is 
+considered, one will wish to stratify at least by sex.
 
 Also note that, as with `scan1()`, you can speed up the calculations on a 
 multi-core machine by specifying the argument `cores`. With `cores=0`, the 
@@ -105,9 +104,9 @@ perm_add <- scan1perm(genoprobs = probs,
                       cores     = 0)
 ```
 
-`perm_add` now contains the maximum LOD score for each permutation for the liver 
-and spleen phenotypes. There should be 1000 values for each phenotypes. We can 
-view the insulin permutation LOD scores by making a histogram.
+`perm_add` now contains the maximum LOD score for each permutation for the 
+phenotypes. There should be 1000 values for each phenotype. We can view the 
+insulin permutation LOD scores by making a histogram.
 
 ```{r hist_perm, fig.width=8, fig.height=6}
 hist(perm_add, 
@@ -131,7 +130,7 @@ To get estimated significance thresholds, use the function `summary()`.
 summary(perm_add)
 ```
 
-The default is to return the 5% significance thresholds. Thresholds for other 
+The default is to return the 5% significance threshold. Thresholds for other 
 (or for multiple) significance levels can be obtained via the `alpha` argument.
 
 ```{r summary_scan1perm_B}
@@ -268,10 +267,12 @@ to random chance alone.
 shuffled_order <- sample(rownames(cross$pheno))
 pheno_permuted <- cross$pheno
 rownames(pheno_permuted) <- shuffled_order
-xcovar_permuted <- Xcovar
+xcovar_permuted <- addcovar
 rownames(xcovar_permuted) <- shuffled_order
-out_permuted <- scan1(genoprobs = probs, pheno = pheno_permuted, Xcovar = xcovar_permuted)
-plot(out_permuted, map)
+out_permuted <- scan1(genoprobs = probs, 
+                          pheno = pheno_permuted, 
+                         Xcovar = xcovar_permuted)
+plot(out_permuted, map = cross$pmap)
 head(shuffled_order)
 ```
 

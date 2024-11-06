@@ -58,12 +58,13 @@ residuals, which maximizes the likelihood of the data.
 
 Marker regression produces a LOD (logarithm of odds) score comparing the null 
 hypothesis to the alternative. The LOD score is calculated using the sum of 
-squared residuals for the null and alternative hypotheses. The LOD score is the 
-difference between the log10 likelihood of the null hypothesis and the log10 
-likelihood of the alternative hypothesis. It is related to the regression model 
-above by identifying the line of best fit to the data. A higher LOD score 
-indicates greater likelihood of the alternative hypothesis. A LOD score closer 
-to zero favors the null hypothesis. 
+squared residuals (RSS) for the null and alternative hypotheses. The LOD score 
+is the difference between the log10 likelihood of the null hypothesis and the 
+log10 likelihood of the alternative hypothesis. It is related to the regression model above by identifying the line of best fit to the data.  
+
+LOD = $n/2 \times log10(RSS_0/RSS_1)$
+
+A higher LOD score indicates greater likelihood of the alternative hypothesis. A LOD score closer to zero favors the null hypothesis. 
 
 Marker regression can identify the existence and effect of a QTL by comparing 
 means between groups, however, it requires known marker genotypes and can't 
