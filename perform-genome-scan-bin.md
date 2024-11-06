@@ -48,10 +48,10 @@ Mouse3414              1.370          0      0
 Mouse3145              1.783          1      0
 ```
 
-There are two binary traits called "agouti_tan", and "tufted" which are related
+There are two binary traits called `agouti_tan` and `tufted` which are related
 to coat color and shape.
 
-The "agouti_tan" phenotype is `1` if a mouse has an agouti or tan coat and  `0`
+The `agouti_tan` phenotype is `1` if a mouse has an agouti or tan coat and  `0`
 if a mouse has a black coat. The founder strains have different coat colors.
 C57BL/6J has a black coat.
 
@@ -71,8 +71,8 @@ There is more information about mouse coat colors in the
 [JAX Coat Color guide](https://jackson.jax.org/rs/444-BUH-304/images/Poster_Mouse_Coat_Color.pdf).
 
 The tufted phenotype has to do with progressive hair loss in a "tufted"
-pattern. Mice with a value of "1" have the tufted phenotype and mice with a 
-value of "0" do not.
+pattern. Mice with a value of `1` have the tufted phenotype and mice with a 
+value of `0` do not.
 
 ![Tufted hair loss pattern](fig/Ellis_JHered_2013.jpg){alt='Image showing tufted hair loss in BTBR mouse'}
   
@@ -229,13 +229,13 @@ Finally, use `find_peaks` to get the peak LOD location.
 
 
 ``` r
-find_peaks(scan1_output = lod_agouti, 
+find_peaks(scan1_output = lod_tufted, 
            map          = cross$pmap)
 ```
 
 ``` output
-  lodindex  lodcolumn chr pos  lod
-1        1 agouti_tan   2 157 61.9
+  lodindex lodcolumn chr  pos  lod
+1        1    tufted  17 27.3 62.2
 ```
 
 There is a large peak on chromosome 17. This is a 

@@ -76,9 +76,8 @@ perm_add <- scan1perm(genoprobs = probs,
 Note the need to specify special covariates for the X chromosome (via `Xcovar`), 
 to be included under the null hypothesis of no QTL. And note that when these are 
 provided, the default is to perform a stratified permutation test, using strata 
-defined by the rows in
-`Xcovar`. In general, when the X chromosome is considered, one will wish to 
-stratify at least by sex.
+defined by the rows in `Xcovar`. In general, when the X chromosome is 
+considered, one will wish to stratify at least by sex.
 
 Also note that, as with `scan1()`, you can speed up the calculations on a 
 multi-core machine by specifying the argument `cores`. With `cores=0`, the 
@@ -98,9 +97,9 @@ perm_add <- scan1perm(genoprobs = probs,
                       cores     = 0)
 ```
 
-`perm_add` now contains the maximum LOD score for each permutation for the liver 
-and spleen phenotypes. There should be 1000 values for each phenotypes. We can 
-view the insulin permutation LOD scores by making a histogram.
+`perm_add` now contains the maximum LOD score for each permutation for the 
+phenotypes. There should be 1000 values for each phenotype. We can view the 
+insulin permutation LOD scores by making a histogram.
 
 
 ``` r
@@ -131,10 +130,10 @@ summary(perm_add)
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.05               3.85
+0.05               3.88
 ```
 
-The default is to return the 5% significance thresholds. Thresholds for other 
+The default is to return the 5% significance threshold. Thresholds for other 
 (or for multiple) significance levels can be obtained via the `alpha` argument.
 
 
@@ -146,8 +145,8 @@ summary(perm_add,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.21
-0.05               3.85
+0.2                3.13
+0.05               3.88
 ```
 
 ## Estimating an X Chromosome Specific Threshold
@@ -183,13 +182,13 @@ summary(perm_add2,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.17
-0.05               3.83
+0.2                3.21
+0.05               3.89
 
 X chromosome LOD thresholds (14369 permutations)
      log10_insulin_10wk
-0.2                3.17
-0.05               3.87
+0.2                3.06
+0.05               3.78
 ```
 
 ## Estimating Significance Thresholds with the Kinship Matrix
@@ -218,8 +217,8 @@ summary(perm_add_loco,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.19
-0.05               3.92
+0.2                3.14
+0.05               3.80
 ```
 
 There is not a large difference in the thresholds. Currently, we are on the
@@ -269,13 +268,13 @@ summary(perm_bin,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      agouti_tan
-0.2        3.12
-0.05       3.78
+0.2        3.21
+0.05       3.99
 
 X chromosome LOD thresholds (14369 permutations)
      agouti_tan
-0.2        3.14
-0.05       3.78
+0.2        3.09
+0.05       3.87
 ```
 
 ## Selecting the Number of Permutations
@@ -317,10 +316,12 @@ to random chance alone.
 shuffled_order <- sample(rownames(cross$pheno))
 pheno_permuted <- cross$pheno
 rownames(pheno_permuted) <- shuffled_order
-xcovar_permuted <- Xcovar
+xcovar_permuted <- addcovar
 rownames(xcovar_permuted) <- shuffled_order
-out_permuted <- scan1(genoprobs = probs, pheno = pheno_permuted, Xcovar = xcovar_permuted)
-plot(out_permuted, map)
+out_permuted <- scan1(genoprobs = probs, 
+                          pheno = pheno_permuted, 
+                         Xcovar = xcovar_permuted)
+plot(out_permuted, map = cross$pmap)
 head(shuffled_order)
 ```
 
@@ -361,8 +362,8 @@ summary(perm_add_loco, alpha = c(0.01, 0.10))
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.01               4.52
-0.1                3.67
+0.01               4.43
+0.1                3.49
 ```
 
 
