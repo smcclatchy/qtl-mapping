@@ -197,6 +197,8 @@ three genotypes are shown on the vertical axis. Higher genotype probabilities
 are plotted in darker shades. This mouse has a RR genotype on the proximal end 
 of the chromosome and transitions to BR.
 
+![We have completed the first steps of the mapping workflow.](./fig/mapping-workflow-calc-genoprob.png){alt='a workflow diagram showing genotypes and genetic maps used to calculate genotype probabilities'}
+
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge 2
