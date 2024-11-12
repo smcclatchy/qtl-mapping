@@ -194,6 +194,8 @@ significant, and why? We'll evaluate the significance of genome scan results in
 a later episode in 
 [Finding Significant Peaks via Permutation](https://smcclatchy.github.io/qtl-mapping/perform-perm-test/).
 
+![We have completed these steps in the mapping workflow.](./fig/mapping-workflow-genome-scan.png){alt="A workflow diagram showing genotypes and genetic map used to calculate genotype probabilities which are then used to perform a genome scan along with phenotypes, covariates, and an optional physical map"}
+
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge 1: Find the marker with the highest LOD.
