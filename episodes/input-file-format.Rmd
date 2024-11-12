@@ -34,20 +34,6 @@ founder strains for an intercross, which are C57BL/6 (BB) and BTBR (RR)
 The B and R alleles themselves represent the haplotypes inherited from the 
 parental strains C57BL/6 and BTBR.  
 
-In the Diversity Outbred (DO) and Collaborative Cross (CC), alleles A to H 
-represent haplotypes of the 8 founder strains.
-
-![CC and DO Founder Alleles](fig/cc-founder-alleles.png){alt="Figure showing the colors and letter codes of the CC/DO founders."}
-
-CC lines have very low heterozygosity throughout their genomes. For most loci, 
-CC lines will be homozygous for one of the founder strains A-H above, and as
-such will have one of only 8 genotypes (*e.g.* AA, BB, CC, ...). In contrast,
-DO *mice* (not lines) have high heterozygosity throughout their genomes. Each
-locus will have one of 36 possible genotypes (*e.g.* AA, AB, AC, ..., BB, BC, BD,...).
-
-![Example Collaborative Cross and Diversity Outbred genomes](fig/cc-do-genome-comparison.png){alt="Figure showing CC and DO genomes"}
-
-
 For the purposes of learning QTL mapping, this lesson begins with an intercross 
 that has only 3 possible genotypes instead of 8 or 36. Once we have learned how 
 to use `qtl2` for the simpler case, we will advance to the most complex case 
