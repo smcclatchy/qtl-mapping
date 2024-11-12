@@ -25,6 +25,20 @@ exercises: 30
 
 ## Introduction
 
+In the Diversity Outbred (DO) and Collaborative Cross (CC), alleles A to H 
+represent haplotypes of the 8 founder strains.
+
+![CC and DO Founder Alleles](fig/cc-founder-alleles.png){alt="Figure showing the colors and letter codes of the CC/DO founders."}
+
+CC lines have very low heterozygosity throughout their genomes. For most loci, 
+CC lines will be homozygous for one of the founder strains A-H above, and as
+such will have one of only 8 genotypes (*e.g.* AA, BB, CC, ...). In contrast,
+DO *mice* (not lines) have high heterozygosity throughout their genomes. Each
+locus will have one of 36 possible genotypes (*e.g.* AA, AB, AC, ..., BB, BC, 
+BD,...).
+
+![Example Collaborative Cross and Diversity Outbred genomes](fig/cc-do-genome-comparison.png){alt="Figure showing CC and DO genomes"}
+
 This tutorial will take you through the process of mapping a QTL and searching 
 for candidate genes for DNA damage from benzene exposure. The adverse health 
 effects of benzene, including leukemia and aplastic anemia, were first studied 
@@ -885,7 +899,7 @@ summary(perms)
 ``` output
 LOD thresholds (100 permutations)
      log_mnret
-0.05      7.16
+0.05       7.4
 ```
 
 Note that this summary function returns the 95th percentile value of the LOD
