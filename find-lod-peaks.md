@@ -199,7 +199,7 @@ subset(pks, chr == '2')
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
 
-- LOD peaks and support intervals can be identified with find_peaks().
+- LOD peaks and support intervals can be identified with `find_peaks()`.
 - The Bayesian Credible Interval estimates the width of the support interval
 around a QTL peak.
 - Using a higher `prob` value for the Bayesian Credible Interval results in a
