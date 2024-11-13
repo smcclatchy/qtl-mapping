@@ -1,7 +1,7 @@
 ---
 title: "Input File Format"
 teaching: 15
-exercises: 30
+exercises: 10
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
