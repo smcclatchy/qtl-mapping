@@ -1,7 +1,7 @@
 ---
 title: "Calculating Genotype Probabilities"
 teaching: 25
-exercises: 15
+exercises: 10
 ---
 
 :::::::::::::::::::::::::::::::::::::: questions 
