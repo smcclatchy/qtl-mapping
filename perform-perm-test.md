@@ -130,7 +130,7 @@ summary(perm_add)
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.05               3.87
+0.05               3.85
 ```
 
 The default is to return the 5% significance threshold. Thresholds for other 
@@ -146,7 +146,7 @@ summary(perm_add,
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
 0.2                3.18
-0.05               3.87
+0.05               3.85
 ```
 
 ## Estimating an X Chromosome Specific Threshold
@@ -182,13 +182,13 @@ summary(perm_add2,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.12
-0.05               3.76
+0.2                3.24
+0.05               3.95
 
 X chromosome LOD thresholds (14369 permutations)
      log10_insulin_10wk
-0.2                3.14
-0.05               3.84
+0.2                3.10
+0.05               3.78
 ```
 
 ## Estimating Significance Thresholds with the Kinship Matrix
@@ -217,8 +217,8 @@ summary(perm_add_loco,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.21
-0.05               3.94
+0.2                3.15
+0.05               3.91
 ```
 
 There is not a large difference in the thresholds. Currently, we are on the
@@ -268,13 +268,13 @@ summary(perm_bin,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      agouti_tan
-0.2        3.19
-0.05       3.84
+0.2        3.15
+0.05       3.80
 
 X chromosome LOD thresholds (14369 permutations)
      agouti_tan
-0.2        3.13
-0.05       3.89
+0.2        3.06
+0.05       3.73
 ```
 
 ## Selecting the Number of Permutations
@@ -362,8 +362,8 @@ summary(perm_add_loco, alpha = c(0.01, 0.10))
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.01               4.86
-0.1                3.57
+0.01               4.79
+0.1                3.59
 ```
 
 

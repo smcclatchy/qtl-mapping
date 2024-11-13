@@ -1,6 +1,6 @@
 ---
 title: "Performing a Genome Scan"
-teaching: 30
+teaching: 60
 exercises: 30
 ---
 
