@@ -1,6 +1,6 @@
 ---
 title: "Introduction to the Data Set"
-teaching: 30
+teaching: 15
 exercises: 5
 ---
 
