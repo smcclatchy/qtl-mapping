@@ -121,7 +121,7 @@ abline(v = summary(perm_add), col = 'red', lwd = 2)
 
 In the histogram above, you can see that most of the maximum LOD scores fall 
 between 1 and 3.5. This means that we expect LOD scores less than 3.5 to occur by 
-chance fairly often. The red line indicates the alpha = 0.05 threshold, which 
+chance fairly often. The red line indicates the `alpha = 0.05` threshold, which 
 means that we only see LOD values by chance this high or higher, 5% of 
 the time. This is [one way](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1206241/) 
 of estimating a significance threshold for QTL plots.
