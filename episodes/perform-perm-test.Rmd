@@ -140,6 +140,7 @@ summary(perm_add,
         alpha = c(0.2, 0.05))
 ```
 
+![We have completed these steps in the mapping workflow.](./fig/mapping-workflow-permutation.png){alt="A diagram showing mapping steps including calculating genotype probabilities, calculating kinship, performing a genome scan, finding QTL peaks, and performing a permutation test."}
 ## Estimating an X Chromosome Specific Threshold
 
 To obtain autosome/X chromosome-specific significance thresholds, specify 
