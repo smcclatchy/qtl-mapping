@@ -132,7 +132,7 @@ summary(perm_add)
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.05               3.87
+0.05               3.92
 ```
 
 The default is to return the 5% significance threshold. Thresholds for other 
@@ -147,8 +147,8 @@ summary(perm_add,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.16
-0.05               3.87
+0.2                3.09
+0.05               3.92
 ```
 
 ![We have completed these steps in the mapping workflow.](./fig/mapping-workflow-permutation.png){alt="A diagram showing mapping steps including calculating genotype probabilities, calculating kinship, performing a genome scan, finding QTL peaks, and performing a permutation test."}
@@ -185,13 +185,13 @@ summary(perm_add2,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.21
-0.05               3.92
+0.2                3.18
+0.05               3.93
 
 X chromosome LOD thresholds (14369 permutations)
      log10_insulin_10wk
-0.2                3.15
-0.05               3.88
+0.2                3.16
+0.05               3.81
 ```
 
 ## Estimating Significance Thresholds with the Kinship Matrix
@@ -220,8 +220,8 @@ summary(perm_add_loco,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.17
-0.05               3.81
+0.2                3.19
+0.05               3.93
 ```
 
 There is not a large difference in the thresholds. Currently, we are on the
@@ -271,13 +271,13 @@ summary(perm_bin,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      agouti_tan
-0.2        3.18
-0.05       3.80
+0.2        3.17
+0.05       3.84
 
 X chromosome LOD thresholds (14369 permutations)
      agouti_tan
-0.2        3.09
-0.05       3.73
+0.2        3.12
+0.05       3.76
 ```
 
 ## Selecting the Number of Permutations
@@ -365,8 +365,8 @@ summary(perm_add_loco, alpha = c(0.01, 0.10))
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.01               4.46
-0.1                3.49
+0.01               4.68
+0.1                3.55
 ```
 
 

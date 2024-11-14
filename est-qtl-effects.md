@@ -354,6 +354,7 @@ ggplot(data    = mod_eff,
 
 <img src="fig/est-qtl-effects-rendered-plot_fit1-1.png" style="display: block; margin: auto;" />
 
+![We have completed these steps in the mapping workflow.](./fig/mapping-workflow-estimate-effects.png){alt="A diagram showing mapping steps up to estimating QTL effects."}
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge 4: Allele Effects
