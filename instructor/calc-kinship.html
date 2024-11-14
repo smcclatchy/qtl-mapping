@@ -667,11 +667,14 @@ yellow colors indicate lower kinship. Each mouse is closely related to
 itself, so the cells along the diagonal tend to be darker than the other
 cells. You can see some evidence of related mice, possibly siblings, in
 the orange-shaded blocks along the diagonal.</p>
-<p>By default, the genotype probabilities are converted to allele
-probabilities, and the kinship matrix is calculated as the proportion of
-shared alleles. Also by default we omit the X chromosome and only use
-the autosomes. To include the X chromosome, use
-<code>omit_x=FALSE</code>.</p>
+<p><img src=".././fig/mapping-workflow-calc-kinship.png" alt="We have completed these steps in the mapping workflow." class="figure">{alt=“Part
+of the mapping workflow starting with genotypes and a genetic map used
+to calculate genotype probabilities, which are then used to calculate
+kinship between individuals in the data.} By default, the genotype
+probabilities are converted to allele probabilities, and the kinship
+matrix is calculated as the proportion of shared alleles. Also by
+default we omit the X chromosome and only use the autosomes. To include
+the X chromosome, use <code>omit_x=FALSE</code>.</p>
 <p>On a multi-core machine, you can get some speed-up via the
 <code>cores</code> argument, as with <code>calc_genoprob()</code>.</p>
 <div class="codewrapper sourceCode" id="cb5">
