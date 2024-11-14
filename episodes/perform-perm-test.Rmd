@@ -68,8 +68,10 @@ number of permutations.
 
 :::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-Replace number of permutations (1000) with 100 for expediency.
-1000 permutations takes about 2 minutes.
+Permutations are computationally intensive and might take a long time on some machines.
+Start with `n_perm=10` and ask participants to place a sticky note on their laptop screen once this has finished.
+Repeat with `n_perm=100` for those whose permutations completed in a reasonable amount of time (a minute or less).
+Try `n_perm=1000` if all went well previously. 1000 permutations should take about 2 minutes.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
