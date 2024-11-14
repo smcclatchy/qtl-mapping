@@ -65,7 +65,7 @@ reticulocytes, a measure of DNA damage, was then measured in each mouse. The
 goal is to map gene(s) that influence the level of DNA damage in the bone 
 marrow. 
 
-![Benzene Study Dosing](fig/benzene_study_design.png){alt='Benzene study dosing showing 6 hours per day, 5 days per week of inhalation.',width='100%'}
+![Benzene Study Dosing](fig/benzene_study_design.png){alt='Benzene study dosing showing 6 hours per day, 5 days per week of inhalation.'}
 
 ## DO Reference Data
 
@@ -448,7 +448,7 @@ The figure below illustrates the structure of the `probs` object. `prob` is a
 list with one element per chromosome. Each element is a three-dimensional array
 which contains the founder allele probabilities for eahch sample at each marker.
 
-![Genoprobs Object](fig/genoprobs_3D.png){alt='Three-dimensional figure of genoprobs list.',width='100%}
+![Genoprobs Object](fig/genoprobs_3D.png){alt='Three-dimensional figure of genoprobs list.'}
 
 Let's return to the `probs` object. Look at the contents of one sample on 
 chromosome 1.
@@ -920,7 +920,7 @@ downloaded this during Setup. It is available from
 [figshare](https://figshare.com/ndownloader/files/40157572), but the file is 
 10 GB, so it may take too long to download right now.
 
-![SNP Imputation](fig/DO.impute.founders.sm.png){alt='Figure showing haplotypes being used to impute founder SNPs onto DO genomes',width='100%'}
+![SNP Imputation](fig/DO.impute.founders.sm.png){alt='Figure showing haplotypes being used to impute founder SNPs onto DO genomes'}
 
 Association mapping involves imputing the founder SNPs onto each DO genome and 
 fitting the mapping model at each SNP. At each marker, we fit the following model:  
@@ -984,7 +984,7 @@ plot_snpasso(scan1output = assoc$lod,
 #dev.off()
 ```
 
-![Bone Marrow MN-RET Association Mapping](fig/bm_mnret_assoc_fig1.png){alt='Plot showing LOD of each SNP in QTL interval',width='100%'}
+![Bone Marrow MN-RET Association Mapping](fig/bm_mnret_assoc_fig1.png){alt='Plot showing LOD of each SNP in QTL interval'}
 
 
 This plot shows the LOD score for each SNP in the QTL interval. The SNPs occur 
@@ -1052,7 +1052,7 @@ plot_snpasso(scan1output = assoc$lod,
 #dev.off()
 ```
 
-![Bone Marrow MN-RET Association Mapping](fig/bm_mnret_assoc_fig2.png){alt='Plot showing LOD of each SNP in QTL interval with genes below',width='100%'}
+![Bone Marrow MN-RET Association Mapping](fig/bm_mnret_assoc_fig2.png){alt='Plot showing LOD of each SNP in QTL interval with genes below'}
 
 Now that we have the genes in this interval, we would like to know which 
 founders have the minor allele for the SNPs with the highest LOD scores. To do
@@ -1081,7 +1081,7 @@ plot_snpasso(scan1output = assoc$lod,
 #dev.off()
 ```
 
-![Bone Marrow MN-RET Association Mapping](fig/bm_mnret_assoc_fig3.png){alt='Plot showing LOD of each SNP in QTL interval with genes below and strain distribution pattern above',width='100%'}
+![Bone Marrow MN-RET Association Mapping](fig/bm_mnret_assoc_fig3.png){alt='Plot showing LOD of each SNP in QTL interval with genes below and strain distribution pattern above'}
 
 ### Searching for Candidate Genes
 
@@ -1095,7 +1095,7 @@ searched for genes in the QTL interval that had an eQTL in the same location.
 Then, we looked at the pattern of founder effects to see if CAST stood out. We 
 found two genes that met these criteria.
 
-![Sult3a1/Sult3a2 Liver eQTL](fig/French.et.al.Figure3.png){alt='Figure showing LOD plots of Sult3a1 & 2 and CAST-specific haplotype effects',width='75%'}
+![Sult3a1/Sult3a2 Liver eQTL](fig/French.et.al.Figure3.png){alt='Figure showing LOD plots of Sult3a1 & 2 and CAST-specific haplotype effects'}
 
 The plot above shows the genome scane for two genes: *Sult3a1* and 
 *Gm4794*. *Gm4794* has been renamed to *Sult3a2*. As you can see, both *Sult3a1*
@@ -1124,7 +1124,7 @@ Ensembl web page for
 [Sult3a2](https://useast.ensembl.org/Mus_musculus/Gene/Summary?db=core;g=ENSMUSG00000090298;r=10:33642420-33662700).
 In the menu on the left, click on the "Gene Tree (image)" link.
 
-![Ensembl gene tree of Sult3a1 & Sult3a2](fig/Ensembl_Mouse_Sult3a1_Sult3a2.png){alt='Figure showing that Sult3a1 & 2 are paralogs',width='100%'}
+![Ensembl gene tree of Sult3a1 & Sult3a2](fig/Ensembl_Mouse_Sult3a1_Sult3a2.png){alt='Figure showing that Sult3a1 & 2 are paralogs'}
 
 As you can see, *Sult3a2* is a paralog of *Sult3a1* and hence both 
 genes are sulfotransferases. These genes encode enzymes that attach a sulfate 
@@ -1143,13 +1143,13 @@ structural variants in this region.
 
 You should see a plot similar to the one below. 
 
-![Ensembl Structural Variants](fig/Ensembl_SV_Chr10.png){alt='Ensembl viewer showing genes and structural variants under that chromosome 10 QTL peak',width='100%'}
+![Ensembl Structural Variants](fig/Ensembl_SV_Chr10.png){alt='Ensembl viewer showing genes and structural variants under that chromosome 10 QTL peak'}
 
 :::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::
 
 
-![Ensembl Structural Variants](fig/Ensembl_SV_Chr10.png){alt='Ensembl viewer showing genes and structural variants under that chromosome 10 QTL peak',width='100%'}
+![Ensembl Structural Variants](fig/Ensembl_SV_Chr10.png){alt='Ensembl viewer showing genes and structural variants under that chromosome 10 QTL peak'}
 
 
 In order to visualize the size of the copy number gain, we queried the 
@@ -1157,7 +1157,7 @@ Mouse Genomes Project [alignment files](https://www.mousegenomes.org/mouse-strai
 for the eight founders. We piled up the reads at each base (which is beyond the 
 scope of this tutorial) and made the figure below.
 
-![DO Founder BAM file pileups](fig/French.et.al.Sup.Figure3.png){alt='Figure showing CAST with a duplication at the Sult3a1/2 locus.',width='100%'}
+![DO Founder BAM file pileups](fig/French.et.al.Sup.Figure3.png){alt='Figure showing CAST with a duplication at the Sult3a1/2 locus.'}
 
 As you can see, there appears to be a duplicatation in the CAST founders that 
 covers four genes: *Clvs2*, *Gm15939*, *Sult3a1* and *Sult3a2*. *Clvs2* is 
@@ -1178,7 +1178,7 @@ diagram below shows the metabolism pathway for benzene
 [(Monks, T. J., et al. (2010). Chem Biol Interact 184(1-2): 201-206.)](https://europepmc.org/articles/PMC4414400) 
 Hydroquinone, phenol and catechol are all sulfated and excreted from the body.
 
-![Benezene metabolism pathways](fig/Monks_ChemBiolInter_2010_Fig1.jpg){alt='Figure showing benezene metabolism pathways',width='100%'}
+![Benezene metabolism pathways](fig/Monks_ChemBiolInter_2010_Fig1.jpg){alt='Figure showing benezene metabolism pathways'}
 
 This analysis has led us to the following hypothesis. Inhaled benzene is 
 absorbed by the lungs into the bloodstream and transported to the liver. There,
@@ -1194,7 +1194,7 @@ conjugate harmful benzene metabolites and excrete them from the body before
 they can reach the bone marrow and cause DNA damage. Further experimental 
 validation is required, but this is a plausible hypothesis.
 
-![Benzene metabolism hypothesis](fig/benzene_hypothesis.png){alt='Figure showing mice carrying the CAST allele being protected from benezene toxicity',width='100%'}
+![Benzene metabolism hypothesis](fig/benzene_hypothesis.png){alt='Figure showing mice carrying the CAST allele being protected from benezene toxicity'}
 
 We hope that this tutorial has shown you how the DO can be used to map QTL and 
 use the founder effects and bioinformatics resources to narrow down the 
@@ -1312,7 +1312,7 @@ plot_snpasso(scan1output = assoc4$lod,
 #dev.off()
 ```
 
-![Pre-dose MN-RET Association Mapping](fig/pre_mnret_assoc.png){alt='Figure showing pre-dose MN-RET association mapping with WSB carrying the alternate allele',width='100%'}
+![Pre-dose MN-RET Association Mapping](fig/pre_mnret_assoc.png){alt='Figure showing pre-dose MN-RET association mapping with WSB carrying the alternate allele'}
 
 :::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::
