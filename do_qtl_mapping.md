@@ -508,9 +508,9 @@ founder haplotype at each marker for each DO sample.  The 590
 samples are in the first dimension, the 8 founders in the second and the 
 479 markers along chromosome 1 are in the third dimension.
 
-The figure below illustrates the structure of the `probs` object. `prob` is a
+The figure below illustrates the structure of the `probs` object. `probs` is a
 list with one element per chromosome. Each element is a three-dimensional array
-which contains the founder allele probabilities for eahch sample at each marker.
+which contains the founder allele probabilities for each sample at each marker.
 
 ![Genoprobs Object](fig/genoprobs_3D.png){alt='Three-dimensional figure of genoprobs list.'}
 
@@ -529,8 +529,8 @@ that you have to align the markers between `probs` and `map`.
 plot_genoprob(probs, map, ind = 1, chr = 1)
 ```
 
-Uh oh! We have an error which says "Different numbers of positions in probs and 
-map". This means that the number of markers in the genoprobs and the marker
+Uh oh! We have an error which says `Different numbers of positions in probs and 
+map`. This means that the number of markers in the genoprobs and the marker
 map is different. In fact, this is quite important. The markers in `probs` and
 `map` must match **exactly** on every chromosome.
 
@@ -695,7 +695,7 @@ $\beta_s$ is the effect of study cohort,
 $s_i$ is the study cohort for mouse $i$,
 $\beta_j$ is the effect of founder allele $j$,
 $g_{ij}$ is the probability that mouse $i$ carries an allele from founder $j$,
-$\lambda_;<sub>_i$ is an adjustment for kinship-induced correlated errors for mouse $i$,
+$\lambda_i$ is an adjustment for kinship-induced correlated errors for mouse $i$,
 $\epsilon_i$ is the residual error for mouse $i$.
 
 Note that this model will give us an estimate of the effect of each of the 
@@ -704,7 +704,7 @@ the founder allele effects below.
 
 There are almost 600 samples in this data set and it may take several minutes to
 map one trait. In order to save some time, we will map using only the samples in
-the 100 ppm concentration group. We will create a smaller phenotype data.frame.
+the 100 ppm concentration group. We will create a smaller phenotype data frame.
 
 
 ``` r
@@ -773,7 +773,7 @@ It looks like we have a large peak on chromosome 10.
 
 1. Perform a genome scan on the column called `log_mnret`. (Hint: set `index` 
 to the column index in `pheno`.)  
-2. How does the LOD score for the peak on Chr 10 change?
+2. How does the LOD score for the peak on chromosome 10 change?
 
 :::::::::::::::::::::::: solution
 
@@ -815,7 +815,7 @@ lod   <- scan1(genoprobs = probs,
 
 ## Assessing Significance of LOD Scores
 
-There is clearly a large peak on Chr 10. But is it significant? In other words,
+There is clearly a large peak on chromosome 10. But is it significant? In other words,
 could we see a LOD score over 25 by chance? And if so, what is the probability 
 of seeing a LOD of 25 or higher? 
 
@@ -899,7 +899,7 @@ summary(perms)
 ``` output
 LOD thresholds (100 permutations)
      log_mnret
-0.05       6.8
+0.05      6.91
 ```
 
 Note that this summary function returns the 95th percentile value of the LOD
@@ -924,7 +924,7 @@ add_threshold(map = map, thresholdA = thr, col = 'red')
 
 <img src="fig/do_qtl_mapping-rendered-unnamed-chunk-25-1.png" style="display: block; margin: auto;" />
 
-The peak on Chr 10 is well above the red significance line.
+The peak on chromosome 10 is well above the red significance line.
 
 ## Finding LOD Peaks
 
@@ -947,7 +947,8 @@ find_peaks(scan1_output = lod,
 
 ## Challenge 11: How does a log-tranformation change the QTL plot?
 
-Find all peaks for this scan whether or not they meet the 95% significance threshold.
+Find all peaks for this scan whether or not they meet the 95% significance 
+threshold.
 
 :::::::::::::::::::::::: solution
 
@@ -984,13 +985,13 @@ value of 3. See `help(find_peaks)` for more information about this function.
 
 :::::::::::::::::::::::::::::::::::::
 
-The support interval is determined using the  
-[Bayesian Credible Interval](https://www.ncbi.nlm.nih.gov/pubmed/11560912) and 
-represents the region most likely to contain the causative polymorphism(s). We 
-can obtain this interval by adding a `prob` argument to 
-[find_peaks](https://github.com/rqtl/qtl2/blob/master/R/find_peaks.R). We pass 
-in a value of `0.95` to request a support interval that contains the causal SNP 
-95% of the time.
+The support interval is determined using the
+[Bayesian Credible Interval](https://www.ncbi.nlm.nih.gov/pubmed/11560912) 
+and represents the region most likely to contain the causative polymorphism(s).
+We can obtain this interval by adding a `prob` argument to 
+[find_peaks](https://github.com/rqtl/qtl2/blob/master/R/find_peaks.R).
+We pass in a value of `0.95` to request a support interval that contains the 
+causal SNP 95% of the time.
 
 
 ``` r
@@ -1006,15 +1007,17 @@ find_peaks(scan1_output = lod,
 ```
 
 From the output above, you can see that the support interval is 2.3 Mb wide 
-(31.7442 to 34.05311 Mb). The location of the maximum LOD score is at 33.52438 Mb.
+(31.7442 to 34.05311 Mb). The location of the maximum LOD score is at 33.52438 
+Mb.
 
 ## Estimated Founder Allele Effects
 
-We will now zoom in on Chr 10 and look at the contribution of each of the eight
-founder alleles to the proportion of bone marrow reticulocytes that were 
+We will now zoom in on chromosome 10 and look at the contribution of each of the 
+eight founder alleles to the proportion of bone marrow reticulocytes that were 
 micro-nucleated. Remember, the mapping model above estimates the effect of each 
 of the eight DO founders. We can plot these effects (also called 'coefficients')
-across Chr 10 using [scan1coef](https://github.com/rqtl/qtl2/blob/master/R/scan1coef.R).
+across chromosome 10 using
+[scan1coef](https://github.com/rqtl/qtl2/blob/master/R/scan1coef.R).
 
 
 ``` r
@@ -1026,8 +1029,7 @@ coef10 <- scan1blup(genoprobs = probs[,chr],
 ```
 
 This produces an object containing estimates of each of the eight DO founder 
-allele effect. These are the <i>&beta;<sub>j</sub></i> values in the mapping 
-equation above.
+allele effect. These are the $\beta_j$ values in the mapping equation above.
 
 
 ``` r
@@ -1040,12 +1042,12 @@ plot_coefCC(x    = coef10,
 <img src="fig/do_qtl_mapping-rendered-unnamed-chunk-27-1.png" style="display: block; margin: auto;" />
 
 The top panel shows the eight founder allele effects (or model coefficients) 
-along Chr 10. The founder allele effects are centered at zero and the units are 
-the same as the phenotype. You can see that DO mice containing the CAST/EiJ 
-allele near 34 Mb have lower levels of micro-nucleated reticulocytes. This means
-that the CAST allele is associated with less DNA damage and has a protective 
-effect. The bottom panel shows the LOD score, with the support interval for the 
-peak shaded blue. 
+along chromosome 10. The founder allele effects are centered at zero and the 
+units are the same as the phenotype. You can see that DO mice containing the 
+CAST/EiJ allele near 34 Mb have lower levels of micro-nucleated reticulocytes. 
+This means that the CAST allele is associated with less DNA damage and has a 
+protective effect. The bottom panel shows the LOD score, with the support 
+interval for the peak shaded blue. 
 
 ## SNP Association Mapping
 
@@ -1067,7 +1069,8 @@ downloaded this during Setup. It is available from
 ![SNP Imputation](fig/DO.impute.founders.sm.png){alt='Figure showing haplotypes being used to impute founder SNPs onto DO genomes'}
 
 Association mapping involves imputing the founder SNPs onto each DO genome and 
-fitting the mapping model at each SNP. At each marker, we fit the following model:  
+fitting the mapping model at each SNP. At each marker, we fit the following 
+model:  
 
 $y_{im} = \beta_ss_i+\beta_mg_{im} + \lambda_i + \epsilon_i$
 
@@ -1082,9 +1085,9 @@ $\lambda_i$ is an adjustment for kinship-induced correlated errors for mouse $i$
 $\epsilon_i$ is the residual error for mouse $i$.
 
 We can call [scan1snps](https://github.com/rqtl/qtl2/blob/master/R/scan1snps.R) 
-to perform association mapping in the QTL interval on Chr 10. We first create 
-variables for the chromosome and support interval where we are mapping. We then 
-create a function to get the SNPs from the founder SNP database.
+to perform association mapping in the QTL interval on chromosome 10. We first 
+create variables for the chromosome and support interval where we are mapping. 
+We then create a function to get the SNPs from the founder SNP database.
 
 ::::::::::::::::::::::::::::::::::::: callout
 
@@ -1115,7 +1118,6 @@ assoc      <- scan1snps(genoprobs  = probs[,chr],
                         keep_all_snps = TRUE)
 ```
 
-
 The `assoc` object is a list containing two objects: the LOD scores for each 
 unique SNP and a `snpinfo` object that maps the LOD scores to each SNP. To plot 
 the association mapping, we need to provide both objects to the [plot_snpasso](https://github.com/rqtl/qtl2/blob/master/R/plot_snpasso.R) 
@@ -1131,15 +1133,13 @@ plot_snpasso(scan1output = assoc$lod,
 ```
 
 ![Bone Marrow MN-RET Association Mapping](fig/bm_mnret_assoc_fig1.png){alt='Plot showing LOD of each SNP in QTL interval'}
-
-
 This plot shows the LOD score for each SNP in the QTL interval. The SNPs occur 
 in "shelves" because all of the SNPs in a haplotype block have the same founder 
 strain pattern. The SNPs with the highest LOD scores are the ones for which 
 CAST/EiJ contributes the alternate allele.
 
 You might naturally ask what genes are under this QTL peak. We will query the 
-SNP/gens database for the genes in the interval. As before, we will create a
+SNP/genes database for the genes in the interval. As before, we will create a
 function to query the genes in a specific interval of the genome.
 
 
@@ -1173,18 +1173,19 @@ head(genes)
 6 33.35271
 ```
 
-The `genes` object contains annotation information for each gene in the interval.
+The `genes` object contains annotation information for each gene in the 
+interval.
 
 Next, we will create a plot with two panels: one containing the association 
 mapping LOD scores and one containing the genes in the QTL interval. We do this 
 by passing in the `genes` argument to 
 [plot_snpasso](https://github.com/rqtl/qtl2/blob/master/R/plot_snpasso.R). We 
 can also adjust the proportion of the plot allocated for SNPs (on the top) and 
-genes (on the bottom) using the 'top_panel_prop' argument.
+genes (on the bottom) using the `top_panel_prop` argument.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-Note that you have to add the "genes", "colors", and "top_panel_prop" arguments.
+Note that you have to add the `genes`, `colors`, and `top_panel_prop` arguments.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -1201,17 +1202,16 @@ plot_snpasso(scan1output = assoc$lod,
 ```
 
 ![Bone Marrow MN-RET Association Mapping](fig/bm_mnret_assoc_fig2.png){alt='Plot showing LOD of each SNP in QTL interval with genes below'}
-
 Now that we have the genes in this interval, we would like to know which 
 founders have the minor allele for the SNPs with the highest LOD scores. To do
-this, we will highlight SNPs that are withing a 1 LOD drop of the highest LOD
+this, we will highlight SNPs that are within a 1 LOD drop of the highest LOD
 and we will add an argument to show which founder contributes the minor allele
 at the highlighted SNPs.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-Note that you have to change the "top_panel_prop" argument to "panel_prop" and
-add the "drop_hilit", "col_hilit", and "sdp_panel" arguments.
+Note that you have to change the `top_panel_prop` argument to `panel_prop` and
+add the `drop_hilit`, `col_hilit`, and `sdp_panel` arguments.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -1239,20 +1239,20 @@ with expression QTL (eQTL) in the same location. Ideally, we would have liver
 and bone marrow gene expression data in the DO mice from this experiment. 
 Unfortunately, we did not collect this data. However, we have liver gene 
 expression for a separate set of untreated DO mice 
-[Liver eQTL Viewer](https://churchilllab.jax.org/qtlviewer/svenson/DOHFD). We 
-searched for genes in the QTL interval that had an eQTL in the same location. 
+[Liver eQTL Viewer](https://churchilllab.jax.org/qtlviewer/svenson/DOHFD). 
+We searched for genes in the QTL interval that had an eQTL in the same location. 
 Then, we looked at the pattern of founder effects to see if CAST stood out. We 
 found two genes that met these criteria.
 
 ![Sult3a1/Sult3a2 Liver eQTL](fig/French.et.al.Figure3.png){alt='Figure showing LOD plots of Sult3a1 & 2 and CAST-specific haplotype effects'}
-
 The plot above shows the genome scane for two genes: *Sult3a1* and 
 *Gm4794*. *Gm4794* has been renamed to *Sult3a2*. As you can see, both *Sult3a1*
-*Sult3a2* have eQTL in the same location at the MN-RET QTL on Chr 10. Mice 
-carrying the CAST allele (in green) express these genes more highly. *Sult3a1* 
-is a [sulfotransferase](https://en.wikipedia.org/wiki/Sulfotransferase) that 
-may be involved in adding a sulfate group to phenol, one of the metabolites of 
-benzene. 
+*Sult3a2* have eQTL in the same location at the MN-RET QTL on chromosome 10. 
+Mice carrying the CAST allele (in green) express these genes more highly. 
+*Sult3a1* is a
+[sulfotransferase](https://en.wikipedia.org/wiki/Sulfotransferase) 
+that may be involved in adding a sulfate group to phenol, one of the metabolites 
+of benzene. 
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
@@ -1268,24 +1268,23 @@ Neither *Sult3a1* or *Sult3a2* has an eQTL in the DO bone marrow data set.
 :::::::::::::::::::::::
 :::::::::::::::::::::::::::::::::::::
 
-Next, we will look at the relationship between *Sult3a1* and *Sult3a2*. Go to the 
-Ensembl web page for 
+Next, we will look at the relationship between *Sult3a1* and *Sult3a2*. Go to 
+the Ensembl web page for 
 [Sult3a2](https://useast.ensembl.org/Mus_musculus/Gene/Summary?db=core;g=ENSMUSG00000090298;r=10:33642420-33662700).
-In the menu on the left, click on the "Gene Tree (image)" link.
+In the menu on the left, click on the `Gene Tree (image)` link.
 
 ![Ensembl gene tree of Sult3a1 & Sult3a2](fig/Ensembl_Mouse_Sult3a1_Sult3a2.png){alt='Figure showing that Sult3a1 & 2 are paralogs'}
 
-As you can see, *Sult3a2* is a paralog of *Sult3a1* and hence both 
-genes are sulfotransferases. These genes encode enzymes that attach a sulfate 
-group to other compounds.
+As you can see, *Sult3a2* is a paralog of *Sult3a1* and hence both genes are sulfotransferases. These genes encode enzymes that attach a sulfate group to 
+other compounds.
 
 ::::::::::::::::::::::::::::::::::::: challenge 
 
 ## Challenge 13: Look for structural variants near Sult3a1
 
 Go to the [Ensembl website](https://useast.ensembl.org/index.html) and select
-"Mouse" from the species dropdown. Then type "10:33300000-33800000" into the
-search box and press "Go". Scroll down to the detailed view and look for 
+`Mouse` from the species dropdown. Then type `10:33300000-33800000` into the
+search box and press `Go`. Scroll down to the detailed view and look for 
 structural variants in this region.
 
 :::::::::::::::::::::::: solution 
@@ -1300,9 +1299,9 @@ You should see a plot similar to the one below.
 
 ![Ensembl Structural Variants](fig/Ensembl_SV_Chr10.png){alt='Ensembl viewer showing genes and structural variants under that chromosome 10 QTL peak'}
 
-
 In order to visualize the size of the copy number gain, we queried the 
-Mouse Genomes Project [alignment files](https://www.mousegenomes.org/mouse-strains-sequenced/) 
+Mouse Genomes Project
+[alignment files](https://www.mousegenomes.org/mouse-strains-sequenced/) 
 for the eight founders. We piled up the reads at each base (which is beyond the 
 scope of this tutorial) and made the figure below.
 
@@ -1367,8 +1366,8 @@ and support interval for the highest peak.
 4. Calculate and plot the BLUPs for the chromosome with the highest peak. (This 
 may take a few minutes.) Which founder contributes an allele that makes MN-RET
 values higher?
-5. Perform association mapping in the support interval for the QTL peak, 
-plot the results and plot the genes beneath the association mapping plot.  
+5. Perform association mapping in the support interval for the QTL peak, plot 
+the results and plot the genes beneath the association mapping plot.  
 
 :::::::::::::::::::::::: solution 
 
@@ -1493,7 +1492,7 @@ sessionInfo()
 ```
 
 ``` output
-R version 4.4.1 (2024-06-14)
+R version 4.4.2 (2024-10-31)
 Platform: x86_64-pc-linux-gnu
 Running under: Ubuntu 22.04.5 LTS
 
@@ -1523,12 +1522,12 @@ loaded via a namespace (and not attached):
  [1] utf8_1.2.4          generics_0.1.3      renv_1.0.11        
  [4] RSQLite_2.3.7       stringi_1.8.4       hms_1.1.3          
  [7] magrittr_2.0.3      RColorBrewer_1.1-3  evaluate_0.24.0    
-[10] grid_4.4.1          timechange_0.3.0    fastmap_1.2.0      
+[10] grid_4.4.2          timechange_0.3.0    fastmap_1.2.0      
 [13] blob_1.2.4          DBI_1.2.3           BiocManager_1.30.25
 [16] fansi_1.0.6         scales_1.3.0        qtl_1.70           
 [19] cli_3.6.3           rlang_1.1.4         bit64_4.5.2        
 [22] munsell_0.5.1       withr_3.0.2         cachem_1.1.0       
-[25] yaml_2.3.10         parallel_4.4.1      tools_4.4.1        
+[25] yaml_2.3.10         parallel_4.4.2      tools_4.4.2        
 [28] tzdb_0.4.0          memoise_2.0.1       colorspace_2.1-1   
 [31] vctrs_0.6.5         R6_2.5.1            lifecycle_1.0.4    
 [34] bit_4.5.0           vipor_0.4.7         pkgconfig_2.0.3    
@@ -1536,7 +1535,7 @@ loaded via a namespace (and not attached):
 [40] glue_1.7.0          data.table_1.16.2   Rcpp_1.0.13-1      
 [43] highr_0.11          xfun_0.46           tidyselect_1.2.1   
 [46] knitr_1.48          farver_2.1.2        labeling_0.4.3     
-[49] compiler_4.4.1     
+[49] compiler_4.4.2     
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
@@ -1552,5 +1551,3 @@ gene list.
 - You will need the 10 GB SNP database to perform association mapping.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::
-
-[r-markdown]: https://rmarkdown.rstudio.com/
