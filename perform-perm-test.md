@@ -59,8 +59,10 @@ number of permutations.
 
 :::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-Replace number of permutations (1000) with 100 for expediency.
-1000 permutations takes about 2 minutes.
+Permutations are computationally intensive and might take a long time on some machines.
+Start with `n_perm=10` and ask participants to place a sticky note on their laptop screen once this has finished.
+Repeat with `n_perm=100` for those whose permutations completed in a reasonable amount of time (a minute or less).
+Try `n_perm=1000` if all went well previously. 1000 permutations should take about 2 minutes.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -130,7 +132,7 @@ summary(perm_add)
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.05               3.85
+0.05               3.86
 ```
 
 The default is to return the 5% significance threshold. Thresholds for other 
@@ -145,8 +147,8 @@ summary(perm_add,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.18
-0.05               3.85
+0.2                3.19
+0.05               3.86
 ```
 
 ## Estimating an X Chromosome Specific Threshold
@@ -182,13 +184,13 @@ summary(perm_add2,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.24
-0.05               3.95
+0.2                3.19
+0.05               3.86
 
 X chromosome LOD thresholds (14369 permutations)
      log10_insulin_10wk
-0.2                3.10
-0.05               3.78
+0.2                3.11
+0.05               3.87
 ```
 
 ## Estimating Significance Thresholds with the Kinship Matrix
@@ -217,8 +219,8 @@ summary(perm_add_loco,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.15
-0.05               3.91
+0.2                3.13
+0.05               3.80
 ```
 
 There is not a large difference in the thresholds. Currently, we are on the
@@ -268,13 +270,13 @@ summary(perm_bin,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      agouti_tan
-0.2        3.15
-0.05       3.80
+0.2        3.23
+0.05       3.99
 
 X chromosome LOD thresholds (14369 permutations)
      agouti_tan
-0.2        3.06
-0.05       3.73
+0.2        3.05
+0.05       3.79
 ```
 
 ## Selecting the Number of Permutations
@@ -362,8 +364,8 @@ summary(perm_add_loco, alpha = c(0.01, 0.10))
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.01               4.79
-0.1                3.59
+0.01               4.88
+0.1                3.48
 ```
 
 
