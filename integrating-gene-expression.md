@@ -761,15 +761,18 @@ for(i in 1:ncol(expr_chr19)) {
   # Make new covariates.
   curr_covar = cbind(addcovar, expr_chr19[,i])
   
+  # Fit the insulin QTL model with the gene as a covariate.
   mod = fit1(genoprobs = pr_chr19,
              pheno     = insulin,
              kinship   = kinship_loco[[chr]],
              addcovar  = curr_covar)
   
+  # Save the LOD.
   lod_drop$lod[i] = mod$lod
   
 } # for(i)
 
+# Subtract the insulin LOD from the mediation LODs.
 lod_drop$lod_drop = lod_drop$lod - peaks_chr19$lod
 ```
 

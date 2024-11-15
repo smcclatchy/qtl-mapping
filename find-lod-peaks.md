@@ -47,7 +47,9 @@ thr <- summary(perm_add_loco)
 plot_scan1(x    = lod_add_loco,
            map  = cross$pmap,
            main = "Insulin")
-add_threshold(map = cross$pmap, thresholdA = thr, col = 'red')
+add_threshold(map        = cross$pmap, 
+              thresholdA = thr, 
+              col        = 'red')
 ```
 
 <img src="fig/find-lod-peaks-rendered-plot_scan1-1.png" style="display: block; margin: auto;" />
