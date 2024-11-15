@@ -175,7 +175,7 @@ would this happen?
 
 To answer this, we have to think back to the mapping model that we are using.
 
-$y=\mu + \beta_kG_k +\sum_{i\neq k}^{M}\beta_iG_i + \epsilon$
+$y=\mu + \beta_kG_k +\sum_{i}^{M}\beta_iG_i + \epsilon$
 
 In this model, we explicitly excluded the current marker from the kinship
 calculation. However, when we calculated the kinship matrix above, we used
@@ -190,6 +190,14 @@ kinship matrix for each chromosome which uses all of the markers except those
 on the current chromosome. For example, to create a kinship matrix to use on 
 chromosome 1, we would use the markers on chromosomes 2 through X. This is
 called the *Leave One Chromosome Out* (LOCO) method.
+
+The LOCO mapping method is shown conceptually by the equation below:
+
+$y=\mu + \beta_kG_k +\sum_{i\neq k}^{M}\beta_iG_i + \epsilon$
+
+Note that we use all markers **except** the current marker being mapped. As we
+mentioned above, in practice, we exclude the chromosome of the current marker
+from the kinship matrix calculation.
 
 In order to use the LOCO method (scan each chromosome using a kinship matrix 
 that is calculated using data from all other chromosomes), use `type="loco"` in 
