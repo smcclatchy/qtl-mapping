@@ -386,7 +386,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Integrating Gene Expression Data</h1>
-        <p>Last updated on 2024-11-14 |
+        <p>Last updated on 2024-11-15 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/integrating-gene-expression.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -1188,15 +1188,18 @@ scan.</p>
 <span>  <span class="co"># Make new covariates.</span></span>
 <span>  <span class="va">curr_covar</span> <span class="op">=</span> <span class="fu">cbind</span><span class="op">(</span><span class="va">addcovar</span>, <span class="va">expr_chr19</span><span class="op">[</span>,<span class="va">i</span><span class="op">]</span><span class="op">)</span></span>
 <span>  </span>
+<span>  <span class="co"># Fit the insulin QTL model with the gene as a covariate.</span></span>
 <span>  <span class="va">mod</span> <span class="op">=</span> <span class="fu">fit1</span><span class="op">(</span>genoprobs <span class="op">=</span> <span class="va">pr_chr19</span>,</span>
 <span>             pheno     <span class="op">=</span> <span class="va">insulin</span>,</span>
 <span>             kinship   <span class="op">=</span> <span class="va">kinship_loco</span><span class="op">[[</span><span class="va">chr</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>             addcovar  <span class="op">=</span> <span class="va">curr_covar</span><span class="op">)</span></span>
 <span>  </span>
+<span>  <span class="co"># Save the LOD.</span></span>
 <span>  <span class="va">lod_drop</span><span class="op">$</span><span class="va">lod</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">=</span> <span class="va">mod</span><span class="op">$</span><span class="va">lod</span></span>
 <span>  </span>
 <span><span class="op">}</span> <span class="co"># for(i)</span></span>
 <span></span>
+<span><span class="co"># Subtract the insulin LOD from the mediation LODs.</span></span>
 <span><span class="va">lod_drop</span><span class="op">$</span><span class="va">lod_drop</span> <span class="op">=</span> <span class="va">lod_drop</span><span class="op">$</span><span class="va">lod</span> <span class="op">-</span> <span class="va">peaks_chr19</span><span class="op">$</span><span class="va">lod</span></span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb53">
@@ -1326,8 +1329,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/integrating-gene-expression.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/integrating-gene-expression.html",
   "dateCreated": "2024-09-06",
-  "dateModified": "2024-11-14",
-  "datePublished": "2024-11-14"
+  "dateModified": "2024-11-15",
+  "datePublished": "2024-11-15"
 }
 
   </script><script>

@@ -373,7 +373,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Performing a genome scan with a linear mixed model</h1>
-        <p>Last updated on 2024-11-14 |
+        <p>Last updated on 2024-11-15 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/perform-genome-scan-lmm.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -544,8 +544,8 @@ general, the LOD scores decreased. In some cases, the LOD score
 decreased drastically. Why would this happen?</p>
 <p>To answer this, we have to think back to the mapping model that we
 are using.</p>
-<p><span class="math inline">\(y=\mu + \beta_kG_k +\sum_{i\neq
-k}^{M}\beta_iG_i + \epsilon\)</span></p>
+<p><span class="math inline">\(y=\mu + \beta_kG_k
++\sum_{i}^{M}\beta_iG_i + \epsilon\)</span></p>
 <p>In this model, we explicitly excluded the current marker from the
 kinship calculation. However, when we calculated the kinship matrix
 above, we used <strong>ALL</strong> of the markers. This means that we
@@ -561,6 +561,14 @@ uses all of the markers except those on the current chromosome. For
 example, to create a kinship matrix to use on chromosome 1, we would use
 the markers on chromosomes 2 through X. This is called the <em>Leave One
 Chromosome Out</em> (LOCO) method.</p>
+<p>The LOCO mapping method is shown conceptually by the equation
+below:</p>
+<p><span class="math inline">\(y=\mu + \beta_kG_k +\sum_{i\neq
+k}^{M}\beta_iG_i + \epsilon\)</span></p>
+<p>Note that we use all markers <strong>except</strong> the current
+marker being mapped. As we mentioned above, in practice, we exclude the
+chromosome of the current marker from the kinship matrix
+calculation.</p>
 <p>In order to use the LOCO method (scan each chromosome using a kinship
 matrix that is calculated using data from all other chromosomes), use
 <code>type="loco"</code> in the call to <code>calc_kinship()</code>.</p>
@@ -792,8 +800,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/perform-genome-scan-lmm.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/perform-genome-scan-lmm.html",
   "dateCreated": "2024-09-06",
-  "dateModified": "2024-11-14",
-  "datePublished": "2024-11-14"
+  "dateModified": "2024-11-15",
+  "datePublished": "2024-11-15"
 }
 
   </script><script>
