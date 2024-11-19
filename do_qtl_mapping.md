@@ -899,7 +899,7 @@ summary(perms)
 ``` output
 LOD thresholds (100 permutations)
      log_mnret
-0.05      7.24
+0.05      7.85
 ```
 
 Note that this summary function returns the 95th percentile value of the LOD
@@ -1520,7 +1520,7 @@ other attached packages:
 
 loaded via a namespace (and not attached):
  [1] utf8_1.2.4          generics_0.1.3      renv_1.0.11        
- [4] RSQLite_2.3.7       stringi_1.8.4       hms_1.1.3          
+ [4] RSQLite_2.3.8       stringi_1.8.4       hms_1.1.3          
  [7] magrittr_2.0.3      RColorBrewer_1.1-3  evaluate_0.24.0    
 [10] grid_4.4.2          timechange_0.3.0    fastmap_1.2.0      
 [13] blob_1.2.4          DBI_1.2.3           BiocManager_1.30.25

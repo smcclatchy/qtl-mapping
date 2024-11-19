@@ -132,7 +132,7 @@ summary(perm_add)
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.05               3.79
+0.05               3.78
 ```
 
 The default is to return the 5% significance threshold. Thresholds for other 
@@ -147,8 +147,8 @@ summary(perm_add,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.16
-0.05               3.79
+0.2                3.18
+0.05               3.78
 ```
 
 ![We have completed these steps in the mapping workflow.](./fig/mapping-workflow-permutation.png){alt="A diagram showing mapping steps including calculating genotype probabilities, calculating kinship, performing a genome scan, finding QTL peaks, and performing a permutation test."}
@@ -185,12 +185,12 @@ summary(perm_add2,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.21
-0.05               3.90
+0.2                3.18
+0.05               3.86
 
 X chromosome LOD thresholds (14369 permutations)
      log10_insulin_10wk
-0.2                3.07
+0.2                3.13
 0.05               3.92
 ```
 
@@ -220,8 +220,8 @@ summary(perm_add_loco,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                 3.1
-0.05                3.7
+0.2                3.11
+0.05               3.81
 ```
 
 There is not a large difference in the thresholds. Currently, we are on the
@@ -271,13 +271,13 @@ summary(perm_bin,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      agouti_tan
-0.2        3.21
-0.05       3.79
+0.2        3.16
+0.05       3.82
 
 X chromosome LOD thresholds (14369 permutations)
      agouti_tan
-0.2        3.13
-0.05       3.86
+0.2        3.11
+0.05       3.74
 ```
 
 ## Selecting the Number of Permutations
@@ -365,8 +365,8 @@ summary(perm_add_loco, alpha = c(0.01, 0.10))
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.01               4.61
-0.1                3.41
+0.01               4.57
+0.1                3.43
 ```
 
 
