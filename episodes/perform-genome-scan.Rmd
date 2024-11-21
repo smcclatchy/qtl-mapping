@@ -208,14 +208,14 @@ a later episode in
 1. You can find the maximum LOD score using the `max` function.
 
 ```{r challenge1a}
-max(lod_add[,'log10_insulin_10wk'])
+max(lod_add[, 'log10_insulin_10wk'])
 ```
 
 2. You can find the marker name with the maximum LOD score using the `which.max` 
 function.
 
 ```{r challenge1b}
-rownames(lod_add)[which.max(lod_add[,'log10_insulin_10wk'])]
+rownames(lod_add)[which.max(lod_add[, 'log10_insulin_10wk'])]
 ```
 
 :::::::::::::::::::::::::::::::::
@@ -231,7 +231,7 @@ and Mb position of the marker with the maximum LOD.
 :::::::::::::::::::::::: solution 
 
 ```{r challenge2}
-max_mkr <- rownames(lod_add)[which.max(lod_add[,'log10_insulin_10wk'])]
+max_mkr <- rownames(lod_add)[which.max(lod_add[, 'log10_insulin_10wk'])]
 find_markerpos(cross = cross, markers = max_mkr)
 ```
 
@@ -290,7 +290,7 @@ lod_int <- scan1(genoprobs = probs,
 ```
 
 
-```{r plot_int,fig.width=8,fig.height=6}
+```{r plot_int, fig.width=8, fig.height=6}
 plot_scan1(x    = lod_int, 
            map  = cross$pmap, 
            main = 'log(insulin): 10 weeks: Sex Interactive')
@@ -301,7 +301,7 @@ additive and interactive scans. To resolve this, we can plot both genome scans
 in the same plot using the `add = TRUE` argument. We will also color the 
 additive scan in blue.
 
-```{r plot_add_int_lod,fig.width=8,fig.height=6}
+```{r plot_add_int_lod, fig.width=8, fig.height=6}
 plot_scan1(x    = lod_int, 
            map  = cross$pmap, 
            main = 'log(insulin): 10 weeks')
@@ -317,7 +317,7 @@ It is still difficult to tell whether any peaks differ by sex. Another way
 to view the plot is to plot the difference between the interactive and additive
 scans.
 
-```{r plot_add_int_diff_lod,fig.width=8,fig.height=6}
+```{r plot_add_int_diff_lod, fig.width=8, fig.height=6}
 plot_scan1(x    = lod_int - lod_add, 
            map  = cross$pmap,
            main = 'log10(insulin): Interactive - Additive')
