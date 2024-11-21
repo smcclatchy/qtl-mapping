@@ -236,8 +236,8 @@ a later episode in
 
 ## Challenge 1: Find the marker with the highest LOD.
 
-1. What is the highest LOD score for insulin?
-2. Which marker does the highest LOD score occur at?
+1. What is the highest LOD score for insulin? (Hint: use the `max()` function)
+2. Which marker does the highest LOD score occur at? (Hint: use `which.max()`)
 
 :::::::::::::::::::::::: solution 
 
@@ -245,7 +245,7 @@ a later episode in
 
 
 ``` r
-max(lod_add[,'log10_insulin_10wk'])
+max(lod_add[, 'log10_insulin_10wk'])
 ```
 
 ``` output
@@ -257,7 +257,7 @@ function.
 
 
 ``` r
-rownames(lod_add)[which.max(lod_add[,'log10_insulin_10wk'])]
+rownames(lod_add)[which.max(lod_add[, 'log10_insulin_10wk'])]
 ```
 
 ``` output
@@ -278,7 +278,7 @@ and Mb position of the marker with the maximum LOD.
 
 
 ``` r
-max_mkr <- rownames(lod_add)[which.max(lod_add[,'log10_insulin_10wk'])]
+max_mkr <- rownames(lod_add)[which.max(lod_add[, 'log10_insulin_10wk'])]
 find_markerpos(cross = cross, markers = max_mkr)
 ```
 

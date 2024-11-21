@@ -55,16 +55,97 @@ Haley-Knott regression.
 
 To perform a permutation test with the insulin phenotype, we run `scan1perm()`, 
 provide it with the genotype probabilities, the phenotype data, X covariates and 
-number of permutations. 
+number of permutations. We start with 10 permutations. 
 
 :::::::::::::::::::::::::::::::::::::::::::::::: instructor
 
-Permutations are computationally intensive and might take a long time on some machines.
-Start with `n_perm=10` and ask participants to place a sticky note on their laptop screen once this has finished.
-Repeat with `n_perm=100` for those whose permutations completed in a reasonable amount of time (a minute or less).
-Try `n_perm=1000` if all went well previously. 1000 permutations should take about 2 minutes.
+Permutations are computationally intensive and might take a long time on some 
+machines. Start with `n_perm=10` and ask participants to place a sticky note on 
+their laptop screen once this has finished. Repeat with `n_perm=100` for those 
+whose permutations completed in a reasonable amount of time (a minute or less).
+Try `n_perm=1000` if all went well previously. 1000 permutations should take 
+about 2 minutes.
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+``` r
+perm_add <- scan1perm(genoprobs = probs, 
+                      pheno     = insulin,
+                      addcovar  = addcovar,
+                      Xcovar    = addcovar,
+                      n_perm    = 10) 
+```
+
+To get estimated significance thresholds, use the function `summary()`.
+
+
+``` r
+summary(perm_add)
+```
+
+``` output
+LOD thresholds (10 permutations)
+     log10_insulin_10wk
+0.05               3.75
+```
+
+The default is to return the 5% significance threshold. Thresholds for other 
+(or for multiple) significance levels can be obtained via the `alpha` argument.
+
+
+``` r
+summary(perm_add, 
+        alpha = c(0.2, 0.05))
+```
+
+``` output
+LOD thresholds (10 permutations)
+     log10_insulin_10wk
+0.2                3.11
+0.05               3.75
+```
+
+What LOD score did you get with 10 permutations at the 5% significance 
+threshold? Is it the same as the score I got? Is it the same as your neighbor's 
+LOD score threshold? How do you explain this?
+
+Note the need to specify special covariates for the X chromosome (via `Xcovar`), 
+to be included under the null hypothesis of no QTL. And note that when these are 
+provided, the default is to perform a stratified permutation test, using strata 
+defined by the rows in `Xcovar`. In general, when the X chromosome is 
+considered, one will wish to stratify at least by sex.
+
+Let's repeat this process with 100 permutations.
+
+
+``` r
+perm_add <- scan1perm(genoprobs = probs, 
+                      pheno     = insulin,
+                      addcovar  = addcovar,
+                      Xcovar    = addcovar,
+                      n_perm    = 100) 
+```
+
+
+``` r
+summary(perm_add)
+```
+
+``` output
+LOD thresholds (100 permutations)
+     log10_insulin_10wk
+0.05               4.01
+```
+
+What LOD score threshold did you get with 100 permutations? Is it the same as 
+the score I got? Is it the same as your neighbor's LOD score threshold? How much
+longer did it take your computer to run 100 permutations versus only 10?
+
+Let's try 1,000 permutations, assuming that your computer was able to complete
+100 permutations in a reasonable amount of time (a minute or so). If not, you
+might want to skip this next iteration because 1,000 permutations will bog down
+your machine for a long time.
 
 
 ``` r
@@ -75,32 +156,22 @@ perm_add <- scan1perm(genoprobs = probs,
                       n_perm    = 1000) 
 ```
 
-Note the need to specify special covariates for the X chromosome (via `Xcovar`), 
-to be included under the null hypothesis of no QTL. And note that when these are 
-provided, the default is to perform a stratified permutation test, using strata 
-defined by the rows in `Xcovar`. In general, when the X chromosome is 
-considered, one will wish to stratify at least by sex.
-
-Also note that, as with `scan1()`, you can speed up the calculations on a 
-multi-core machine by specifying the argument `cores`. With `cores=0`, the 
-number of available cores will be detected via `parallel::detectCores()`. 
-Otherwise, specify the number of cores as a positive integer. For large 
-data sets, be mindful of the amount of memory that will be needed; you may need 
-to use fewer than the maximum number of cores, to avoid going beyond the 
-available memory.
-
 
 ``` r
-perm_add <- scan1perm(genoprobs = probs, 
-                      pheno     = insulin, 
-                      addcovar  = addcovar,
-                      Xcovar    = Xcovar, 
-                      n_perm    = 1000, 
-                      cores     = 0)
+summary(perm_add)
 ```
 
+``` output
+LOD thresholds (1000 permutations)
+     log10_insulin_10wk
+0.05               3.93
+```
+
+What LOD score threshold did you get with 1,000 permutations? Is it the same as 
+the score I got? Is it the same as your neighbor's LOD score threshold? 
+
 `perm_add` now contains the maximum LOD score for each permutation for the 
-phenotypes. There should be 1000 values for each phenotype. We can view the 
+phenotypes. There should be 1,000 values for each phenotype. We can view the 
 insulin permutation LOD scores by making a histogram.
 
 
@@ -116,42 +187,57 @@ abline(v = summary(perm_add), col = 'red', lwd = 2)
 <img src="fig/perform-perm-test-rendered-hist_perm-1.png" style="display: block; margin: auto;" />
 
 In the histogram above, you can see that most of the maximum LOD scores fall 
-between 1 and 3.5. This means that we expect LOD scores less than 3.5 to occur by 
-chance fairly often. The red line indicates the `alpha = 0.05` threshold, which 
-means that we only see LOD values by chance this high or higher, 5% of 
+between 1 and 3.5. This means that we expect LOD scores less than 3.5 to occur 
+by chance fairly often. The red line indicates the `alpha = 0.05` threshold, 
+which means that we only see LOD values by chance this high or higher, 5% of 
 the time. This is [one way](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1206241/) 
 of estimating a significance threshold for QTL plots.
 
-To get estimated significance thresholds, use the function `summary()`.
+## Selecting the Number of Permutations
 
+How do we know how many permutations to perform in order to obtain a good 
+estimate of the significance threshold? Could we get a good estimate with 10
+permutations? 100? 1000? 
 
-``` r
-summary(perm_add)
-```
+When we run more permutations, we decrease the variance of the threshold
+estimate.
 
-``` output
-LOD thresholds (1000 permutations)
-     log10_insulin_10wk
-0.05                3.9
-```
+![Significance Threshold Variance](fig/permutation_simulations.png){alt="Figure showing decreasing variance of significance threshold estimates with increasing permutations"}
 
-The default is to return the 5% significance threshold. Thresholds for other 
-(or for multiple) significance levels can be obtained via the `alpha` argument.
+In the figure above, we performed 10, 100, or 1,000 permutations 1,000 times and
+recorded the 0.05 significance threshold each time. We plotted the significance
+threshold versus the number of permutations and overlaid violin plots showing
+the median value. Note that the variance of the significance threshold estimate
+is higher at lower numbers of permutations. With 1,000 permutations, the
+variance decreases. The table below shows the number of permutations and the 
+mean and standard deviation of the significance threshold. With 1,000 
+permutations, the estimate is 3.86 and the standard deviation is 0.064, which is 
+an acceptable value.
 
-
-``` r
-summary(perm_add, 
-        alpha = c(0.2, 0.05))
-```
-
-``` output
-LOD thresholds (1000 permutations)
-     log10_insulin_10wk
-0.2                3.13
-0.05               3.90
-```
-
+Num. Perm. | Mean | Std. Dev.
+-----------+------+----------
+     10    | 3.63 | 0.492 
+    100    | 3.81 | 0.195 
+   1000    | 3.86 | 0.064
+   
 ![We have completed these steps in the mapping workflow.](./fig/mapping-workflow-permutation.png){alt="A diagram showing mapping steps including calculating genotype probabilities, calculating kinship, performing a genome scan, finding QTL peaks, and performing a permutation test."}
+As with `scan1()`, you can speed up the calculations on a multi-core machine by 
+specifying the argument `cores`. With `cores=0`, the number of available cores 
+will be detected via `parallel::detectCores()`. Otherwise, specify the number of 
+cores as a positive integer. For large data sets, be mindful of the amount of 
+memory that will be needed; you may need to use fewer than the maximum number of 
+cores, to avoid going beyond the available memory.
+
+
+``` r
+perm_add <- scan1perm(genoprobs = probs, 
+                      pheno     = insulin, 
+                      addcovar  = addcovar,
+                      Xcovar    = Xcovar, 
+                      n_perm    = 1000, 
+                      cores     = 0)
+```
+
 ## Estimating an X Chromosome Specific Threshold
 
 To obtain autosome/X chromosome-specific significance thresholds, specify 
@@ -185,13 +271,13 @@ summary(perm_add2,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.15
-0.05               3.83
+0.2                3.19
+0.05               3.87
 
 X chromosome LOD thresholds (14369 permutations)
      log10_insulin_10wk
-0.2                3.08
-0.05               3.68
+0.2                3.11
+0.05               3.84
 ```
 
 ## Estimating Significance Thresholds with the Kinship Matrix
@@ -220,8 +306,8 @@ summary(perm_add_loco,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.15
-0.05               3.77
+0.2                3.12
+0.05               3.71
 ```
 
 There is not a large difference in the thresholds. Currently, we are on the
@@ -271,44 +357,14 @@ summary(perm_bin,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      agouti_tan
-0.2        3.22
-0.05       3.83
+0.2        3.16
+0.05       3.82
 
 X chromosome LOD thresholds (14369 permutations)
      agouti_tan
-0.2        3.10
-0.05       3.89
+0.2        3.14
+0.05       3.91
 ```
-
-## Selecting the Number of Permutations
-
-How do we know how many permutations to perform in order to obtain a good 
-estimate of the significance threshold? Could we get a good estimate with 10
-permutations? 100? 1000? 
-
-When we run more permutations, we decrease the variance of the threshold
-estimate.
-
-![Significance Threshold Variance](fig/permutation_simulations.png){alt="Figure showing decreasing variance of significance threshold estimates with increasing permutations"}
-
-In the figure above, we performed 10, 100, or 1000 permutations 1000 times and
-recorded the 0.05 significance threshold each time. We plotted the significance
-threshold versus the number of permutations and overlaid violin plots showing
-the median value. Note that the variance of the significance threshold estimate
-is higher at lower numbers of permutations. With 1000 permutations, the
-variance decreases. The table below shows the number of permutations and the 
-mean and standard deviation of the significance threshold. With 1000 permutations,
-the estimate is 3.86 and the standard deviation is 0.064, which is an 
-acceptable value.
-
-
-Num. Perm. | Mean | Std. Dev.
------------+------+----------
-     10    | 3.63 | 0.492 
-    100    | 3.81 | 0.195 
-   1000    | 3.86 | 0.064
-
-<!-- DMG: We need to review these challenges. -->
 
 The code below shuffles the phenotypes so that they no longer match up with the 
 genotypes. The purpose of this is to find out how high the LOD score can be due 
@@ -365,8 +421,8 @@ summary(perm_add_loco, alpha = c(0.01, 0.10))
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.01               4.58
-0.1                3.49
+0.01               4.70
+0.1                3.44
 ```
 
 
