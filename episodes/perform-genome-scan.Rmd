@@ -200,8 +200,8 @@ a later episode in
 
 ## Challenge 1: Find the marker with the highest LOD.
 
-1. What is the highest LOD score for insulin?
-2. Which marker does the highest LOD score occur at?
+1. What is the highest LOD score for insulin? (Hint: use the `max()` function)
+2. Which marker does the highest LOD score occur at? (Hint: use `which.max()`)
 
 :::::::::::::::::::::::: solution 
 
