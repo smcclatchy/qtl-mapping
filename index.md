@@ -28,8 +28,8 @@ nearby QTL. They serve as signposts indicating the neighborhood of a QTL that
 influences a phenotype. Covariates such as sex or diet can also influence the 
 phenotype.
 
-[R/qtl2](https://kbroman.org/qtl2) (aka qtl2) is a reimplementation of the QTL 
-analysis software [R/qtl](https://rqtl.org) to better handle high-dimensional 
+[R/qtl2](http://kbroman.org/qtl2) (aka qtl2) is a reimplementation of the QTL 
+analysis software [R/qtl](http://rqtl.org) to better handle high-dimensional 
 data and complex cross designs such as the Diversity Outbred. Typically R/qtl2 
 will be employed in "batch" (for example, on a cluster) rather than 
 interactively. 
@@ -37,12 +37,8 @@ interactively.
 This lesson will focus on the R/qtl2 package in R. A workflow for quantitative 
 trait mapping with R/qtl2 is shown here.
 
-![](fig/mapping-workflow.png){alt="Diagram showing QTL mapping workflow"}
+![Workflow for QTL mapping](./fig/mapping-workflow.png)
 
-To cite R/qtl in publications, use
-
-Broman KW, Gatti DM, Simecek P, Furlotte NA, Prins P, Sen S, Yandell BS, 
-Churchill GA, R/qtl2: Software for Mapping 
-Quantitative Trait Loci with High-Dimensional Data and Multiparent Populations. 
-Genetics. 2019 Feb;211(2):495-502.
-
+To cite R/qtl in publications:
+Broman KW, Wu H, Sen S, Churchill GA (2003) R/qtl: QTL mapping
+in experimental crosses. Bioinformatics 19:889-89
