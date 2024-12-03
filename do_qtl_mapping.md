@@ -899,7 +899,7 @@ summary(perms)
 ``` output
 LOD thresholds (100 permutations)
      log_mnret
-0.05      7.26
+0.05      7.51
 ```
 
 Note that this summary function returns the 95th percentile value of the LOD
