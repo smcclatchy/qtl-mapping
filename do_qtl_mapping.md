@@ -899,7 +899,7 @@ summary(perms)
 ``` output
 LOD thresholds (100 permutations)
      log_mnret
-0.05       6.9
+0.05      7.61
 ```
 
 Note that this summary function returns the 95th percentile value of the LOD
@@ -1514,28 +1514,27 @@ attached base packages:
 
 other attached packages:
  [1] qtl2convert_0.30 qtl2_0.36        ggbeeswarm_0.7.2 lubridate_1.9.4 
- [5] forcats_1.0.0    stringr_1.5.1    dplyr_1.1.4      purrr_1.0.2     
+ [5] forcats_1.0.0    stringr_1.5.1    dplyr_1.1.4      purrr_1.0.4     
  [9] readr_2.1.5      tidyr_1.3.1      tibble_3.2.1     ggplot2_3.5.1   
 [13] tidyverse_2.0.0 
 
 loaded via a namespace (and not attached):
- [1] utf8_1.2.4          generics_0.1.3      renv_1.0.11        
- [4] RSQLite_2.3.9       stringi_1.8.4       hms_1.1.3          
- [7] magrittr_2.0.3      RColorBrewer_1.1-3  evaluate_0.24.0    
-[10] grid_4.4.2          timechange_0.3.0    fastmap_1.2.0      
-[13] blob_1.2.4          DBI_1.2.3           BiocManager_1.30.25
-[16] fansi_1.0.6         scales_1.3.0        qtl_1.70           
-[19] cli_3.6.3           rlang_1.1.4         bit64_4.5.2        
-[22] munsell_0.5.1       withr_3.0.2         cachem_1.1.0       
-[25] yaml_2.3.10         parallel_4.4.2      tools_4.4.2        
-[28] tzdb_0.4.0          memoise_2.0.1       colorspace_2.1-1   
-[31] vctrs_0.6.5         R6_2.5.1            lifecycle_1.0.4    
-[34] bit_4.5.0.1         vipor_0.4.7         pkgconfig_2.0.3    
-[37] beeswarm_0.4.0      pillar_1.9.0        gtable_0.3.6       
-[40] glue_1.7.0          data.table_1.16.4   Rcpp_1.0.13-1      
-[43] highr_0.11          xfun_0.46           tidyselect_1.2.1   
-[46] knitr_1.48          farver_2.1.2        labeling_0.4.3     
-[49] compiler_4.4.2     
+ [1] generics_0.1.3      renv_1.1.1          RSQLite_2.3.9      
+ [4] stringi_1.8.4       hms_1.1.3           magrittr_2.0.3     
+ [7] RColorBrewer_1.1-3  evaluate_0.24.0     grid_4.4.2         
+[10] timechange_0.3.0    fastmap_1.2.0       blob_1.2.4         
+[13] DBI_1.2.3           BiocManager_1.30.25 scales_1.3.0       
+[16] qtl_1.70            cli_3.6.3           rlang_1.1.4        
+[19] bit64_4.6.0-1       munsell_0.5.1       withr_3.0.2        
+[22] cachem_1.1.0        yaml_2.3.10         tools_4.4.2        
+[25] parallel_4.4.2      tzdb_0.4.0          memoise_2.0.1      
+[28] colorspace_2.1-1    vctrs_0.6.5         R6_2.5.1           
+[31] lifecycle_1.0.4     bit_4.5.0.1         vipor_0.4.7        
+[34] pkgconfig_2.0.3     beeswarm_0.4.0      pillar_1.10.1      
+[37] gtable_0.3.6        glue_1.7.0          data.table_1.17.0  
+[40] Rcpp_1.0.14         highr_0.11          xfun_0.46          
+[43] tidyselect_1.2.1    knitr_1.48          farver_2.1.2       
+[46] labeling_0.4.3      compiler_4.4.2     
 ```
 
 ::::::::::::::::::::::::::::::::::::: keypoints 
