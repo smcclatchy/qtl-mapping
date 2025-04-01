@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="attie_covar_sample.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.64052329"
+     inkscape:cx="397.33138"
+     inkscape:cy="560.47923"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g894" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       transform="matrix(0.26458333,0,0,0.26458333,-10.006154,17.790779)"
+       id="g894">
+      <path
+         d="M 43.2677,164.109 H 325.859 v 66.844 H 43.2677 Z"
+         fill="#d9d9d9"
+         fill-rule="evenodd"
+         id="path824"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="m 325.859,164.109 h 282.592 v 66.844 H 325.859 Z"
+         fill="#d9d9d9"
+         fill-rule="evenodd"
+         id="path826"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="m 608.451,164.109 h 282.591 v 66.844 H 608.451 Z"
+         fill="#d9d9d9"
+         fill-rule="evenodd"
+         id="path828"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="M 43.2677,297.796 H 325.859 V 364.64 H 43.2677 Z"
+         fill="#d9d9d9"
+         fill-rule="evenodd"
+         id="path830"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="M 325.859,297.796 H 608.451 V 364.64 H 325.859 Z"
+         fill="#d9d9d9"
+         fill-rule="evenodd"
+         id="path832"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="M 608.451,297.796 H 891.042 V 364.64 H 608.451 Z"
+         fill="#d9d9d9"
+         fill-rule="evenodd"
+         id="path834"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="M 409.859,29.7559 V 432.15"
+         stroke="#000000"
+         stroke-width="1.33333"
+         stroke-linejoin="round"
+         stroke-miterlimit="10"
+         fill="none"
+         fill-rule="evenodd"
+         id="path836"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="M 670.451,29.7559 V 432.15"
+         stroke="#000000"
+         stroke-width="1.33333"
+         stroke-linejoin="round"
+         stroke-miterlimit="10"
+         fill="none"
+         fill-rule="evenodd"
+         id="path838"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="M 42.601,97.266 H 891.709"
+         stroke="#000000"
+         stroke-width="1.33333"
+         stroke-linejoin="round"
+         stroke-miterlimit="10"
+         fill="none"
+         fill-rule="evenodd"
+         id="path840"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="M 42.601,164.109 H 891.709"
+         stroke="#000000"
+         stroke-width="1.33333"
+         stroke-linejoin="round"
+         stroke-miterlimit="10"
+         fill="none"
+         fill-rule="evenodd"
+         id="path842"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="M 42.601,230.953 H 891.709"
+         stroke="#000000"
+         stroke-width="1.33333"
+         stroke-linejoin="round"
+         stroke-miterlimit="10"
+         fill="none"
+         fill-rule="evenodd"
+         id="path844"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="M 42.601,297.796 H 891.709"
+         stroke="#000000"
+         stroke-width="1.33333"
+         stroke-linejoin="round"
+         stroke-miterlimit="10"
+         fill="none"
+         fill-rule="evenodd"
+         id="path846"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="M 42.601,364.64 H 891.709"
+         stroke="#000000"
+         stroke-width="1.33333"
+         stroke-linejoin="round"
+         stroke-miterlimit="10"
+         fill="none"
+         fill-rule="evenodd"
+         id="path848"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="M 43.2677,29.7559 V 432.15"
+         stroke="#000000"
+         stroke-width="1.33333"
+         stroke-linejoin="round"
+         stroke-miterlimit="10"
+         fill="none"
+         fill-rule="evenodd"
+         id="path850"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="M 891.042,29.7559 V 432.15"
+         stroke="#000000"
+         stroke-width="1.33333"
+         stroke-linejoin="round"
+         stroke-miterlimit="10"
+         fill="none"
+         fill-rule="evenodd"
+         id="path852"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="M 42.601,30.4226 H 891.709"
+         stroke="#000000"
+         stroke-width="1.33333"
+         stroke-linejoin="round"
+         stroke-miterlimit="10"
+         fill="none"
+         fill-rule="evenodd"
+         id="path854"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         d="M 42.601,431.483 H 891.709"
+         stroke="#000000"
+         stroke-width="1.33333"
+         stroke-linejoin="round"
+         stroke-miterlimit="10"
+         fill="none"
+         fill-rule="evenodd"
+         id="path856"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="700"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text858"
+         x="722.5"
+         y="78"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">pgm</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="700"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text860"
+         x="486.905"
+         y="78"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">Sex</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="700"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text862"
+         x="88.3134"
+         y="78"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">MouseNum</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text864"
+         x="756.5"
+         y="145"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">1</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text866"
+         x="483.90799"
+         y="145"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">Male</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text868"
+         x="99.316803"
+         y="145"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">Mouse3051</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text870"
+         x="756.5"
+         y="211"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">1</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text872"
+         x="483.90799"
+         y="211"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">Male</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text874"
+         x="99.316803"
+         y="211"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">Mouse3551</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text876"
+         x="756.5"
+         y="278"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">1</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text878"
+         x="483.90799"
+         y="278"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">Male</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text880"
+         x="99.316803"
+         y="278"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">Mouse3430</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text882"
+         x="756.5"
+         y="345"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">1</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text884"
+         x="483.90799"
+         y="345"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">Male</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text886"
+         x="99.316803"
+         y="345"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">Mouse3476</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text888"
+         x="756.5"
+         y="412"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">1</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text890"
+         x="483.90799"
+         y="412"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">Male</text>
+      <text
+         font-family="'Aptos Narrow', 'Aptos Narrow_MSFontService', sans-serif"
+         font-weight="400"
+         font-stretch="semi-condensed"
+         font-size="43px"
+         id="text892"
+         x="99.316803"
+         y="412"
+         inkscape:export-filename="C:\Users\c-dgatti\Documents\classes\JAX\qtl-mapping\episodes\fig\attie_covar_sample.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300">Mouse3414</text>
+    </g>
+  </g>
+</svg>
