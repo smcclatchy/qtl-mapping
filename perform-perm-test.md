@@ -87,7 +87,7 @@ summary(perm_add)
 ``` output
 LOD thresholds (10 permutations)
      log10_insulin_10wk
-0.05               3.32
+0.05               3.58
 ```
 
 The default is to return the 5% significance threshold. Thresholds for other 
@@ -102,8 +102,8 @@ summary(perm_add,
 ``` output
 LOD thresholds (10 permutations)
      log10_insulin_10wk
-0.2                2.71
-0.05               3.32
+0.2                3.09
+0.05               3.58
 ```
 
 What LOD score did you get with 10 permutations at the 5% significance 
@@ -135,7 +135,7 @@ summary(perm_add)
 ``` output
 LOD thresholds (100 permutations)
      log10_insulin_10wk
-0.05               3.72
+0.05                3.4
 ```
 
 What LOD score threshold did you get with 100 permutations? Is it the same as 
@@ -164,7 +164,7 @@ summary(perm_add)
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.05               3.88
+0.05                3.9
 ```
 
 What LOD score threshold did you get with 1,000 permutations? Is it the same as 
@@ -271,13 +271,13 @@ summary(perm_add2,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.18
-0.05               3.88
+0.2                3.25
+0.05               3.97
 
 X chromosome LOD thresholds (14369 permutations)
      log10_insulin_10wk
 0.2                3.09
-0.05               3.72
+0.05               3.90
 ```
 
 ## Estimating Significance Thresholds with the Kinship Matrix
@@ -306,8 +306,8 @@ summary(perm_add_loco,
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.2                3.18
-0.05               3.85
+0.2                3.17
+0.05               3.95
 ```
 
 There is not a large difference in the thresholds. Currently, we are on the
@@ -357,13 +357,13 @@ summary(perm_bin,
 ``` output
 Autosome LOD thresholds (1000 permutations)
      agouti_tan
-0.2        3.18
-0.05       3.79
+0.2        3.19
+0.05       3.83
 
 X chromosome LOD thresholds (14369 permutations)
      agouti_tan
-0.2        3.10
-0.05       3.73
+0.2        3.05
+0.05       3.77
 ```
 
 The code below shuffles the phenotypes so that they no longer match up with the 
@@ -421,8 +421,8 @@ summary(perm_add_loco, alpha = c(0.01, 0.10))
 ``` output
 LOD thresholds (1000 permutations)
      log10_insulin_10wk
-0.01               4.42
-0.1                3.49
+0.01               4.72
+0.1                3.56
 ```
 
 
