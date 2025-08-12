@@ -26,7 +26,7 @@ insulin production, and type 2, in which the pancreas makes less insulin and
 the body becomes less responsive to insulin.
 
 ![Insulin resistance in Type 2 diabetes](fig/healthy-vs-T2D.png){alt="Figure showing Type 2 diabetes & insulin."}
-Created in  BioRender.com
+Created in BioRender.com
 
 This study is from 
 [Tian et al](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4649649/)
