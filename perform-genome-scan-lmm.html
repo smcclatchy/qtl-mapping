@@ -373,7 +373,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Performing a genome scan with a linear mixed model</h1>
-        <p>Last updated on 2025-08-19 |
+        <p>Last updated on 2025-08-26 |
 
         <a href="https://github.com/carpentries/workbench-template-rmd/edit/main/episodes/perform-genome-scan-lmm.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -658,7 +658,7 @@ neighbor, and share your thoughts in the collaborative document.</p>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
 <div class="accordion-body">
 <p>Haley-Knott regression does not consider the kinship between mice.
 This may increase or decrease the LOD score and least to false or missed
@@ -714,7 +714,7 @@ additional lod column numbers up to 16.</li>
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution2" aria-expanded="false" aria-controls="collapseSolution2">
   <h4 class="accordion-header" id="headingSolution2"> Show me the solution </h4>
 </button>
-<div id="collapseSolution2" class="accordion-collapse collapse" aria-labelledby="headingSolution2" data-bs-parent="#accordionSolution2">
+<div id="collapseSolution2" class="accordion-collapse collapse" data-bs-parent="#accordionSolution2" aria-labelledby="headingSolution2">
 <div class="accordion-body">
 <p><code>file &lt;- paste0("https://raw.githubusercontent.com/rqtl/", "qtl2data/main/Gough/gough.zip")</code><br><code>gough &lt;- read_cross2(file)</code><br><code>summary(gough)</code><br><code>head(goughpheno)</code><br><code>colnames(gough$pheno)</code><br><code>goughmap &lt;- gough$pmap</code><br><code>prgough &lt;- calc_genoprob(cross=gough, map=goughmap, error_prob=0.002)</code><br><code>goughaddcovar &lt;- get_x_covar(gough)</code><br><code>goughscan &lt;- scan1(genoprobs = prgough, pheno = gough$pheno[, 1:16], addcovar=goughaddcovar)</code><br><code>plot(goughscan, map = goughmap)</code><br><code>goughkinship &lt;- calc_kinship(probs = prgough)</code><br><code>out_pg_gough &lt;- scan1(prgough, bgough$pheno, kinship=goughkinship, addcovar=goughaddcovar)</code><br><code>kinship_loco_gough &lt;- calc_kinship(prgough, "loco")</code><br><code>out_pg_loco_gough &lt;- scan1(prgough, gough$pheno, kinship_loco_gough, addcovar=goughaddcovar)</code><br><code>plot_scan1(out_pg_loco_gough, map = goughmap, lodcolumn = 2, col = "black")</code><br><code>plot_scan1(out_pg_gough, map = goughmap, lodcolumn = 2, col = "blue", add = TRUE)</code><br><code>plot_scan1(goughscan, map = goughmap, lodcolumn = 2, col = "green", add = TRUE)</code></p>
 </div>
@@ -802,8 +802,8 @@ any links that you are not going to use.
   "url": "https://carpentries.github.io/workbench-template-rmd/perform-genome-scan-lmm.html",
   "identifier": "https://carpentries.github.io/workbench-template-rmd/perform-genome-scan-lmm.html",
   "dateCreated": "2024-09-06",
-  "dateModified": "2025-08-19",
-  "datePublished": "2025-08-19"
+  "dateModified": "2025-08-26",
+  "datePublished": "2025-08-26"
 }
 
   </script><script>
